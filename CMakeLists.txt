@@ -12,7 +12,8 @@ add_library(lc_client ${SOURCES})
 #add_library(lc_client::lc_client ALIAS lc_client)
 
 find_package(glfw3 CONFIG REQUIRED)
-target_link_libraries(lc_client PRIVATE glfw)
+find_package(glad CONFIG REQUIRED)
+target_link_libraries(lc_client PRIVATE glfw glad:glad)
 
 target_include_directories(lc_client
     PUBLIC
