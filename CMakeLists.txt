@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 project("industry")
 
-file(GLOB SOURCES "lc_client/src/*.cpp")
+file(GLOB SOURCES "lc_client/src/*.cpp" "lc_client/src/*/*.cpp" "lc_client/src/*/*/*.cpp" "lc_client/src/*/*/*/*.cpp")
 
 add_library(lc_client ${SOURCES})
 #add_library(lc_client::lc_client ALIAS lc_client)
