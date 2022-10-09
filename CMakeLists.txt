@@ -8,7 +8,7 @@ project("industry")
 
 file(GLOB SOURCES "lc_client/src/*.cpp" "lc_client/src/*/*.cpp" "lc_client/src/*/*/*.cpp" "lc_client/src/*/*/*/*.cpp")
 
-add_library(lc_client ${SOURCES} "lc_client/include/lc_client/eng_graphics/i_window.h")
+add_library(lc_client ${SOURCES} "lc_client/include/lc_client/eng_graphics/i_window.h" "lc_client/include/lc_client/eng_graphics/openGL/gl_window.h")
 #add_library(lc_client::lc_client ALIAS lc_client)
 
 find_package(glfw3 CONFIG REQUIRED)
