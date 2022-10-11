@@ -1,3 +1,8 @@
+/**
+* Window interface to be implemented by window class (e.g gl_window.h).
+* 
+*/
+
 class IWindow {
 public: 
 	virtual ~IWindow() {}

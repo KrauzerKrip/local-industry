@@ -1,6 +1,8 @@
 #include "../../eng_graphics/i_window.h"
 
-class WindowGL : IWindow {
+#include <GLFW/glfw3.h>
+
+class WindowGL : public IWindow {
 public:
 
 	WindowGL();
@@ -8,4 +10,7 @@ public:
 
 	void init();
 	void update();
+
+private:
+	GLFWwindow
 };
