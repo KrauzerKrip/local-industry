@@ -8,22 +8,22 @@ project("industry")
 
 file(GLOB SOURCES "lc_client/src/*.cpp" "lc_client/src/*/*.cpp" "lc_client/src/*/*/*.cpp" "lc_client/src/*/*/*/*.cpp")
 
-add_library(lc_client ${SOURCES} "lc_client/include/lc_client/eng_graphics/i_window.h" "lc_client/include/lc_client/eng_graphics/openGL/gl_window.h")
+add_library(lc_client ${SOURCES})
 #add_library(lc_client::lc_client ALIAS lc_client)
 
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
-target_link_libraries(lc_client PRIVATE glfw ${GLAD_LIBRARIES})
+target_link_libraries(lc_client PUBLIC glfw ${GLAD_LIBRARIES})
 
 target_include_directories(lc_client
     PUBLIC
-        $<INSTALL_INTERFACE:lc_client/include>
+        #$<INSTALL_INTERFACE:lc_client/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lc_client/include>
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lc_client/src>
 )
 
-add_executable(industry "game/main.cpp" "game/main.h" "game/game.cpp" "game/game.h")
+add_executable(industry "game/main.cpp" "game/main.h" "game/game.cpp" "game/game.h" )
 target_link_libraries(industry lc_client)
 
 # TODO: Add tests and install targets if needed.
