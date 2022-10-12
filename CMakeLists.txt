@@ -8,7 +8,7 @@ project("industry")
 
 file(GLOB SOURCES "lc_client/src/*.cpp" "lc_client/src/*/*.cpp" "lc_client/src/*/*/*.cpp" "lc_client/src/*/*/*/*.cpp")
 
-add_library(lc_client ${SOURCES})
+add_library(lc_client ${SOURCES} "lc_client/src/exceptions/glfw_exceptions.h" "lc_client/src/exceptions/glad_exceptions.h")
 #add_library(lc_client::lc_client ALIAS lc_client)
 
 find_package(glfw3 CONFIG REQUIRED)
