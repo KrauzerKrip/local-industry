@@ -5,9 +5,9 @@
 #include <GLFW/glfw3.h>
 #include <string>
 
-#include "eng_input/glfw_input.h"
-#include "exceptions/glfw_exceptions.h"
-#include "exceptions/glad_exceptions.h"
+#include "lc_client/eng_input/glfw_input.h"
+#include "lc_client/exceptions/glfw_exceptions.h"
+#include "lc_client/exceptions/glad_exceptions.h"
 
 
 WindowGL::WindowGL(std::string title, int width, int height, bool vSync) {
@@ -27,14 +27,14 @@ void WindowGL::init() {
 	glfwWindowHint(GLFW_RESIZABLE, true);
 	glfwWindowHint(GLFW_DECORATED, true);
 
-	m_glfwWindow = glfwCreateWindow(m_width, m_height, m_title.c_str(), NULL, NULL);
+	m_pGlfwWindow = glfwCreateWindow(m_width, m_height, m_title.c_str(), NULL, NULL);
 
-	if (m_glfwWindow == nullptr) {
+	if (m_pGlfwWindow == nullptr) {
 		throw GlfwWindowFailException();
 		glfwTerminate();
 	}
 
-	glfwMakeContextCurrent(m_glfwWindow);
+	glfwMakeContextCurrent(m_pGlfwWindow);
 
 	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
 	{
@@ -43,7 +43,7 @@ void WindowGL::init() {
 
 	glViewport(0, 0, m_width, m_height);
 
-	//glfwSetFramebufferSizeCallback(m_glfwWindow, framebufferSizeCallback);
+	//glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
 
 	if (m_vSync) {
 		glfwSwapInterval(0);
@@ -56,12 +56,12 @@ void WindowGL::init() {
 }
 
 void WindowGL::update() {
-	glfwSwapBuffers(m_glfwWindow);
+	glfwSwapBuffers(m_pGlfwWindow);
 	glfwPollEvents();
 }
 
 bool WindowGL::windowShouldClose() {
-	return glfwWindowShouldClose(m_glfwWindow);
+	return glfwWindowShouldClose(m_pGlfwWindow);
 }
 
 void WindowGL::terminate() {
@@ -73,7 +73,7 @@ IInput* WindowGL::getInput() {
 }
 
 bool WindowGL::isKeyPressed(int key) {
-	if (glfwGetKey(m_glfwWindow, key) == GLFW_PRESS) {
+	if (glfwGetKey(m_pGlfwWindow, key) == GLFW_PRESS) {
 		return true;
 	}
 	else {

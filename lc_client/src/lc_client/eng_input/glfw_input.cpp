@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "exceptions/input_exceptions.h"
+#include "lc_client/exceptions/input_exceptions.h"
 
 
 InputGlfw::InputGlfw(IWindow* pWindow) {
