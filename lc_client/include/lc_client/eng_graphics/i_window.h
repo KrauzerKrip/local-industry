@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include "lc_client/eng_input/i_input.h"
+
 class IWindow {
 public: 
 	
@@ -13,4 +15,6 @@ public:
 	virtual void init() = 0;
 	virtual void update() = 0;
 	virtual void terminate() = 0;
+	virtual IInput* getInput() = 0;
+	virtual bool isKeyPressed(int key) = 0;
 };

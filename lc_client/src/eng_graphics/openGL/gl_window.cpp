@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <string>
 
+#include "eng_input/glfw_input.h"
 #include "exceptions/glfw_exceptions.h"
 #include "exceptions/glad_exceptions.h"
 
@@ -50,6 +51,8 @@ void WindowGL::init() {
 
 	std::cout << "Window init" << std::endl;
 
+	m_pInput = new InputGlfw(this);
+
 }
 
 void WindowGL::update() {
@@ -63,6 +66,19 @@ bool WindowGL::windowShouldClose() {
 
 void WindowGL::terminate() {
 	glfwTerminate();
+}
+
+IInput* WindowGL::getInput() {
+	return m_pInput;
+}
+
+bool WindowGL::isKeyPressed(int key) {
+	if (glfwGetKey(m_glfwWindow, key) == GLFW_PRESS) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {

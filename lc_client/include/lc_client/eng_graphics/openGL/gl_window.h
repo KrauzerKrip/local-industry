@@ -16,13 +16,17 @@ public:
 	void update();
 	bool windowShouldClose();
 	void terminate();
+	IInput* getInput();
+	bool isKeyPressed(int key);
 
 private:
 	static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 
-	GLFWwindow* m_glfwWindow;
 	std::string m_title;
 	int m_width;
 	int m_height;
-	bool m_vSync;
+	bool m_vSync; 
+
+	GLFWwindow* m_glfwWindow;
+	IInput* m_pInput;
 };

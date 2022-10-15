@@ -24,7 +24,7 @@ target_sources(lc_client PRIVATE
 
    "lc_client/src/exceptions/glfw_exceptions.h"
    "lc_client/src/exceptions/glad_exceptions.h"
-)
+   "lc_client/src/eng_input/glfw_input.h" "lc_client/include/lc_client/eng_input/i_input.h" "lc_client/src/eng_input/glfw_input.cpp" "lc_client/src/exceptions/input_exceptions.h")
 
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
