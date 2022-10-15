@@ -17,7 +17,9 @@ WindowGL::WindowGL(std::string title, int width, int height, bool vSync) {
 	m_vSync = vSync;
 }
 
-WindowGL::~WindowGL() {};
+WindowGL::~WindowGL() {
+	delete m_pInput;
+};
 
 void WindowGL::init() {
 	glfwInit();
