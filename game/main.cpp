@@ -22,8 +22,10 @@ int main() {
 	Loop* pLoop = Loop::createInstance(pWindow, pGameLogic, targetFPS, targetUPS);
 	
 	pLoop->init();
+
 	pLoop->startLoop();
 	
+	pLoop->cleanUp();
 	pWindow->terminate(); // mb in loop
 	
 	delete pLoop;

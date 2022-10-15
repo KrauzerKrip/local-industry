@@ -29,7 +29,7 @@ void Loop::init() {
 }
 
 void Loop::startLoop() {
-	while (true) {
+	while (!m_pWindow->windowShouldClose()) {
 		m_pGameLogic->update();
 		m_pWindow->update();
 	}
