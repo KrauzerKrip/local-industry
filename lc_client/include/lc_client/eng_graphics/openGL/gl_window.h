@@ -15,7 +15,7 @@ public:
 	void init();
 	void update();
 	bool windowShouldClose();
-	void terminateGlfw();
+	void terminate();
 
 private:
 	static void framebufferSizeCallback(GLFWwindow* window, int width, int height);

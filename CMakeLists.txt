@@ -13,12 +13,17 @@ add_library(lc_client)
 #add_library(lc_client::lc_client ALIAS lc_client)
 
 target_sources(lc_client PRIVATE
-   "lc_client/src/eng_graphics/openGL/gl_window.cpp"
    "lc_client/include/lc_client/eng_graphics/i_window.h"
+   "lc_client/include/lc_client/i_game_logic.h"
+
+   "lc_client/src/loop.cpp"
+   "lc_client/include/lc_client/loop.h"
+   "lc_client/src/eng_graphics/openGL/gl_window.cpp"
+   "lc_client/include/lc_client/eng_graphics/openGL/gl_window.h"
+   "lc_client/include/lc_client/eng_graphics/openGL/gl_window.h"
+
    "lc_client/src/exceptions/glfw_exceptions.h"
    "lc_client/src/exceptions/glad_exceptions.h"
-
-   "lc_client/include/lc_client/eng_graphics/i_window.h"
 )
 
 find_package(glfw3 CONFIG REQUIRED)

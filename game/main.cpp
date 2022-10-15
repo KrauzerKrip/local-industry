@@ -2,19 +2,34 @@
 
 #include <string>
 
+#include "game.h"
 #include "lc_client/loop.h"
+#include "lc_client/i_game_logic.h"
 #include "lc_client/eng_graphics/i_window.h"
 #include "lc_client/eng_graphics/openGL/gl_window.h"
 
 int main() {
 
 	std::string title = "Local` Engine";
-	int width = 720;
-	int height = 1080;
+	int width = 1080;
+	int height = 720;
 	bool vSync = true;
 
+	int targetFPS = 60;
+	int targetUPS = 60;
+
+	IGameLogic* pGameLogic = new Game();
 	IWindow* pWindow = new WindowGL(title, width, height, vSync);
-	pWindow->init(); //should be in the loop
+	Loop* pLoop = Loop::createInstance(pWindow, pGameLogic, targetFPS, targetUPS);
+	
+	pLoop->init();
+	pLoop->startLoop();
+	
+	pWindow->terminate(); // mb in loop
+	
+	delete pLoop;
+	delete pWindow;
+	delete pGameLogic;
 
 	return 0;
 }

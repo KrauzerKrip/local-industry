@@ -1,5 +1,6 @@
 #include "lc_client/eng_graphics/openGL/gl_window.h"
 
+#include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <string>
@@ -34,7 +35,7 @@ void WindowGL::init() {
 
 	glfwMakeContextCurrent(m_glfwWindow);
 
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
 	{
 		throw GladInitFailException();
 	}
@@ -47,6 +48,8 @@ void WindowGL::init() {
 		glfwSwapInterval(0);
 	}
 
+	std::cout << "Window init" << std::endl;
+
 }
 
 void WindowGL::update() {
@@ -58,11 +61,10 @@ bool WindowGL::windowShouldClose() {
 	return glfwWindowShouldClose(m_glfwWindow);
 }
 
-void WindowGL::terminateGlfw() {
+void WindowGL::terminate() {
 	glfwTerminate();
 }
 
-static void framebufferSizeCallback(GLFWwindow* window, int width, int height)
-{
+static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
