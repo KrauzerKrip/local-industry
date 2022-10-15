@@ -48,7 +48,7 @@ void WindowGL::init() {
 	//glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
 
 	if (m_vSync) {
-		glfwSwapInterval(0);
+		glfwSwapInterval(1);
 	}
 
 	std::cout << "Window init" << std::endl;
