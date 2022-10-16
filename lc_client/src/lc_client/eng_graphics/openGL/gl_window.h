@@ -9,7 +9,7 @@
 class WindowGL : public IWindow {
 public:
 
-	WindowGL(std::string, int height, int width, bool vSync);
+	WindowGL(std::string, int width, int height, int* aspectRatio, bool vSync);
 	virtual ~WindowGL();
 
 	void init();
@@ -18,6 +18,9 @@ public:
 	void terminate();
 	IInput* getInput();
 	bool isKeyPressed(int key);
+	int* getSize();
+	void setSize(int width, int height);
+	int* getAspectRatio();
 
 private:
 	static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
@@ -25,6 +28,7 @@ private:
 	std::string m_title;
 	int m_width;
 	int m_height;
+	int* m_pAspectRatio;
 	bool m_vSync; 
 
 	GLFWwindow* m_pGlfwWindow;

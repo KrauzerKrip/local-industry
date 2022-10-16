@@ -17,7 +17,7 @@ int main() {
 	int targetFPS = 60;
 	int targetUPS = 60;
 
-	IWindow* pWindow = new WindowGL(title, width, height, vSync);
+	IWindow* pWindow = new WindowGL(title, width, height, new int[2]{16, 9}, vSync);
 	IGameLogic* pGameLogic = new Game(pWindow);
 	Loop* pLoop = Loop::createInstance(pWindow, pGameLogic, targetFPS, targetUPS);
 	
