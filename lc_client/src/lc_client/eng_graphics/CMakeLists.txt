@@ -11,4 +11,6 @@ target_sources(lc_client
         "openGL/gl_render.h"
         "openGL/gl_window.cpp"
         "openGL/gl_window.h"
+
+        "entt/components.h"
 )

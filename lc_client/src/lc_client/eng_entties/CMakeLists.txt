@@ -4,5 +4,4 @@ project(eng_entties)
 
 target_sources(lc_client 
     PRIVATE
-
 )
