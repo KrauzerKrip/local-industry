@@ -4,7 +4,8 @@ project(lc_client)
 
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
-target_link_libraries(lc_client PUBLIC glfw glad::glad)
+find_package(EnTT CONFIG REQUIRED)
+target_link_libraries(lc_client PUBLIC glfw glad::glad EnTT::EnTT)
 
 target_sources(lc_client 
     PRIVATE
