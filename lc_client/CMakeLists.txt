@@ -7,6 +7,8 @@ find_package(glad CONFIG REQUIRED)
 find_package(EnTT CONFIG REQUIRED)
 target_link_libraries(lc_client PUBLIC glfw glad::glad EnTT::EnTT)
 
+target_link_libraries(lc_client PRIVATE eng::rc)
+
 target_sources(lc_client 
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lc_client/i_game_logic.h"
@@ -20,7 +22,7 @@ add_subdirectory("src/lc_client/eng_graphics")
 add_subdirectory("src/lc_client/eng_entties")
 add_subdirectory("src/lc_client/eng_input")
 add_subdirectory("src/lc_client/exceptions")
-
+add_subdirectory("src/lc_client/util")
 
 #target_compile_definitions(lc_client PUBLIC USE_BARRY) #for preprocessor definitions
 target_include_directories(lc_client
