@@ -1,23 +1,31 @@
 #include "directories.h"
 
+#include <iostream>
 #include <memory>
 
+CMRC_DECLARE(eng_resources);
 
-void iterateDirectoryRecursive(cmrc::embedded_filesystem fileSystem, std::string path, std::function<void(std::string path, std::string fileName)>& func) {
-    std::unique_ptr<std::vector<std::string>> pFileNames = getDirFileNames(fileSystem, path);
-    std::unique_ptr<std::vector<std::string>> pDirNames = getDirDirNames(fileSystem, path);
+void iterateDirectoryRecursive(cmrc::embedded_filesystem fileSystem, std::string path, const std::function<void(std::string path, std::string fileName)>& func) {
+    try {
+        std::unique_ptr<std::vector<std::string>> pFileNames = getDirFileNames(fileSystem, path);
+        std::unique_ptr<std::vector<std::string>> pDirNames = getDirDirNames(fileSystem, path);
 
-    for (auto&& fileName : *pFileNames) {
-        func(path, fileName);
+        for (auto&& fileName : *pFileNames) {
+            func(path, fileName);
+        }
+
+        for (auto&& dirName : *pDirNames) {
+            iterateDirectoryRecursive(fileSystem, path + "/" + dirName, func);
+        }
+    }
+    catch(std::system_error e) {
+        std::cout << "eng_io_recursive: " + (std::string) e.what() << std::endl;  // if you change it to "std::cout << "eng_io_recursive: std::errc:directories " + *e.what() << std::endl;" it will write "ale".
     }
 
-    for (auto&& dirName : *pDirNames) {
-        iterateDirectoryRecursive(fileSystem, path + "/" + dirName, func);
-    }
 }
 
 
-static std::unique_ptr<std::vector<std::string>> getDirFileNames(cmrc::embedded_filesystem fileSystem, std::string path) {
+std::unique_ptr<std::vector<std::string>> getDirFileNames(cmrc::embedded_filesystem fileSystem, std::string path) {
     std::unique_ptr<std::vector<std::string>> pFiles = std::make_unique<std::vector<std::string>>();
 
     for (auto&& entry : fileSystem.iterate_directory(path)) {
@@ -29,7 +37,7 @@ static std::unique_ptr<std::vector<std::string>> getDirFileNames(cmrc::embedded_
     return pFiles;
 }
 
-static std::unique_ptr<std::vector<std::string>> getDirDirNames(cmrc::embedded_filesystem fileSystem, std::string path) {
+std::unique_ptr<std::vector<std::string>> getDirDirNames(cmrc::embedded_filesystem fileSystem, std::string path) {
     std::unique_ptr<std::vector<std::string>> pDirs = std::make_unique<std::vector<std::string>>();
 
     for (auto&& entry : fileSystem.iterate_directory(path)) {
