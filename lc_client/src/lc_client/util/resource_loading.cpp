@@ -2,11 +2,11 @@
 
 namespace eng {
 
-	auto getResource(std::string path) {
+	auto getResource(std::string path)  -> cmrc::file {
 		auto fileSystem = cmrc::eng_resources::get_filesystem();
 		auto file = fileSystem.open(path);
 
-		return file.begin();
+		return file;
 	}
 
 	auto getFileSystem() -> cmrc::embedded_filesystem {

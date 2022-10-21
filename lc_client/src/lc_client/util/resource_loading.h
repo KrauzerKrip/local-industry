@@ -6,7 +6,7 @@ CMRC_DECLARE(eng_resources);
 
 namespace eng {
 
-	auto getResource(std::string path);
+	auto getResource(std::string path) -> cmrc::file;
 
 	/**
 	 * \brief A good choice will be to use it for directories iteration.

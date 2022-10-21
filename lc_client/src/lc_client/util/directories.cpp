@@ -19,7 +19,7 @@ void iterateDirectoryRecursive(cmrc::embedded_filesystem fileSystem, std::string
         }
     }
     catch(std::system_error e) {
-        std::cout << "eng_io_recursive: " + (std::string) e.what() << std::endl;  // if you change it to "std::cout << "eng_io_recursive: std::errc:directories " + *e.what() << std::endl;" it will write "ale".
+        std::cerr << "eng_io_recursive: " + (std::string) e.what() << std::endl;  // if you change it to "std::cout << "eng_io_recursive: std::errc:directories " + *e.what() << std::endl;" it will write "ale".
     }
 
 }

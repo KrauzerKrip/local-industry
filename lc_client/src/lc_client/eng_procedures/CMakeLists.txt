@@ -4,6 +4,8 @@ project(eng_procedures)
 
 target_sources(lc_client 
     PRIVATE
+        "i_shaders.h"
+
         "shaders.h"
         "shaders.cpp"
 )
