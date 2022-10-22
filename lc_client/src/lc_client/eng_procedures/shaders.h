@@ -13,10 +13,11 @@ public:
 	~ShaderManager();
 
 	void loadShaders();
-
+	int getVertexShader(std::string shaderName);
+	int getFragmentShader(std::string shaderName);
 private:
 	std::unordered_map<std::string, int>* m_pVertexShaders;
 	std::unordered_map<std::string, int>* m_pFragmentShaders;
 
-	void compileShader(int shader, std::string shaderName);
+	void compileShader(int shader, std::string fileName);
 };
