@@ -3,6 +3,7 @@
 #include "lc_client/i_game_logic.h"
 
 #include "lc_client/eng_graphics/i_window.h"
+#include "lc_client/eng_graphics/i_render.h"
 #include "lc_client/eng_input/i_input.h"
 
 class Game : public IGameLogic {
@@ -18,4 +19,5 @@ public:
 private:
 	IWindow* m_pWindow;;
 	IInput* m_pInput;
+	IRender* m_pRender;
 };

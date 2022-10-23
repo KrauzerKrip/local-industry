@@ -19,6 +19,15 @@ ShaderManager::ShaderManager() {
 };
 
 ShaderManager::~ShaderManager() {
+
+    for (auto const& [name, id] : *m_pVertexShaders) {
+        glDeleteShader(id);
+    }
+
+    for (auto const& [name, id] : *m_pFragmentShaders) {
+        glDeleteShader(id);
+    }
+
     delete(m_pVertexShaders);
     delete(m_pFragmentShaders);
 } 
@@ -57,10 +66,6 @@ void ShaderManager::loadShaders() {
         glShaderSource(shader, 1, &shaderSourceBegin, 0);
 
         compileShader(shader, fileName);
-
-        size_t lastIndex = fileName.find_last_of(".");
-        if (lastIndex == std::string::npos) return fileName;
-        std::string shaderName = fileName.substr(0, lastIndex);
 
         std::string shaderName = eng::getFileNameWithoutExtension(fileName);
 

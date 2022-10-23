@@ -22,10 +22,11 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio, b
 
 WindowGL::~WindowGL() {
 	delete m_pInput;
-	delete m_pAspectRatio;
+	delete[] m_pAspectRatio;
 };
 
 void WindowGL::init() {
+
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
@@ -48,6 +49,7 @@ void WindowGL::init() {
 	}
 
 	glViewport(0, 0, m_width, m_height);
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 	//glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
 

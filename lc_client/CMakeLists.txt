@@ -17,11 +17,15 @@ target_sources(lc_client
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lc_client/loop.h"
 )
 
+add_subdirectory("include/ldk_client/local_engine")
+
+add_subdirectory("src/lc_client/local_engine")
 
 add_subdirectory("src/lc_client/eng_graphics")
 add_subdirectory("src/lc_client/eng_entties")
 add_subdirectory("src/lc_client/eng_input")
 add_subdirectory("src/lc_client/eng_procedures")
+add_subdirectory("src/lc_client/eng_scene")
 add_subdirectory("src/lc_client/exceptions")
 add_subdirectory("src/lc_client/util")
 

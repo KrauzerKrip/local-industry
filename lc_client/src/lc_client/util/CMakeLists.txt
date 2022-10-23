@@ -8,4 +8,6 @@ target_sources(lc_client
         "resource_loading.h"
         "directories.h"
         "directories.cpp"
+        "file_util.h"
+        "file_util.cpp"
 )
