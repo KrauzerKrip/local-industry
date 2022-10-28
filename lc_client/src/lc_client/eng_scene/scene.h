@@ -7,11 +7,13 @@
 
 class Scene {
 public:
-	Scene(std::string name, IShaderManager* pShaderManager);
+	Scene();
 	~Scene();
 
-	void loadScene();
-	
+	void loadScene(std::string name);
+	void setShaderManager(IShaderManager* pShaderManager);
+	entt::registry* getMapRegistry();
+	entt::registry* getSceneRegistry();
 
 private:
 	entt::registry m_mapRegistry;
@@ -19,5 +21,5 @@ private:
 
 	std::string m_name;
 
-	IShaderManager* m_pShaderManager;
+	IShaderManager* m_pShaderManager = nullptr;
 };

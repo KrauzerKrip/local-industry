@@ -33,7 +33,7 @@ ShaderManager::~ShaderManager() {
 } 
 
 /**
- * \brief Loads shaders, compiles them and adds them into the storage so its possible to access shaders with theirs ids. 
+ * \brief Loads shaders, comp  iles them and adds them into the storage so its possible to access shaders with theirs ids. 
  */
 void ShaderManager::loadShaders() {
 
@@ -46,7 +46,7 @@ void ShaderManager::loadShaders() {
 
         unsigned int shader;
         shader = glCreateShader(GL_VERTEX_SHADER);
-
+          
         glShaderSource(shader, 1, &shaderSourceBegin, 0);
     
         compileShader(shader, fileName);
@@ -54,7 +54,7 @@ void ShaderManager::loadShaders() {
         std::string shaderName = eng::getFileNameWithoutExtension(fileName);
 
         m_pVertexShaders->emplace(shaderName, shader);
-    };
+    }; 
 
     auto loadFragmentShader = [&](std::string path, std::string fileName) {
         auto shaderSourceIterator = eng::getResource(path + "/" + fileName);
@@ -84,8 +84,7 @@ void ShaderManager::loadShaders() {
  *  \returns OpenGL vertex shader ID.
  *  \throws std::out_of_range if shader is not found.
  */
-int ShaderManager::getVertexShader(std::string shaderName)
-{
+int ShaderManager::getVertexShader(std::string shaderName) const {
     return m_pVertexShaders->at(shaderName);
 }
 
@@ -93,8 +92,7 @@ int ShaderManager::getVertexShader(std::string shaderName)
  * \returns OpenGL fragment shader ID.
  * \throws std::out_of_range if shader is not found.
  */
-int ShaderManager::getFragmentShader(std::string shaderName)
-{
+int ShaderManager::getFragmentShader(std::string shaderName) const {
     return m_pFragmentShaders->at(shaderName);
 }
 

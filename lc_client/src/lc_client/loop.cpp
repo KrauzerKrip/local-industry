@@ -2,7 +2,6 @@
 
 #include <stdexcept>
 
-#include "eng_procedures/shaders.h"
 
 Loop::Loop(IWindow* pWindow, IGameLogic* gameLogic, int targetFPS, int targetUPS) {
 	m_pWindow = pWindow;
@@ -26,12 +25,8 @@ Loop* Loop::getInstance() {
 }
 
 void Loop::init() {
-	m_pGameLogic->init();
 	m_pWindow->init();
-
-	ShaderManager* shaderManager = new ShaderManager();
-
-	shaderManager->loadShaders();
+	m_pGameLogic->init(); // it was before
 }
 
 void Loop::startLoop() {

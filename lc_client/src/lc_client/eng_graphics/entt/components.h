@@ -4,18 +4,15 @@
 #include <entt/entity/registry.hpp>
 
 struct Mesh {
-	   
+	Mesh() = default;
+	Mesh(const Mesh&) = default;
 };
 
-struct Texture {
+struct MaterialGl {
+	int shaderProgram;
 
-};
-
-struct ShaderGL {
-	int program;
-};
-
-struct Material {
-
+	MaterialGl() = default;
+	MaterialGl(const int shaderProgram) : shaderProgram(shaderProgram) {};
+	MaterialGl(const MaterialGl&) = default;
 };
 

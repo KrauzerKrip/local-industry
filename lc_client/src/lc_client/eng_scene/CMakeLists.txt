@@ -6,4 +6,6 @@ target_sources(lc_client
     PRIVATE
     "scene.h"
     "scene.cpp"
+
+    "entt/components.h"
 )

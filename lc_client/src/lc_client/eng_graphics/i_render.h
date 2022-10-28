@@ -8,7 +8,8 @@ public:
 	virtual ~IRender() {};
 
 	virtual void init() = 0;
-	virtual void render(std::vector<entt::entity>* pGraphicsEntities) = 0;
+	virtual void render() = 0;
 	virtual void clear() = 0;
 	virtual void cleanUp() = 0;
+	virtual void setRegistries(entt::registry* mapRegistry, entt::registry* sceneRegistry) = 0;
 };

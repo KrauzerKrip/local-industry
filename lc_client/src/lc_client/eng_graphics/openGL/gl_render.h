@@ -10,11 +10,15 @@ public:
 	RenderGL(IWindow* pWindow);
 	virtual ~RenderGL();
 
-	void init();
-	void render(std::vector<entt::entity>* pGraphicsEntities);
+	void init(); 
+	void render();
 	void clear();
 	void cleanUp();
+	void setRegistries(entt::registry* sceneRegistry, entt::registry* mapRegistry);
 
 private:
-	IWindow* m_pWindow; //mb remove it
+	IWindow* m_pWindow; //mb remove it 
+	
+	entt::registry* m_pSceneRegistry = nullptr;
+	entt::registry* m_pMapRegistry = nullptr;
 };
