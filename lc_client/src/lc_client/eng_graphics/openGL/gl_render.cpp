@@ -30,10 +30,10 @@ void RenderGL::render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		float vertices[] = {
-		0.5f, 0.5f, 0.0f, // top right
-		0.5f, -0.5f, 0.0f, // bottom right
-		-0.5f, -0.5f, 0.0f, // bottom left
-		-0.5f, 0.5f, 0.0f // top left
+		0.5f, 0.5f, 0.0f,    1.0f, 0.0f, 0.0f, // top right
+		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, // bottom right
+		-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,// bottom left
+		-0.5f, 0.5f, 0.0f,   1.0f, 1.0f, 1.0f// top left
 		};
 		unsigned int indices[] = { // note that we start from 0!
 		0, 1, 3, // first triangle
@@ -63,10 +63,25 @@ void RenderGL::render() {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 		
 		// 4. then set the vertex attributes pointers
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		// position attribute
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
+		// color attribute
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
+
+		float timeValue = glfwGetTime();
+		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+		float blueValue = (cos(timeValue) / 2.0f) + 0.5f;
+		//int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+		
+		//if (vertexColorLocation == -1) {
+		//	//assert(0);
+		//}
 
 		glUseProgram(shaderProgram);
+		//glUniform4f(vertexColorLocation, 0.0f, greenValue, blueValue, 1.0f);
+
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
