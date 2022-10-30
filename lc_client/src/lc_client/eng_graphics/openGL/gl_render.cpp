@@ -20,69 +20,25 @@ void RenderGL::init() {
 
 void RenderGL::render() {
 
-	auto materialEntitiesGroup = m_pSceneRegistry->group<MaterialGl, Mesh>();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	auto materialEntitiesGroup = m_pSceneRegistry->group<MaterialGl, VaoGl>();
 
 	for (entt::entity entity : materialEntitiesGroup) {
 
+
+
 		MaterialGl& materialGl = materialEntitiesGroup.get<MaterialGl>(entity);
+		VaoGl& vaoGl = materialEntitiesGroup.get<VaoGl>(entity);
 		int shaderProgram = materialGl.shaderProgram;
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		float vertices[] = {
-		0.5f, 0.5f, 0.0f,    1.0f, 0.0f, 0.0f, // top right
-		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, // bottom right
-		-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,// bottom left
-		-0.5f, 0.5f, 0.0f,   1.0f, 1.0f, 1.0f// top left
-		};
-		unsigned int indices[] = { // note that we start from 0!
-		0, 1, 3, // first triangle
-		1, 2, 3 // second triangle
-		};
-
-
-		unsigned int vbo;
-		glGenBuffers(1, &vbo);
-
-		unsigned int vao;
-		glGenVertexArrays(1, &vao);
-
-		unsigned int ebo;
-		glGenBuffers(1, &ebo);
-
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		int vaoId = vaoGl.vaoId;
 		
-		// 1. bind Vertex Array Object
-		glBindVertexArray(vao);
-		// 2. copy our vertices array in a vertex buffer for OpenGL to use
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-		// 3. copy our index array in a element buffer for OpenGL to use
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-		
-		// 4. then set the vertex attributes pointers
-		// position attribute
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
-		// color attribute
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-		glEnableVertexAttribArray(1);
-
-		float timeValue = glfwGetTime();
-		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-		float blueValue = (cos(timeValue) / 2.0f) + 0.5f;
-		//int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
-		
-		//if (vertexColorLocation == -1) {
-		//	//assert(0);
-		//}
 
 		glUseProgram(shaderProgram);
+  
 		//glUniform4f(vertexColorLocation, 0.0f, greenValue, blueValue, 1.0f);
 
-		glBindVertexArray(vao);
+		glBindVertexArray(vaoId);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 

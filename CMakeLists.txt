@@ -11,7 +11,7 @@ add_library(lc_client)
 add_subdirectory("res")
 add_subdirectory("lc_client")
 
-add_executable(industry "game/main.cpp" "game/main.h" "game/game.cpp" "game/game.h" )
+add_executable(industry "game/main.cpp" "game/main.h" "game/game.cpp" "game/game.h"  "lc_client/src/lc_client/eng_procedures/openGL/gl_graphics_entities_loading.h")
 target_link_libraries(industry lc_client)
 
 # TODO: Add tests and install targets if needed.

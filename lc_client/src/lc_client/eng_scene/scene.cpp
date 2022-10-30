@@ -1,7 +1,4 @@
 #include "scene.h"
-#include "scene.h"
-#include "scene.h"
-#include "scene.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -32,35 +29,19 @@ void Scene::loadScene(std::string name) {
 	m_mapRegistry.clear();
 	m_sceneRegistry.clear();
 
-	unsigned int shaderProgram;
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, m_pShaderManager->getFragmentShader("base"));
-	glAttachShader(shaderProgram, m_pShaderManager->getVertexShader("base"));
-	glLinkProgram(shaderProgram);
-
-	int success;
-	char infoLog[512];
-	glGetProgramiv(shaderProgram, GL_COMPILE_STATUS, &success);
-
-	if (success)
-	{
-		std::cout << "scene: shader program linked successfully: " << shaderProgram << std::endl;
-	}
-	else {
-		glGetProgramInfoLog(shaderProgram, 512, 0, infoLog);
-		std::cerr << "scene: shader program link failure: \n" <<
-			infoLog << std::endl;
-	}
-
 	auto entt = m_sceneRegistry.create();
 	m_sceneRegistry.emplace<Properties>(entt, "test_uuid", "test_id");
-	m_sceneRegistry.emplace<Mesh>(entt);
-	m_sceneRegistry.emplace<MaterialGl>(entt, shaderProgram);
+	m_sceneRegistry.emplace<ModelData>(entt, "test_modelId", "base", "base");
+
+	m_pGraphicsEntitiesLoading->loadMapEntities(getMapRegistry());
+	m_pGraphicsEntitiesLoading->loadSceneEntities(getSceneRegistry());
 }
 
-void Scene::setShaderManager(IShaderManager* pShaderManager) {
-	m_pShaderManager = pShaderManager;
+void Scene::setDependencies(SceneDependencies& sceneDependencies) {
+	m_pShaderManager = sceneDependencies.pShaderManager;
+	m_pGraphicsEntitiesLoading = sceneDependencies.pGraphicsEntitiesLoading;
 }
+
 
 entt::registry* Scene::getMapRegistry() {
 	return &m_mapRegistry;

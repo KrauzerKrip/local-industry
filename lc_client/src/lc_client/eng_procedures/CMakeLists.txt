@@ -5,7 +5,10 @@ project(eng_procedures)
 target_sources(lc_client 
     PRIVATE
         "i_shaders.h"
+        "i_graphics_entities_loading.h"
 
-        "shaders.h"
-        "shaders.cpp"
+        "openGL/shaders.h"
+        "openGL/shaders.cpp"
+        "openGL/gl_graphics_entities_loading.h"
+        "openGL/gl_graphics_entities_loading.cpp"
 )

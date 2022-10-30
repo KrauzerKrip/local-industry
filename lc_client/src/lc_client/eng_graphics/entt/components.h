@@ -8,6 +8,14 @@ struct Mesh {
 	Mesh(const Mesh&) = default;
 };
 
+struct VaoGl {
+	int vaoId;
+
+	VaoGl() = default;
+	VaoGl(const int vaoId) : vaoId(vaoId) {};
+	VaoGl(const VaoGl&) = default;
+};
+
 struct MaterialGl {
 	int shaderProgram;
 

@@ -7,7 +7,9 @@
 #include "lc_client/eng_input/i_input.h"
 #include "lc_client/eng_scene/scene.h"
 #include "lc_client/eng_procedures/i_shaders.h"
-#include "lc_client/eng_procedures/shaders.h"
+#include "lc_client/eng_procedures/openGL/shaders.h"
+#include "lc_client/eng_procedures/i_graphics_entities_loading.h"
+
 
 class Game : public IGameLogic {
 public:
@@ -25,4 +27,5 @@ private:
 	IRender* m_pRender;
 	Scene* m_pScene;
 	IShaderManager* m_pShaderManager;
+	IGraphicsEntitiesLoading* m_pGraphicsEntitiesLoading;
 };

@@ -4,16 +4,20 @@
 
 #include "lc_client/eng_graphics/openGL/gl_render.h"
 #include "ldk_client/local_engine/scene_controlling.h"
+#include "lc_client/eng_procedures/openGL/gl_graphics_entities_loading.h"
 
 
 Game::Game(IWindow* pWindow) {
 	m_pWindow = pWindow;
 	m_pRender = new RenderGL(m_pWindow);
-	m_pShaderManager = new ShaderManager();
+	m_pShaderManager = new ShaderManagerGl();
+	m_pGraphicsEntitiesLoading = new GraphicsEntitiesLoadingGl(m_pShaderManager);
 }
 
 Game::~Game() {
 	delete m_pRender;
+	delete m_pShaderManager;
+	delete m_pGraphicsEntitiesLoading;
 };
 
 void Game::init() {
@@ -21,8 +25,12 @@ void Game::init() {
 
 	m_pShaderManager->loadShaders();
 
+	SceneDependencies sceneDependecies;
+	sceneDependecies.pShaderManager = m_pShaderManager;
+	sceneDependecies.pGraphicsEntitiesLoading = m_pGraphicsEntitiesLoading;
+
 	m_pScene = SceneControlling::getScene();
-	m_pScene->setShaderManager(m_pShaderManager);
+	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("test");
 
 	m_pRender->setRegistries(m_pScene->getMapRegistry(), m_pScene->getSceneRegistry());
