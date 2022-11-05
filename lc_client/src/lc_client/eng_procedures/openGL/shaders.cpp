@@ -33,7 +33,7 @@ ShaderManagerGl::~ShaderManagerGl() {
 } 
 
 /**
- * \brief Loads shaders, comp  iles them and adds them into the storage so its possible to access shaders with theirs ids. 
+ * \brief Loads shaders, compiles them and adds them into the storage so its possible to access shaders with theirs ids. 
  */
 void ShaderManagerGl::loadShaders() {
 
@@ -41,7 +41,7 @@ void ShaderManagerGl::loadShaders() {
 
     auto loadVertexShader = [&](std::string path, std::string fileName) {
 
-        auto shaderSourceIterator = eng::getResource(path + "/" + fileName);
+        auto shaderSourceIterator = eng::getFile(path + "/" + fileName);
         auto shaderSourceBegin = shaderSourceIterator.begin();
 
         unsigned int shader;
@@ -57,7 +57,7 @@ void ShaderManagerGl::loadShaders() {
     }; 
 
     auto loadFragmentShader = [&](std::string path, std::string fileName) {
-        auto shaderSourceIterator = eng::getResource(path + "/" + fileName);
+        auto shaderSourceIterator = eng::getFile(path + "/" + fileName);
         auto shaderSourceBegin = shaderSourceIterator.begin();
 
         unsigned int shader;

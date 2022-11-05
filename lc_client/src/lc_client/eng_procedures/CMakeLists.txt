@@ -11,4 +11,6 @@ target_sources(lc_client
         "openGL/shaders.cpp"
         "openGL/gl_graphics_entities_loading.h"
         "openGL/gl_graphics_entities_loading.cpp"
+        "openGL/gl_texture_manager.h"
+        "openGL/gl_texture_manager.cpp"
 )

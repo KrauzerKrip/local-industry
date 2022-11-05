@@ -18,9 +18,13 @@ struct VaoGl {
 
 struct MaterialGl {
 	int shaderProgram;
+	int colorTexture;
+	int normalMap;
+	int aoTexture;
+	int metallicTexture;
 
 	MaterialGl() = default;
-	MaterialGl(const int shaderProgram) : shaderProgram(shaderProgram) {};
+	MaterialGl(const int shaderProgram, const int colorTexture) : shaderProgram(shaderProgram), colorTexture(colorTexture) {};
 	MaterialGl(const MaterialGl&) = default;
 };
 

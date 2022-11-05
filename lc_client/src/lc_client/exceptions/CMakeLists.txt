@@ -7,4 +7,5 @@ target_sources(lc_client
         "glad_exceptions.h"
         "glfw_exceptions.h"
         "input_exceptions.h"
+        "io_exceptions.h"
 )

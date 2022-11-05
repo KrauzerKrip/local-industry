@@ -18,6 +18,7 @@ public:
 private:
 	unsigned int createShaderProgram(std::string vertexShaderName, std::string fragmentShaderName);
 	unsigned int createVao(); //change to std::vector<Vertice> vertices
+	unsigned int createTexture(std::string textureName);
 
 	IShaderManager* m_pShaderManager;
 };
