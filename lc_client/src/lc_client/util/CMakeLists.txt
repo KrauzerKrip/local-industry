@@ -10,4 +10,7 @@ target_sources(lc_client
         "directories.cpp"
         "file_util.h"
         "file_util.cpp"
+        "image.h"
+        "image.cpp"
+        "i_resource_loading.h"
 )
