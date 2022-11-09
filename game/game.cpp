@@ -5,6 +5,7 @@
 #include "lc_client/eng_graphics/openGL/gl_render.h"
 #include "ldk_client/local_engine/scene_controlling.h"
 #include "lc_client/eng_procedures/openGL/gl_graphics_entities_loading.h"
+#include "lc_client/util/resource.h"
 
 
 Game::Game(IWindow* pWindow) {
@@ -12,6 +13,7 @@ Game::Game(IWindow* pWindow) {
 	m_pRender = new RenderGL(m_pWindow);
 	m_pShaderManager = new ShaderManagerGl();
 	m_pGraphicsEntitiesLoading = new GraphicsEntitiesLoadingGl(m_pShaderManager);
+	m_pResource = new eng::Resource("D:/Industry/industry/res/");
 }
 
 Game::~Game() {

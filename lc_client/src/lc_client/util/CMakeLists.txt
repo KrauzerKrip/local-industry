@@ -4,13 +4,13 @@ project(util)
 
 target_sources(lc_client 
     PRIVATE
-        "resource_loading.cpp"
-        "resource_loading.h"
+        "resource.cpp"
+        "resource.h"
         "directories.h"
         "directories.cpp"
         "file_util.h"
         "file_util.cpp"
         "image.h"
         "image.cpp"
-        "i_resource_loading.h"
+        "i_resource.h"
 )

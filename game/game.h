@@ -9,6 +9,7 @@
 #include "lc_client/eng_procedures/i_shaders.h"
 #include "lc_client/eng_procedures/openGL/shaders.h"
 #include "lc_client/eng_procedures/i_graphics_entities_loading.h"
+#include "lc_client/util/i_resource.h"
 
 
 class Game : public IGameLogic {
@@ -28,4 +29,5 @@ private:
 	Scene* m_pScene;
 	IShaderManager* m_pShaderManager;
 	IGraphicsEntitiesLoading* m_pGraphicsEntitiesLoading;
+	eng::IResource* m_pResource;
 };

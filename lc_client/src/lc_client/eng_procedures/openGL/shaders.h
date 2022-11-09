@@ -2,12 +2,13 @@
 
 #include <unordered_map>
 
-#include "../i_shaders.h"
+#include "lc_client/eng_procedures/i_shaders.h"
+#include "lc_client/util/i_resource.h"
 
 
 class ShaderManagerGl : public IShaderManager{
 public:
-	ShaderManagerGl();
+	ShaderManagerGl(eng::IResource* pResource);
 	~ShaderManagerGl();
 
 	void loadShaders();
@@ -16,6 +17,8 @@ public:
 private:
 	std::unordered_map<std::string, int>* m_pVertexShaders;
 	std::unordered_map<std::string, int>* m_pFragmentShaders;
+
+	eng::IResource* m_pResource;
 
 	void compileShader(int shader, std::string fileName);
 };

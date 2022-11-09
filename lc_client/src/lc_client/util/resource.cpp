@@ -1,27 +1,27 @@
 #include <fstream>
 #include <lc_client/exceptions/io_exceptions.h>
 
-#include "resource_loading.h"
+#include "resource.h"
 
 namespace eng {
 
-		ResourceLoading::ResourceLoading(std::string resourceRootPath) {
+		Resource::Resource(std::string resourceRootPath) {
 			m_resourceRootPath = resourceRootPath;
 		}
 
-		auto ResourceLoading::getFile(std::string path)  -> cmrc::file {
+		auto Resource::getFile(std::string path)  -> cmrc::file {
 			auto fileSystem = cmrc::eng_resources::get_filesystem();
 			auto file = fileSystem.open(path);
 
 			return file;
 		}
 
-		auto ResourceLoading::getFileSystem() -> cmrc::embedded_filesystem {
+		auto Resource::getFileSystem() -> cmrc::embedded_filesystem {
 			return cmrc::eng_resources::get_filesystem();
 		}
 
-		auto getFileResource(std::string path) -> std::vector<unsigned char> {
-			std::ifstream binaryFile(path, std::ios::binary);
+		auto Resource::getFileResource(std::string path) -> std::vector<unsigned char> {
+			std::ifstream binaryFile(m_resourceRootPath + path, std::ios::binary);
 
 			if (binaryFile.good()) {
 				/*Read Binary data using streambuffer iterators.*/
@@ -30,7 +30,7 @@ namespace eng {
 				return buffer;
 			}
 			else {
-				throw ResourceFileNotFound(path.c_str()); //
+				throw ResourceFileNotFound(path.c_str()); 
 			}
 		}
 }

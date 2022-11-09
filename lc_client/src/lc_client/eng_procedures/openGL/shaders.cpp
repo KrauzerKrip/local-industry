@@ -6,16 +6,17 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "lc_client/util/resource_loading.h"
 #include "lc_client/util/directories.h"
 #include "lc_client/util/file_util.h"
 
 CMRC_DECLARE(eng_resources);
 
 
-ShaderManagerGl::ShaderManagerGl() {
+ShaderManagerGl::ShaderManagerGl(eng::IResource* pResource) {
     m_pVertexShaders = new std::unordered_map<std::string, int>(); 
     m_pFragmentShaders = new std::unordered_map<std::string, int>();
+
+    m_pResource = pResource;
 };
 
 ShaderManagerGl::~ShaderManagerGl() {
@@ -37,11 +38,11 @@ ShaderManagerGl::~ShaderManagerGl() {
  */
 void ShaderManagerGl::loadShaders() {
 
-    cmrc::embedded_filesystem fileSystem = eng::getFileSystem();
+    cmrc::embedded_filesystem fileSystem = m_pResource->getFileSystem();
 
     auto loadVertexShader = [&](std::string path, std::string fileName) {
 
-        auto shaderSourceIterator = eng::getFile(path + "/" + fileName);
+        auto shaderSourceIterator = m_pResource->getFile(path + "/" + fileName);
         auto shaderSourceBegin = shaderSourceIterator.begin();
 
         unsigned int shader;
@@ -57,7 +58,7 @@ void ShaderManagerGl::loadShaders() {
     }; 
 
     auto loadFragmentShader = [&](std::string path, std::string fileName) {
-        auto shaderSourceIterator = eng::getFile(path + "/" + fileName);
+        auto shaderSourceIterator = m_pResource->getFile(path + "/" + fileName);
         auto shaderSourceBegin = shaderSourceIterator.begin();
 
         unsigned int shader;

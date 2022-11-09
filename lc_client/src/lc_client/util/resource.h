@@ -4,16 +4,20 @@
 #include <filesystem>
 #include <string>
 
-#include "i_resource_loading.h"
+#include "i_resource.h"
 
 
 CMRC_DECLARE(eng_resources);
 
 namespace eng {
 
-	class ResourceLoading {
+	class Resource : public IResource {
 	public:
-		ResourceLoading(std::string resourceRootPath);
+
+		/**
+		 * \param resourceRootPath - root path of resource dir (ends with /).
+		 */
+		Resource(std::string resourceRootPath);
 
 		auto getFile(std::string path)->cmrc::file;
 

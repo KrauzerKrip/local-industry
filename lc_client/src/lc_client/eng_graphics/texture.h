@@ -1,6 +1,10 @@
 #pragma once
 
 #include <string>
+#include <memory>
+
+#include "lc_client/util/image.h"
+
 
 class Texture {
 public:
@@ -21,7 +25,6 @@ public:
 
 protected:
 	std::string m_name;
-	unsigned char* image;
-
+	std::shared_ptr<eng::Image> image;
 private:
 };
