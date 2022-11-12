@@ -1,7 +1,7 @@
+#include "eng_resource.h"
+
 #include <fstream>
 #include <lc_client/exceptions/io_exceptions.h>
-
-#include "resource.h"
 
 namespace eng {
 

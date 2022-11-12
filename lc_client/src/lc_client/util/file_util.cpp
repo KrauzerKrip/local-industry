@@ -1,4 +1,5 @@
 #include "file_util.h"
+#include <cmrc/cmrc.hpp>
 
 namespace eng {
 	

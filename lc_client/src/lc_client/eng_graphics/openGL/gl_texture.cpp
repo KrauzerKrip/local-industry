@@ -1,5 +1,9 @@
 #include "gl_texture.h"
 
+TextureGL::TextureGL(std::shared_ptr<eng::Image> image) {
+	m_image = image;
+}
+
 void TextureGL::load() {
 }
 

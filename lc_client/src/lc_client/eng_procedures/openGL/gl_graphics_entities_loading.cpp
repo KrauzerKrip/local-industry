@@ -1,14 +1,16 @@
 #include "gl_graphics_entities_loading.h"
 
 #include <iostream>
+#include <glad/glad.h>
 
 #include "lc_client/eng_scene/entt/components.h"
 #include "lc_client/eng_graphics/entt/components.h"
-#include <glad/glad.h>
+#include "lc_client/eng_graphics/texture.h"
 
 
-GraphicsEntitiesLoadingGl::GraphicsEntitiesLoadingGl(IShaderManager* pShaderManager) {
+GraphicsEntitiesLoadingGl::GraphicsEntitiesLoadingGl(IShaderManager* pShaderManager, TextureManager* pTextureManager) {
 	m_pShaderManager = pShaderManager;
+	m_pTextureManager = pTextureManager;
 };
 
 GraphicsEntitiesLoadingGl::~GraphicsEntitiesLoadingGl() {};
@@ -25,18 +27,31 @@ void GraphicsEntitiesLoadingGl::loadSceneEntities(entt::registry* registry) {
 
 		Properties& properties = entitiesGroup.get<Properties>(entity);
 		ModelData& modelData = entitiesGroup.get<ModelData>(entity);
-		std::string modelId = modelData.modelId;
+ 		std::string id = modelData.id;
 		std::string vertexShaderName = modelData.vertexShader;
 		std::string fragmentShaderName = modelData.fragmentShader;
 
 		unsigned int shaderProgram = createShaderProgram(vertexShaderName, fragmentShaderName);
+		
+		Texture* colorTexture = m_pTextureManager->getTexture(modelData.colorTexture);
+		Texture* aoTexture = m_pTextureManager->getTexture(modelData.aoTexture);
+		Texture* metallicTexture = m_pTextureManager->getTexture(modelData.metallicTexture);
+		Texture* normalMap = m_pTextureManager->getTexture(modelData.normalMap);
 
-		//
 		unsigned int vaoId = createVao();
+      
+		VaoGl vaoGl = registry->emplace<VaoGl>(entity, vaoId);
+		MaterialGl materialGl = registry->emplace<MaterialGl>(entity);
 
-		registry->emplace<VaoGl>(entity, vaoId);
-		registry->emplace<MaterialGl>(entity, shaderProgram);
-		//
+		aoTexture->load();
+		colorTexture->load();
+		metallicTexture->load();
+		normalMap->load();
+		
+		materialGl.aoTexture = aoTexture;
+		materialGl.colorTexture = colorTexture;
+		materialGl.metallicTexture = metallicTexture;
+		materialGl.normalMap = normalMap;
 
 		registry->erase<ModelData>(entity);
 
@@ -46,8 +61,20 @@ void GraphicsEntitiesLoadingGl::loadSceneEntities(entt::registry* registry) {
 unsigned int GraphicsEntitiesLoadingGl::createShaderProgram(std::string vertexShaderName, std::string fragmentShaderName) {
 	unsigned int shaderProgram;
 	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, m_pShaderManager->getFragmentShader(vertexShaderName));
-	glAttachShader(shaderProgram, m_pShaderManager->getVertexShader(fragmentShaderName));
+
+	try {
+		glAttachShader(shaderProgram, m_pShaderManager->getFragmentShader(vertexShaderName));
+	}
+	catch (std::out_of_range exception) {
+		std::cerr << exception.what() << std::endl;
+	}
+	try {
+		glAttachShader(shaderProgram, m_pShaderManager->getVertexShader(fragmentShaderName));
+	}
+	catch (std::out_of_range exception) {
+		std::cerr << exception.what() << std::endl;
+	}
+
 	glLinkProgram(shaderProgram);
 
 	int success;

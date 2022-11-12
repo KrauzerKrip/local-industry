@@ -1,10 +1,11 @@
 #pragma once
 
-#include <cmrc/cmrc.hpp>
-#include <filesystem>
-#include <string>
 
-#include "i_resource.h"
+#include "i_eng_resource.h"
+
+//#include <cmrc/cmrc.hpp>
+#include "../../../../out/build/x64-debug/_cmrc/include/cmrc/cmrc.hpp"
+#include <string>
 
 
 CMRC_DECLARE(eng_resources);

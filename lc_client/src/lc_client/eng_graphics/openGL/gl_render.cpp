@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "lc_client/eng_graphics/entt/components.h"
+#include "lc_client/eng_graphics/texture.h"
 
 RenderGL::RenderGL(IWindow* pWindow) {
 	m_pWindow = pWindow; //mb remove it
@@ -22,27 +23,37 @@ void RenderGL::render() {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	auto materialEntitiesGroup = m_pSceneRegistry->group<MaterialGl, VaoGl>();
+	//auto materialEntitiesGroup = m_pSceneRegistry->group<MaterialGl, VaoGl>();
 
-	for (entt::entity entity : materialEntitiesGroup) {
+	//for (entt::entity entity : materialEntitiesGroup) {
 
 
 
-		MaterialGl& materialGl = materialEntitiesGroup.get<MaterialGl>(entity);
-		VaoGl& vaoGl = materialEntitiesGroup.get<VaoGl>(entity);
-		int shaderProgram = materialGl.shaderProgram;
-		int vaoId = vaoGl.vaoId;
-		
+	//	MaterialGl& materialGl = materialEntitiesGroup.get<MaterialGl>(entity);
+	//	VaoGl& vaoGl = materialEntitiesGroup.get<VaoGl>(entity);
+	//	int shaderProgram = materialGl.shaderProgram;
+	//	int vaoId = vaoGl.vaoId;
 
-		glUseProgram(shaderProgram);
-  
-		//glUniform4f(vertexColorLocation, 0.0f, greenValue, blueValue, 1.0f);
+	//	Texture& aoTexture = materialGl.aoTexture;
+	//	Texture& colorTexture = materialGl.colorTexture;
+	//	Texture& metallicTexture = materialGl.metallicTexture;
+	//	Texture& normalMap = materialGl.normalMap;
+	//	
 
-		glBindVertexArray(vaoId);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+	//	glUseProgram(shaderProgram);
 
-	}
+	//	aoTexture.bind();
+	//	colorTexture.bind();
+	//	metallicTexture.bind();
+	//	normalMap.bind();
+ // 
+	//	//glUniform4f(vertexColorLocation, 0.0f, greenValue, blueValue, 1.0f);
+
+	//	glBindVertexArray(vaoId);
+	//	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	//	glBindVertexArray(0);
+
+	//}
 
 }
 

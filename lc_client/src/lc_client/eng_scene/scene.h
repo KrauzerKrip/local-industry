@@ -5,10 +5,13 @@
 
 #include "lc_client/eng_procedures/i_shaders.h"
 #include "lc_client/eng_procedures/i_graphics_entities_loading.h"
+#include "lc_client/util/i_eng_resource.h"
+#include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
 
 struct SceneDependencies {
 	IShaderManager* pShaderManager;
 	IGraphicsEntitiesLoading* pGraphicsEntitiesLoading;
+	eng::IResource* pResource;
 };
 
 
@@ -28,6 +31,9 @@ private:
 
 	std::string m_name;
 
+	TextureManager* m_pTextureManager = nullptr;
+
 	IShaderManager* m_pShaderManager = nullptr;
 	IGraphicsEntitiesLoading* m_pGraphicsEntitiesLoading = nullptr;
+	eng::IResource* m_pResource;
 };

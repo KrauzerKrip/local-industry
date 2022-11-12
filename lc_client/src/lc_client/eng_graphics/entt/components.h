@@ -2,6 +2,7 @@
 
 #include <variant>
 #include <entt/entity/registry.hpp>
+#include <lc_client/eng_graphics/texture.h>
 
 struct Mesh {
 	Mesh() = default;
@@ -18,13 +19,14 @@ struct VaoGl {
 
 struct MaterialGl {
 	int shaderProgram;
-	int colorTexture;
-	int normalMap;
-	int aoTexture;
-	int metallicTexture;
+	Texture* colorTexture;
+	Texture* normalMap;
+	Texture* aoTexture;
+	Texture* metallicTexture;
 
 	MaterialGl() = default;
-	MaterialGl(const int shaderProgram, const int colorTexture) : shaderProgram(shaderProgram), colorTexture(colorTexture) {};
+	MaterialGl(const int shaderProgram, Texture* colorTexture, Texture* normalMap, Texture* aoTexture, Texture* metallicTexture)
+		: shaderProgram(shaderProgram), colorTexture(colorTexture), normalMap(normalMap), aoTexture(aoTexture), metallicTexture(metallicTexture) {};
 	MaterialGl(const MaterialGl&) = default;
 };
 

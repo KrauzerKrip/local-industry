@@ -11,25 +11,26 @@ TextureManager::TextureManager(eng::IResource* pResource) {
 	m_pResource = pResource;
 }
 
-Texture& TextureManager::getTexture(std::string name) {
+Texture* TextureManager::getTexture(std::string path) {
 	try {
-		return m_textureMap.at(name);
+		return m_textureMap.at(path);
 	}
 	catch (std::out_of_range) {
-		std::cout << "Texture '" << name << "' not found in cache, will try to load." << std::endl;
-		return loadTexture(name);
+		std::cout << "Texture '" << path << "' not found in cache, will try to load." << std::endl;
+		return loadTexture(path);
 	}
 }
 
-Texture& TextureManager::loadTexture(std::string name)	{
-	auto buffer = m_pResource->getFileResource(name);
+Texture* TextureManager::loadTexture(std::string path)	{
+	auto buffer = m_pResource->getFileResource(path + FILE_FORMAT);
 	std::shared_ptr<eng::Image> image = std::make_shared<eng::Image>(buffer);
-	TextureGL textureGL(image);
-	Texture& texture = textureGL;
+	Texture* pTexture = new TextureGL(image);
 
-	texture.load();
+	pTexture->load();
 
-	m_textureMap.emplace(name, texture);
+	m_textureMap.emplace(path, pTexture);
 
-	return texture;
+	return pTexture;
 }
+
+const std::string TextureManager::FILE_FORMAT = ".png";

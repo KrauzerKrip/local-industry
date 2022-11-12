@@ -1,7 +1,8 @@
 #pragma once 
 
-#include <cmrc/cmrc.hpp>
-#include <filesystem>
+//#include <cmrc/cmrc.hpp>
+#include "../../../../out/build/x64-debug/_cmrc/include/cmrc/cmrc.hpp"
+
 
 namespace eng {
 	class IResource {

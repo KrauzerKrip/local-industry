@@ -90,7 +90,7 @@ int ShaderManagerGl::getVertexShader(std::string shaderName) const {
         return m_pVertexShaders->at(shaderName);
     } 
     catch (std::out_of_range) {
-        throw new std::out_of_range("ShaderManagerGl: shader not found: " + shaderName);
+        throw std::out_of_range("ShaderManagerGl: shader not found: " + shaderName);
     }
 }
 
@@ -103,7 +103,7 @@ int ShaderManagerGl::getFragmentShader(std::string shaderName) const {
         return m_pFragmentShaders->at(shaderName);
     }
     catch (std::out_of_range) {
-        throw new std::out_of_range("ShaderManagerGl: shader not found: " + shaderName);
+        throw std::out_of_range("ShaderManagerGl: shader not found: " + shaderName);
     }
 }
 

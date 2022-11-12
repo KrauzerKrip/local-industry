@@ -9,7 +9,8 @@
 #include "lc_client/eng_procedures/i_shaders.h"
 #include "lc_client/eng_procedures/openGL/shaders.h"
 #include "lc_client/eng_procedures/i_graphics_entities_loading.h"
-#include "lc_client/util/i_resource.h"
+#include "lc_client/util/i_eng_resource.h"
+#include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
 
 
 class Game : public IGameLogic {
@@ -28,6 +29,7 @@ private:
 	IRender* m_pRender;
 	Scene* m_pScene;
 	IShaderManager* m_pShaderManager;
+	TextureManager* m_pTextureManager;
 	IGraphicsEntitiesLoading* m_pGraphicsEntitiesLoading;
 	eng::IResource* m_pResource;
 };

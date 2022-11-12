@@ -29,9 +29,17 @@ void Scene::loadScene(std::string name) {
 	m_mapRegistry.clear();
 	m_sceneRegistry.clear();
 
-	auto entt = m_sceneRegistry.create();
-	m_sceneRegistry.emplace<Properties>(entt, "test_uuid", "test_id");
-	m_sceneRegistry.emplace<ModelData>(entt, "test_modelId", "base", "base");
+	auto entity = m_sceneRegistry.create();
+	m_sceneRegistry.emplace<Properties>(entity, "test_uuid", "test_id");
+	ModelData& modelData = m_sceneRegistry.emplace<ModelData>(entity);
+	modelData.id = "test_modelId";
+	modelData.vertexShader = "base";
+	modelData.fragmentShader = "base";
+	modelData.colorTexture =    "textures/dev/test/color";
+	modelData.aoTexture =       "textures/dev/test/ao";
+	modelData.metallicTexture = "textures/dev/test/metallic";
+	modelData.normalMap =       "textures/dev/test/normal";
+
 
 	m_pGraphicsEntitiesLoading->loadMapEntities(getMapRegistry());
 	m_pGraphicsEntitiesLoading->loadSceneEntities(getSceneRegistry());
@@ -40,6 +48,7 @@ void Scene::loadScene(std::string name) {
 void Scene::setDependencies(SceneDependencies& sceneDependencies) {
 	m_pShaderManager = sceneDependencies.pShaderManager;
 	m_pGraphicsEntitiesLoading = sceneDependencies.pGraphicsEntitiesLoading;
+	m_pResource = sceneDependencies.pResource;
 }
 
 

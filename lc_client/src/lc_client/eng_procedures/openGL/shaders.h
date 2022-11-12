@@ -3,7 +3,7 @@
 #include <unordered_map>
 
 #include "lc_client/eng_procedures/i_shaders.h"
-#include "lc_client/util/i_resource.h"
+#include "lc_client/util/i_eng_resource.h"
 
 
 class ShaderManagerGl : public IShaderManager{

@@ -25,6 +25,6 @@ public:
 
 protected:
 	std::string m_name;
-	std::shared_ptr<eng::Image> image;
+	std::shared_ptr<eng::Image> m_image;
 private:
 };
