@@ -65,13 +65,13 @@ unsigned int GraphicsEntitiesLoadingGl::createShaderProgram(std::string vertexSh
 	try {
 		glAttachShader(shaderProgram, m_pShaderManager->getFragmentShader(vertexShaderName));
 	}
-	catch (std::out_of_range exception) {
+	catch (const std::out_of_range &exception) {
 		std::cerr << exception.what() << std::endl;
 	}
 	try {
 		glAttachShader(shaderProgram, m_pShaderManager->getVertexShader(fragmentShaderName));
 	}
-	catch (std::out_of_range exception) {
+	catch (const std::out_of_range &exception) {
 		std::cerr << exception.what() << std::endl;
 	}
 

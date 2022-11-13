@@ -6,6 +6,7 @@
 
 #include "lc_client/eng_graphics/openGL/gl_texture.h"
 #include "lc_client/util/image.h"
+#include "lc_client/exceptions/io_exceptions.h"
 
 TextureManager::TextureManager(eng::IResource* pResource) {
 	m_pResource = pResource;
@@ -22,8 +23,20 @@ Texture* TextureManager::getTexture(std::string path) {
 }
 
 Texture* TextureManager::loadTexture(std::string path)	{
-	auto buffer = m_pResource->getFileResource(path + FILE_FORMAT);
+
+	std::vector<unsigned char> buffer;
+
+	try { 
+		buffer = m_pResource->getFileResource(path + FILE_FORMAT); 
+
+	}
+	catch (ResourceFileNotFound& exception) {
+		std::cerr << exception.what() << std::endl;
+		buffer = m_pResource->getFileResource("dev/textures/texture_not_found" + FILE_FORMAT);
+	}
+
 	std::shared_ptr<eng::Image> image = std::make_shared<eng::Image>(buffer);
+
 	Texture* pTexture = new TextureGL(image);
 
 	pTexture->load();
