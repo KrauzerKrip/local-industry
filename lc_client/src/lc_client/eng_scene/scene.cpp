@@ -35,10 +35,10 @@ void Scene::loadScene(std::string name) {
 	modelData.id = "test_modelId";
 	modelData.vertexShader = "base";
 	modelData.fragmentShader = "base";
-	modelData.colorTexture =    "textures/dev/test/color";
-	modelData.aoTexture =       "textures/dev/test/ao";
-	modelData.metallicTexture = "textures/dev/test/metallic";
-	modelData.normalMap =       "textures/dev/test/normal";
+	modelData.colorTexture =    "dev/textures/loli/color";
+	modelData.aoTexture =       "dev/textures/loli/color";
+	modelData.metallicTexture = "dev/textures/loli/color";
+	modelData.normalMap =       "dev/textures/loli/color";
 
 
 	m_pGraphicsEntitiesLoading->loadMapEntities(getMapRegistry());

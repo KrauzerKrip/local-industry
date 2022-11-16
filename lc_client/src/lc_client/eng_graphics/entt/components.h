@@ -10,7 +10,7 @@ struct Mesh {
 };
 
 struct VaoGl {
-	int vaoId;
+	unsigned int vaoId;
 
 	VaoGl() = default;
 	VaoGl(const int vaoId) : vaoId(vaoId) {};
@@ -18,7 +18,7 @@ struct VaoGl {
 };
 
 struct MaterialGl {
-	int shaderProgram;
+	unsigned int shaderProgram;
 	Texture* colorTexture;
 	Texture* normalMap;
 	Texture* aoTexture;

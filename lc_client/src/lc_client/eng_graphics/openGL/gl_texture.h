@@ -11,4 +11,7 @@ public:
 	void load();
 	void unload();
 	void bind();
+
+private:
+	unsigned int m_textureGl;
 };

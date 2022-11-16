@@ -24,24 +24,39 @@ Texture* TextureManager::getTexture(std::string path) {
 
 Texture* TextureManager::loadTexture(std::string path)	{
 
+
+
 	std::vector<unsigned char> buffer;
 
 	try { 
 		buffer = m_pResource->getFileResource(path + FILE_FORMAT); 
-
 	}
-	catch (ResourceFileNotFound& exception) {
+	catch (ResourceFileNotFoundException& exception) {
 		std::cerr << exception.what() << std::endl;
-		buffer = m_pResource->getFileResource("dev/textures/texture_not_found" + FILE_FORMAT);
+		buffer = m_pResource->getFileResource("dev/textures/texture_not_found/color" + FILE_FORMAT);
 	}
 
-	std::shared_ptr<eng::Image> image = std::make_shared<eng::Image>(buffer);
+	std::shared_ptr<eng::Image> image;
+
+	try {
+		image = std::make_shared<eng::Image>(buffer);
+	}
+	catch (FileTooLargeException) {
+		throw FileTooLargeException("Image is too large to load it: " + path);
+	}
+	catch (ImageLoadFailureException &exception) {
+		std::cerr << exception.what() << std::endl;
+		buffer = m_pResource->getFileResource("dev/textures/texture_not_found/color" + FILE_FORMAT);
+		image = std::make_shared<eng::Image>(buffer);
+	}
 
 	Texture* pTexture = new TextureGL(image);
 
 	pTexture->load();
 
 	m_textureMap.emplace(path, pTexture);
+
+	std::cout << "Texture '" << path << "' loaded." << std::endl;
 
 	return pTexture;
 }

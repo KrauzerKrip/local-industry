@@ -41,13 +41,14 @@ void GraphicsEntitiesLoadingGl::loadSceneEntities(entt::registry* registry) {
 		unsigned int vaoId = createVao();
       
 		VaoGl vaoGl = registry->emplace<VaoGl>(entity, vaoId);
-		MaterialGl materialGl = registry->emplace<MaterialGl>(entity);
+		MaterialGl& materialGl = registry->emplace<MaterialGl>(entity);
 
 		aoTexture->load();
 		colorTexture->load();
 		metallicTexture->load();
 		normalMap->load();
 		
+		materialGl.shaderProgram = shaderProgram;
 		materialGl.aoTexture = aoTexture;
 		materialGl.colorTexture = colorTexture;
 		materialGl.metallicTexture = metallicTexture;
@@ -104,11 +105,12 @@ unsigned int GraphicsEntitiesLoadingGl::createVao() {
 	glGenBuffers(1, &ebo);
 
 	//
-	float vertices[] {
-		0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // top right
-			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // bottom right
-			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,// bottom left
-			-0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f// top left
+	float vertices[] = {
+		// Positions          // Colors           // Texture Coords
+		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // Top Right
+		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // Bottom Right
+		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // Bottom Left
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // Top Left 
 	};
 
 	unsigned int indices_[] { // note that we start from 0!
@@ -116,11 +118,6 @@ unsigned int GraphicsEntitiesLoadingGl::createVao() {
 			1, 2, 3 // second triangle
 	};
 
-	float textureCoords[] {
-		0.0f, 0.0f, // lower-left corner
-		1.0f, 0.0f, // lower-right corner
-		0.5f, 1.0f // top-center corner
-	};
 	//
 
 	// 1. bind Vertex Array Object
@@ -132,13 +129,15 @@ unsigned int GraphicsEntitiesLoadingGl::createVao() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices_), indices_, GL_STATIC_DRAW);
 
-	// 4. then set the vertex attributes pointers
-	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	// Position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
-	// color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	// Color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
+	// TexCoord attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
 
 	return vao;
 }

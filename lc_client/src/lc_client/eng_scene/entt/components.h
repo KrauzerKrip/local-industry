@@ -16,10 +16,10 @@ struct ModelData {
 	std::string vertexShader;
 	std::string fragmentShader;
 
-	std::string colorTexture;
-	std::string normalMap;
-	std::string aoTexture;
-	std::string metallicTexture;
+	std::string colorTexture = "";
+	std::string normalMap = "";
+	std::string aoTexture = "";
+	std::string metallicTexture = "";
 	 
 	ModelData() = default;
 	ModelData(

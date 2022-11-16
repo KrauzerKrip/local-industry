@@ -26,6 +26,6 @@ bool InputGlfw::getKeyPressed(const char* key) {
 		return m_pWindow->isKeyPressed(GLFW_KEY_D);
 	}
 	else {
-		throw UnknownKeyCode(key);
+		throw UnknownKeyCodeException(key);
 	}
 }

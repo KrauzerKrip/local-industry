@@ -30,7 +30,7 @@ namespace eng {
 				return buffer;
 			}
 			else {
-				throw ResourceFileNotFound(path.c_str()); 
+				throw ResourceFileNotFoundException(path); 
 			}
 		}
 }
