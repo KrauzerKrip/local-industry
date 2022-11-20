@@ -27,20 +27,21 @@ void RenderGL::render() {
 
 	for (entt::entity entity : materialEntitiesGroup) {
 
-
-
 		MaterialGl& materialGl = materialEntitiesGroup.get<MaterialGl>(entity);
 		VaoGl& vaoGl = materialEntitiesGroup.get<VaoGl>(entity);
 		int shaderProgram = materialGl.shaderProgram;
 		int vaoId = vaoGl.vaoId;
 
-		Texture* aoTexture = materialGl.aoTexture; // null
+		Texture* aoTexture = materialGl.aoTexture;
 		Texture* colorTexture = materialGl.colorTexture;
 		Texture* metallicTexture = materialGl.metallicTexture;
 		Texture* normalMap = materialGl.normalMap;
 		
 
 		glUseProgram(shaderProgram);
+
+		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerColor"), 0);
+		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerNormal"), 1);
 
 		aoTexture->bind();
 		colorTexture->bind();

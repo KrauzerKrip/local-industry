@@ -2,6 +2,8 @@
 
 #include <glad/glad.h>
 #include <vector>
+#include <stdexcept>
+#include <iostream>
 
 
 TextureGL::TextureGL(std::shared_ptr<eng::Image> image) {
@@ -11,6 +13,31 @@ TextureGL::TextureGL(std::shared_ptr<eng::Image> image) {
 }
 
 void TextureGL::load() {
+
+	if (m_textureType == TextureType::NONE) {
+		std::cerr << "Texture type is undefined" << std::endl;
+		throw std::runtime_error("Texture type is undefined.");
+	}
+
+#ifdef DEBUG
+	if (m_textureType == TextureType::COLOR) {
+		std::cout << "COLOR: " << GL_TEXTURE0 + m_textureType << m_textureType <<std::endl;
+	}
+
+	if (m_textureType == TextureType::NORMAL) {
+		std::cout << "NORMAL: " << GL_TEXTURE0 + m_textureType << m_textureType << std::endl;
+	}
+
+	if (m_textureType == TextureType::AO) {
+		std::cout << "AO: " << GL_TEXTURE0 + m_textureType << m_textureType << std::endl;
+	}
+
+	if (m_textureType == TextureType::METALLIC) {
+		std::cout << "METALLIC: " << GL_TEXTURE0 + m_textureType << m_textureType << std::endl;
+	}
+#endif
+
+	glActiveTexture(GL_TEXTURE0 + m_textureType);
 	glBindTexture(GL_TEXTURE_2D, m_textureGl);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -27,6 +54,11 @@ void TextureGL::unload() {
 }
 
 void TextureGL::bind() {
+	glActiveTexture(GL_TEXTURE0 + m_textureType);
 	glBindTexture(GL_TEXTURE_2D, m_textureGl);
 }
 
+
+void TextureGL::setTextureType(TextureType textureType) {
+	m_textureType = textureType;
+}

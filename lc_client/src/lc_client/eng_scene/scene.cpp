@@ -36,9 +36,9 @@ void Scene::loadScene(std::string name) {
 	modelData.vertexShader = "base";
 	modelData.fragmentShader = "base";
 	modelData.colorTexture =    "dev/textures/loli/color";
-	modelData.aoTexture =       "dev/textures/loli/color";
-	modelData.metallicTexture = "dev/textures/loli/color";
-	modelData.normalMap =       "dev/textures/loli/color";
+	modelData.aoTexture =       "dev/textures/loli/none";
+	modelData.metallicTexture = "dev/textures/loli/none";
+	modelData.normalMap =       "dev/textures/loli/normal";
 
 
 	m_pGraphicsEntitiesLoading->loadMapEntities(getMapRegistry());

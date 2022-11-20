@@ -8,7 +8,8 @@
 #include "lc_client/util/image.h"
 #include "lc_client/exceptions/io_exceptions.h"
 
-TextureManager::TextureManager(eng::IResource* pResource) {
+
+TextureManager::TextureManager(eng::IResource* pResource) { 
 	m_pResource = pResource;
 }
 
@@ -22,19 +23,17 @@ Texture* TextureManager::getTexture(std::string path) {
 	}
 }
 
-Texture* TextureManager::loadTexture(std::string path)	{
-
-
+Texture* TextureManager::loadTexture(std::string path)	{ 
 
 	std::vector<unsigned char> buffer;
 
-	try { 
+	try {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 		buffer = m_pResource->getFileResource(path + FILE_FORMAT); 
 	}
 	catch (ResourceFileNotFoundException& exception) {
 		std::cerr << exception.what() << std::endl;
 		buffer = m_pResource->getFileResource("dev/textures/texture_not_found/color" + FILE_FORMAT);
-	}
+	}  
 
 	std::shared_ptr<eng::Image> image;
 
@@ -45,14 +44,12 @@ Texture* TextureManager::loadTexture(std::string path)	{
 		throw FileTooLargeException("Image is too large to load it: " + path);
 	}
 	catch (ImageLoadFailureException &exception) {
-		std::cerr << exception.what() << std::endl;
+		std::cerr << "Failed to load texture: " << path << ": " << exception.what() << std::endl;
 		buffer = m_pResource->getFileResource("dev/textures/texture_not_found/color" + FILE_FORMAT);
 		image = std::make_shared<eng::Image>(buffer);
 	}
 
-	Texture* pTexture = new TextureGL(image);
-
-	pTexture->load();
+	Texture* pTexture = new TextureGL(image); // TODO
 
 	m_textureMap.emplace(path, pTexture);
 

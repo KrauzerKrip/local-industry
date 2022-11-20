@@ -5,6 +5,7 @@
 #include "lc_client/eng_graphics/texture.h"
 #include "lc_client/util/i_eng_resource.h"
 
+
 class TextureManager {
 public:
 	TextureManager(eng::IResource* pResource);

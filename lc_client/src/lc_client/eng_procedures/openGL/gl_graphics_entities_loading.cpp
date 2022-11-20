@@ -21,7 +21,7 @@ void GraphicsEntitiesLoadingGl::loadMapEntities(entt::registry* registry) {
 
 void GraphicsEntitiesLoadingGl::loadSceneEntities(entt::registry* registry) {
 	auto entitiesGroup = registry->group<Properties, ModelData>();
-
+	 
 
 	for (entt::entity entity : entitiesGroup) {
 
@@ -42,6 +42,11 @@ void GraphicsEntitiesLoadingGl::loadSceneEntities(entt::registry* registry) {
       
 		VaoGl vaoGl = registry->emplace<VaoGl>(entity, vaoId);
 		MaterialGl& materialGl = registry->emplace<MaterialGl>(entity);
+
+		colorTexture->setTextureType(TextureType::COLOR);
+		aoTexture->setTextureType(TextureType::AO);
+		metallicTexture->setTextureType(TextureType::METALLIC);
+		normalMap->setTextureType(TextureType::NORMAL);
 
 		aoTexture->load();
 		colorTexture->load();
