@@ -1,6 +1,7 @@
 #pragma once 
 
 #include <string>
+#include <glm/vec3.hpp>
 
 struct Properties {
 	std::string uuid;
@@ -9,6 +10,15 @@ struct Properties {
 	Properties() = default;
 	Properties(std::string uuid, std::string id) : uuid(uuid), id(id) {};
 	Properties(const Properties&) = default;
+};
+
+struct Transform {
+	glm::vec3 position;
+	glm::vec3 rotation;
+	glm::vec3 scale;
+
+	Transform() = default;
+	Transform(const Transform&) = default;
 };
 
 struct ModelData {

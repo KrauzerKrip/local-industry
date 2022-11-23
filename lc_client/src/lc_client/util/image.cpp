@@ -29,6 +29,7 @@ namespace eng{
 
 		int size = static_cast<int>(buffer.size());
 
+		stbi_set_flip_vertically_on_load(true);
 		unsigned char* data = stbi_load_from_memory(buffer.data(), size, &m_width, &m_height, &m_nrChannels, 0);
 
 		if (data == NULL) {

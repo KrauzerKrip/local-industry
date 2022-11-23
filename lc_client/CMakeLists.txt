@@ -5,10 +5,12 @@ project(lc_client)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(EnTT CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
 target_link_libraries(lc_client PUBLIC glfw glad::glad EnTT::EnTT)
+target_link_libraries(lc_client PUBLIC glm::glm)
 
 target_link_libraries(lc_client PRIVATE eng::rc)
-target_link_libraries(lc_client PRIVATE stb)
+target_link_libraries(lc_client PRIVATE stb)   
 
 target_sources(lc_client 
     PRIVATE
