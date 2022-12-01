@@ -16,4 +16,8 @@ target_sources(lc_client
         "openGL/gl_texture.cpp"
 
         "entt/components.h"
+
+        "camera/camera.h"
+        "camera/camera.cpp"
+
 )

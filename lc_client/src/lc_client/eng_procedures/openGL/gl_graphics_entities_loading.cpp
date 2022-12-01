@@ -110,18 +110,79 @@ unsigned int GraphicsEntitiesLoadingGl::createVao() {
 	glGenBuffers(1, &ebo);
 
 	//
-	float vertices[] = {
-		// Positions          // Colors           // Texture Coords
-		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // Top Right
-		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // Bottom Right
-		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // Bottom Left
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // Top Left 
+	//float vertices[] = {
+	//	// Positions          // Colors           // Texture Coords
+	//	 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // Top Right
+	//	 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // Bottom Right
+	//	-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // Bottom Left
+	//	-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // Top Left 
+	//};
+
+	//float vertices[] = {
+	//-0.5, -0.5,  0.5,  1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+	//0.5, -0.5,  0.5,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+	//-0.5,  0.5,  0.5,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+	//0.5,  0.5,  0.5,  1.0f, 0.0f, 0.0f,  0.0f, 1.0f,
+	//-0.5, -0.5, -0.5, 1.0f, 0.0f, 0.0f,  1.0f, 1.0f,
+	//0.5, -0.5, -0.5, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+	//-0.5,  0.5, -0.5, 1.0f, 0.0f, 0.0f,  0.0f, 0.0f,
+	//0.5,  0.5, -0.5, 1.0f, 0.0f, 0.0f,  0.0f, 1.0f
+	//};
+
+
+	//unsigned int indices_[] { // note that we start from 0!
+	//	0, 1, 3, // first triangle
+	//		1, 2, 3 // second triangle
+	//};
+
+	unsigned int indices_[] = {
+		//Top
+		2, 6, 7,
+		2, 3, 7,
+
+		//Bottom
+		0, 4, 5,
+		0, 1, 5,
+
+		//Left
+		0, 2, 6,
+		0, 4, 6,
+
+		//Right
+		1, 3, 7,
+		1, 5, 7,
+
+		//Front
+		0, 2, 3,
+		0, 1, 3,
+
+		//Back
+		4, 6, 7,
+		4, 5, 7
 	};
 
-	unsigned int indices_[] { // note that we start from 0!
-		0, 1, 3, // first triangle
-			1, 2, 3 // second triangle
+
+	float vertices[] = {
+		-0.5, -0.5,  0.5,     0.0, 0.0, 0.0,  1.0, 1.0,//0
+		 0.5, -0.5,  0.5,     0.0, 0.0, 0.0,  0.0, 1.0, //1
+		-0.5,  0.5,  0.5,     0.0, 0.0, 0.0,  0.0, 1.0, //2
+		 0.5,  0.5,  0.5,     0.0, 0.0, 0.0,  1.0, 1.0, //3
+		-0.5, -0.5, -0.5,     0.0, 0.0, 0.0,  1.0, 0.0, //4
+		 0.5, -0.5, -0.5,     0.0, 0.0, 0.0,  0.0, 0.0, //5
+		-0.5,  0.5, -0.5,     0.0, 0.0, 0.0,  0.0, 0.0, //6
+		 0.5,  0.5, -0.5,     0.0, 0.0, 0.0,  1.0, 0.0 //7
 	};
+
+	//unsigned int indices_[]{ // note that we start from 0!
+	//	0, 1, 2, 
+	//	3, 1, 2,
+	//	3, 1, 2,
+	//	7, 1, 4,
+	//	5, 4, 7,
+	//	6, 2, 4, 
+	//	0, 1, 4,
+	//	2, 8, 7
+	//};
 
 	//
 
@@ -135,10 +196,10 @@ unsigned int GraphicsEntitiesLoadingGl::createVao() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices_), indices_, GL_STATIC_DRAW);
 
 	// Position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	// Color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 	// TexCoord attribute
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));

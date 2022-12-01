@@ -10,8 +10,9 @@
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_graphics/texture.h"
 
-RenderGL::RenderGL(IWindow* pWindow) {
+RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera) {
 	m_pWindow = pWindow; //mb remove it
+	m_pCamera = pCamera;
 }
 
 RenderGL::~RenderGL() {
@@ -19,12 +20,16 @@ RenderGL::~RenderGL() {
 }
 
 void RenderGL::init() {
-
+	glEnable(GL_DEPTH_TEST);
 }
 
 void RenderGL::render() {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	float aspectRatio = (float)m_pWindow->getAspectRatio()[0] / (float)m_pWindow->getAspectRatio()[1];
+	glm::mat4 projection = glm::perspective(glm::radians(m_pWindow->getFov()), aspectRatio, 0.1f, 100.0f);
+	glm::mat4 view = m_pCamera->getViewMatrix(); // glm::mat4(1.0f);
 
 	auto materialEntitiesGroup = m_pSceneRegistry->group<MaterialGl, VaoGl, Transform>();
 
@@ -46,23 +51,27 @@ void RenderGL::render() {
 		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerColor"), 0);
 		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerNormal"), 1);
 
-		glm::mat4 transformation = glm::mat4(1.0f);
-		RenderGL::transform(transformation, transform);
+		glm::mat4 model = glm::mat4(1.0f);
+		RenderGL::transform(model, transform);
 
-		unsigned int transformLocation = glGetUniformLocation(shaderProgram, "transform");
-		glUniformMatrix4fv(transformLocation, 1, GL_FALSE, glm::value_ptr(transformation));
+		//glm::mat4 modelView = view * model;
+
+		unsigned int modelLoc = glGetUniformLocation(shaderProgram, "model");
+		unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
+		unsigned int projLoc = glGetUniformLocation(shaderProgram, "projection");
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
 
 		aoTexture->bind();
 		colorTexture->bind();
 		metallicTexture->bind();
 		normalMap->bind();
-  
-		//glUniform4f(vertexColorLocation, 0.0f, greenValue, blueValue, 1.0f);
 
 		glBindVertexArray(vaoId);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		//glBindVertexArray(0);
-
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 	}
 
 }
@@ -80,7 +89,8 @@ void RenderGL::setRegistries(entt::registry* mapRegistry, entt::registry* sceneR
 	m_pSceneRegistry = sceneRegistry;
 }
 
-void RenderGL::transform(glm::mat4& transformation, Transform& transform) {
-	transformation = glm::rotate(transformation, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-	transformation = glm::scale(transformation, glm::vec3(0.5, 0.5, 0.5));
+void RenderGL::transform(glm::mat4& model, Transform& transform) {
+	model = glm::translate(model, transform.position);
+	model = glm::rotate(model, glm::radians(-55.0f), transform.rotation);
+	model = glm::scale(model, transform.scale);
 }

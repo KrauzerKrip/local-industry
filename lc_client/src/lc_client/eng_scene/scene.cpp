@@ -5,6 +5,8 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/vec3.hpp>
 
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_scene/entt/components.h"
@@ -38,8 +40,12 @@ void Scene::loadScene(std::string name) {
 	modelData.colorTexture =    "dev/textures/loli/color";
 	modelData.aoTexture =       "dev/textures/loli/none";
 	modelData.metallicTexture = "dev/textures/loli/none";
-	modelData.normalMap =       "dev/textures/loli/normal";
+	modelData.normalMap =       "dev/textures/loli/normal";\
 
+	Transform& transform = m_sceneRegistry.emplace<Transform>(entity);
+	transform.position = glm::vec3(0.0f, 0.0f, -5.0f);
+	transform.rotation = glm::vec3(1.0f, 0.0f, 0.0f);
+	transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	m_pGraphicsEntitiesLoading->loadMapEntities(getMapRegistry());
 	m_pGraphicsEntitiesLoading->loadSceneEntities(getSceneRegistry());

@@ -1,6 +1,9 @@
 #include "lc_client/loop.h"
 
+#include <GLFW/glfw3.h>
 #include <stdexcept>
+
+#include "ldk_client/local_engine/time.h"
 
 
 Loop::Loop(IWindow* pWindow, IGameLogic* gameLogic, int targetFPS, int targetUPS) {
@@ -30,8 +33,21 @@ void Loop::init() {
 }
 
 void Loop::startLoop() {
+
+	double lastTime = 0.0;
+
 	while (!m_pWindow->windowShouldClose()) {
-		//m_pGameLogic->update();
+
+		double currentTime = glfwGetTime();
+
+		m_deltaTime = currentTime - lastTime;
+		lastTime = currentTime;
+		Time::m_deltaTime = m_deltaTime;
+
+		m_pGameLogic->input();
+
+		//
+
 		m_pGameLogic->render();
 		m_pWindow->update();
 	}

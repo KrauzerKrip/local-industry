@@ -1,4 +1,6 @@
 #include "gl_window.h"
+#include "gl_window.h"
+#include "gl_window.h"
 #include "lc_client/eng_graphics/openGL/gl_window.h"
 
 #include <iostream>
@@ -12,12 +14,13 @@
 #include "lc_client/exceptions/glad_exceptions.h"
 
 
-WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio, bool vSync) {
+WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio, bool vSync, float fov) {
 	m_title = title;
 	m_width = width;
 	m_height = height;
 	m_pAspectRatio = aspectRatio;
 	m_vSync = vSync;
+	m_fov = fov;
 }
 
 WindowGL::~WindowGL() {
@@ -57,6 +60,8 @@ void WindowGL::init() {
 		glfwSwapInterval(1);
 	}
 
+	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 	glfwSetWindowUserPointer(m_pGlfwWindow, this);
 	glfwSetWindowAspectRatio(m_pGlfwWindow, m_pAspectRatio[0], m_pAspectRatio[1]);
 
@@ -85,13 +90,8 @@ IInput* WindowGL::getInput() {
 	return m_pInput;
 }
 
-bool WindowGL::isKeyPressed(int key) {
-	if (glfwGetKey(m_pGlfwWindow, key) == GLFW_PRESS) {
-		return true;
-	}
-	else {
-		return false;
-	}
+GLFWwindow* WindowGL::getGlfwWindow() {
+	return m_pGlfwWindow;
 }
 
 int* WindowGL::getSize() {
@@ -111,6 +111,14 @@ int* WindowGL::getAspectRatio() {
 	return m_pAspectRatio;
 }
 
+float WindowGL::getFov() {
+	return m_fov;
+}
+
+void WindowGL::setFov(float fov) {
+	m_fov = fov;
+}
+
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 
 	WindowGL* pWindowGL = (WindowGL*)glfwGetWindowUserPointer(window);
@@ -123,4 +131,10 @@ static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 	
 	
 	glViewport(0, 0, widthWindow, heightWindow);
+}
+
+static void mouseCallback(GLFWwindow* window, double x, double y) {
+
+	WindowGL* pWindowGL = (WindowGL*)glfwGetWindowUserPointer(window);
+	
 }

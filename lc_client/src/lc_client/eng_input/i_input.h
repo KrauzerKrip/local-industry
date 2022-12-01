@@ -4,6 +4,8 @@ class IInput {
 public:
 	virtual ~IInput() {};
 
-	virtual bool getKeyPressed(const char* key) = 0;
+	virtual bool isKeyPressed(const char* key) = 0;
+	virtual double getMousePosX() = 0;
+	virtual double getMousePosY() = 0;
 	//virtual asd getWheelOffsets() = 0;
 };

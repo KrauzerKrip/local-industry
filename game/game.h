@@ -11,6 +11,7 @@
 #include "lc_client/eng_procedures/i_graphics_entities_loading.h"
 #include "lc_client/util/i_eng_resource.h"
 #include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
+#include "lc_client/eng_graphics/camera/camera.h"
 
 
 class Game : public IGameLogic {
@@ -19,6 +20,7 @@ public:
 	virtual ~Game();
 
 	void init();
+	void input();
 	void update();
 	void render();
 	void cleanUp();
@@ -26,10 +28,15 @@ public:
 private:
 	IWindow* m_pWindow;;
 	IInput* m_pInput;
+	Camera* m_pCamera;
 	IRender* m_pRender;
 	Scene* m_pScene;
 	IShaderManager* m_pShaderManager;
 	TextureManager* m_pTextureManager;
 	IGraphicsEntitiesLoading* m_pGraphicsEntitiesLoading;
 	eng::IResource* m_pResource;
+
+	double m_lastMousePosX = 0.0;
+	double m_lastMousePosY = 0.0;
+	float m_sensivity = 0.1f;
 };
