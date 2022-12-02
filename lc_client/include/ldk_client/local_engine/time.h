@@ -4,7 +4,7 @@
 
 class Time {
 public:
-	static float getTime();
+	static float getDeltaTime();
 
 private:
 	friend void Loop::startLoop();

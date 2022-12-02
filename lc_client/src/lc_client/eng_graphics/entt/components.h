@@ -2,10 +2,24 @@
 
 #include <variant>
 #include <entt/entity/registry.hpp>
-#include <lc_client/eng_graphics/texture.h>
+#include <vector>
+#include <glm/glm.hpp>
+
+#include "lc_client/eng_graphics/texture.h"
+
+
+struct Vertex {
+	glm::vec3 position;
+	glm::vec3 normal;
+	glm::vec2 texureCoords;
+};
 
 struct Mesh {
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+
 	Mesh() = default;
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices) : vertices(std::move(vertices)), indices(std::move(indices));
 	Mesh(const Mesh&) = default;
 };
 

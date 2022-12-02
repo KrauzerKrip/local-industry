@@ -1,6 +1,6 @@
 #include "ldk_client/local_engine/time.h"
 
-float Time::getTime() {
+float Time::getDeltaTime() {
 		return m_deltaTime;
 }
 

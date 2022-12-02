@@ -11,6 +11,7 @@
 #include "lc_client/eng_procedures/openGL/gl_graphics_entities_loading.h"
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
+#include "lc_client/exceptions/input_exceptions.h"
 
 
 Game::Game(IWindow* pWindow) {
@@ -69,25 +70,49 @@ void Game::input() {
 	m_pCamera->setRotation(cameraRot);
 
 
-	const float cameraSpeed = 0.05f; 
+	float cameraSpeed = 0.05f; 
 
 	glm::vec3 cameraPos = m_pCamera->getPosition();
 
-	if (m_pInput->isKeyPressed("W")) {
-		cameraPos += cameraSpeed * m_pCamera->getCameraFront();
-	}
-	if (m_pInput->isKeyPressed("S")) {
-		cameraPos += cameraSpeed * -m_pCamera->getCameraFront();
-	}
-	if (m_pInput->isKeyPressed("A")) {
-		cameraPos += cameraSpeed * -m_pCamera->getCameraRight();
-	}
-	if (m_pInput->isKeyPressed("D")) {
-		cameraPos += cameraSpeed * m_pCamera->getCameraRight();
-	}
+	try {
+		if (m_pInput->isKeyPressed("LEFT_SHIFT")) {
+			cameraSpeed = 0.1f;
+		}
 
-	if (m_pInput->isKeyPressed("E")) {
-		exit(0);
+		if (m_pInput->isKeyPressed("W")) {
+			cameraPos += cameraSpeed * m_pCamera->getCameraFront();
+		}
+		if (m_pInput->isKeyPressed("S")) {
+			cameraPos += cameraSpeed * -m_pCamera->getCameraFront();
+		} 
+		if (m_pInput->isKeyPressed("A")) {
+			cameraPos += cameraSpeed * -m_pCamera->getCameraRight();
+		}
+		if (m_pInput->isKeyPressed("D")) {
+			cameraPos += cameraSpeed * m_pCamera->getCameraRight();
+		}
+
+		if (m_pInput->isKeyPressed("SPACE")) {
+			cameraPos += cameraSpeed * glm::vec3(0, 1, 0);
+		}
+		if (m_pInput->isKeyPressed("LEFT_CTRL")) {
+			cameraPos += cameraSpeed * glm::vec3(0, -1, 0);
+		}
+
+		if (m_pInput->isKeyPressed("B")) {
+			m_pWindow->setFov(10);
+		}
+		else {
+			m_pWindow->setFov(45);
+		}
+
+
+		if (m_pInput->isKeyPressed("ESC")) {
+			exit(0);
+		}
+	}
+	catch (UnknownKeyCodeException& exception) {
+		std::cerr << exception.what() << std::endl;
 	}
 	
 	m_pCamera->setPosition(cameraPos);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <GLFW/glfw3.h>
 
 #include "lc_client/eng_input/i_input.h"
@@ -10,7 +11,7 @@ public:
 	InputGlfw(IWindow* pWindow);
 	~InputGlfw();
 
-	bool isKeyPressed(const char* key);
+	bool isKeyPressed(std::string key);
 	double getMousePosX();
 	double getMousePosY();
 
