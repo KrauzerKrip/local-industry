@@ -21,14 +21,12 @@ Game::Game(IWindow* pWindow) {
 	m_pResource = new eng::Resource("D:/Industry/industry/res/");
 	m_pShaderManager = new ShaderManagerGl(m_pResource);
 	m_pTextureManager = new TextureManager(m_pResource);
-	m_pGraphicsEntitiesLoading = new GraphicsEntitiesLoadingGl(m_pShaderManager, m_pTextureManager);
 }
 
 Game::~Game() {
 	delete m_pRender;
 	delete m_pResource;
 	delete m_pShaderManager;
-	delete m_pGraphicsEntitiesLoading;
 	delete m_pCamera;
 };
 
@@ -37,11 +35,15 @@ void Game::init() {
 
 	m_pShaderManager->loadShaders();
 
+	m_pScene = SceneControlling::getScene();
+	m_pModelManager = new ModelManager(m_pResource, m_pTextureManager, m_pScene->getUtilRegistry());
 	SceneDependencies sceneDependecies;
 	sceneDependecies.pShaderManager = m_pShaderManager;
-	sceneDependecies.pGraphicsEntitiesLoading = m_pGraphicsEntitiesLoading;
+	sceneDependecies.pResource = m_pResource;
+	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoadingGl(
+		m_pShaderManager, m_pTextureManager, m_pModelManager, 
+		m_pScene->getMapRegistry(), m_pScene->getSceneRegistry(), m_pScene->getUtilRegistry());
 
-	m_pScene = SceneControlling::getScene();
 	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("test");
 

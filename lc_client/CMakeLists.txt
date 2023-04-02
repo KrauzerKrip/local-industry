@@ -31,7 +31,7 @@ add_subdirectory("src/lc_client/eng_graphics")
 add_subdirectory("src/lc_client/eng_entties")
 add_subdirectory("src/lc_client/eng_input")
 add_subdirectory("src/lc_client/eng_procedures")
-add_subdirectory("src/lc_client/eng_scene")
+add_subdirectory("src/lc_client/eng_model")
 add_subdirectory("src/lc_client/exceptions")
 add_subdirectory("src/lc_client/util")
 

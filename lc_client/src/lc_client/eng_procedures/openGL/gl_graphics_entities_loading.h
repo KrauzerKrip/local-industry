@@ -4,22 +4,28 @@
 
 #include <entt/entt.hpp>
 
-#include "../i_graphics_entities_loading.h"
+#include "../graphics_entities_loading.h"
 #include "lc_client/eng_procedures/i_shaders.h"
 #include "gl_texture_manager.h"
+#include "lc_client/eng_graphics/entt/components.h"
+#include "lc_client/eng_model/model_manager.h"
 
 
-class GraphicsEntitiesLoadingGl : public IGraphicsEntitiesLoading {
+class GraphicsEntitiesLoadingGl : public GraphicsEntitiesLoading {
 public:
-	GraphicsEntitiesLoadingGl(IShaderManager* pShaderManager, TextureManager* pTextureManager);
+	GraphicsEntitiesLoadingGl(IShaderManager* pShaderManager,
+		TextureManager* pTextureManager,
+		ModelManager* pModelManager,
+		entt::registry* pMapRegistry,
+		entt::registry* pSceneRegistry,
+		entt::registry* pUtilRegistry);
+
 	~GraphicsEntitiesLoadingGl();
 
-	void loadSceneEntities(entt::registry* registry);
-	void loadMapEntities(entt::registry* registry);
+	void loadSceneEntities();
+	void loadMapEntities();
 private:
+	void handleModel(Model* pModel);
 	unsigned int createShaderProgram(std::string vertexShaderName, std::string fragmentShaderName);
-	unsigned int createVao(); //change to std::vector<Vertice> vertices
-
-	IShaderManager* m_pShaderManager = nullptr;
-	TextureManager* m_pTextureManager = nullptr;
+	unsigned int createVao(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
 };

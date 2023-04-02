@@ -22,21 +22,16 @@ struct Transform {
 };
 
 struct ModelData {
-	std::string id;
-	std::string vertexShader;
-	std::string fragmentShader;
-
-	std::string colorTexture = "";
-	std::string normalMap = "";
-	std::string aoTexture = "";
-	std::string metallicTexture = "";
+	const std::string id;
+	const std::string path;
+	const std::string texturesPath;
+	const std::string vertexShader;
+	const std::string fragmentShader;
 	 
 	ModelData() = default;
 	ModelData(
-		std::string id, std::string vertexShader, std::string fragmentShader, 
-		std::string& colorTexture, std::string& normalMap, std::string& aoTexture, std::string& metallicTexture)
-		: id(id), vertexShader(vertexShader), fragmentShader(fragmentShader), 
-		colorTexture(colorTexture), normalMap(normalMap), aoTexture(aoTexture), metallicTexture(metallicTexture) {};
+		const std::string id, const std::string path, const std::string texturesPath, const std::string vertexShader, const std::string fragmentShader)
+		: id(id), path(path), texturesPath(texturesPath), vertexShader(vertexShader), fragmentShader(fragmentShader) {};
 	ModelData(const ModelData&) = default;
 };
 

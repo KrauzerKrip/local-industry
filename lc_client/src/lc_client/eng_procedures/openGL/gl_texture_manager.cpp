@@ -32,7 +32,7 @@ Texture* TextureManager::loadTexture(std::string path)	{
 	}
 	catch (ResourceFileNotFoundException& exception) {
 		std::cerr << exception.what() << std::endl;
-		buffer = m_pResource->getFileResource("dev/textures/texture_not_found/color" + FILE_FORMAT);
+		buffer = m_pResource->getFileResource("dev/textures/eng_texture_not_found/color" + FILE_FORMAT);
 	}  
 
 	std::shared_ptr<eng::Image> image;
@@ -45,7 +45,7 @@ Texture* TextureManager::loadTexture(std::string path)	{
 	}
 	catch (ImageLoadFailureException &exception) {
 		std::cerr << "Failed to load texture: " << path << ": " << exception.what() << std::endl;
-		buffer = m_pResource->getFileResource("dev/textures/texture_not_found/color" + FILE_FORMAT);
+		buffer = m_pResource->getFileResource("dev/textures/eng_texture_not_found/color" + FILE_FORMAT);
 		image = std::make_shared<eng::Image>(buffer);
 	}
 

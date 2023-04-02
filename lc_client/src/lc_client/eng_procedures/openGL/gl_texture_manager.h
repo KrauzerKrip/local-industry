@@ -10,10 +10,10 @@ class TextureManager {
 public:
 	TextureManager(eng::IResource* pResource);
 
-	Texture* getTexture(std::string name);
+	Texture* getTexture(std::string path);
 
 private: 
-	Texture* loadTexture(std::string name);
+	Texture* loadTexture(std::string path);
 
 	std::unordered_map<std::string, Texture*> m_textureMap;
 	

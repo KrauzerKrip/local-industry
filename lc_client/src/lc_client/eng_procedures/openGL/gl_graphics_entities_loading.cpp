@@ -8,60 +8,63 @@
 #include "lc_client/eng_graphics/texture.h"
 
 
-GraphicsEntitiesLoadingGl::GraphicsEntitiesLoadingGl(IShaderManager* pShaderManager, TextureManager* pTextureManager) {
-	m_pShaderManager = pShaderManager;
-	m_pTextureManager = pTextureManager;
-};
+GraphicsEntitiesLoadingGl::GraphicsEntitiesLoadingGl(IShaderManager* pShaderManager,
+	TextureManager* pTextureManager,
+	ModelManager* pModelManager,
+	entt::registry* pMapRegistry,
+	entt::registry* pSceneRegistry,
+	entt::registry* pUtilRegistry)
+	: GraphicsEntitiesLoading{ pShaderManager, pTextureManager, pModelManager,
+	pMapRegistry, pSceneRegistry, pUtilRegistry } {};
 
 GraphicsEntitiesLoadingGl::~GraphicsEntitiesLoadingGl() {};
 
-void GraphicsEntitiesLoadingGl::loadMapEntities(entt::registry* registry) {
+void GraphicsEntitiesLoadingGl::loadMapEntities() {
 	
 }
 
-void GraphicsEntitiesLoadingGl::loadSceneEntities(entt::registry* registry) {
-	auto entitiesGroup = registry->group<Properties, ModelData>();
+void GraphicsEntitiesLoadingGl::loadSceneEntities() {
+	auto entitiesGroup = m_pSceneRegistry->group<Properties, ModelData>();
 	 
 
 	for (entt::entity entity : entitiesGroup) {
 
 		Properties& properties = entitiesGroup.get<Properties>(entity);
 		ModelData& modelData = entitiesGroup.get<ModelData>(entity);
- 		std::string id = modelData.id;
-		std::string vertexShaderName = modelData.vertexShader;
-		std::string fragmentShaderName = modelData.fragmentShader;
+		const std::string id = modelData.id;
+		const std::string vertexShaderName = modelData.vertexShader;
+		const std::string fragmentShaderName = modelData.fragmentShader;
 
 		unsigned int shaderProgram = createShaderProgram(vertexShaderName, fragmentShaderName);
-		
-		Texture* colorTexture = m_pTextureManager->getTexture(modelData.colorTexture);
-		Texture* aoTexture = m_pTextureManager->getTexture(modelData.aoTexture);
-		Texture* metallicTexture = m_pTextureManager->getTexture(modelData.metallicTexture);
-		Texture* normalMap = m_pTextureManager->getTexture(modelData.normalMap);
 
-		unsigned int vaoId = createVao();
+		Model* pModel = m_pModelManager->getModel(modelData.path, modelData.texturesPath);
+
+		handleModel(pModel);
       
-		VaoGl vaoGl = registry->emplace<VaoGl>(entity, vaoId);
-		MaterialGl& materialGl = registry->emplace<MaterialGl>(entity);
+		Model model = m_pSceneRegistry->emplace<Model>(entity, pModel);
 
-		colorTexture->setTextureType(TextureType::COLOR);
-		aoTexture->setTextureType(TextureType::AO);
-		metallicTexture->setTextureType(TextureType::METALLIC);
-		normalMap->setTextureType(TextureType::NORMAL);
-
-		aoTexture->load();
-		colorTexture->load();
-		metallicTexture->load();
-		normalMap->load();
-		
-		materialGl.shaderProgram = shaderProgram;
-		materialGl.aoTexture = aoTexture;
-		materialGl.colorTexture = colorTexture;
-		materialGl.metallicTexture = metallicTexture;
-		materialGl.normalMap = normalMap;
-
-		registry->erase<ModelData>(entity);
-
+		m_pSceneRegistry->erase<ModelData>(entity);
 	}
+}
+
+void GraphicsEntitiesLoadingGl::handleModel(Model* pModel) {
+	std::vector<Mesh>& meshes = pModel->meshes;
+
+	for (Mesh& mesh : meshes) {
+		mesh.vaoId = createVao(mesh.vertices, mesh.indices);
+
+		entt::entity* materialEntity = mesh.material;
+
+		MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(*materialEntity);
+		
+		materialSG.aoTexture->load();
+		materialSG.diffuseTexture->load();
+		materialSG.glossinessTexture->load();
+		materialSG.normalMap->load();
+		materialSG.specularTexture->load();
+	}
+
+
 }
 
 unsigned int GraphicsEntitiesLoadingGl::createShaderProgram(std::string vertexShaderName, std::string fragmentShaderName) {
@@ -99,7 +102,7 @@ unsigned int GraphicsEntitiesLoadingGl::createShaderProgram(std::string vertexSh
 	return shaderProgram;
 }
 
-unsigned int GraphicsEntitiesLoadingGl::createVao() {
+unsigned int GraphicsEntitiesLoadingGl::createVao(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
 	unsigned int vbo;
 	glGenBuffers(1, &vbo);
 
@@ -109,101 +112,25 @@ unsigned int GraphicsEntitiesLoadingGl::createVao() {
 	unsigned int ebo;
 	glGenBuffers(1, &ebo);
 
-	//
-	//float vertices[] = {
-	//	// Positions          // Colors           // Texture Coords
-	//	 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // Top Right
-	//	 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // Bottom Right
-	//	-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // Bottom Left
-	//	-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // Top Left 
-	//};
-
-	//float vertices[] = {
-	//-0.5, -0.5,  0.5,  1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-	//0.5, -0.5,  0.5,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-	//-0.5,  0.5,  0.5,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-	//0.5,  0.5,  0.5,  1.0f, 0.0f, 0.0f,  0.0f, 1.0f,
-	//-0.5, -0.5, -0.5, 1.0f, 0.0f, 0.0f,  1.0f, 1.0f,
-	//0.5, -0.5, -0.5, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-	//-0.5,  0.5, -0.5, 1.0f, 0.0f, 0.0f,  0.0f, 0.0f,
-	//0.5,  0.5, -0.5, 1.0f, 0.0f, 0.0f,  0.0f, 1.0f
-	//};
-
-
-	//unsigned int indices_[] { // note that we start from 0!
-	//	0, 1, 3, // first triangle
-	//		1, 2, 3 // second triangle
-	//};
-
-	unsigned int indices_[] = {
-		//Top
-		2, 6, 7,
-		2, 3, 7,
-
-		//Bottom
-		0, 4, 5,
-		0, 1, 5,
-
-		//Left
-		0, 2, 6,
-		0, 4, 6,
-
-		//Right
-		1, 3, 7,
-		1, 5, 7,
-
-		//Front
-		0, 2, 3,
-		0, 1, 3,
-
-		//Back
-		4, 6, 7,
-		4, 5, 7
-	};
-
-
-	float vertices[] = {
-		-0.5, -0.5,  0.5,     0.0, 0.0, 0.0,  1.0, 1.0,//0
-		 0.5, -0.5,  0.5,     0.0, 0.0, 0.0,  0.0, 1.0, //1
-		-0.5,  0.5,  0.5,     0.0, 0.0, 0.0,  0.0, 1.0, //2
-		 0.5,  0.5,  0.5,     0.0, 0.0, 0.0,  1.0, 1.0, //3
-		-0.5, -0.5, -0.5,     0.0, 0.0, 0.0,  1.0, 0.0, //4
-		 0.5, -0.5, -0.5,     0.0, 0.0, 0.0,  0.0, 0.0, //5
-		-0.5,  0.5, -0.5,     0.0, 0.0, 0.0,  0.0, 0.0, //6
-		 0.5,  0.5, -0.5,     0.0, 0.0, 0.0,  1.0, 0.0 //7
-	};
-
-	//unsigned int indices_[]{ // note that we start from 0!
-	//	0, 1, 2, 
-	//	3, 1, 2,
-	//	3, 1, 2,
-	//	7, 1, 4,
-	//	5, 4, 7,
-	//	6, 2, 4, 
-	//	0, 1, 4,
-	//	2, 8, 7
-	//};
-
-	//
-
-	// 1. bind Vertex Array Object
 	glBindVertexArray(vao);
-	// 2. copy our vertices array in a vertex buffer for OpenGL to use
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	// 3. copy our index array in a element buffer for OpenGL to use
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices_), indices_, GL_STATIC_DRAW);
 
-	// Position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)0);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+	
+	// vertex positions
 	glEnableVertexAttribArray(0);
-	// Color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	
+	// vertex normals
 	glEnableVertexAttribArray(1);
-	// TexCoord attribute
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+	
+	// vertex texture coords
 	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, textureCoords));
+	glBindVertexArray(0);
 
 	return vao;
 }

@@ -31,14 +31,16 @@ void RenderGL::render() {
 	glm::mat4 projection = glm::perspective(glm::radians(m_pWindow->getFov()), aspectRatio, 0.1f, 100.0f);
 	glm::mat4 view = m_pCamera->getViewMatrix(); // glm::mat4(1.0f);
 
-	auto materialEntitiesGroup = m_pSceneRegistry->group<MaterialGl, VaoGl, Transform>();
+	auto materialEntitiesGroup = m_pSceneRegistry->group<Material, VaoGl, Transform>();
 
 	for (entt::entity entity : materialEntitiesGroup) {
 
-		MaterialGl& materialGl = materialEntitiesGroup.get<MaterialGl>(entity);
+		Material& materialGl = materialEntitiesGroup.get<Material>(entity);
 		VaoGl& vaoGl = materialEntitiesGroup.get<VaoGl>(entity);
 		Transform& transform = materialEntitiesGroup.get<Transform>(entity);
-		int shaderProgram = materialGl.shaderProgram;
+		entt::entity& shader = materialGl.shader.shader;
+		unsigned int shaderProgram = materialEntitiesGroup.get<ShaderGl>(shader).shaderProgram;
+
 		int vaoId = vaoGl.vaoId;
 
 		Texture* aoTexture = materialGl.aoTexture;

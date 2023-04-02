@@ -1,0 +1,11 @@
+{
+  "pack": "dev",
+  "models": {
+    "test_model": {
+      "model_path": "dev/models/test_model/model.FORMAT",
+      "textures_path": "dev/models/test_model/",
+      "fragment_shader": "base",
+      "vertex_shader": "base"
+    }
+  }
+}
