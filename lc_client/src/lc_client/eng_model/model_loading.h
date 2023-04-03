@@ -16,7 +16,7 @@ namespace eng {
 	class ModelLoading {
 
 	public:
-		ModelLoading(const std::string& modelPath, const std::string& texturesDirPath, const std::string& fileFormat, eng::IResource* pResource, TextureManager* pTextureManager);
+		ModelLoading(std::string modelPath, std::string texturesDirPath, std::string fileFormat, eng::IResource* pResource, TextureManager* pTextureManager);
 		Model* loadModel();
 		std::vector<MaterialSG>& getMeshesMaterialsSG();
 		int cat();
@@ -32,9 +32,9 @@ namespace eng {
 		 void processMaterialSG(aiMaterial* pMaterial, MaterialSG& material);
 
 
-		 const std::string& m_modelPath;
-		 const std::string& m_texturesDirPath;
-		 const std::string& m_fileFormat;
+		 const std::string m_modelPath;
+		 const std::string m_texturesDirPath;
+		 const std::string m_fileFormat;
 		 eng::IResource* m_pResource = nullptr;
 		 TextureManager* m_pTextureManager = nullptr;
 		 std::vector<MaterialSG> m_materials;

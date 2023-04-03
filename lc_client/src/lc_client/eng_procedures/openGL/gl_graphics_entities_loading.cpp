@@ -51,12 +51,12 @@ void GraphicsEntitiesLoadingGl::loadSceneEntities() {
 void GraphicsEntitiesLoadingGl::handleModel(Model* pModel) {
 	std::vector<Mesh>& meshes = pModel->meshes;
 
-	for (Mesh& mesh : meshes) {
+	for (Mesh& mesh : meshes) { 
 		mesh.vaoId = createVao(mesh.vertices, mesh.indices);
 
-		entt::entity* materialEntity = mesh.material;
+		entt::entity materialEntity = mesh.material;
 
-		MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(*materialEntity);
+		MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(materialEntity); // materialEntity was nullptr.
 		
 		materialSG.aoTexture->load();
 		materialSG.diffuseTexture->load();

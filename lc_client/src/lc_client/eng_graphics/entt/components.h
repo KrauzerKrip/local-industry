@@ -34,14 +34,14 @@ struct Vertex {
 struct Mesh {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	entt::entity* material;
+	entt::entity material;
 	int vaoId = 0;
 
 	Mesh() = default;
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, entt::entity& material)
-		: vertices(std::move(vertices)), indices(std::move(indices)), material(&material) {};
+		: vertices(std::move(vertices)), indices(std::move(indices)), material(material) {};
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, entt::entity& material, int vaoId)
-		: vertices(vertices), indices(indices), material(&material), vaoId() {};
+		: vertices(vertices), indices(indices), material(material), vaoId() {};
 	Mesh(const Mesh& mesh) : vertices(mesh.vertices), indices(mesh.indices), material(mesh.material), vaoId(mesh.vaoId) {};
 };
 

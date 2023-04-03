@@ -28,7 +28,9 @@ Model* ModelManager::getModel(const std::string modelPath, const std::string tex
   
 Model* ModelManager::loadModel(const std::string modelPath, const std::string texturesDirPath) {
 
-	Model* pModel;
+	Model* pModel = nullptr;
+	
+	bool success = false;
 
 	try {
 		eng::ModelLoading modelLoading(modelPath, texturesDirPath, FILE_FORMAT, m_pResource, m_pTextureManager);
@@ -40,32 +42,55 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 
 		for (unsigned int i = 0; i < meshes.size(); i++) {
 			MaterialSG& material = materials.at(i);
-			auto materialEntity = m_pUtilRegistry->create();
+			entt::entity materialEntity = m_pUtilRegistry->create();
 			m_pUtilRegistry->emplace<MaterialSG>(materialEntity, material);
-			meshes.at(i).material = &materialEntity;
+			meshes.at(i).material = materialEntity;
 		}
+
+		success = true;
 	}
 	catch (ResourceFileNotFoundException& exception) {
 		std::cerr << "Model resource not found: " << modelPath << ": " << exception.what() << std::endl;
 
 		// "gmod vibe" here just to occur exception and load black-purple textures
-		eng::ModelLoading modelLoading("dev/models/eng_model_not_found/model", "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager);
+		eng::ModelLoading modelLoading("dev/models/eng_model_not_found/model.obj", "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager);
+
+		std::vector<MaterialSG>& materials = modelLoading.getMeshesMaterialsSG();
 
 		pModel = modelLoading.loadModel();
+
+		std::vector<Mesh> meshes = pModel->meshes; // FIX
+
+		for (unsigned int i = 0; i < meshes.size(); i++) {
+			MaterialSG& material = materials.at(i);
+			entt::entity materialEntity = m_pUtilRegistry->create();
+			m_pUtilRegistry->emplace<MaterialSG>(materialEntity, material);
+			meshes.at(i).material = materialEntity;
+		}
+
 	}
 	catch (AssimpException& exception) {
 		std::cerr << "Failed to load model: " << modelPath << ": " << exception.what() << std::endl;
 		
 		// "gmod vibe" here just to occur exception and load black-purple textures
-		eng::ModelLoading modelLoading("dev/textures/eng_object_not_found/model", "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager);
+		eng::ModelLoading modelLoading("dev/textures/eng_object_not_found/model.obj", "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager);
 
 		pModel = modelLoading.loadModel();
 	}
 
-	m_modelMap.emplace(modelPath, pModel);
+	if (pModel == nullptr) {
+		throw std::runtime_error("ModelManager: pModel of " + modelPath + " is nullptr.");
+	}
 
-	std::cout << "Model" << modelPath << "' loaded." << std::endl;
-	 
+	m_modelMap.emplace(modelPath, pModel);
+	
+	if (success) {
+		std::cout << "Model" << modelPath << "' loaded." << std::endl;
+	}
+	else {
+		std::cout << "Model" << modelPath << "' wasn`t loaded successfully. Set default instead." << std::endl;
+	}
+	
 	return pModel;
 }
 

@@ -11,9 +11,9 @@
 
 namespace eng {
 
-	ModelLoading::ModelLoading(const std::string& modelPath,
-		const std::string& texturesDirPath,
-		const std::string& fileFormat,
+	ModelLoading::ModelLoading(std::string modelPath,
+		std::string texturesDirPath,
+		std::string fileFormat,
 		eng::IResource* pResource,
 		TextureManager* pTextureManager)
 
@@ -31,6 +31,8 @@ namespace eng {
 
 	Model* ModelLoading::loadModel() {
 
+		std::cout << m_modelPath << std::endl;
+
 		std::vector<unsigned char> buffer = m_pResource->getFileResource(m_modelPath);
 
 		const unsigned char* pBuffer = buffer.data();
@@ -46,7 +48,7 @@ namespace eng {
 
 		eng::ModelLoading::processNode(scene->mRootNode, scene, pModel);
 
-		return nullptr;
+		return pModel;
 	}
 
 	void ModelLoading::processNode(aiNode* node, const aiScene* scene, Model* pModel) {
