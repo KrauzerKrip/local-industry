@@ -45,6 +45,14 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 			meshes.at(i).material = &materialEntity;
 		}
 	}
+	catch (ResourceFileNotFoundException& exception) {
+		std::cerr << "Model resource not found: " << modelPath << ": " << exception.what() << std::endl;
+
+		// "gmod vibe" here just to occur exception and load black-purple textures
+		eng::ModelLoading modelLoading("dev/models/eng_model_not_found/model", "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager);
+
+		pModel = modelLoading.loadModel();
+	}
 	catch (AssimpException& exception) {
 		std::cerr << "Failed to load model: " << modelPath << ": " << exception.what() << std::endl;
 		
