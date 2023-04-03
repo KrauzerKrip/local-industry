@@ -31,22 +31,21 @@ void RenderGL::render() {
 	glm::mat4 projection = glm::perspective(glm::radians(m_pWindow->getFov()), aspectRatio, 0.1f, 100.0f);
 	glm::mat4 view = m_pCamera->getViewMatrix(); // glm::mat4(1.0f);
 
-	auto materialEntitiesGroup = m_pSceneRegistry->group<Material, VaoGl, Transform>();
+	auto materialEntitiesGroup = m_pSceneRegistry->group<MaterialSG, ShaderGl, VaoGl, Transform>(); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
 
-		Material& materialGl = materialEntitiesGroup.get<Material>(entity);
+		MaterialSG& materialSG = materialEntitiesGroup.get<MaterialSG>(entity);
 		VaoGl& vaoGl = materialEntitiesGroup.get<VaoGl>(entity);
 		Transform& transform = materialEntitiesGroup.get<Transform>(entity);
-		entt::entity& shader = materialGl.shader.shader;
-		unsigned int shaderProgram = materialEntitiesGroup.get<ShaderGl>(shader).shaderProgram;
+		entt::entity* shader = materialSG.shader.shader; 
+		unsigned int shaderProgram = materialEntitiesGroup.get<ShaderGl>(*shader).shaderProgram; // ERROR
 
 		int vaoId = vaoGl.vaoId;
 
-		Texture* aoTexture = materialGl.aoTexture;
-		Texture* colorTexture = materialGl.colorTexture;
-		Texture* metallicTexture = materialGl.metallicTexture;
-		Texture* normalMap = materialGl.normalMap;
+		Texture* aoTexture = materialSG.aoTexture;
+		Texture* diffuseTexture = materialSG.diffuseTexture;
+		Texture* normalMap = materialSG.normalMap;
 
 		glUseProgram(shaderProgram);
 
@@ -68,8 +67,7 @@ void RenderGL::render() {
 
 
 		aoTexture->bind();
-		colorTexture->bind();
-		metallicTexture->bind();
+		diffuseTexture->bind();
 		normalMap->bind();
 
 		glBindVertexArray(vaoId);

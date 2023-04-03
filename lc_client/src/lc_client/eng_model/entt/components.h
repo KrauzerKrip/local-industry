@@ -9,6 +9,6 @@ struct Model {
 	std::vector<Mesh> meshes;
 
 	Model() = default;
-	Model(std::vector<Mesh> meshes) : meshes(std::move(meshes)) {};
+	Model(std::vector<Mesh> meshes) : meshes(meshes) {};
 	Model(const Model&) = default;
 };

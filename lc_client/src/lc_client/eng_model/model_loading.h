@@ -18,7 +18,8 @@ namespace eng {
 	public:
 		ModelLoading(const std::string& modelPath, const std::string& texturesDirPath, const std::string& fileFormat, eng::IResource* pResource, TextureManager* pTextureManager);
 		Model* loadModel();
-		std::vector<MaterialSG&>& getMeshesMaterialsSG();
+		std::vector<MaterialSG>& getMeshesMaterialsSG();
+		int cat();
 
 	private:
 		 void processNode(aiNode* node, const aiScene* scene, Model* pModel);
@@ -36,7 +37,7 @@ namespace eng {
 		 const std::string& m_fileFormat;
 		 eng::IResource* m_pResource = nullptr;
 		 TextureManager* m_pTextureManager = nullptr;
-		 std::vector<MaterialSG&> m_materials;
+		 std::vector<MaterialSG> m_materials;
 	
 	};
 }

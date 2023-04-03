@@ -16,7 +16,7 @@ public:
 	Model* getModel(const std::string modelPath, const std::string texturesDirPath);
 
 private :
-	Model* loadModel(const std::string modelPath, const std::string texturesDirPath;
+	Model* loadModel(const std::string modelPath, const std::string texturesDirPath);
 
 	std::unordered_map<std::string, Model*> m_modelMap;
 

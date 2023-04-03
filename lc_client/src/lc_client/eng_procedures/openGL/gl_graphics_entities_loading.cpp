@@ -41,7 +41,8 @@ void GraphicsEntitiesLoadingGl::loadSceneEntities() {
 
 		handleModel(pModel);
       
-		Model model = m_pSceneRegistry->emplace<Model>(entity, pModel);
+		Model& model = m_pSceneRegistry->emplace<Model>(entity, pModel->meshes);
+		delete pModel;
 
 		m_pSceneRegistry->erase<ModelData>(entity);
 	}

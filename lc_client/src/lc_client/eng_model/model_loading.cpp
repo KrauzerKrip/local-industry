@@ -23,9 +23,11 @@ namespace eng {
 		m_pResource(pResource),
 		m_pTextureManager(pTextureManager) {}
 
-	std::vector<MaterialSG&>& ModelLoading::getMeshesMaterialsSG() {
+	std::vector<MaterialSG>& ModelLoading::getMeshesMaterialsSG() {
 		return m_materials;
-	}
+	};
+
+	int ModelLoading::cat() { return 1; };
 
 	Model* ModelLoading::loadModel() {
 

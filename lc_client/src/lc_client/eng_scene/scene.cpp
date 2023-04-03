@@ -10,6 +10,7 @@
 
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_scene/entt/components.h"
+#include "entt/components.h"
 
 
 Scene::Scene() {
@@ -37,15 +38,12 @@ void Scene::loadScene(std::string name) {
 
 	auto entity = m_sceneRegistry.create();
 	m_sceneRegistry.emplace<Properties>(entity, "test_uuid", "test_id");
-	MeshData& modelData = m_sceneRegistry.emplace<MeshData>(entity);
+	ModelData& modelData = m_sceneRegistry.emplace<ModelData>(entity);
 	modelData.id = "test_modelId";
-	modelData.path = "test_modelDir/test_model";
+	modelData.path = "dev/models/test_model/model.FORMAT";
+	modelData.texturesPath = "dev/models/test_model/";
 	modelData.vertexShader = "base";
 	modelData.fragmentShader = "base";
-	//modelData.colorTexture =    "dev/textures/loli/color";
-	//modelData.aoTexture =       "dev/textures/loli/none";
-	//modelData.metallicTexture = "dev/textures/loli/none";
-	//modelData.normalMap =       "dev/textures/loli/normal";
 
 	Transform& transform = m_sceneRegistry.emplace<Transform>(entity);
 	transform.position = glm::vec3(0.0f, 0.0f, -5.0f);
@@ -71,6 +69,6 @@ entt::registry* Scene::getSceneRegistry() {
 	return &m_sceneRegistry;
 }
 
-entt::registry* Scene::getUtil Registry() {
+entt::registry* Scene::getUtilRegistry() {
 	return &m_utilRegistry;
 }

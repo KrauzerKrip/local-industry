@@ -8,6 +8,8 @@
 #include "lc_client/util/i_eng_resource.h"
 #include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
 
+class GraphicsEntitiesLoading;
+
 struct SceneDependencies {
 	IShaderManager* pShaderManager;
 	GraphicsEntitiesLoading* pGraphicsEntitiesLoading;

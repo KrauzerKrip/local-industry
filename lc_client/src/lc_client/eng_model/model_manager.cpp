@@ -34,7 +34,7 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 		eng::ModelLoading modelLoading(modelPath, texturesDirPath, FILE_FORMAT, m_pResource, m_pTextureManager);
 		pModel = modelLoading.loadModel();
 
-		std::vector<MaterialSG&>& materials = modelLoading.getMeshesMaterialsSG();
+		std::vector<MaterialSG>& materials = modelLoading.getMeshesMaterialsSG();
 
 		std::vector<Mesh> meshes = pModel->meshes;
 
