@@ -1,7 +1,6 @@
 #include "model_loading.h"
 
 #include <iostream>
-#include <entt/entity/component.hpp>
 
 #include "lc_client/exceptions/io_exceptions.h"	
 #include "lc_client/eng_graphics/entt/components.h"
@@ -15,13 +14,15 @@ namespace eng {
 		std::string texturesDirPath,
 		std::string fileFormat,
 		eng::IResource* pResource,
-		TextureManager* pTextureManager)
+		TextureManager* pTextureManager,
+		entt::registry* pUtilRegistry)
 
 		: m_modelPath(modelPath),
 		m_texturesDirPath(texturesDirPath),
 		m_fileFormat(fileFormat),
 		m_pResource(pResource),
-		m_pTextureManager(pTextureManager) {}
+		m_pTextureManager(pTextureManager),
+		m_pUtilRegistry(pUtilRegistry) {}
 
 	std::vector<MaterialSG>& ModelLoading::getMeshesMaterialsSG() {
 		return m_materials;
@@ -53,11 +54,21 @@ namespace eng {
 
 	void ModelLoading::processNode(aiNode* node, const aiScene* scene, Model* pModel) {
 
-		std::vector<Mesh>& meshes = pModel->meshes;
+		std::vector<entt::entity>& meshes = pModel->meshes;
 
 		for (unsigned int i = 0; i < node->mNumMeshes; i++) {
-			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			meshes.push_back(eng::ModelLoading::processMesh(mesh, scene));
+			aiMesh* pMesh = scene->mMeshes[node->mMeshes[i]];
+			entt::entity entity = m_pUtilRegistry->create();
+			m_pUtilRegistry->emplace<Mesh>(entity, eng::ModelLoading::processMesh(pMesh, scene));
+
+			MaterialSG materialSG;
+			if (pMesh->mMaterialIndex >= 0) {
+				eng::ModelLoading::processMaterialSG(scene->mMaterials[pMesh->mMaterialIndex], materialSG);
+			}
+
+			m_pUtilRegistry->emplace<MaterialSG>(entity, materialSG);
+
+			meshes.push_back(entity);
 		}
 
 		for (unsigned int i = 0; i < node->mNumChildren; i++) {
@@ -69,19 +80,13 @@ namespace eng {
 		std::vector<Vertex> vertices;
 		std::vector<unsigned int> indices;
 		std::vector<Texture> textures;
-		MaterialSG materialSG;
 
 		eng::ModelLoading::processVertices(pMesh, vertices);
 		eng::ModelLoading::processIndices(pMesh, indices);
-		if (pMesh->mMaterialIndex >= 0) {
-			eng::ModelLoading::processMaterialSG(scene->mMaterials[pMesh->mMaterialIndex], materialSG);
-		}
 
 		Mesh mesh = Mesh();
 		mesh.vertices = vertices;
 		mesh.indices = indices;
-	
-		m_materials.push_back(materialSG);
 
 		return mesh;
 	}

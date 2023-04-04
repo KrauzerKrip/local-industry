@@ -37,26 +37,37 @@ void GraphicsEntitiesLoadingGl::loadSceneEntities() {
 
 		unsigned int shaderProgram = createShaderProgram(vertexShaderName, fragmentShaderName);
 
-		Model* pModel = m_pModelManager->getModel(modelData.path, modelData.texturesPath);
 
-		handleModel(pModel);
-      
-		Model& model = m_pSceneRegistry->emplace<Model>(entity, pModel->meshes);
-		delete pModel;
+		try {
+			Model* pModel = m_pModelManager->getModel(modelData.path, modelData.texturesPath);
 
-		m_pSceneRegistry->erase<ModelData>(entity);
+			handleModel(pModel);
+
+			m_pSceneRegistry->emplace<Model>(entity, pModel->meshes);
+			delete pModel;
+
+			m_pSceneRegistry->emplace<ShaderGl>(entity, shaderProgram);
+
+			m_pSceneRegistry->erase<ModelData>(entity);
+
+		}
+		catch (std::runtime_error& exception) {
+			std::cerr << exception.what() << std::endl;
+			exit(1);
+		}
+
 	}
 }
 
 void GraphicsEntitiesLoadingGl::handleModel(Model* pModel) {
-	std::vector<Mesh>& meshes = pModel->meshes;
+	std::vector<entt::entity>& meshes = pModel->meshes;
 
-	for (Mesh& mesh : meshes) { 
+	for (entt::entity& entity : meshes) {
+
+		Mesh& mesh = m_pUtilRegistry->get<Mesh>(entity);
+		MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(entity);
+
 		mesh.vaoId = createVao(mesh.vertices, mesh.indices);
-
-		entt::entity materialEntity = mesh.material;
-
-		MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(materialEntity); // materialEntity was nullptr.
 		
 		materialSG.aoTexture->load();
 		materialSG.diffuseTexture->load();

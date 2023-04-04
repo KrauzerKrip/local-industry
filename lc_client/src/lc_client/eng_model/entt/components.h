@@ -2,13 +2,15 @@
 
 #include <vector>
 
+#include <entt/entt.hpp>
+
 #include "lc_client/eng_graphics/entt/components.h"
 
 
 struct Model {
-	std::vector<Mesh> meshes;
+	std::vector<entt::entity> meshes;
 
 	Model() = default;
-	Model(std::vector<Mesh> meshes) : meshes(meshes) {};
+	Model(std::vector<entt::entity> meshes) : meshes(meshes) {};
 	Model(const Model&) = default;
 };

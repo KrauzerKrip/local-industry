@@ -19,39 +19,47 @@ Texture* TextureManager::getTexture(std::string path) {
 	}
 	catch (std::out_of_range) {
 		std::cout << "Texture '" << path << "' not found in cache, will try to load." << std::endl;
-		return loadTexture(path);
+
+		Texture* pTexture = nullptr;
+		
+		try {
+			pTexture = loadTexture(path);
+		}
+		catch (ResourceFileNotFoundException& exception) {
+			std::cerr << exception.what() << std::endl;
+			pTexture = loadTexture("dev/textures/eng_texture_not_found/color");
+		}
+		catch (FileTooLargeException) {
+			throw FileTooLargeException("Image is too large to load it: " + path);
+		}
+		catch (ImageLoadFailureException& exception) {
+			std::cerr << "Failed to load texture: " << path << ": " << exception.what() << std::endl;
+			pTexture = loadTexture("dev/textures/eng_texture_not_found/color");
+		}
+
+		if (pTexture == nullptr) {
+			std::cerr << "TextureManagerGL: pTexture is nullptt. Path given: " << path << std::endl;
+			throw std::runtime_error("TextureManagerGL: pTexture is nullptt. Path given: " + path);
+		}
+
+		return pTexture;
+		
 	}
 }
 
 Texture* TextureManager::loadTexture(std::string path)	{ 
 
 	std::vector<unsigned char> buffer;
-
-	try {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-		buffer = m_pResource->getFileResource(path + FILE_FORMAT); 
-	}
-	catch (ResourceFileNotFoundException& exception) {
-		std::cerr << exception.what() << std::endl;
-		buffer = m_pResource->getFileResource("dev/textures/eng_texture_not_found/color" + FILE_FORMAT);
-	}  
-
 	std::shared_ptr<eng::Image> image;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+	buffer = m_pResource->getFileResource(path + FILE_FORMAT); 
 
-	try {
-		image = std::make_shared<eng::Image>(buffer);
-	}
-	catch (FileTooLargeException) {
-		throw FileTooLargeException("Image is too large to load it: " + path);
-	}
-	catch (ImageLoadFailureException &exception) {
-		std::cerr << "Failed to load texture: " << path << ": " << exception.what() << std::endl;
-		buffer = m_pResource->getFileResource("dev/textures/eng_texture_not_found/color" + FILE_FORMAT);
-		image = std::make_shared<eng::Image>(buffer);
-	}
+	image = std::make_shared<eng::Image>(buffer);
 
 	Texture* pTexture = new TextureGL(image); // TODO
 
 	m_textureMap.emplace(path, pTexture);
+
 
 	std::cout << "Texture '" << path << "' loaded." << std::endl;
 

@@ -33,19 +33,8 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 	bool success = false;
 
 	try {
-		eng::ModelLoading modelLoading(modelPath, texturesDirPath, FILE_FORMAT, m_pResource, m_pTextureManager);
+		eng::ModelLoading modelLoading(modelPath, texturesDirPath, FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
 		pModel = modelLoading.loadModel();
-
-		std::vector<MaterialSG>& materials = modelLoading.getMeshesMaterialsSG();
-
-		std::vector<Mesh> meshes = pModel->meshes;
-
-		for (unsigned int i = 0; i < meshes.size(); i++) {
-			MaterialSG& material = materials.at(i);
-			entt::entity materialEntity = m_pUtilRegistry->create();
-			m_pUtilRegistry->emplace<MaterialSG>(materialEntity, material);
-			meshes.at(i).material = materialEntity;
-		}
 
 		success = true;
 	}
@@ -53,33 +42,20 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 		std::cerr << "Model resource not found: " << modelPath << ": " << exception.what() << std::endl;
 
 		// "gmod vibe" here just to occur exception and load black-purple textures
-		eng::ModelLoading modelLoading("dev/models/eng_model_not_found/model.obj", "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager);
-
-		std::vector<MaterialSG>& materials = modelLoading.getMeshesMaterialsSG();
-
+		eng::ModelLoading modelLoading(ERROR_MODEL_PATH, "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
 		pModel = modelLoading.loadModel();
-
-		std::vector<Mesh> meshes = pModel->meshes; // FIX
-
-		for (unsigned int i = 0; i < meshes.size(); i++) {
-			MaterialSG& material = materials.at(i);
-			entt::entity materialEntity = m_pUtilRegistry->create();
-			m_pUtilRegistry->emplace<MaterialSG>(materialEntity, material);
-			meshes.at(i).material = materialEntity;
-		}
-
 	}
 	catch (AssimpException& exception) {
 		std::cerr << "Failed to load model: " << modelPath << ": " << exception.what() << std::endl;
 		
 		// "gmod vibe" here just to occur exception and load black-purple textures
-		eng::ModelLoading modelLoading("dev/textures/eng_object_not_found/model.obj", "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager);
+		eng::ModelLoading modelLoading(ERROR_MODEL_PATH, "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
 
 		pModel = modelLoading.loadModel();
 	}
 
 	if (pModel == nullptr) {
-		throw std::runtime_error("ModelManager: pModel of " + modelPath + " is nullptr.");
+		throw std::runtime_error("ModelManager: pModel of  " + modelPath + "  OR  " + ERROR_MODEL_PATH + "  is nullptr.");
 	}
 
 	m_modelMap.emplace(modelPath, pModel);
@@ -95,3 +71,4 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 }
 
 const std::string ModelManager::FILE_FORMAT = ".";
+const std::string ModelManager::ERROR_MODEL_PATH = "dev/models/eng_model_not_found/model.obj";

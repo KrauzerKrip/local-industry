@@ -2,6 +2,7 @@
 
 #include <vector>
 
+#include <entt/entt.hpp>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -16,7 +17,7 @@ namespace eng {
 	class ModelLoading {
 
 	public:
-		ModelLoading(std::string modelPath, std::string texturesDirPath, std::string fileFormat, eng::IResource* pResource, TextureManager* pTextureManager);
+		ModelLoading(std::string modelPath, std::string texturesDirPath, std::string fileFormat, eng::IResource* pResource, TextureManager* pTextureManager, entt::registry* pUtilRegistry);
 		Model* loadModel();
 		std::vector<MaterialSG>& getMeshesMaterialsSG();
 		int cat();
@@ -38,6 +39,7 @@ namespace eng {
 		 eng::IResource* m_pResource = nullptr;
 		 TextureManager* m_pTextureManager = nullptr;
 		 std::vector<MaterialSG> m_materials;
+		 entt::registry* m_pUtilRegistry;
 	
 	};
 }

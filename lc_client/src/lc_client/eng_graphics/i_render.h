@@ -11,5 +11,5 @@ public:
 	virtual void render() = 0;
 	virtual void clear() = 0;
 	virtual void cleanUp() = 0;
-	virtual void setRegistries(entt::registry* mapRegistry, entt::registry* sceneRegistry) = 0;
+	virtual void setRegistries(entt::registry* pMapRegistry, entt::registry* pSceneRegistry, entt::registry* pUtilRegistry) = 0;
 };

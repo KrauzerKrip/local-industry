@@ -25,4 +25,5 @@ private :
 	entt::registry* m_pUtilRegistry;
 
 	const static std::string FILE_FORMAT;
+	const static std::string ERROR_MODEL_PATH;
 };
