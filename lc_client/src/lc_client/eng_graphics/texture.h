@@ -11,7 +11,10 @@ enum TextureType {
 	COLOR = 0,
 	NORMAL = 1,
 	AO = 2,
-	METALLIC = 3
+	METALLIC = 3,
+	DIFFUSE = 4,
+	GLOSSINESS = 5,
+	SPECULAR = 6,
 };
 
 class Texture {

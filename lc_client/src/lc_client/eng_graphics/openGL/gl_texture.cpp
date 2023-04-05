@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <iostream>
 
+//#define DEBUG
+
 
 TextureGL::TextureGL(std::shared_ptr<eng::Image> image) {
 	m_image = image;
@@ -35,6 +37,19 @@ void TextureGL::load() {
 	if (m_textureType == TextureType::METALLIC) {
 		std::cout << "METALLIC: " << GL_TEXTURE0 + m_textureType << m_textureType << std::endl;
 	}
+
+	if (m_textureType == TextureType::DIFFUSE) {
+		std::cout << "DIFFUSE: " << GL_TEXTURE0 + m_textureType << m_textureType << std::endl;
+	}
+
+	if (m_textureType == TextureType::GLOSSINESS) {
+		std::cout << "GLOSSINESS: " << GL_TEXTURE0 + m_textureType << m_textureType << std::endl;
+	}
+
+	if (m_textureType == TextureType::SPECULAR) {
+		std::cout << "SPECULAR: " << GL_TEXTURE0 + m_textureType << m_textureType << std::endl;
+	}
+
 #endif
 
 	glActiveTexture(GL_TEXTURE0 + m_textureType);

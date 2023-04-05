@@ -14,3 +14,8 @@ class FileTooLargeException : public std::runtime_error {
 public:
 	FileTooLargeException(std::string info) : std::runtime_error("File is too large to load it:\n" + info + "\n") { }
 };
+
+class AssimpException : public std::runtime_error {
+public:
+	AssimpException(std::string info) : std::runtime_error("Assimp fail:\n" + info + "\n") { }
+};

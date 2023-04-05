@@ -17,7 +17,7 @@ public:
 	void render();
 	void clear();
 	void cleanUp();
-	void setRegistries(entt::registry* sceneRegistry, entt::registry* mapRegistry);
+	void setRegistries(entt::registry* pSceneRegistry, entt::registry* pMapRegistry, entt::registry* pUtilRegistry);
 
 private:
 	void transform(glm::mat4& transformation, Transform& transform);
@@ -27,4 +27,5 @@ private:
 	
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pMapRegistry = nullptr;
+	entt::registry* m_pUtilRegistry = nullptr;
 };

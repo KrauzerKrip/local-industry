@@ -11,6 +11,7 @@ Loop::Loop(IWindow* pWindow, IGameLogic* gameLogic, int targetFPS, int targetUPS
 	m_pGameLogic = gameLogic;
 	m_targetFPS = targetFPS;
 	m_targetUPS = targetUPS;
+	m_deltaTime = 0;
 }
 
 Loop* Loop::createInstance(IWindow* pWindow, IGameLogic* gameLogic, int targetFPS, int targetUPS) {
@@ -28,6 +29,7 @@ Loop* Loop::getInstance() {
 }
 
 void Loop::init() {
+
 	m_pWindow->init();
 	m_pGameLogic->init(); // it was before
 }

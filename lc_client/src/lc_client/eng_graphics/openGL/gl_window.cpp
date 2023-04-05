@@ -9,6 +9,8 @@
 #include <GLFW/glfw3.h>
 #include <string>
 
+#include <iostream>
+
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/glfw_exceptions.h"
 #include "lc_client/exceptions/glad_exceptions.h"
@@ -30,7 +32,16 @@ WindowGL::~WindowGL() {
 
 void WindowGL::init() {
 
-	glfwInit();
+	int code = glfwGetError(NULL);
+
+	if (code == GLFW_NO_ERROR) {
+		std::cout << "glfw all ok" << std::endl;
+	}
+
+	std::cout << "gl_window 1" << std::endl;
+	std::cout << glfwInit() << std::endl;
+	std::cout << "gl_window 2" << std::endl;
+
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);

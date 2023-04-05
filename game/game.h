@@ -8,10 +8,11 @@
 #include "lc_client/eng_scene/scene.h"
 #include "lc_client/eng_procedures/i_shaders.h"
 #include "lc_client/eng_procedures/openGL/shaders.h"
-#include "lc_client/eng_procedures/i_graphics_entities_loading.h"
+#include "lc_client/eng_procedures/graphics_entities_loading.h"
 #include "lc_client/util/i_eng_resource.h"
 #include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
 #include "lc_client/eng_graphics/camera/camera.h"
+#include "lc_client/eng_model/model_manager.h"
 
 
 class Game : public IGameLogic {
@@ -33,8 +34,8 @@ private:
 	Scene* m_pScene;
 	IShaderManager* m_pShaderManager;
 	TextureManager* m_pTextureManager;
-	IGraphicsEntitiesLoading* m_pGraphicsEntitiesLoading;
 	eng::IResource* m_pResource;
+	ModelManager* m_pModelManager;
 
 	double m_lastMousePosX = 0.0;
 	double m_lastMousePosY = 0.0;

@@ -8,19 +8,40 @@
 #include "lc_client/eng_graphics/texture.h"
 
 
+struct Shader {
+	entt::entity* shader;
+
+	Shader() = default;
+	Shader(entt::entity* shader) : shader(shader) {};
+	Shader(const Shader&) = default;
+};
+
+struct ShaderGl {
+	unsigned int shaderProgram;
+
+	ShaderGl() = default;
+	ShaderGl(int shaderProgram) : shaderProgram(shaderProgram) {};
+	ShaderGl(const ShaderGl&) = default;
+};
+
+
 struct Vertex {
 	glm::vec3 position;
 	glm::vec3 normal;
-	glm::vec2 texureCoords;
+	glm::vec2 textureCoords;
 };
 
 struct Mesh {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
+	int vaoId = 0;
 
 	Mesh() = default;
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices) : vertices(std::move(vertices)), indices(std::move(indices));
-	Mesh(const Mesh&) = default;
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, entt::entity& material)
+		: vertices(std::move(vertices)), indices(std::move(indices)) {};
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, entt::entity& material, int vaoId)
+		: vertices(vertices), indices(indices), vaoId() {};
+	Mesh(const Mesh& mesh) : vertices(mesh.vertices), indices(mesh.indices), vaoId(mesh.vaoId) {};
 };
 
 struct VaoGl {
@@ -31,16 +52,29 @@ struct VaoGl {
 	VaoGl(const VaoGl&) = default;
 };
 
-struct MaterialGl {
-	unsigned int shaderProgram;
+struct MaterialMR {
 	Texture* colorTexture;
 	Texture* normalMap;
 	Texture* aoTexture;
 	Texture* metallicTexture;
 
-	MaterialGl() = default;
-	MaterialGl(const int shaderProgram, Texture* colorTexture, Texture* normalMap, Texture* aoTexture, Texture* metallicTexture)
-		: shaderProgram(shaderProgram), colorTexture(colorTexture), normalMap(normalMap), aoTexture(aoTexture), metallicTexture(metallicTexture) {};
-	MaterialGl(const MaterialGl&) = default;
+	MaterialMR() = default;
+	MaterialMR(Shader shader, Texture* colorTexture, Texture* normalMap, Texture* aoTexture, Texture* metallicTexture)
+		:colorTexture(colorTexture), normalMap(normalMap), aoTexture(aoTexture), metallicTexture(metallicTexture) {};
+	MaterialMR(const MaterialMR&) = default;
 };
+
+struct MaterialSG {
+	Texture* diffuseTexture;
+	Texture* specularTexture;
+	Texture* glossinessTexture;
+	Texture* normalMap;
+	Texture* aoTexture;
+
+	MaterialSG() = default;
+	MaterialSG(Shader shader, Texture* diffuseTexture, Texture* specularTexture, Texture* glossinessTexture, Texture* normalMap, Texture* aoTexture)
+		: diffuseTexture(diffuseTexture), specularTexture(specularTexture), glossinessTexture(glossinessTexture), normalMap(normalMap), aoTexture(aoTexture) {};
+	MaterialSG(const MaterialSG&) = default;
+};
+
 

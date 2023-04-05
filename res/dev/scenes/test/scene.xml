@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<entities>
+  <entity id="example_object_1" uuid="">
+    <components>
+      <transform>
+        <position x="0" y="0" z="0"></position>
+        <rotation x="0" y="0" z="0"></rotation>
+        <scale x="1" y="1" z="1"></scale>
+      </transform>
+      <object>example_object_1</object>
+      <script is_eternal="false">example_script</script>
+    </components>
+  </entity>
+  <entity id="trigger_1" uuid="" >
+    <components>
+      <transform>
+        <position x="0" y="0" z="0"></position>
+        <rotation x="0" y="0" z="0"></rotation>
+        <scale x="1" y="1" z="1"></scale>
+      </transform>
+      <trigger></trigger>
+      <script is_eternal="false">example_trigger_script</script>
+    </components>
+  </entity>
+</entities>

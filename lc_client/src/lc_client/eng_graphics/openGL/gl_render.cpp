@@ -9,6 +9,7 @@
 
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_graphics/texture.h"
+#include "lc_client/eng_model/entt/components.h"
 
 RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera) {
 	m_pWindow = pWindow; //mb remove it
@@ -31,28 +32,24 @@ void RenderGL::render() {
 	glm::mat4 projection = glm::perspective(glm::radians(m_pWindow->getFov()), aspectRatio, 0.1f, 100.0f);
 	glm::mat4 view = m_pCamera->getViewMatrix(); // glm::mat4(1.0f);
 
-	auto materialEntitiesGroup = m_pSceneRegistry->group<MaterialGl, VaoGl, Transform>();
+	auto materialEntitiesGroup = m_pSceneRegistry->group<Model, Transform, ShaderGl>(); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
 
-		MaterialGl& materialGl = materialEntitiesGroup.get<MaterialGl>(entity);
-		VaoGl& vaoGl = materialEntitiesGroup.get<VaoGl>(entity);
+		Model& model = materialEntitiesGroup.get<Model>(entity);
 		Transform& transform = materialEntitiesGroup.get<Transform>(entity);
-		int shaderProgram = materialGl.shaderProgram;
-		int vaoId = vaoGl.vaoId;
 
-		Texture* aoTexture = materialGl.aoTexture;
-		Texture* colorTexture = materialGl.colorTexture;
-		Texture* metallicTexture = materialGl.metallicTexture;
-		Texture* normalMap = materialGl.normalMap;
+		std::vector<entt::entity>& meshes = model.meshes;
+
+		unsigned int shaderProgram = materialEntitiesGroup.get<ShaderGl>(entity).shaderProgram;
 
 		glUseProgram(shaderProgram);
 
-		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerColor"), 0);
+		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerColor"), 4);
 		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerNormal"), 1);
 
-		glm::mat4 model = glm::mat4(1.0f);
-		RenderGL::transform(model, transform);
+		glm::mat4 modelMatrix = glm::mat4(1.0f);
+		RenderGL::transform(modelMatrix, transform);
 
 		//glm::mat4 modelView = view * model;
 
@@ -60,18 +57,29 @@ void RenderGL::render() {
 		unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
 		unsigned int projLoc = glGetUniformLocation(shaderProgram, "projection");
 
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
+		for (entt::entity& meshEntity : meshes) {
+			Mesh& mesh = m_pUtilRegistry->get<Mesh>(meshEntity);
+			int vao = mesh.vaoId;
+			MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(meshEntity);
 
-		aoTexture->bind();
-		colorTexture->bind();
-		metallicTexture->bind();
-		normalMap->bind();
+			Texture* aoTexture = materialSG.aoTexture;
+			Texture* diffuseTexture = materialSG.diffuseTexture;
+			Texture* normalMap = materialSG.normalMap;
 
-		glBindVertexArray(vaoId);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+			aoTexture->bind();
+			diffuseTexture->bind();
+			normalMap->bind();
+
+			glBindVertexArray(vao);
+			glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
+		}
+
+
+
 	}
 
 }
@@ -84,9 +92,10 @@ void RenderGL::cleanUp() {
 
 }
 
-void RenderGL::setRegistries(entt::registry* mapRegistry, entt::registry* sceneRegistry) {
-	m_pMapRegistry = mapRegistry;
-	m_pSceneRegistry = sceneRegistry;
+void RenderGL::setRegistries(entt::registry* pMapRegistry, entt::registry* pSceneRegistry, entt::registry* pUtilRegistry) {
+	m_pMapRegistry = pMapRegistry;
+	m_pSceneRegistry = pSceneRegistry;
+	m_pUtilRegistry = pUtilRegistry;
 }
 
 void RenderGL::transform(glm::mat4& model, Transform& transform) {
