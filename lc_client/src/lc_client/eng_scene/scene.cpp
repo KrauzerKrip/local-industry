@@ -36,19 +36,7 @@ void Scene::loadScene(std::string name) {
 	m_sceneRegistry.clear();
 	m_utilRegistry.clear();
 
-	auto entity = m_sceneRegistry.create();
-	m_sceneRegistry.emplace<Properties>(entity, "test_uuid", "test_id");
-	ModelData& modelData = m_sceneRegistry.emplace<ModelData>(entity);
-	modelData.id = "test_modelId";
-	modelData.path = "dev/models/test_model/model.FORMAT";
-	modelData.texturesPath = "dev/models/test_model/";
-	modelData.vertexShader = "base";
-	modelData.fragmentShader = "base";
 
-	Transform& transform = m_sceneRegistry.emplace<Transform>(entity);
-	transform.position = glm::vec3(0.0f, 0.0f, -5.0f);
-	transform.rotation = glm::vec3(1.0f, 0.0f, 0.0f);
-	transform.scale = glm::vec3(10.0f, 10.0f, 10.0f);
 
 	m_pGraphicsEntitiesLoading->loadMapEntities();
 	m_pGraphicsEntitiesLoading->loadSceneEntities();
@@ -61,14 +49,14 @@ void Scene::setDependencies(SceneDependencies& sceneDependencies) {
 }
 
 
-entt::registry* Scene::getMapRegistry() {
-	return &m_mapRegistry;
+entt::registry& Scene::getMapRegistry() {
+	return m_mapRegistry;
 }
 
-entt::registry* Scene::getSceneRegistry() {
-	return &m_sceneRegistry;
+entt::registry& Scene::getSceneRegistry() {
+	return m_sceneRegistry;
 }
 
-entt::registry* Scene::getUtilRegistry() {
-	return &m_utilRegistry;
+entt::registry& Scene::getUtilRegistry() {
+	return m_utilRegistry;
 }

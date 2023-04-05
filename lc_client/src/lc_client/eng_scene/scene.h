@@ -23,9 +23,9 @@ public:
 
 	void loadScene(std::string name);
 	void setDependencies(SceneDependencies& sceneDependencies);
-	entt::registry* getMapRegistry();
-	entt::registry* getSceneRegistry();
-	entt::registry* getUtilRegistry();
+	entt::registry& getMapRegistry();
+	entt::registry& getSceneRegistry();
+	entt::registry& getUtilRegistry();
 
 private:
 	entt::registry m_mapRegistry;
