@@ -1,6 +1,12 @@
 {
   "pack": "dev",
   "models": {
+    "eng_model_not_found": {
+      "model_path": "dev/models/eng_model_not_found/model.obj",
+      "textures_path": "gmod_vibe",
+      "fragment_shader": "base",
+      "vertex_shader": "base"
+    },
     "test_model": {
       "model_path": "dev/models/test_model/model.FORMAT",
       "textures_path": "dev/models/test_model/",

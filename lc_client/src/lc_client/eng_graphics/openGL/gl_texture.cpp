@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <iostream>
 
-#define DEBUG
+//#define DEBUG
 
 
 TextureGL::TextureGL(std::shared_ptr<eng::Image> image) {

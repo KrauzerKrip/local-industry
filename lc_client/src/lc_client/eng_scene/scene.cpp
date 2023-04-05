@@ -28,7 +28,7 @@ void Scene::loadScene(std::string name) {
 	m_name = name;
 
 	if (m_pShaderManager == nullptr) {
-		std::cout << "NullPointerException: m_pShaderManager wasn`t initialized." << std::endl;
+		std::cerr << "NullPointerException: m_pShaderManager wasn`t initialized." << std::endl;
 		throw std::runtime_error("NullPointerException: m_pShaderManager wasn`t initialized.");
 	}
 	
@@ -48,7 +48,7 @@ void Scene::loadScene(std::string name) {
 	Transform& transform = m_sceneRegistry.emplace<Transform>(entity);
 	transform.position = glm::vec3(0.0f, 0.0f, -5.0f);
 	transform.rotation = glm::vec3(1.0f, 0.0f, 0.0f);
-	transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
+	transform.scale = glm::vec3(10.0f, 10.0f, 10.0f);
 
 	m_pGraphicsEntitiesLoading->loadMapEntities();
 	m_pGraphicsEntitiesLoading->loadSceneEntities();
