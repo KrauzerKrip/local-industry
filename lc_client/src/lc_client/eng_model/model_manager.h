@@ -11,7 +11,7 @@
 class ModelManager {
 
 public:
-	ModelManager(eng::IResource* pResource, TextureManager* pTextureManager, entt::registry* pUtilRegistry);
+	ModelManager(eng::IResource* pResource, TextureManager* pTextureManager, entt::registry& pUtilRegistry);
 
 	Model* getModel(const std::string modelPath, const std::string texturesDirPath);
 

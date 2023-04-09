@@ -42,7 +42,7 @@ void Game::init() {
 	sceneDependecies.pResource = m_pResource;
 	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoadingGl(
 		m_pShaderManager, m_pTextureManager, m_pModelManager, 
-		m_pScene->getMapRegistry(), m_pScene->getSceneRegistry(), m_pScene->getUtilRegistry());
+		&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry(), &m_pScene->getUtilRegistry());
 
 	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("test");

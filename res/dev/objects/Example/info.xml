@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<object id="Example" type="simple_object" sprite_height="1" sprite_width="1" collider_height="1" collider_width="1"></object>
+<object id="Example" type="simple_object">
+  <model>
+    <pack>dev</pack>
+    <name>test_model</name>
+  </model>
+  <collider type="box">
+    <center x="5" y="2.5" z="5"></center>
+    <height>10</height> <!--It is described like it is still standing square (without rotation). So it is the side length.-->
+    <length>5</length> <!--It is described like it is still standing square (without rotation). So it is the side length.-->
+    <width>5</width> <!--It is described like it is still standing square (without rotation). So it is the side length.-->
+    <rotation x="0" y="0" z="0"></rotation>
+  </collider>
+</object>

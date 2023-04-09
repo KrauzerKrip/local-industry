@@ -92,10 +92,10 @@ void RenderGL::cleanUp() {
 
 }
 
-void RenderGL::setRegistries(entt::registry* pMapRegistry, entt::registry* pSceneRegistry, entt::registry* pUtilRegistry) {
-	m_pMapRegistry = pMapRegistry;
-	m_pSceneRegistry = pSceneRegistry;
-	m_pUtilRegistry = pUtilRegistry;
+void RenderGL::setRegistries(entt::registry& pMapRegistry, entt::registry& pSceneRegistry, entt::registry& pUtilRegistry) {
+	m_pMapRegistry = &pMapRegistry;
+	m_pSceneRegistry = &pSceneRegistry;
+	m_pUtilRegistry = &pUtilRegistry;
 }
 
 void RenderGL::transform(glm::mat4& model, Transform& transform) {

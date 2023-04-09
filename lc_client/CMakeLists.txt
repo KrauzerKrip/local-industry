@@ -7,10 +7,15 @@ find_package(glad CONFIG REQUIRED)
 find_package(EnTT CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(assimp CONFIG REQUIRED)
+find_package(pugixml CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 target_link_libraries(lc_client PUBLIC glfw glad::glad EnTT::EnTT)
 target_link_libraries(lc_client PUBLIC glm::glm)
 target_link_libraries(lc_client PRIVATE assimp::assimp)
+target_link_libraries(lc_client PRIVATE pugixml::pugixml)
+target_link_libraries(lc_client PRIVATE nlohmann_json::nlohmann_json)
+
 
 target_link_libraries(lc_client PRIVATE eng::rc)
 target_link_libraries(lc_client PRIVATE stb)   

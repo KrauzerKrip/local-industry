@@ -3,14 +3,25 @@
 #include <string>
 
 #include <entt/entt.hpp>
+#include <pugixml.hpp>
+
+
+#include "lc_client/util/i_eng_resource.h"
 
 
 class SceneLoading {
-	SceneLoading(entt::registry& sceneRegistry, entt::registry& mapRegistry);
+public:
+    SceneLoading(entt::registry& sceneRegistry, entt::registry& mapRegistry, eng::IResource* pResource);
 	~SceneLoading();
 
 	void loadScene(std::string path);
 
-	entt::registry* m_pSceneRegistry;
-	entt::registry* m_pMapRegistry;
+private:
+
+	void handleComponent(pugi::xml_node component);
+
+	entt::registry* m_pSceneRegistry = nullptr;
+	entt::registry* m_pMapRegistry = nullptr;
+	eng::IResource* m_pResource = nullptr;
 };
+

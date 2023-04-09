@@ -19,3 +19,14 @@ class AssimpException : public std::runtime_error {
 public:
 	AssimpException(std::string info) : std::runtime_error("Assimp fail:\n" + info + "\n") { }
 };
+
+class XmlException : public std::runtime_error {
+public:
+	XmlException(std::string info) : std::runtime_error("XML fail:\n" + info + "\n") {}
+};
+
+class ModelNotFoundException : public std::runtime_error {
+public:
+	ModelNotFoundException(std::string info) : std::runtime_error("Model not found:\n" + info + "\n") {}
+};
+

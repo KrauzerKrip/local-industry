@@ -8,6 +8,8 @@ target_sources(lc_client
     "scene.cpp"
     "scene_loading.h"
     "scene_loading.cpp"
+    "component_creator.h"
+    "component_creator.cpp"
 
     "entt/components.h"
 )
