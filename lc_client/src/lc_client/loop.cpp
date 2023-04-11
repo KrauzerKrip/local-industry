@@ -32,6 +32,7 @@ void Loop::init() {
 
 	m_pWindow->init();
 	m_pGameLogic->init(); // it was before
+	
 }
 
 void Loop::startLoop() {

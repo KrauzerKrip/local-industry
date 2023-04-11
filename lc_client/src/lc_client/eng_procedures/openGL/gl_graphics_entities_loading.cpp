@@ -34,12 +34,11 @@ void GraphicsEntitiesLoadingGl::loadSceneEntities() {
 
 		try {
 
-			Pack& pack = Pack::getPack(packName);
-
 			Model* pModel = nullptr;
 			unsigned int shaderProgram = 0;
 
 			try {
+				Pack& pack = Pack::getPack(packName);
 				Pack::Model modelDataFull = Pack::Model(pack, modelName);
 				pModel = m_pModelManager->getModel(modelDataFull.getPath(), modelDataFull.getTexturesPath());
 				shaderProgram = createShaderProgram(modelDataFull.getVertexShader(), modelDataFull.getFragmentShader());

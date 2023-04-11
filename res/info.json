@@ -1,10 +1,10 @@
 {
   "project": "INDUSTRY",
   "version": "0.0.1-alpha",
-  "packs": [
-    [ "dev", "dev/pack.json" ],
-    ["game", "game/pack.json"]
-  ],
+  "packs": {
+    "dev": "dev/pack.json",
+    "game": "game/pack.json" 
+  },
   "config": [
     "set: ObjectsParameters triggersDisplay = false;"
   ]

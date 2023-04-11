@@ -36,8 +36,6 @@ void Scene::loadScene(std::string pack, std::string scene) {
 	m_sceneRegistry.clear();
 	m_utilRegistry.clear();
 
-	Pack::loadPack("dev", "dev/pack.json", m_pResource); // temp
-
 	m_pSceneLoading->loadScene(pack + "/scenes/" + scene + "/scene.xml");
 
 	m_pGraphicsEntitiesLoading->loadMapEntities();

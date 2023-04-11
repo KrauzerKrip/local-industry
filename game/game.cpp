@@ -12,6 +12,7 @@
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
+#include "lc_client/eng_procedures/tier1/tier1.h"
 
 
 Game::Game(IWindow* pWindow) {
@@ -31,6 +32,8 @@ Game::~Game() {
 };
 
 void Game::init() {
+	tier1::load(m_pResource);
+
 	m_pInput = m_pWindow->getInput();
 
 	m_pShaderManager->loadShaders();

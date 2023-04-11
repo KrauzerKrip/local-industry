@@ -13,4 +13,9 @@ target_sources(lc_client
         "openGL/gl_graphics_entities_loading.cpp"
         "openGL/gl_texture_manager.h"
         "openGL/gl_texture_manager.cpp"
+
+        "tier1/game_info.h"
+        "tier1/game_info.cpp"
+        "tier1/tier1.h"
+        "tier1/tier1.cpp"
 )

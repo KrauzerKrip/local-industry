@@ -14,15 +14,26 @@ void Pack::loadPack(const std::string name, std::string path, eng::IResource* pR
 	std::cout << "Pack '" << name << "' with the path '" << path << "' has been loaded. " << std::endl;
 }
 
-Pack& Pack::getPack(std::string name) { return m_packs.at(name); }
+Pack& Pack::getPack(std::string name) {
+	try {
+		return m_packs.at(name);
+	}
+	catch (std::out_of_range&) {
+		throw std::runtime_error("Pack: pack '" + name + "' not loaded");
+	}
+}
 
 Pack::Pack(std::string name, std::string path, eng::IResource* pResource) {
 	m_name = name;
 	m_path = path;
 
-	std::vector<unsigned char> buffer = pResource->getFileResource(path);
-
-	m_descriptor = json::parse(buffer);
+	try {
+		std::vector<unsigned char> buffer = pResource->getFileResource(path);
+		m_descriptor = json::parse(buffer);
+	}
+	catch (ResourceFileNotFoundException& exception) {
+		throw ResourceFileNotFoundException("Incorrect pack '" + name + "':" + exception.what());
+	}
 }
 
 Pack::~Pack() = default;
