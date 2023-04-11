@@ -7,14 +7,18 @@
 #include "lc_client/util/pack.h"
 
 
-void tier1::load(eng::IResource* pResource) { loadPacks(pResource); }
+Tier1::Tier1(eng::IResource* pResource) { 
+	loadPacks(pResource); 
+}
 
-void tier1::loadPacks(eng::IResource* pResource) {
+TextureManager* Tier1::getTextureManager() { return m_pTextureManager; }
+IShaderManager* Tier1::getShaderManager() { return m_pShaderManager; }
+
+void Tier1::loadPacks(eng::IResource* pResource) {
 	GameInfo gameInfo(pResource);
 	std::map<std::string, std::string> packs = gameInfo.getPacks();
 
 	for (auto const& [name, path] : packs) {
 		Pack::loadPack(name, path, pResource);
 	}
-
 }

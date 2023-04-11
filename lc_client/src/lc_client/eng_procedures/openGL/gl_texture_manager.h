@@ -1,23 +1,11 @@
 #pragma once
 
-#include <unordered_map>
+#include "lc_client/eng_procedures/texture_manager.h"
 
-#include "lc_client/eng_graphics/texture.h"
-#include "lc_client/util/i_eng_resource.h"
-
-
-class TextureManager {
+class TextureManagerGl : public TextureManager {
 public:
-	TextureManager(eng::IResource* pResource);
+	TextureManagerGl(eng::IResource* pResource);
 
-	Texture* getTexture(std::string path);
-
-private: 
+private:
 	Texture* loadTexture(std::string path);
-
-	std::unordered_map<std::string, Texture*> m_textureMap;
-	
-	eng::IResource* m_pResource;
-
-	const static std::string FILE_FORMAT;
 };

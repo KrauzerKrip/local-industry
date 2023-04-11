@@ -12,7 +12,7 @@
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
-#include "lc_client/eng_procedures/tier1/tier1.h"
+#include "lc_client/eng_procedures/tier1/gl_tier1.h"
 
 
 Game::Game(IWindow* pWindow) {
@@ -20,32 +20,30 @@ Game::Game(IWindow* pWindow) {
 	m_pCamera = new Camera();
 	m_pRender = new RenderGL(m_pWindow, m_pCamera);
 	m_pResource = new eng::Resource("D:/Industry/industry/res/");
-	m_pShaderManager = new ShaderManagerGl(m_pResource);
-	m_pTextureManager = new TextureManager(m_pResource);
+	m_pTier1 = new Tier1Gl(m_pResource);
 }
 
 Game::~Game() {
 	delete m_pRender;
 	delete m_pResource;
-	delete m_pShaderManager;
+	delete m_pTier1;
 	delete m_pCamera;
 };
 
 void Game::init() {
-	tier1::load(m_pResource);
 
 	m_pInput = m_pWindow->getInput();
 
-	m_pShaderManager->loadShaders();
+	m_pTier1->getShaderManager()->loadShaders();
 
 	m_pScene = SceneControlling::getScene();
-	m_pModelManager = new ModelManager(m_pResource, m_pTextureManager, m_pScene->getUtilRegistry());
+	m_pModelManager = new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry());
 	SceneDependencies sceneDependecies;
-	sceneDependecies.pShaderManager = m_pShaderManager;
+	sceneDependecies.pShaderManager = m_pTier1->getShaderManager();
 	sceneDependecies.pResource = m_pResource;
-	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoadingGl(
-		m_pShaderManager, m_pTextureManager, m_pModelManager, 
-		&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry(), &m_pScene->getUtilRegistry());
+	sceneDependecies.pGraphicsEntitiesLoading =
+		new GraphicsEntitiesLoadingGl(m_pTier1->getShaderManager(), m_pTier1->getTextureManager(), m_pModelManager,
+			&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry(), &m_pScene->getUtilRegistry());
 
 	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("dev", "test");
