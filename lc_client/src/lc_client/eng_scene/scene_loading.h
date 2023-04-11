@@ -18,7 +18,7 @@ public:
 
 private:
 
-	void handleComponent(pugi::xml_node component);
+	void handleComponent(pugi::xml_node component, entt::entity entity);
 
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pMapRegistry = nullptr;

@@ -4,11 +4,11 @@
 #include <glm/vec3.hpp>
 
 struct Properties {
-	std::string uuid;
 	std::string id;
+	std::string uuid;
 
 	Properties() = default;
-	Properties(std::string uuid, std::string id) : uuid(uuid), id(id) {}
+	Properties(std::string id, std::string uuid) : id(id), uuid(uuid) {}
 	Properties(const Properties&) = default;
 };
 

@@ -18,16 +18,14 @@ Scene::Scene() {
 	m_mapRegistry = entt::registry();
 	m_sceneRegistry = entt::registry();
 	m_utilRegistry = entt::registry();
-	m_pSceneLoading = new SceneLoading(m_sceneRegistry, m_mapRegistry, m_pResource);
 }
 
 Scene::~Scene() { delete m_pSceneLoading; }
 
-void Scene::loadScene(std::string name) {
+void Scene::loadScene(std::string pack, std::string scene) {
 
-
-
-	m_name = name;
+	m_name = scene;
+	m_pack = pack;
 
 	if (m_pShaderManager == nullptr) {
 		std::cerr << "NullPointerException: m_pShaderManager wasn`t initialized." << std::endl;
@@ -38,18 +36,9 @@ void Scene::loadScene(std::string name) {
 	m_sceneRegistry.clear();
 	m_utilRegistry.clear();
 
-	Pack::loadPack("dev", "dev/pack.json", m_pResource);
+	Pack::loadPack("dev", "dev/pack.json", m_pResource); // temp
 
-	auto entity = m_sceneRegistry.create();
-	m_sceneRegistry.emplace<Properties>(entity, "test_uuid", "test_id");
-	ModelData& modelData = m_sceneRegistry.emplace<ModelData>(entity);
-	modelData.modelName = "test_model";
-	modelData.packName = "dev";
-
-	Transform& transform = m_sceneRegistry.emplace<Transform>(entity);
-	transform.position = glm::vec3(0.0f, 0.0f, -5.0f);
-	transform.rotation = glm::vec3(1.0f, 0.0f, 0.0f);
-	transform.scale = glm::vec3(10.0f, 10.0f, 10.0f);
+	m_pSceneLoading->loadScene(pack + "/scenes/" + scene + "/scene.xml");
 
 	m_pGraphicsEntitiesLoading->loadMapEntities();
 	m_pGraphicsEntitiesLoading->loadSceneEntities();
@@ -59,6 +48,8 @@ void Scene::setDependencies(SceneDependencies& sceneDependencies) {
 	m_pShaderManager = sceneDependencies.pShaderManager;
 	m_pResource = sceneDependencies.pResource;
 	m_pGraphicsEntitiesLoading = sceneDependencies.pGraphicsEntitiesLoading;
+
+	m_pSceneLoading = new SceneLoading(m_sceneRegistry, m_mapRegistry, m_pResource);
 }
 
 

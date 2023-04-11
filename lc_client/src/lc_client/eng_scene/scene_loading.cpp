@@ -1,6 +1,12 @@
 #include "scene_loading.h"
 
+#include <iostream>
+
 #include "lc_client/exceptions/io_exceptions.h"
+#include "lc_client/eng_scene/component_creator.h"
+#include "lc_client/eng_scene/entt/components.h"
+#include "lc_client/eng_model/entt/components.h"
+#include "lc_client/eng_graphics/entt/components.h"
 
 
 SceneLoading::SceneLoading(entt::registry& sceneRegistry, entt::registry& mapRegistry, eng::IResource* pResource) {
@@ -20,20 +26,30 @@ void SceneLoading::loadScene(std::string path) {
 		throw XmlException(result.description());
 	}
 
-	for (pugi::xml_node entity : document.child("entities").children("entity")) {
-		std::string id = entity.attribute("id").as_string();
-		std::string uuid = entity.attribute("uuid").as_string();
+	for (pugi::xml_node entityXml : document.child("entities").children("entity")) {
+		std::string id = entityXml.attribute("id").as_string();
+		std::string uuid = entityXml.attribute("uuid").as_string();
 
-		for (pugi::xml_node component : entity.child("components").children()) {
-			handleComponent(component);
+		entt::entity entity = m_pSceneRegistry->create();
+
+		m_pSceneRegistry->emplace<Properties>(entity, id, uuid);
+
+		for (pugi::xml_node component : entityXml.child("components").children()) {
+			handleComponent(component, entity);
 		}
-		for (pugi::xml_node component : entity.child("pseudo_components").children()) {}
+		for (pugi::xml_node component : entityXml.child("pseudo_components").children()) {}
 	}
 }
 
-void SceneLoading::handleComponent(pugi::xml_node component) {
-	if (component.name() == "transform") {}
-	else if (component.name() == "model") {}
-	else if (component.name() == "script") {}
-	else if (component.name() == "trigger") {}
+void SceneLoading::handleComponent(pugi::xml_node componentXml, entt::entity entity) {
+	std::string componentName = componentXml.name();
+	
+	if (componentName == "transform") {
+		m_pSceneRegistry->emplace<Transform>(entity, getTransform(componentXml));
+	}
+	else if (componentName == "model_data") {
+		m_pSceneRegistry->emplace<ModelData>(entity, getModelData(componentXml));
+	}
+	else if (componentName == "script") {}
+	else if (componentName == "trigger") {}
 }

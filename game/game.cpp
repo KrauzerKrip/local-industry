@@ -45,7 +45,7 @@ void Game::init() {
 		&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry(), &m_pScene->getUtilRegistry());
 
 	m_pScene->setDependencies(sceneDependecies);
-	SceneControlling::loadScene("test");
+	SceneControlling::loadScene("dev", "test");
 
 	m_pRender->setRegistries(m_pScene->getMapRegistry(), m_pScene->getSceneRegistry(), m_pScene->getUtilRegistry());
 

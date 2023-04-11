@@ -22,7 +22,7 @@ public:
 	Scene();
 	~Scene();
 
-	void loadScene(std::string name);
+	void loadScene(std::string pack, std::string scene);
 	void setDependencies(SceneDependencies& sceneDependencies);
 	entt::registry& getMapRegistry();
 	entt::registry& getSceneRegistry();
@@ -34,6 +34,7 @@ private:
 	entt::registry m_utilRegistry;
 
 	std::string m_name;
+	std::string m_pack;
 
 	TextureManager* m_pTextureManager = nullptr;
 	
