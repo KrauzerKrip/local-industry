@@ -7,6 +7,10 @@
 #include "lc_client/eng_procedures/texture_manager.h"
 
 
+/**
+ * 
+ * 
+ */
 class Tier1 {
 public:
 	Tier1(eng::IResource* pResource);

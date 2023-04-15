@@ -66,10 +66,10 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 	m_modelMap.emplace(modelPath, pModel);
 
 	if (success) {
-		std::cout << "Model" << modelPath << "' loaded." << std::endl;
+		std::cout << "Model '" << modelPath << "' loaded." << std::endl;
 	}
 	else {
-		std::cout << "Model" << modelPath << "' wasn`t loaded successfully. Set default instead." << std::endl;
+		std::cout << "Model '" << modelPath << "' wasn`t loaded successfully. Set default instead." << std::endl;
 	}
 
 	return pModel;
