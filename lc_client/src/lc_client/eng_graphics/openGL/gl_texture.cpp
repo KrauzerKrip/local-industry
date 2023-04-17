@@ -23,7 +23,7 @@ void TextureGL::load() {
 
 #ifdef DEBUG
 	if (m_textureType == TextureType::COLOR) {
-		std::cout << "COLOR: " << GL_TEXTURE0 + m_textureType << m_textureType <<std::endl;
+		std::cout << "COLOR: " << GL_TEXTURE0 + m_textureType << m_textureType << std::endl;
 	}
 
 	if (m_textureType == TextureType::NORMAL) {

@@ -1,6 +1,8 @@
 #include "game.h"
 
 #include <iostream>
+#include <chrono>
+
 #include <entt/entt.hpp>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -73,7 +75,7 @@ void Game::input() {
 	m_pCamera->setRotation(cameraRot);
 
 
-	float cameraSpeed = 0.05f; 
+	float cameraSpeed = 0.05f;
 
 	glm::vec3 cameraPos = m_pCamera->getPosition();
 
@@ -87,7 +89,7 @@ void Game::input() {
 		}
 		if (m_pInput->isKeyPressed("S")) {
 			cameraPos += cameraSpeed * -m_pCamera->getCameraFront();
-		} 
+		}
 		if (m_pInput->isKeyPressed("A")) {
 			cameraPos += cameraSpeed * -m_pCamera->getCameraRight();
 		}
@@ -117,19 +119,36 @@ void Game::input() {
 	catch (UnknownKeyCodeException& exception) {
 		std::cerr << exception.what() << std::endl;
 	}
-	
+
 	m_pCamera->setPosition(cameraPos);
 }
 
 void Game::update() {
 
+	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
+
+	auto view = pSceneRegistry->view<Properties, Transform>();
+	for (auto& entity : view) {
+		if (view.get<Properties>(entity).id == "example_entity_1") {
+			glm::vec3& rotation = view.get<Transform>(entity).rotation;
+			rotation += glm::vec3(1.0, -1.0, 1.0) * Time::getDeltaTime();
+			if (rotation.x > 89.0f)
+				rotation.x = 0.0f;
+			if (rotation.x < -89.0f)
+				rotation.x = 0.0f;
+
+			glm::vec3& position = view.get<Transform>(entity).position;
+
+			using namespace std::chrono;
+
+			auto time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+
+			position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
+			position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
+		}
+	}
 }
 
-void Game::render() {
+void Game::render() { m_pRender->render(); }
 
-	m_pRender->render();
-}
-
-void Game::cleanUp() {
-
-}
+void Game::cleanUp() {}

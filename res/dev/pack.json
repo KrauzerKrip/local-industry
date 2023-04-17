@@ -1,17 +1,23 @@
   {
   "pack": "dev",
-  "models": {
-    "eng_model_not_found": {
-      "model_path": "dev/models/eng_model_not_found/model.obj",
-      "textures_path": "gmod_vibe",
-      "vertex_shader": "base",
-      "fragment_shader": "base"
-    },
-    "test_model": {
-      "model_path": "dev/models/test_model/model.obj",
-      "textures_path": "dev/models/test_model/",
-      "vertex_shader": "base",
-      "fragment_shader": "base"
+    "models": {
+      "eng_model_not_found": {
+        "model_path": "dev/models/eng_model_not_found/model.obj",
+        "textures_path": "gmod_vibe",
+        "vertex_shader": "base",
+        "fragment_shader": "base"
+      },
+      "test_model": {
+        "model_path": "dev/models/test_model/model.obj",
+        "textures_path": "dev/textures/test_texture/",
+        "vertex_shader": "base",
+        "fragment_shader": "base"
+      },
+      "bunny": {
+        "model_path": "dev/models/bunny/model.obj",
+        "textures_path": "dev/models/test_model/",
+        "vertex_shader": "base",
+        "fragment_shader": "base"
+      }
     }
-  }
 }

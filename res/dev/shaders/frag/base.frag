@@ -1,4 +1,4 @@
-#version 400 core
+﻿#version 400 core
 
 out vec4 FragColor;
 
@@ -13,5 +13,10 @@ void main()
 {	
 	vec4 color = texture(textureSamplerColor, TexCoord);
 	vec4 normal = texture(textureSamplerNormal, TexCoord);
-	FragColor = color * normal;
+
+	float ambientStrength = 0.1;
+//	vec3 ambient = ambientStrength * lightColor;
+//	vec3 result = ambient * objectColor;
+
+	FragColor = color;
 }

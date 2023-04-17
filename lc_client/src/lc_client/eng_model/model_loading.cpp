@@ -102,10 +102,15 @@ namespace eng {
 			vertex.position = vector;
 			vertices.push_back(vertex);
 
-			vector.x = pMesh->mNormals[i].x;
-			vector.y = pMesh->mNormals[i].y;
-			vector.z = pMesh->mNormals[i].z;
-			vertex.normal = vector;
+			if (pMesh->mNormals != nullptr) {
+				vector.x = pMesh->mNormals[i].x;
+				vector.y = pMesh->mNormals[i].y;
+				vector.z = pMesh->mNormals[i].z;
+				vertex.normal = vector;
+			}
+			else {
+				vertex.normal = glm::vec3(0.0f, 0.0f, 0.0f);
+			}
 
 			if (pMesh->mTextureCoords[0]) {  // does the pMesh contain texture coordinates? 
 				glm::vec2 vec;
@@ -155,7 +160,7 @@ namespace eng {
 
 		pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &str);
 		std::cout << "processMaterial DIFFUSE str: " << str.C_Str() << std::endl;
-		material.diffuseTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
+		material.diffuseTexture = m_pTextureManager->getTexture(m_texturesDirPath + "diffuse"); // str.C_Str());
 		material.diffuseTexture->setTextureType(TextureType::DIFFUSE);
 
 		pMaterial->GetTexture(aiTextureType_SPECULAR, 0, &str);

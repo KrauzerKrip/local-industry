@@ -50,7 +50,7 @@ void Loop::startLoop() {
 		m_pGameLogic->input();
 
 		//
-
+		m_pGameLogic->update();
 		m_pGameLogic->render();
 		m_pWindow->update();
 	}
