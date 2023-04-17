@@ -14,5 +14,9 @@ void main()
 	vec4 color = texture(textureSamplerColor, TexCoord);
 	vec4 normal = texture(textureSamplerNormal, TexCoord);
 
+	float ambientStrength = 0.1;
+//	vec3 ambient = ambientStrength * lightColor;
+//	vec3 result = ambient * objectColor;
+
 	FragColor = color;
 }
