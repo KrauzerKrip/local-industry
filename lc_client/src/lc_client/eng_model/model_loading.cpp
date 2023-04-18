@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "lc_client/exceptions/io_exceptions.h"	
+#include "lc_client/exceptions/io_exceptions.h"
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
 #include "lc_client/util/file_util.h"
@@ -10,25 +10,19 @@
 
 namespace eng {
 
-	ModelLoading::ModelLoading(std::string modelPath,
-		std::string texturesDirPath,
-		std::string fileFormat,
-		eng::IResource* pResource,
-		TextureManager* pTextureManager,
+	ModelLoading::ModelLoading(std::string modelPath, std::string texturesDirPath, std::string materialType,
+		std::string fileFormat, eng::IResource* pResource, TextureManager* pTextureManager,
 		entt::registry* pUtilRegistry)
 
 		: m_modelPath(modelPath),
-		m_texturesDirPath(texturesDirPath),
-		m_fileFormat(fileFormat),
-		m_pResource(pResource),
-		m_pTextureManager(pTextureManager),
-		m_pUtilRegistry(pUtilRegistry) {}
+		  m_texturesDirPath(texturesDirPath),
+		  m_materialType(materialType),
+		  m_fileFormat(fileFormat),
+		  m_pResource(pResource),
+		  m_pTextureManager(pTextureManager),
+		  m_pUtilRegistry(pUtilRegistry) {}
 
-	std::vector<MaterialSG>& ModelLoading::getMeshesMaterialsSG() {
-		return m_materials;
-	};
-
-	int ModelLoading::cat() { return 1; };
+	std::vector<MaterialSG>& ModelLoading::getMeshesMaterialsSG() { return m_materials; };
 
 	Model* ModelLoading::loadModel() {
 
@@ -39,7 +33,8 @@ namespace eng {
 		const unsigned char* pBuffer = buffer.data();
 
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFileFromMemory(pBuffer, buffer.size(), aiProcess_Triangulate | aiProcess_FlipUVs, m_fileFormat.c_str());
+		const aiScene* scene = importer.ReadFileFromMemory(
+			pBuffer, buffer.size(), aiProcess_Triangulate | aiProcess_FlipUVs, m_fileFormat.c_str());
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 			throw AssimpException(importer.GetErrorString());
@@ -61,12 +56,21 @@ namespace eng {
 			entt::entity entity = m_pUtilRegistry->create();
 			m_pUtilRegistry->emplace<Mesh>(entity, eng::ModelLoading::processMesh(pMesh, scene));
 
-			MaterialSG materialSG;
 			if (pMesh->mMaterialIndex >= 0) {
-				eng::ModelLoading::processMaterialSG(scene->mMaterials[pMesh->mMaterialIndex], materialSG);
+				if (m_materialType == "sg") {
+					MaterialSG material = eng::ModelLoading::getMaterialSG(scene->mMaterials[pMesh->mMaterialIndex]);
+					m_pUtilRegistry->emplace<MaterialSG>(entity, material);
+				}
+				else if (m_materialType == "mr") {
+					MaterialMR material = eng::ModelLoading::getMaterialMR(scene->mMaterials[pMesh->mMaterialIndex]);
+					m_pUtilRegistry->emplace<MaterialMR>(entity, material);
+				}
+				else {
+					throw std::runtime_error("ModelLoading: unknown model material type: " + m_materialType);
+				}
 			}
 
-			m_pUtilRegistry->emplace<MaterialSG>(entity, materialSG);
+
 
 			meshes.push_back(entity);
 		}
@@ -100,7 +104,6 @@ namespace eng {
 			vector.y = pMesh->mVertices[i].y;
 			vector.z = pMesh->mVertices[i].z;
 			vertex.position = vector;
-			vertices.push_back(vertex);
 
 			if (pMesh->mNormals != nullptr) {
 				vector.x = pMesh->mNormals[i].x;
@@ -112,7 +115,7 @@ namespace eng {
 				vertex.normal = glm::vec3(0.0f, 0.0f, 0.0f);
 			}
 
-			if (pMesh->mTextureCoords[0]) {  // does the pMesh contain texture coordinates? 
+			if (pMesh->mTextureCoords[0]) { // does the pMesh contain texture coordinates?
 				glm::vec2 vec;
 				vec.x = pMesh->mTextureCoords[0][i].x;
 				vec.y = pMesh->mTextureCoords[0][i].y;
@@ -121,28 +124,35 @@ namespace eng {
 			else {
 				vertex.textureCoords = glm::vec2(0.0f, 0.0f);
 			}
+			
+			vertices.push_back(vertex);
 		}
+
 	}
 
 	void ModelLoading::processIndices(aiMesh* pMesh, std::vector<unsigned int>& indices) {
 		for (unsigned int i = 0; i < pMesh->mNumFaces; i++) {
 			aiFace face = pMesh->mFaces[i];
-			for (unsigned int j = 0; j < face.mNumIndices; j++)
+			for (unsigned int j = 0; j < face.mNumIndices; j++) {
 				indices.push_back(face.mIndices[j]);
+			}
 		}
 	}
-	void ModelLoading::processMaterialMR(aiMaterial* pMaterial, MaterialMR& material) {
+
+	MaterialMR ModelLoading::getMaterialMR(aiMaterial* pMaterial) {
 		aiString str;
 
 		std::cout << "processMaterialMR in model_loading.cpp isn`t ready yet" << std::endl;
 
 		assert(1);
 
+		MaterialMR material;
+
 		pMaterial->GetTexture(aiTextureType_BASE_COLOR, 0, &str);
 		std::cout << "processMaterial BASE_COLOR str: " << str.C_Str() << std::endl;
 		material.colorTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
 
-		//pMaterial->GetTexture(aiTextureType_, 0, &str);
+		// pMaterial->GetTexture(aiTextureType_, 0, &str);
 		material.metallicTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
 
 		pMaterial->GetTexture(aiTextureType_AMBIENT_OCCLUSION, 0, &str);
@@ -153,32 +163,30 @@ namespace eng {
 
 		pMaterial->GetTexture(aiTextureType_AMBIENT_OCCLUSION, 0, &str);
 		material.aoTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
+
+		return material;
 	}
 
-	void ModelLoading::processMaterialSG(aiMaterial* pMaterial, MaterialSG& material) {
-		aiString str;
+	MaterialSG ModelLoading::getMaterialSG(aiMaterial* pMaterial) {
 
-		pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &str);
-		std::cout << "processMaterial DIFFUSE str: " << str.C_Str() << std::endl;
+		MaterialSG material;
+
 		material.diffuseTexture = m_pTextureManager->getTexture(m_texturesDirPath + "diffuse"); // str.C_Str());
 		material.diffuseTexture->setTextureType(TextureType::DIFFUSE);
 
-		pMaterial->GetTexture(aiTextureType_SPECULAR, 0, &str);
-		material.specularTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
+		material.specularTexture = m_pTextureManager->getTexture(m_texturesDirPath + "specular");
 		material.specularTexture->setTextureType(TextureType::SPECULAR);
 
-		pMaterial->GetTexture(aiTextureType_SHININESS, 0, &str);
-		material.glossinessTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
+		material.glossinessTexture = m_pTextureManager->getTexture(m_texturesDirPath + "glossiness");
 		material.glossinessTexture->setTextureType(TextureType::GLOSSINESS);
 
-		pMaterial->GetTexture(aiTextureType_AMBIENT_OCCLUSION, 0, &str);
-		material.aoTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
+		material.aoTexture = m_pTextureManager->getTexture(m_texturesDirPath + "ao");
 		material.aoTexture->setTextureType(TextureType::AO);
 
-		pMaterial->GetTexture(aiTextureType_NORMALS, 0, &str);
-		material.normalMap = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
+		material.normalMap = m_pTextureManager->getTexture(m_texturesDirPath + "normal");
 		material.normalMap->setTextureType(TextureType::NORMAL);
-	} 
+
+		return material;
+	}
 
 }
-

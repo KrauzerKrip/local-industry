@@ -13,10 +13,10 @@ class ModelManager {
 public:
 	ModelManager(eng::IResource* pResource, TextureManager* pTextureManager, entt::registry& pUtilRegistry);
 
-	Model* getModel(const std::string modelPath, const std::string texturesDirPath);
+	Model* getModel(const std::string modelPath, const std::string texturesDirPath, const std::string materialType);
 
 private :
-	Model* loadModel(const std::string modelPath, const std::string texturesDirPath);
+	Model* loadModel(const std::string modelPath, const std::string texturesDirPath, const std::string materialType);
 
 	std::unordered_map<std::string, Model*> m_modelMap;
 

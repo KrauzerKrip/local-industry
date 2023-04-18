@@ -17,25 +17,25 @@ ModelManager::ModelManager(eng::IResource* pResource, TextureManager* pTextureMa
 	m_pUtilRegistry = &pUtilRegistry;
 }
 
-Model* ModelManager::getModel(const std::string modelPath, const std::string texturesDirPath) {
+Model* ModelManager::getModel(const std::string modelPath, const std::string texturesDirPath, const std::string materialType) {
 	try {
 		return m_modelMap.at(modelPath);
 	}
 	catch (std::out_of_range) {
 		std::cout << "Model '" << modelPath << "' not found in cache, will try to load." << std::endl;
-		return loadModel(modelPath, texturesDirPath);
+		return loadModel(modelPath, texturesDirPath, materialType);
 	}
 }
 
-Model* ModelManager::loadModel(const std::string modelPath, const std::string texturesDirPath) {
+Model* ModelManager::loadModel(const std::string modelPath, const std::string texturesDirPath, const std::string materialType) {
 
-	Model* pModel = nullptr;
+	Model* pModel = nullptr;  
 
 	bool success = false;
 
 	try {
 		eng::ModelLoading modelLoading(
-			modelPath, texturesDirPath, FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
+			modelPath, texturesDirPath, materialType, FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
 		pModel = modelLoading.loadModel();
 
 		success = true;
@@ -45,7 +45,7 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 
 		// "gmod vibe" here just to occur exception and load black-purple textures
 		eng::ModelLoading modelLoading(
-			ERROR_MODEL_PATH, "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
+			ERROR_MODEL_PATH, "gmod_vibe", "sg", FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
 		pModel = modelLoading.loadModel();
 	}
 	catch (AssimpException& exception) {
@@ -53,7 +53,7 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 
 		// "gmod vibe" here just to occur exception and load black-purple textures
 		eng::ModelLoading modelLoading(
-			ERROR_MODEL_PATH, "gmod_vibe", FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
+			ERROR_MODEL_PATH, "gmod_vibe", "sg", FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
 
 		pModel = modelLoading.loadModel();
 	}

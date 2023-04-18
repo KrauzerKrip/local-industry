@@ -58,6 +58,7 @@ Pack::Model::Model(Pack& parent, std::string name) : m_parent(parent) {
 
 			m_modelPath = model.value().at("model_path");
 			m_texturesPath = model.value().at("textures_path");
+			m_materialType = model.value().at("material_type");
 			m_vertexShader = model.value().at("vertex_shader");
 			m_fragmentShader = model.value().at("fragment_shader");
 		}
@@ -77,6 +78,8 @@ Pack::Model::~Model() = default;
 std::string Pack::Model::getPath() { return m_modelPath; }
 
 std::string Pack::Model::getTexturesPath() { return m_texturesPath; }
+
+std::string Pack::Model::getMaterialType() { return m_materialType; }
 
 std::string Pack::Model::getVertexShader() { return m_vertexShader; }
 

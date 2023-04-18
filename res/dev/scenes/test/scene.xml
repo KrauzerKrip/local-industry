@@ -10,7 +10,7 @@
       </transform>
       <model_data>
         <pack>dev</pack>
-        <model>test_model</model>
+        <model>test_cube</model>
       </model_data>
       <script is_eternal="false">example_script</script>
     </components>
