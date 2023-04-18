@@ -4,6 +4,7 @@
 #include <memory>
 #include <sstream>
 #include <unordered_map>
+#include <map>
 
 #include <nlohmann/json.hpp>
 
@@ -38,6 +39,35 @@ public:
 		std::string m_materialType;
 		std::string m_vertexShader;
 		std::string m_fragmentShader;
+	};
+
+	class Shader {
+	public:
+		Shader();
+		~Shader();
+
+
+		//std::string getPath();
+
+	protected:
+		static std::map<std::string, std::string> getShaders(nlohmann::json& shadersJson);
+		std::string m_shaderPath;
+	};
+
+	class VertexShader : public Shader {
+		VertexShader(Pack& parent, std::string name);
+		~VertexShader();
+
+		static std::map<std::string, std::string> getShaders(Pack& parent);
+
+	};
+
+	class FragmentShader : public Shader {
+		FragmentShader(Pack& parent, std::string name);
+		~FragmentShader();
+
+		static std::map<std::string, std::string> getShaders(Pack& parent);
+
 	};
 
 private:
