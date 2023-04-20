@@ -55,6 +55,7 @@ public:
 	};
 
 	class VertexShader : public Shader {
+	public:
 		VertexShader(Pack& parent, std::string name);
 		~VertexShader();
 
@@ -63,6 +64,7 @@ public:
 	};
 
 	class FragmentShader : public Shader {
+	public:
 		FragmentShader(Pack& parent, std::string name);
 		~FragmentShader();
 

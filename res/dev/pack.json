@@ -3,7 +3,7 @@
 
     "shaders": {
       "vertex": {
-        "base": "dev/shaders/frag/base.vert"
+        "base": "dev/shaders/vert/base.vert"
       },
       "fragment": {
         "base": "dev/shaders/frag/base.frag",

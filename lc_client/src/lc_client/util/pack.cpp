@@ -89,6 +89,8 @@ std::map<std::string, std::string> Pack::Shader::getShaders(nlohmann::json& shad
 	for (auto& shader : shadersJson.items()) {
 		shaders.emplace(shader.key(), shader.value());
 	}
+
+	return shaders;
 }
 //std::string Pack::Shader::getPath() { return m_shaderPath; }
 
