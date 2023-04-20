@@ -95,13 +95,13 @@ unsigned int GraphicsEntitiesLoadingGl::createShaderProgram(
 	shaderProgram = glCreateProgram();
 
 	try {
-		glAttachShader(shaderProgram, m_pShaderManager->getFragmentShader(vertexShaderName));
+		glAttachShader(shaderProgram, m_pShaderManager->getFragmentShader(fragmentShaderName));
 	}
 	catch (const std::out_of_range& exception) {
 		std::cerr << exception.what() << std::endl;
 	}
 	try {
-		glAttachShader(shaderProgram, m_pShaderManager->getVertexShader(fragmentShaderName));
+		glAttachShader(shaderProgram, m_pShaderManager->getVertexShader(vertexShaderName));
 	}
 	catch (const std::out_of_range& exception) {
 		std::cerr << exception.what() << std::endl;
