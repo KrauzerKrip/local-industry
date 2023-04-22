@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "scene.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -20,7 +21,9 @@ Scene::Scene() {
 	m_utilRegistry = entt::registry();
 }
 
-Scene::~Scene() { delete m_pSceneLoading; }
+Scene::~Scene() {
+	delete m_pSceneLoading;
+}
 
 void Scene::loadScene(std::string pack, std::string scene) {
 
@@ -56,3 +59,5 @@ entt::registry& Scene::getMapRegistry() { return m_mapRegistry; }
 entt::registry& Scene::getSceneRegistry() { return m_sceneRegistry; }
 
 entt::registry& Scene::getUtilRegistry() { return m_utilRegistry; }
+
+Skybox& Scene::getSkybox() { return m_skybox; }

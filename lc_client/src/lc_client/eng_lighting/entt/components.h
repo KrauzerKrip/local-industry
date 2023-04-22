@@ -3,9 +3,6 @@
 #include <glm/glm.hpp>
 #include <entt/entt.hpp>
 
-struct AmbientLight {
-	glm::vec3 color;
-};
 
 struct PointLight {
 	glm::vec3 relativePosition;

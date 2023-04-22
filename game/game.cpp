@@ -50,9 +50,13 @@ void Game::init() {
 	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("dev", "test");
 
-	m_pRender->setRegistries(m_pScene->getMapRegistry(), m_pScene->getSceneRegistry(), m_pScene->getUtilRegistry());
+	m_pRender->setDependecies(m_pScene);
 
 	m_pRender->init();
+
+
+	m_pScene->getSkybox().setLightColor(255, 255, 236);
+	m_pScene->getSkybox().setLightStrength(0.4);
 }
 
 void Game::input() {
