@@ -48,6 +48,10 @@ void RenderGL::render() {
 		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerColor"), 4);
 		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerNormal"), 1);
 
+		glUniform3fv(glGetUniformLocation(shaderProgram, "ambientLightColor"), 1,
+			glm::value_ptr(m_pScene->getSkybox().getLightColor()));
+		glUniform1f(glGetUniformLocation(shaderProgram, "ambientLightStrength"), m_pScene->getSkybox().getLightStrength());
+
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);
 

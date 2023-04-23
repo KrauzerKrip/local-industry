@@ -95,13 +95,13 @@ unsigned int GraphicsEntitiesLoadingGl::createShaderProgram(
 	shaderProgram = glCreateProgram();
 
 	try {
-		glAttachShader(shaderProgram, m_pShaderManager->getFragmentShader(fragmentShaderName));
+		glAttachShader(shaderProgram, m_pShaderManager->getFragmentShader(vertexShaderName));
 	}
 	catch (const std::out_of_range& exception) {
 		std::cerr << exception.what() << std::endl;
 	}
 	try {
-		glAttachShader(shaderProgram, m_pShaderManager->getVertexShader(vertexShaderName));
+		glAttachShader(shaderProgram, m_pShaderManager->getVertexShader(fragmentShaderName));
 	}
 	catch (const std::out_of_range& exception) {
 		std::cerr << exception.what() << std::endl;
@@ -148,11 +148,6 @@ unsigned int GraphicsEntitiesLoadingGl::createVao(std::vector<Vertex>& vertices,
 	// vertex normals
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
-
-	std::cout << offsetof(Vertex, textureCoords) << std::endl;
-
-	auto p = vertices.data();
-	
 
 	// vertex texture coords
 	glEnableVertexAttribArray(2);
