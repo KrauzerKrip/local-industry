@@ -25,6 +25,10 @@ struct Transform {
 	Transform(const Transform&) = default;
 };
 
+struct Parent {
+	entt::entity parent;
+};
+
 struct ModelData {
 	std::string packName;
 	std::string modelName;

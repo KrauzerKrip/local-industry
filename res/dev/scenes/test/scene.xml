@@ -29,4 +29,7 @@
       <script is_eternal="false">example_trigger_script</script>
     </components>
   </entity>
+  <entity id="loaded_entity_1" uuid="">
+    <entity_name>test_entity</entity_name>
+  </entity>
 </entities>
