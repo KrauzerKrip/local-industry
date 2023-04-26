@@ -14,10 +14,10 @@
 
 void GraphicsEntitiesUtilGl::setModel(entt::entity entity, std::string packName, std::string modelName) {
 
-	try {
+	Model* pModel = nullptr;
+	unsigned int shaderProgram = 0;
 
-		Model* pModel = nullptr;
-		unsigned int shaderProgram = 0;
+	try {
 
 		try {
 			Pack& pack = Pack::getPack(packName);
@@ -39,10 +39,13 @@ void GraphicsEntitiesUtilGl::setModel(entt::entity entity, std::string packName,
 
 		handleModel(pModel);
 
-		m_pSceneRegistry->emplace<Model>(entity, pModel->meshes);
-		delete pModel;
+		std::cout << std::endl << "pre placing" << std::endl << std::endl;
 
-		m_pSceneRegistry->emplace<ShaderGl>(entity, shaderProgram);
+		m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel); // TODO: fix
+
+		std::cout << std::endl << "placed" << std::endl << std::endl;
+
+		m_pSceneRegistry->emplace_or_replace<ShaderGl>(entity, (int) shaderProgram);
 	}
 	catch (std::runtime_error& exception) {
 		std::cerr << exception.what() << std::endl;

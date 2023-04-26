@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 
 #include <entt/entt.hpp>
 
@@ -11,6 +12,7 @@ struct Model {
 	std::vector<entt::entity> meshes;
 
 	Model() = default;
-	Model(std::vector<entt::entity> meshes) : meshes(meshes) {};
+	Model(std::vector<entt::entity> meshes) : meshes(meshes){};
+	~Model() {}
 	Model(const Model&) = default;
 };
