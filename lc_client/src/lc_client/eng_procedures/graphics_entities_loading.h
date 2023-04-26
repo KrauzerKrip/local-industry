@@ -26,6 +26,7 @@ public:
 
 	virtual void loadSceneEntities() = 0;
 	virtual void loadMapEntities() = 0;
+	virtual void setModel(entt::entity entity, std::string packName, std::string modelName) = 0;
 
 protected:
 	IShaderManager* m_pShaderManager = nullptr;

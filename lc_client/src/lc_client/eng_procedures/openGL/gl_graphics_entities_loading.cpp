@@ -1,4 +1,5 @@
 #include "gl_graphics_entities_loading.h"
+#include "gl_graphics_entities_loading.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -23,51 +24,53 @@ void GraphicsEntitiesLoadingGl::loadMapEntities() {}
 void GraphicsEntitiesLoadingGl::loadSceneEntities() {
 	auto entitiesGroup = m_pSceneRegistry->group<Properties, ModelData>();
 
-
 	for (entt::entity entity : entitiesGroup) {
-
 		Properties& properties = entitiesGroup.get<Properties>(entity);
 		ModelData& modelData = entitiesGroup.get<ModelData>(entity);
 		const std::string packName = modelData.packName;
 		const std::string modelName = modelData.modelName;
 
+		setModel(entity, packName, modelName);
+	}
+}
+
+void GraphicsEntitiesLoadingGl::setModel(entt::entity entity, std::string packName, std::string modelName) {
+
+	try {
+
+		Model* pModel = nullptr;
+		unsigned int shaderProgram = 0;
 
 		try {
-
-			Model* pModel = nullptr;
-			unsigned int shaderProgram = 0;
-
-			try {
-				Pack& pack = Pack::getPack(packName);
-				Pack::Model modelDataFull = Pack::Model(pack, modelName);
-				pModel = m_pModelManager->getModel(
-					modelDataFull.getPath(), modelDataFull.getTexturesPath(), modelDataFull.getMaterialType());
-				shaderProgram = createShaderProgram(modelDataFull.getVertexShader(), modelDataFull.getFragmentShader());
-			}
-			catch (std::runtime_error& exception) {
-				std::cerr << exception.what() << std::endl;
-			}
-
-			if (pModel == nullptr) {
-				pModel = m_pModelManager->getModel("gmodVibe", "gmodVibe", "sg");
-			}
-			if (shaderProgram == 0) {
-				shaderProgram = createShaderProgram("base", "base");
-			}
-
-			handleModel(pModel);
-
-			m_pSceneRegistry->emplace<Model>(entity, pModel->meshes);
-			delete pModel;
-
-			m_pSceneRegistry->emplace<ShaderGl>(entity, shaderProgram);
-
-			m_pSceneRegistry->erase<ModelData>(entity);
+			Pack& pack = Pack::getPack(packName);
+			Pack::Model modelDataFull = Pack::Model(pack, modelName);
+			pModel = m_pModelManager->getModel(
+				modelDataFull.getPath(), modelDataFull.getTexturesPath(), modelDataFull.getMaterialType());
+			shaderProgram = createShaderProgram(modelDataFull.getVertexShader(), modelDataFull.getFragmentShader());
 		}
 		catch (std::runtime_error& exception) {
 			std::cerr << exception.what() << std::endl;
-			exit(1);
 		}
+
+		if (pModel == nullptr) {
+			pModel = m_pModelManager->getModel("gmodVibe", "gmodVibe", "sg");
+		}
+		if (shaderProgram == 0) {
+			shaderProgram = createShaderProgram("base", "base");
+		}
+
+		handleModel(pModel);
+
+		m_pSceneRegistry->emplace<Model>(entity, pModel->meshes);
+		delete pModel;
+
+		m_pSceneRegistry->emplace<ShaderGl>(entity, shaderProgram);
+
+		m_pSceneRegistry->erase<ModelData>(entity);
+	}
+	catch (std::runtime_error& exception) {
+		std::cerr << exception.what() << std::endl;
+		exit(1);
 	}
 }
 
@@ -149,10 +152,6 @@ unsigned int GraphicsEntitiesLoadingGl::createVao(std::vector<Vertex>& vertices,
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 
-	std::cout << offsetof(Vertex, textureCoords) << std::endl;
-
-	auto p = vertices.data();
-	
 
 	// vertex texture coords
 	glEnableVertexAttribArray(2);

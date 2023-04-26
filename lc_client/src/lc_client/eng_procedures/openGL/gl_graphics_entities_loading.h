@@ -24,6 +24,8 @@ public:
 
 	void loadSceneEntities();
 	void loadMapEntities();
+	void setModel(entt::entity entity, std::string packName, std::string modelName);
+
 private:
 	void handleModel(Model* pModel);
 	unsigned int createShaderProgram(std::string vertexShaderName, std::string fragmentShaderName);

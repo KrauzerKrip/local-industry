@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<entity name="light_tesdt">
+  <components>
+    <transform>
+      <position x="0.0" y="0.0" z="1.0"></position>
+      <rotation x="0.1" y="0" z="0"></rotation>
+      <scale x="0.1" y="0.1" z="0.1"></scale>
+    </transform>
+    <model_data>
+      <pack>dev</pack>
+      <model>lamp</model>
+    </model_data>
+    <script is_eternal="false">example_script</script>
+  </components>
+  <children>
+    <entity>
+      <components>
+        <relative_transform>
+          <position x="0.0" y="0.0" z="1.0"></position>
+          <rotation x="0.1" y="0" z="0"></rotation>
+          <scale x="1.0" y="1.0" z="1.0"></scale>
+        </relative_transform>
+        <point_light>
+          <color r="255" g="255" b="255"></color>
+          <power>1.0</power>
+        </point_light>
+      </components>
+    </entity>
+  </children>
+</entity>
