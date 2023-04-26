@@ -39,12 +39,7 @@ void GraphicsEntitiesUtilGl::setModel(entt::entity entity, std::string packName,
 
 		handleModel(pModel);
 
-		std::cout << std::endl << "pre placing" << std::endl << std::endl;
-
-		m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel); // TODO: fix
-
-		std::cout << std::endl << "placed" << std::endl << std::endl;
-
+		m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel); 
 		m_pSceneRegistry->emplace_or_replace<ShaderGl>(entity, (int) shaderProgram);
 	}
 	catch (std::runtime_error& exception) {
