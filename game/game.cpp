@@ -10,7 +10,7 @@
 #include "ldk_client/local_engine/time.h"
 #include "lc_client/eng_graphics/openGL/gl_render.h"
 #include "ldk_client/local_engine/scene_controlling.h"
-#include "lc_client/eng_procedures/openGL/gl_graphics_entities_loading.h"
+#include "lc_client/eng_graphics/openGL/gl_graphics_entities_util.h"
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
@@ -40,12 +40,14 @@ void Game::init() {
 
 	m_pScene = SceneControlling::getScene();
 	m_pModelManager = new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry());
+	m_pGraphicsEntitiesUtil = new GraphicsEntitiesUtilGl(m_pTier1->getShaderManager(), m_pTier1->getTextureManager(),
+		m_pModelManager, &m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry(), &m_pScene->getUtilRegistry());
+
 	SceneDependencies sceneDependecies;
 	sceneDependecies.pShaderManager = m_pTier1->getShaderManager();
 	sceneDependecies.pResource = m_pResource;
-	sceneDependecies.pGraphicsEntitiesLoading = 
-		new GraphicsEntitiesLoadingGl(m_pTier1->getShaderManager(), m_pTier1->getTextureManager(), m_pModelManager,
-			&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry(), &m_pScene->getUtilRegistry());
+	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoading(
+		m_pGraphicsEntitiesUtil, &m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry());
 
 	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("dev", "test");

@@ -1,5 +1,4 @@
-#include "gl_graphics_entities_loading.h"
-#include "gl_graphics_entities_loading.h"
+#include "gl_graphics_entities_util.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -9,32 +8,11 @@
 #include "lc_client/eng_graphics/texture.h"
 #include "lc_client/util/pack.h"
 #include "lc_client/exceptions/io_exceptions.h"
+#include "lc_client/eng_procedures/i_shaders.h"
+#include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
 
 
-GraphicsEntitiesLoadingGl::GraphicsEntitiesLoadingGl(IShaderManager* pShaderManager, TextureManager* pTextureManager,
-	ModelManager* pModelManager, entt::registry* pMapRegistry, entt::registry* pSceneRegistry,
-	entt::registry* pUtilRegistry)
-	: GraphicsEntitiesLoading{
-		  pShaderManager, pTextureManager, pModelManager, pMapRegistry, pSceneRegistry, pUtilRegistry} {};
-
-GraphicsEntitiesLoadingGl::~GraphicsEntitiesLoadingGl(){};
-
-void GraphicsEntitiesLoadingGl::loadMapEntities() {}
-
-void GraphicsEntitiesLoadingGl::loadSceneEntities() {
-	auto entitiesGroup = m_pSceneRegistry->group<Properties, ModelData>();
-
-	for (entt::entity entity : entitiesGroup) {
-		Properties& properties = entitiesGroup.get<Properties>(entity);
-		ModelData& modelData = entitiesGroup.get<ModelData>(entity);
-		const std::string packName = modelData.packName;
-		const std::string modelName = modelData.modelName;
-
-		setModel(entity, packName, modelName);
-	}
-}
-
-void GraphicsEntitiesLoadingGl::setModel(entt::entity entity, std::string packName, std::string modelName) {
+void GraphicsEntitiesUtilGl::setModel(entt::entity entity, std::string packName, std::string modelName) {
 
 	try {
 
@@ -65,8 +43,6 @@ void GraphicsEntitiesLoadingGl::setModel(entt::entity entity, std::string packNa
 		delete pModel;
 
 		m_pSceneRegistry->emplace<ShaderGl>(entity, shaderProgram);
-
-		m_pSceneRegistry->erase<ModelData>(entity);
 	}
 	catch (std::runtime_error& exception) {
 		std::cerr << exception.what() << std::endl;
@@ -74,7 +50,30 @@ void GraphicsEntitiesLoadingGl::setModel(entt::entity entity, std::string packNa
 	}
 }
 
-void GraphicsEntitiesLoadingGl::handleModel(Model* pModel) {
+/**
+ *  @todo
+ * @brief
+ * @param entity
+ * @param packName
+ * @param shaderName
+ */
+void GraphicsEntitiesUtilGl::setVertexShader(entt::entity entity, std::string packName, std::string shaderName) {
+	//Pack& pack = Pack::getPack(packName);
+	//Pack::VertexShader shaderData = Pack::VertexShader(pack, shaderName);
+	// shaderProgram = createShaderProgram(shaderData., modelDataFull.getFragmentShader());
+}
+
+/**
+ *  @todo
+ * @brief
+ * @param entity
+ * @param packName
+ * @param shaderName
+ */
+void GraphicsEntitiesUtilGl::setFragmentShader(entt::entity entity, std::string packName, std::string shaderName) {}
+
+
+void GraphicsEntitiesUtilGl::handleModel(Model* pModel) {
 	std::vector<entt::entity>& meshes = pModel->meshes;
 
 	for (entt::entity& entity : meshes) {
@@ -92,8 +91,7 @@ void GraphicsEntitiesLoadingGl::handleModel(Model* pModel) {
 	}
 }
 
-unsigned int GraphicsEntitiesLoadingGl::createShaderProgram(
-	std::string vertexShaderName, std::string fragmentShaderName) {
+unsigned int GraphicsEntitiesUtilGl::createShaderProgram(std::string vertexShaderName, std::string fragmentShaderName) {
 	unsigned int shaderProgram;
 	shaderProgram = glCreateProgram();
 
@@ -127,7 +125,7 @@ unsigned int GraphicsEntitiesLoadingGl::createShaderProgram(
 	return shaderProgram;
 }
 
-unsigned int GraphicsEntitiesLoadingGl::createVao(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+unsigned int GraphicsEntitiesUtilGl::createVao(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
 	unsigned int vbo;
 	glGenBuffers(1, &vbo);
 
@@ -155,7 +153,7 @@ unsigned int GraphicsEntitiesLoadingGl::createVao(std::vector<Vertex>& vertices,
 
 	// vertex texture coords
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) (offsetof(Vertex, textureCoords)));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, textureCoords)));
 
 	glBindVertexArray(0);
 

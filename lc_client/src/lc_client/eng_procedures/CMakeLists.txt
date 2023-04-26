@@ -6,13 +6,12 @@ target_sources(lc_client
     PRIVATE
         "i_shaders.h"
         "graphics_entities_loading.h"
+        "graphics_entities_loading.cpp"
         "texture_manager.h"
         "texture_manager.cpp"
 
         "openGL/gl_shaders.h"
         "openGL/gl_shaders.cpp"
-        "openGL/gl_graphics_entities_loading.h"
-        "openGL/gl_graphics_entities_loading.cpp"
         "openGL/gl_texture_manager.h"
         "openGL/gl_texture_manager.cpp"
 

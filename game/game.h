@@ -13,6 +13,7 @@
 #include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
 #include "lc_client/eng_graphics/camera/camera.h"
 #include "lc_client/eng_model/model_manager.h"
+#include "lc_client/eng_graphics/graphics_entities_util.h"
 
 
 class Game : public IGameLogic {
@@ -34,6 +35,7 @@ private:
 	Scene* m_pScene;
 	eng::IResource* m_pResource;
 	ModelManager* m_pModelManager;
+	GraphicsEntitiesUtil* m_pGraphicsEntitiesUtil;
 
 	Tier1* m_pTier1;
 
