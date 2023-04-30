@@ -1,5 +1,10 @@
 #include "component_creator.h"
 
+#include <lua.hpp>
+
+#include "lc_client/eng_script/lua/lua_script.h"
+
+
 Transform getTransform(pugi::xml_node node) {
 
 	const glm::vec3 position = makeVector3(node.child("position"));
@@ -14,6 +19,21 @@ ModelData getModelData(pugi::xml_node node) {
 	const std::string modelName = node.child("model").text().as_string();
 
 	return ModelData(packName, modelName);
+}
+
+Script getScript(pugi::xml_node node, eng::IResource* resource) {
+	const std::string path = node.text().as_string();
+
+	const std::vector<unsigned char> buffer = resource->getFileResource(path);
+	const std::string source{buffer.begin(), buffer.end()};
+
+	ScriptLua scriptLua(source);
+
+	lua_State* L = scriptLua.getState();
+
+	std::cout << "Script loaded: " << path << std::endl;
+
+	return Script(path, L);
 }
 
 glm::vec3 makeVector3(pugi::xml_node node) {

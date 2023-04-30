@@ -9,12 +9,18 @@ find_package(glm CONFIG REQUIRED)
 find_package(assimp CONFIG REQUIRED)
 find_package(pugixml CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
+find_path(LUABRIDGE_INCLUDE_DIRS "LuaBridge/List.h")
+find_package(Lua REQUIRED)
+
 
 target_link_libraries(lc_client PUBLIC glfw glad::glad EnTT::EnTT)
 target_link_libraries(lc_client PUBLIC glm::glm)
 target_link_libraries(lc_client PRIVATE assimp::assimp)
 target_link_libraries(lc_client PRIVATE pugixml::pugixml)
 target_link_libraries(lc_client PRIVATE nlohmann_json::nlohmann_json)
+target_include_directories(lc_client PRIVATE ${LUABRIDGE_INCLUDE_DIRS})
+target_include_directories(lc_client PRIVATE ${LUA_INCLUDE_DIR})
+target_link_libraries(lc_client PRIVATE ${LUA_LIBRARIES})
 
 
 target_link_libraries(lc_client PRIVATE eng::rc)
@@ -39,6 +45,7 @@ add_subdirectory("src/lc_client/eng_procedures")
 add_subdirectory("src/lc_client/eng_model")
 add_subdirectory("src/lc_client/eng_scene")
 add_subdirectory("src/lc_client/eng_lighting")
+add_subdirectory("src/lc_client/eng_script")
 add_subdirectory("src/lc_client/exceptions")
 add_subdirectory("src/lc_client/util")
 

@@ -50,6 +50,8 @@ void SceneLoading::handleComponent(pugi::xml_node componentXml, entt::entity ent
 	else if (componentName == "model_data") {
 		m_pSceneRegistry->emplace<ModelData>(entity, getModelData(componentXml));
 	}
-	else if (componentName == "script") {}
+	else if (componentName == "script") {
+		m_pSceneRegistry->emplace<Script>(entity, getScript(componentXml, m_pResource));
+	}
 	else if (componentName == "trigger") {}
 }
