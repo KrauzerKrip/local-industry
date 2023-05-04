@@ -10,7 +10,10 @@ struct Script {
 	std::string path;
 	lua_State* luaState;
 
-	Script() = default;
+	Script() : luaState(luaL_newstate()){};
 	Script(std::string path, lua_State* luaState) : path(path), luaState(luaState) {}
 	Script(const Script&) = default;
+};
+
+struct Init {
 };

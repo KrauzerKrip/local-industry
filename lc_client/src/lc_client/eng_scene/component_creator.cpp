@@ -24,14 +24,9 @@ ModelData getModelData(pugi::xml_node node) {
 Script getScript(pugi::xml_node node, eng::IResource* resource) {
 	const std::string path = node.text().as_string();
 
-	const std::vector<unsigned char> buffer = resource->getFileResource(path);
-	const std::string source{buffer.begin(), buffer.end()};
-
-	ScriptLua scriptLua(source);
+	ScriptLua scriptLua(path, resource);
 
 	lua_State* L = scriptLua.getState();
-
-	std::cout << "Script loaded: " << path << std::endl;
 
 	return Script(path, L);
 }

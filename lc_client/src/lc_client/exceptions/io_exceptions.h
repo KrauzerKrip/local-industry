@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdexcept>
 
 class ResourceFileNotFoundException : public std::runtime_error {

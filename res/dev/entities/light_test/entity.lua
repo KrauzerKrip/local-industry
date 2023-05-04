@@ -3,9 +3,8 @@ local entity = {}
 
 function init(ent) 
 	entity.ent = ent
-	--scene:addModel(entity, [pack = "dev", model = "lamp"])
-
-	--entity.transform = scene:addTransform(entity)
+	scene:addTransform(entity)
+	scene:addModel(entity, [pack = "dev", model = "lamp"])
 end
 
 function frame()

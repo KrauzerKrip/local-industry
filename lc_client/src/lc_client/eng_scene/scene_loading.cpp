@@ -35,7 +35,14 @@ void SceneLoading::loadScene(std::string path) {
 		m_pSceneRegistry->emplace<Properties>(entity, id, uuid);
 
 		for (pugi::xml_node component : entityXml.child("components").children()) {
-			handleComponent(component, entity);
+			try {
+				handleComponent(component, entity);
+			}
+			catch (std::runtime_error& exception) {
+				std::cerr << "SceneLoading: can`t add the component '" << component.name() << "' to the entity '" << id
+						  << "': \n"
+						  << exception.what() << std::endl;
+			}
 		}
 		for (pugi::xml_node component : entityXml.child("pseudo_components").children()) {}
 	}
@@ -43,7 +50,7 @@ void SceneLoading::loadScene(std::string path) {
 
 void SceneLoading::handleComponent(pugi::xml_node componentXml, entt::entity entity) {
 	std::string componentName = componentXml.name();
-	
+
 	if (componentName == "transform") {
 		m_pSceneRegistry->emplace<Transform>(entity, getTransform(componentXml));
 	}
@@ -52,6 +59,7 @@ void SceneLoading::handleComponent(pugi::xml_node componentXml, entt::entity ent
 	}
 	else if (componentName == "script") {
 		m_pSceneRegistry->emplace<Script>(entity, getScript(componentXml, m_pResource));
+		m_pSceneRegistry->emplace<Init>(entity);
 	}
 	else if (componentName == "trigger") {}
 }
