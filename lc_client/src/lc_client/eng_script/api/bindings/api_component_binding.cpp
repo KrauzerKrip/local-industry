@@ -9,12 +9,14 @@ using namespace luabridge;
 
 
 void bindTransform(lua_State* L) { 
-
 	getGlobalNamespace(L)
+		.beginNamespace("ldk")
 		.beginNamespace("components")
 		.beginClass<Transform>("Transform")
 		.addProperty("position", &Transform::position)
 		.addProperty("scale", &Transform::scale)
 		.endClass()
+		.endNamespace()
 		.endNamespace();
 }
+

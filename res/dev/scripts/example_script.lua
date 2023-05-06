@@ -1,11 +1,14 @@
 local entity = {}
+local api = {}
 
 
-function init(ent) 
+function init(ent, Api) 
 	entity.ent = ent
-	--scene:addModel(entity, [pack = "dev", model = "lamp"])
+	api.scene = Api:getSceneApi()
 
-	--entity.transform = scene:addTransform(entity)
+	api.scene:addModel(ent, "dev", "lamp")
+
+	entity.transform = api.scene:addTransform(ent)
 end
 
 function frame()

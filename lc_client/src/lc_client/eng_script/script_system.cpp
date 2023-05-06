@@ -8,7 +8,9 @@
 using namespace luabridge;
 
 
-ScriptSystem::ScriptSystem(entt::registry* pRegistry) { m_pRegistry = pRegistry; }
+ScriptSystem::ScriptSystem(entt::registry* pRegistry, GraphicsEntitiesUtil* temp) : m_api(temp) {
+	m_pRegistry = pRegistry;
+}
 
 void ScriptSystem::update() {
 
@@ -24,7 +26,7 @@ void ScriptSystem::update() {
 		LuaRef init = getGlobal(L, "init");
 		LuaRef upd = getGlobal(L, "update");
 		try {
-			init(ent);
+			init(ent, &m_api);
 		}
 		catch (LuaException& exception) {
 			std::cerr << exception.what() << std::endl;

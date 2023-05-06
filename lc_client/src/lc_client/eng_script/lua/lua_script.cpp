@@ -9,6 +9,7 @@
 
 #include "lc_client/eng_script/api/bindings/api_component_binding.h"
 #include "lc_client/eng_script/api/bindings/glm_binding.h"
+#include "lc_client/eng_script/api/bindings/api_binding.h"
 #include "lc_client/exceptions/lua_exceptions.h"
 
 
@@ -55,5 +56,9 @@ void ScriptLua::loadAPI() {
 
 	//bindVec3(m_pL);
 	bindTransform(m_pL);
+
+	bindApi(m_pL);
+	bindSceneApi(m_pL);
+
 
 }

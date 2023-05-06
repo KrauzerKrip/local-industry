@@ -19,6 +19,8 @@ target_sources(lc_client
     "api/bindings/api_component_binding.cpp"
     "api/bindings/glm_binding.h"
     "api/bindings/glm_binding.cpp"
+    "api/bindings/api_binding.h"
+    "api/bindings/api_binding.cpp"
 
     "script_system.h"
     "script_system.cpp"

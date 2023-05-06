@@ -56,7 +56,7 @@ void Game::init() {
 
 	m_pRender->init();
 
-	m_pScriptSystem = new ScriptSystem(&m_pScene->getSceneRegistry());
+	m_pScriptSystem = new ScriptSystem(&m_pScene->getSceneRegistry(), m_pGraphicsEntitiesUtil);
 
 	m_pScene->getSkybox().setLightColor(255, 255, 236);
 	m_pScene->getSkybox().setLightStrength(0.4);
