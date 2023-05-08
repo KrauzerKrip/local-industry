@@ -32,6 +32,7 @@ void Loop::init() {
 
 	m_pWindow->init();
 	m_pGameLogic->init(); // it was before
+	
 }
 
 void Loop::startLoop() {
@@ -49,7 +50,7 @@ void Loop::startLoop() {
 		m_pGameLogic->input();
 
 		//
-
+		m_pGameLogic->update();
 		m_pGameLogic->render();
 		m_pWindow->update();
 	}

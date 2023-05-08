@@ -5,7 +5,7 @@
  
 class SceneControlling {
 public:
-	static void loadScene(std::string name);
+	static void loadScene(std::string pack, std::string scene);
 	static Scene* getScene();
 
 private:

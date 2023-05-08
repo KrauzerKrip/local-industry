@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 20)
 project("industry")
 
 add_library(lc_client)
-add_library(stb INTERFACE)    
+add_library(stb INTERFACE)  
 
 add_subdirectory("res")
 add_subdirectory("lc_client")

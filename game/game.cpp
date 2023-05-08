@@ -1,6 +1,8 @@
 #include "game.h"
 
 #include <iostream>
+#include <chrono>
+
 #include <entt/entt.hpp>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -8,10 +10,11 @@
 #include "ldk_client/local_engine/time.h"
 #include "lc_client/eng_graphics/openGL/gl_render.h"
 #include "ldk_client/local_engine/scene_controlling.h"
-#include "lc_client/eng_procedures/openGL/gl_graphics_entities_loading.h"
+#include "lc_client/eng_graphics/openGL/gl_graphics_entities_util.h"
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
+#include "lc_client/eng_procedures/tier1/gl_tier1.h"
 
 
 Game::Game(IWindow* pWindow) {
@@ -19,37 +22,43 @@ Game::Game(IWindow* pWindow) {
 	m_pCamera = new Camera();
 	m_pRender = new RenderGL(m_pWindow, m_pCamera);
 	m_pResource = new eng::Resource("D:/Industry/industry/res/");
-	m_pShaderManager = new ShaderManagerGl(m_pResource);
-	m_pTextureManager = new TextureManager(m_pResource);
+	m_pTier1 = new Tier1Gl(m_pResource);
 }
 
 Game::~Game() {
 	delete m_pRender;
 	delete m_pResource;
-	delete m_pShaderManager;
+	delete m_pTier1;
 	delete m_pCamera;
 };
 
 void Game::init() {
+
 	m_pInput = m_pWindow->getInput();
 
-	m_pShaderManager->loadShaders();
+	m_pTier1->getShaderManager()->loadShaders();
 
 	m_pScene = SceneControlling::getScene();
-	m_pModelManager = new ModelManager(m_pResource, m_pTextureManager, m_pScene->getUtilRegistry());
+	m_pModelManager = new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry());
+	m_pGraphicsEntitiesUtil = new GraphicsEntitiesUtilGl(m_pTier1->getShaderManager(), m_pTier1->getTextureManager(),
+		m_pModelManager, &m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry(), &m_pScene->getUtilRegistry());
+
 	SceneDependencies sceneDependecies;
-	sceneDependecies.pShaderManager = m_pShaderManager;
+	sceneDependecies.pShaderManager = m_pTier1->getShaderManager();
 	sceneDependecies.pResource = m_pResource;
-	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoadingGl(
-		m_pShaderManager, m_pTextureManager, m_pModelManager, 
-		m_pScene->getMapRegistry(), m_pScene->getSceneRegistry(), m_pScene->getUtilRegistry());
+	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoading(
+		m_pGraphicsEntitiesUtil, &m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry());
 
 	m_pScene->setDependencies(sceneDependecies);
-	SceneControlling::loadScene("test");
+	SceneControlling::loadScene("dev", "test");
 
-	m_pRender->setRegistries(m_pScene->getMapRegistry(), m_pScene->getSceneRegistry(), m_pScene->getUtilRegistry());
+	m_pRender->setDependecies(m_pScene);
 
 	m_pRender->init();
+
+
+	m_pScene->getSkybox().setLightColor(255, 255, 236);
+	m_pScene->getSkybox().setLightStrength(0.4);
 }
 
 void Game::input() {
@@ -72,7 +81,7 @@ void Game::input() {
 	m_pCamera->setRotation(cameraRot);
 
 
-	float cameraSpeed = 0.05f; 
+	float cameraSpeed = 0.05f;
 
 	glm::vec3 cameraPos = m_pCamera->getPosition();
 
@@ -86,7 +95,7 @@ void Game::input() {
 		}
 		if (m_pInput->isKeyPressed("S")) {
 			cameraPos += cameraSpeed * -m_pCamera->getCameraFront();
-		} 
+		}
 		if (m_pInput->isKeyPressed("A")) {
 			cameraPos += cameraSpeed * -m_pCamera->getCameraRight();
 		}
@@ -116,19 +125,36 @@ void Game::input() {
 	catch (UnknownKeyCodeException& exception) {
 		std::cerr << exception.what() << std::endl;
 	}
-	
+
 	m_pCamera->setPosition(cameraPos);
 }
 
 void Game::update() {
 
+	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
+
+	auto view = pSceneRegistry->view<Properties, Transform>();
+	for (auto& entity : view) {
+		if (view.get<Properties>(entity).id == "example_entity_1") {
+			glm::vec3& rotation = view.get<Transform>(entity).rotation;
+			rotation += glm::vec3(1.0, -1.0, 1.0) * Time::getDeltaTime();
+			if (rotation.x > 89.0f)
+				rotation.x = 0.0f;
+			if (rotation.x < -89.0f)
+				rotation.x = 0.0f;
+
+			glm::vec3& position = view.get<Transform>(entity).position;
+
+			using namespace std::chrono;
+
+			auto time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+
+			position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
+			position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
+		}
+	}
 }
 
-void Game::render() {
+void Game::render() { m_pRender->render(); }
 
-	m_pRender->render();
-}
-
-void Game::cleanUp() {
-
-}
+void Game::cleanUp() {}

@@ -1,0 +1,10 @@
+{
+  "project": "INDUSTRY",
+  "version": "0.0.1-alpha",
+  "packs": {
+    "dev": "dev/pack.json"
+  },
+  "config": [
+    "set: ObjectsParameters triggersDisplay = false;"
+  ]
+}

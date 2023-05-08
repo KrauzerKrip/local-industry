@@ -32,6 +32,7 @@ void RenderGL::render() {
 	glm::mat4 projection = glm::perspective(glm::radians(m_pWindow->getFov()), aspectRatio, 0.1f, 100.0f);
 	glm::mat4 view = m_pCamera->getViewMatrix(); // glm::mat4(1.0f);
 
+
 	auto materialEntitiesGroup = m_pSceneRegistry->group<Model, Transform, ShaderGl>(); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
@@ -47,6 +48,10 @@ void RenderGL::render() {
 
 		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerColor"), 4);
 		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerNormal"), 1);
+
+		glUniform3fv(glGetUniformLocation(shaderProgram, "ambientLightColor"), 1,
+			glm::value_ptr(m_pScene->getSkybox().getLightColor()));
+		glUniform1f(glGetUniformLocation(shaderProgram, "ambientLightStrength"), m_pScene->getSkybox().getLightStrength());
 
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);
@@ -92,10 +97,12 @@ void RenderGL::cleanUp() {
 
 }
 
-void RenderGL::setRegistries(entt::registry* pMapRegistry, entt::registry* pSceneRegistry, entt::registry* pUtilRegistry) {
-	m_pMapRegistry = pMapRegistry;
-	m_pSceneRegistry = pSceneRegistry;
-	m_pUtilRegistry = pUtilRegistry;
+void RenderGL::setDependecies(Scene* pScene) {
+	m_pScene = pScene;
+
+	m_pMapRegistry = &pScene->getMapRegistry();
+	m_pSceneRegistry = &pScene->getSceneRegistry();
+	m_pUtilRegistry = &pScene->getUtilRegistry();
 }
 
 void RenderGL::transform(glm::mat4& model, Transform& transform) {

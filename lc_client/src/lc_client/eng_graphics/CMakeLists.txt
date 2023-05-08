@@ -7,6 +7,7 @@ target_sources(lc_client
         "i_window.h"
         "i_render.h"
         "texture.h"
+        "graphics_entities_util.h"
 
         "openGL/gl_render.cpp"
         "openGL/gl_render.h"
@@ -14,6 +15,8 @@ target_sources(lc_client
         "openGL/gl_window.h"
         "openGL/gl_texture.h"
         "openGL/gl_texture.cpp"
+        "openGL/gl_graphics_entities_util.h"
+        "openGL/gl_graphics_entities_util.cpp"
 
         "entt/components.h"
 

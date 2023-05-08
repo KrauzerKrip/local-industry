@@ -3,6 +3,8 @@
 #include <vector>
 #include <entt/entt.hpp>
 
+#include "lc_client/eng_scene/scene.h" 
+
 class IRender {
 public:
 	virtual ~IRender() {};
@@ -11,5 +13,5 @@ public:
 	virtual void render() = 0;
 	virtual void clear() = 0;
 	virtual void cleanUp() = 0;
-	virtual void setRegistries(entt::registry* pMapRegistry, entt::registry* pSceneRegistry, entt::registry* pUtilRegistry) = 0;
+	virtual void setDependecies(Scene* m_pScene) = 0;
 };

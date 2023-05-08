@@ -1,14 +1,14 @@
-#pragma once 
+#pragma once
 
 #include <string>
 #include <glm/vec3.hpp>
 
 struct Properties {
-	std::string uuid;
 	std::string id;
+	std::string uuid;
 
 	Properties() = default;
-	Properties(std::string uuid, std::string id) : uuid(uuid), id(id) {};
+	Properties(std::string id, std::string uuid) : id(id), uuid(uuid) {}
 	Properties(const Properties&) = default;
 };
 
@@ -18,22 +18,22 @@ struct Transform {
 	glm::vec3 scale;
 
 	Transform() = default;
+	Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
+		: position(position),
+		  rotation(rotation),
+		  scale(scale) {}
 	Transform(const Transform&) = default;
 };
 
-struct ModelData {
-	std::string id;
-	std::string path;
-	std::string texturesPath;
-	std::string vertexShader;
-	std::string fragmentShader;
-	 
-	ModelData() = default;
-	ModelData(
-		const std::string id, const std::string path, const std::string texturesPath, const std::string vertexShader, const std::string fragmentShader)
-		: id(id), path(path), texturesPath(texturesPath), vertexShader(vertexShader), fragmentShader(fragmentShader) {};
-	ModelData(const ModelData&) = default;
-
+struct Parent {
+	entt::entity parent;
 };
 
+struct ModelData {
+	std::string packName;
+	std::string modelName;
 
+	ModelData() = default;
+	ModelData(const std::string packName, const std::string modelName) : packName(packName), modelName(modelName){};
+	ModelData(const ModelData&) = default;
+};

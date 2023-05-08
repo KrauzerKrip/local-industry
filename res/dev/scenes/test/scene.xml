@@ -1,16 +1,22 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <entities>
-  <entity id="example_object_1" uuid="">
+  <entity id="example_entity_1" uuid="">
     <components>
       <transform>
-        <position x="0" y="0" z="0"></position>
-        <rotation x="0" y="0" z="0"></rotation>
-        <scale x="1" y="1" z="1"></scale>
+        <position x="0.0" y="0.0" z="1.0"></position>
+        <rotation x="0.1" y="0" z="0"></rotation>
+        <scale x="1.0" y="1.0" z="1.0"></scale>
       </transform>
-      <object>example_object_1</object>
+      <model_data>
+        <pack>dev</pack>
+        <model>test_cube</model>
+      </model_data>
       <script is_eternal="false">example_script</script>
     </components>
+    <pseudo_components>
+      <object>example_object_1</object>
+    </pseudo_components>
   </entity>
   <entity id="trigger_1" uuid="" >
     <components>
@@ -22,5 +28,8 @@
       <trigger></trigger>
       <script is_eternal="false">example_trigger_script</script>
     </components>
+  </entity>
+  <entity id="loaded_entity_1" uuid="">
+    <entity_name>test_entity</entity_name>
   </entity>
 </entities>
