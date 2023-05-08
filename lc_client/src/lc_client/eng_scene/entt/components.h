@@ -29,12 +29,3 @@ struct Transform {
 struct Parent {
 	entt::entity parent;
 };
-
-struct ModelData {
-	std::string packName;
-	std::string modelName;
-
-	ModelData() = default;
-	ModelData(const std::string packName, const std::string modelName) : packName(packName), modelName(modelName){};
-	ModelData(const ModelData&) = default;
-};
