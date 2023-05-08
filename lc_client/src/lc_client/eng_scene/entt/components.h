@@ -2,6 +2,7 @@
 
 #include <string>
 #include <glm/vec3.hpp>
+#include <entt/entt.hpp>
 
 struct Properties {
 	std::string id;
@@ -17,7 +18,7 @@ struct Transform {
 	glm::vec3 rotation;
 	glm::vec3 scale;
 
-	Transform() = default;
+	Transform() : scale(glm::vec3(1.0)){};
 	Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 		: position(position),
 		  rotation(rotation),

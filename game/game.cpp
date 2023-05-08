@@ -56,6 +56,7 @@ void Game::init() {
 
 	m_pRender->init();
 
+	m_pScriptSystem = new ScriptSystem(&m_pScene->getSceneRegistry(), m_pGraphicsEntitiesUtil);
 
 	m_pScene->getSkybox().setLightColor(255, 255, 236);
 	m_pScene->getSkybox().setLightStrength(0.4);
@@ -133,6 +134,8 @@ void Game::update() {
 
 	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
 
+	m_pScriptSystem->update();
+
 	auto view = pSceneRegistry->view<Properties, Transform>();
 	for (auto& entity : view) {
 		if (view.get<Properties>(entity).id == "example_entity_1") {
@@ -143,14 +146,15 @@ void Game::update() {
 			if (rotation.x < -89.0f)
 				rotation.x = 0.0f;
 
-			glm::vec3& position = view.get<Transform>(entity).position;
-
 			using namespace std::chrono;
 
 			auto time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
-			position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
-			position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
+			
+			glm::vec3& position = view.get<Transform>(entity).position;
+
+			//position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
+			//position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
 		}
 	}
 }

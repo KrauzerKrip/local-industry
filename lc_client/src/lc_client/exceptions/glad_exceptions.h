@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdexcept>
 
 class GladInitFailException : public std::runtime_error {

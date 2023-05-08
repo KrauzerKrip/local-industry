@@ -17,7 +17,6 @@ public:
 	void loadScene(std::string path);
 
 private:
-
 	void handleComponent(pugi::xml_node component, entt::entity entity);
 
 	entt::registry* m_pSceneRegistry = nullptr;

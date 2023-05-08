@@ -9,18 +9,18 @@ namespace eng {
 			m_resourceRootPath = resourceRootPath;
 		}
 
-		auto Resource::getFile(std::string path)  -> cmrc::file {
+		auto Resource::getFile(std::string path) const -> cmrc::file {
 			auto fileSystem = cmrc::eng_resources::get_filesystem();
 			auto file = fileSystem.open(path);
 
 			return file;
 		}
 
-		auto Resource::getFileSystem() -> cmrc::embedded_filesystem {
+		auto Resource::getFileSystem() const -> cmrc::embedded_filesystem {
 			return cmrc::eng_resources::get_filesystem();
 		}
 
-		auto Resource::getFileResource(std::string path) -> std::vector<unsigned char> {
+		auto Resource::getFileResource(std::string path) const -> std::vector<unsigned char> {
 			std::ifstream binaryFile(m_resourceRootPath + path, std::ios::binary);
 
 			if (binaryFile.good()) {

@@ -14,6 +14,7 @@
 #include "lc_client/eng_graphics/camera/camera.h"
 #include "lc_client/eng_model/model_manager.h"
 #include "lc_client/eng_graphics/graphics_entities_util.h"
+#include "lc_client/eng_script/script_system.h"
 
 
 class Game : public IGameLogic {
@@ -36,6 +37,7 @@ private:
 	eng::IResource* m_pResource;
 	ModelManager* m_pModelManager;
 	GraphicsEntitiesUtil* m_pGraphicsEntitiesUtil;
+	ScriptSystem* m_pScriptSystem;
 
 	Tier1* m_pTier1;
 
