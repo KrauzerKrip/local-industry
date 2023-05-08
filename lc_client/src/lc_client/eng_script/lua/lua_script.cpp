@@ -54,7 +54,7 @@ lua_State* ScriptLua::getState() { return m_pL; }
 
 void ScriptLua::loadAPI() { 
 
-	//bindVec3(m_pL);
+	bindVec3(m_pL);
 	bindTransform(m_pL);
 
 	bindApi(m_pL);

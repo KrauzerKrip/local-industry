@@ -8,10 +8,10 @@ SceneApi::SceneApi(GraphicsEntitiesUtil* pGraphicsEntitiesUtil) {
 	m_pRegistry = &SceneControlling::getScene()->getSceneRegistry();
 }
 
-Transform& SceneApi::addTranfsorm(entt::id_type ent) { 
+TransformHelper SceneApi::addTranfsorm(entt::id_type ent) { 
 
 	auto entity = constructEntity(ent);
-	return m_pRegistry->emplace_or_replace<Transform>(entity);
+	return TransformHelper(&m_pRegistry->emplace_or_replace<Transform>(entity));
 }
 
 void SceneApi::addModel(entt::id_type ent, std::string packName, std::string modelName) {

@@ -146,14 +146,15 @@ void Game::update() {
 			if (rotation.x < -89.0f)
 				rotation.x = 0.0f;
 
-			glm::vec3& position = view.get<Transform>(entity).position;
-
 			using namespace std::chrono;
 
 			auto time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
-			position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
-			position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
+			
+			glm::vec3& position = view.get<Transform>(entity).position;
+
+			//position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
+			//position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
 		}
 	}
 }

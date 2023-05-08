@@ -22,6 +22,10 @@ target_sources(lc_client
     "api/bindings/api_binding.h"
     "api/bindings/api_binding.cpp"
 
+    "api/helpers/glm_helpers.h"
+    "api/helpers/glm_helpers.cpp"
+    "api/helpers/components.h"
+
     "script_system.h"
     "script_system.cpp"
 

@@ -4,13 +4,14 @@
 
 #include "lc_client/eng_graphics/graphics_entities_util.h"
 #include "lc_client/eng_scene/entt/components.h"
+#include "lc_client/eng_script/api/helpers/components.h"
 
 
 class SceneApi {
 public:
 	SceneApi(GraphicsEntitiesUtil* pGraphicsEntitiesUtil);
 
-	Transform& addTranfsorm(entt::id_type ent);
+	TransformHelper addTranfsorm(entt::id_type ent);
 	void addModel(entt::id_type ent, std::string packName, std::string modelName);
 
 private:

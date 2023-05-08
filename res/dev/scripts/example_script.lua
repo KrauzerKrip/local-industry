@@ -12,11 +12,13 @@ function init(ent, Api)
 end
 
 function frame()
-  
+
 end
 
 function update() 
-
+	position = entity.transform:getPosition()
+	position:setX(position:x() + 0.01)
+	entity.transform:setPosition(position)
 end
 
 function use()
