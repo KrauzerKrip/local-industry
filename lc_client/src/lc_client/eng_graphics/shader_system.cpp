@@ -16,7 +16,7 @@ void ShaderSystem::update() {
 
 		ShaderRequest& shaderRequest = entities.get<ShaderRequest>(entity);
 
-		m_pShaderWork->loadShaders(entity, shaderRequest.fragmentShaderName, shaderRequest.vertexShaderName);
+		m_pShaderWork->loadShaders(entity, shaderRequest.vertexShaderName, shaderRequest.fragmentShaderName);
 
 		m_pSceneRegistry->erase<ShaderRequest>(entity);
 	}
