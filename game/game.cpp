@@ -10,11 +10,12 @@
 #include "ldk_client/local_engine/time.h"
 #include "lc_client/eng_graphics/openGL/gl_render.h"
 #include "ldk_client/local_engine/scene_controlling.h"
-#include "lc_client/eng_graphics/openGL/gl_graphics_entities_util.h"
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
 #include "lc_client/eng_procedures/tier1/gl_tier1.h"
+#include "lc_client/eng_graphics/openGL/gl_mesh_work.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
 
 
 Game::Game(IWindow* pWindow) {
@@ -40,14 +41,14 @@ void Game::init() {
 
 	m_pScene = SceneControlling::getScene();
 	m_pModelManager = new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry());
-	m_pGraphicsEntitiesUtil = new GraphicsEntitiesUtilGl(m_pTier1->getShaderManager(), m_pTier1->getTextureManager(),
-		m_pModelManager, &m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry(), &m_pScene->getUtilRegistry());
+	
+	m_pMeshWork = new MeshWorkGl(&m_pScene->getUtilRegistry());
+	m_pShaderWorkScene = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry());
 
 	SceneDependencies sceneDependecies;
 	sceneDependecies.pShaderManager = m_pTier1->getShaderManager();
 	sceneDependecies.pResource = m_pResource;
-	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoading(
-		m_pGraphicsEntitiesUtil, &m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry());
+	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoading(&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry());
 
 	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("dev", "test");
@@ -56,7 +57,7 @@ void Game::init() {
 
 	m_pRender->init();
 
-	m_pScriptSystem = new ScriptSystem(&m_pScene->getSceneRegistry(), m_pGraphicsEntitiesUtil);
+	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pScene, m_pModelManager);
 
 	m_pScene->getSkybox().setLightColor(255, 255, 236);
 	m_pScene->getSkybox().setLightStrength(0.4);
@@ -134,7 +135,7 @@ void Game::update() {
 
 	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
 
-	m_pScriptSystem->update();
+	m_pSystems->update();
 
 	auto view = pSceneRegistry->view<Properties, Transform>();
 	for (auto& entity : view) {
@@ -159,6 +160,8 @@ void Game::update() {
 	}
 }
 
-void Game::render() { m_pRender->render(); }
+void Game::render() { 
+	m_pSystems->frame();
+	m_pRender->render(); }
 
 void Game::cleanUp() {}

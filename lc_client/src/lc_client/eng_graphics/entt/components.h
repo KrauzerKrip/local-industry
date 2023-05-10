@@ -8,9 +8,9 @@
 #include "lc_client/eng_graphics/texture.h"
 
 struct ShaderRequest {
-	const std::string packName;
-	const std::string vertexShaderName;
-	const std::string fragmentShaderName;
+	std::string packName;
+	std::string vertexShaderName;
+	std::string fragmentShaderName;
 
 
 	ShaderRequest(std::string packName, std::string vertexShaderName, std::string fragmentShaderName)

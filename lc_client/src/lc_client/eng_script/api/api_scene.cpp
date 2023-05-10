@@ -1,6 +1,7 @@
 #include "api_scene.h"
 
 #include "ldk_client/local_engine/scene_controlling.h"
+#include <lc_client/eng_model/entt/components.h>
 
 
 SceneApi::SceneApi() {

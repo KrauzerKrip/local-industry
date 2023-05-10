@@ -17,6 +17,7 @@ public:
 	Systems(Tier1* pTier1, ShaderWork* pShaderWork, MeshWork* pMeshWork, Scene* pScene, ModelManager* pModelManager);
 
 	void update();
+	void frame();
 
 private:
 	Tier1* m_pTier1 = nullptr;

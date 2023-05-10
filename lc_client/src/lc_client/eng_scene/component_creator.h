@@ -14,7 +14,7 @@
 
 
 Transform getTransform(pugi::xml_node node);
-ModelData getModelData(pugi::xml_node node);
+ModelRequest getModelData(pugi::xml_node node);
 Script getScript(pugi::xml_node node, eng::IResource* resource);
 // std::shared_ptr<Trigger> getTrigger(pugi::xml_node node);
 
@@ -24,7 +24,7 @@ namespace pseudo {
 		Object(pugi::xml_node objectNode);
 		~Object();
 
-		ModelData getModelData();
+		ModelRequest getModelData();
 
 	};
 }

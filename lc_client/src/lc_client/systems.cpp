@@ -10,9 +10,15 @@ Systems::Systems(Tier1* pTier1, ShaderWork* pShaderWork, MeshWork* pMeshWork, Sc
 	m_pShaderSystem = new ShaderSystem(pShaderWork, &pScene->getMapRegistry(), &pScene->getSceneRegistry());
 	m_pMaterialSystem = new MaterialSystem(&pScene->getUtilRegistry());
 	m_pModelSystem = new ModelSystem(pModelManager, pMeshWork, &pScene->getSceneRegistry());
-	m_pScriptSystem = new ScriptSystem();
+	m_pScriptSystem = new ScriptSystem(&pScene->getSceneRegistry());
 }
 
 void Systems::update() {
-	
+	m_pScriptSystem->update();
+	m_pModelSystem->update();
+	m_pMaterialSystem->loadMaterials();
+	m_pMaterialSystem->unloadMaterials();
+	m_pShaderSystem->update();
 }
+
+void Systems::frame() { m_pScriptSystem->frame(); }

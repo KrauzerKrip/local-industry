@@ -14,11 +14,11 @@ Transform getTransform(pugi::xml_node node) {
 	return Transform(position, rotation, scale);
 }
 
-ModelData getModelData(pugi::xml_node node) {
+ModelRequest getModelData(pugi::xml_node node) {
 	const std::string packName = node.child("pack").text().as_string();
 	const std::string modelName = node.child("model").text().as_string();
 
-	return ModelData(packName, modelName);
+	return ModelRequest(packName, modelName);
 }
 
 Script getScript(pugi::xml_node node, eng::IResource* resource) {

@@ -55,7 +55,7 @@ void SceneLoading::handleComponent(pugi::xml_node componentXml, entt::entity ent
 		m_pSceneRegistry->emplace<Transform>(entity, getTransform(componentXml));
 	}
 	else if (componentName == "model_data") {
-		m_pSceneRegistry->emplace<ModelData>(entity, getModelData(componentXml));
+		m_pSceneRegistry->emplace<ModelRequest>(entity, getModelData(componentXml));
 	}
 	else if (componentName == "script") {
 		m_pSceneRegistry->emplace<Script>(entity, getScript(componentXml, m_pResource));

@@ -68,7 +68,7 @@ void RenderGL::render() {
 
 		for (entt::entity& meshEntity : meshes) {
 			Mesh& mesh = m_pUtilRegistry->get<Mesh>(meshEntity);
-			int vao = mesh.vaoId;
+			int vao = m_pUtilRegistry->get<VaoGl>(meshEntity).vaoId;
 			MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(meshEntity);
 
 			Texture* aoTexture = materialSG.aoTexture;

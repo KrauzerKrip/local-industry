@@ -8,13 +8,14 @@
 #include "lc_client/eng_scene/scene.h"
 #include "lc_client/eng_procedures/i_shaders.h"
 #include "lc_client/eng_procedures/tier1/tier1.h"
-#include "lc_client/eng_procedures/graphics_entities_loading.h"
 #include "lc_client/util/i_eng_resource.h"
 #include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
 #include "lc_client/eng_graphics/camera/camera.h"
 #include "lc_client/eng_model/model_manager.h"
-#include "lc_client/eng_graphics/graphics_entities_util.h"
 #include "lc_client/eng_script/script_system.h"
+#include "lc_client/systems.h"
+#include "lc_client/eng_graphics/mesh_work.h"
+#include "lc_client/eng_graphics/shader_work.h"
 
 
 class Game : public IGameLogic {
@@ -36,8 +37,10 @@ private:
 	Scene* m_pScene;
 	eng::IResource* m_pResource;
 	ModelManager* m_pModelManager;
-	GraphicsEntitiesUtil* m_pGraphicsEntitiesUtil;
-	ScriptSystem* m_pScriptSystem;
+	Systems* m_pSystems;
+	MeshWork* m_pMeshWork;
+	ShaderWork* m_pShaderWorkScene;
+
 
 	Tier1* m_pTier1;
 
