@@ -14,8 +14,8 @@ void Skybox::setLightColor(float r, float g, float b) {
 }
 
 void Skybox::setLightColor(glm::uvec3 color) {
-	unsigned int i = 255;
-	m_lightColor = color / i;
+	const float i = 255.0f;
+	m_lightColor = glm::vec3(color.r / i, color.g / i, color.b / i);
 }
 
 void Skybox::setLightColor(int r, int g, int b) { setLightColor(glm::uvec3(r, g, b)); }
