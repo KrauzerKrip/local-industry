@@ -3,8 +3,7 @@
 #include "ldk_client/local_engine/scene_controlling.h"
 
 
-SceneApi::SceneApi(GraphicsEntitiesUtil* pGraphicsEntitiesUtil) {
-	m_pGraphicsEntitiesUtil = pGraphicsEntitiesUtil;
+SceneApi::SceneApi() {
 	m_pRegistry = &SceneControlling::getScene()->getSceneRegistry();
 }
 
@@ -14,9 +13,9 @@ TransformHelper SceneApi::addTranfsorm(entt::id_type ent) {
 	return TransformHelper(&m_pRegistry->emplace_or_replace<Transform>(entity));
 }
 
-void SceneApi::addModel(entt::id_type ent, std::string packName, std::string modelName) {
+void SceneApi::requestModel(entt::id_type ent, std::string packName, std::string modelName) {
 	auto entity = constructEntity(ent);
-	m_pGraphicsEntitiesUtil->setModel(entity, packName, modelName);
+	m_pRegistry->emplace_or_replace<ModelRequest>(entity, packName, modelName);
 }
 
 

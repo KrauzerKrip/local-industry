@@ -1,6 +1,6 @@
 #include "api.h"
 
-Api::Api(GraphicsEntitiesUtil* pGraphicsEntitiesUtil) : m_sceneApi(pGraphicsEntitiesUtil) {
+Api::Api() {
 
 }
 

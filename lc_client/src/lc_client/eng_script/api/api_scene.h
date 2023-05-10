@@ -9,13 +9,12 @@
 
 class SceneApi {
 public:
-	SceneApi(GraphicsEntitiesUtil* pGraphicsEntitiesUtil);
+	SceneApi();
 
 	TransformHelper addTranfsorm(entt::id_type ent);
-	void addModel(entt::id_type ent, std::string packName, std::string modelName);
+	void requestModel(entt::id_type ent, std::string packName, std::string modelName);
 
 private:
-	GraphicsEntitiesUtil* m_pGraphicsEntitiesUtil;
 	entt::registry* m_pRegistry;
 
 	entt::entity constructEntity(entt::id_type ent);

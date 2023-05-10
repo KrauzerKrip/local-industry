@@ -8,7 +8,7 @@
 using namespace luabridge;
 
 
-ScriptSystem::ScriptSystem(entt::registry* pRegistry, GraphicsEntitiesUtil* temp) : m_api(temp) {
+ScriptSystem::ScriptSystem(entt::registry* pRegistry) : m_api() {
 	m_pRegistry = pRegistry;
 }
 
