@@ -3,16 +3,17 @@
 #include <entt/entt.hpp>
 
 #include "model_manager.h"
+#include "lc_client/eng_graphics/mesh_work.h"
 
 
 class ModelSystem {
 public:
-	ModelSystem(ModelManager* pModelManager, GraphicsEntitiesUtil* pGraphicsEntitiesUtil, entt::registry* pSceneRegistry);
+	ModelSystem(ModelManager* pModelManager, MeshWork* pMeshWork, entt::registry* pSceneRegistry);
 
 	void update();
 
 private:
 	ModelManager* m_pModelManager = nullptr;
-	GraphicsEntitiesUtil* m_pGraphicsEntitiesUtil = nullptr;
+	MeshWork* m_pMeshWork = nullptr;
 	entt::registry* m_pSceneRegistry = nullptr;
 };

@@ -1,13 +1,12 @@
 #include "model_system.h"
 
 #include "lc_client/eng_model/entt/components.h"
-#include "lc_client/eng_graphics/graphics_entities_util.h"
+#include "lc_client/util/pack.h"
 
 
-ModelSystem::ModelSystem(
-	ModelManager* pModelManager, GraphicsEntitiesUtil* pGraphicsEntitiesUtil, entt::registry* pSceneRegistry) {
+ModelSystem::ModelSystem(ModelManager* pModelManager, MeshWork* pMeshWork, entt::registry* pSceneRegistry) {
 	m_pModelManager = pModelManager;
-	m_pGraphicsEntitiesUtil = pGraphicsEntitiesUtil;
+	m_pMeshWork = pMeshWork;
 	m_pSceneRegistry = pSceneRegistry;
 }
 
@@ -17,7 +16,16 @@ void ModelSystem::update() {
 	for (auto& entity : entities) {
 		ModelRequest& modelRequest = entities.get<ModelRequest>(entity);
 
-		m_pGraphicsEntitiesUtil->setModel(entity, modelRequest.packName, modelRequest.modelName);
+		Pack& pack = Pack::getPack(modelRequest.packName);
+		Pack::Model modelData(pack, modelRequest.modelName);
+
+		Model* model = m_pModelManager->getModel(modelData.getPath(), modelData.getTexturesPath(), modelData.getMaterialType());
+
+		for (auto& mesh : model->meshes) {
+			m_pMeshWork->loadMesh(mesh);
+		}
+
+		m_pSceneRegistry->emplace<ShaderRequest>(entity, modelRequest.packName, modelData.getVertexShader(), modelData.getFragmentShader());
 
 		m_pSceneRegistry->erase<ModelRequest>(entity);
 	}

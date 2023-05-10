@@ -32,6 +32,9 @@ target_sources(lc_client
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lc_client/loop.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lc_client/loop.h"
+
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/lc_client/systems.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/lc_client/systems.h"
 )
 
 add_subdirectory("include/ldk_client/local_engine")
