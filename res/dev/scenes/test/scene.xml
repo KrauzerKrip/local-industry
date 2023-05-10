@@ -12,7 +12,7 @@
         <pack>dev</pack>
         <model>test_cube</model>
       </model_data>
-      <script is_eternal="false">example_script</script>
+      <script is_eternal="false">dev/scripts/example_script.lua</script>
     </components>
     <pseudo_components>
       <object>example_object_1</object>
@@ -26,7 +26,10 @@
         <scale x="1" y="1" z="1"></scale>
       </transform>
       <trigger></trigger>
-      <script is_eternal="false">example_trigger_script</script>
+      <!--<script is_eternal="false">example_trigger_script</script>-->
     </components>
+  </entity>
+  <entity id="loaded_entity_1" uuid="">
+    <entity_name>test_entity</entity_name>
   </entity>
 </entities>

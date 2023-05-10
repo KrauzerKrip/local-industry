@@ -7,12 +7,25 @@
 
 #include "lc_client/eng_graphics/texture.h"
 
+struct ShaderRequest {
+	std::string packName;
+	std::string vertexShaderName;
+	std::string fragmentShaderName;
+
+
+	ShaderRequest(std::string packName, std::string vertexShaderName, std::string fragmentShaderName)
+		: packName(packName),
+		  vertexShaderName(vertexShaderName),
+		  fragmentShaderName(fragmentShaderName) {}
+	ShaderRequest(const ShaderRequest&) = default;
+};
+
 
 struct Shader {
 	entt::entity* shader;
 
 	Shader() = default;
-	Shader(entt::entity* shader) : shader(shader) {};
+	Shader(entt::entity* shader) : shader(shader){};
 	Shader(const Shader&) = default;
 };
 
@@ -20,7 +33,7 @@ struct ShaderGl {
 	unsigned int shaderProgram;
 
 	ShaderGl() = default;
-	ShaderGl(int shaderProgram) : shaderProgram(shaderProgram) {};
+	ShaderGl(int shaderProgram) : shaderProgram(shaderProgram){};
 	ShaderGl(const ShaderGl&) = default;
 };
 
@@ -36,23 +49,28 @@ struct Vertex {
 struct Mesh {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	int vaoId = 0;
 
 	Mesh() = default;
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, entt::entity& material)
-		: vertices(std::move(vertices)), indices(std::move(indices)) {};
+		: vertices(std::move(vertices)),
+		  indices(std::move(indices)){};
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, entt::entity& material, int vaoId)
-		: vertices(vertices), indices(indices), vaoId() {};
-	Mesh(const Mesh& mesh) : vertices(mesh.vertices), indices(mesh.indices), vaoId(mesh.vaoId) {};
+		: vertices(vertices),
+		  indices(indices){};
+	Mesh(const Mesh& mesh) : vertices(mesh.vertices), indices(mesh.indices){};
 };
 
 struct VaoGl {
 	unsigned int vaoId;
 
 	VaoGl() = default;
-	VaoGl(const int vaoId) : vaoId(vaoId) {};
+	VaoGl(const int vaoId) : vaoId(vaoId){};
 	VaoGl(const VaoGl&) = default;
 };
+
+struct MaterialLoadRequest {};
+
+struct MaterialUnloadRequest {};
 
 struct MaterialMR {
 	Texture* colorTexture;
@@ -62,7 +80,10 @@ struct MaterialMR {
 
 	MaterialMR() = default;
 	MaterialMR(Shader shader, Texture* colorTexture, Texture* normalMap, Texture* aoTexture, Texture* metallicTexture)
-		:colorTexture(colorTexture), normalMap(normalMap), aoTexture(aoTexture), metallicTexture(metallicTexture) {};
+		: colorTexture(colorTexture),
+		  normalMap(normalMap),
+		  aoTexture(aoTexture),
+		  metallicTexture(metallicTexture){};
 	MaterialMR(const MaterialMR&) = default;
 };
 
@@ -74,9 +95,12 @@ struct MaterialSG {
 	Texture* aoTexture;
 
 	MaterialSG() = default;
-	MaterialSG(Shader shader, Texture* diffuseTexture, Texture* specularTexture, Texture* glossinessTexture, Texture* normalMap, Texture* aoTexture)
-		: diffuseTexture(diffuseTexture), specularTexture(specularTexture), glossinessTexture(glossinessTexture), normalMap(normalMap), aoTexture(aoTexture) {};
+	MaterialSG(Shader shader, Texture* diffuseTexture, Texture* specularTexture, Texture* glossinessTexture,
+		Texture* normalMap, Texture* aoTexture)
+		: diffuseTexture(diffuseTexture),
+		  specularTexture(specularTexture),
+		  glossinessTexture(glossinessTexture),
+		  normalMap(normalMap),
+		  aoTexture(aoTexture){};
 	MaterialSG(const MaterialSG&) = default;
 };
-
-

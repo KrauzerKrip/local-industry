@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdexcept>
 
 class UnknownKeyCodeException : public std::runtime_error {

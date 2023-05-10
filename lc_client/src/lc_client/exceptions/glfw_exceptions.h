@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdexcept>
 
 class GlfwWindowFailException : public std::runtime_error {

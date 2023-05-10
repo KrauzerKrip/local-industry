@@ -10,11 +10,12 @@
 #include "ldk_client/local_engine/time.h"
 #include "lc_client/eng_graphics/openGL/gl_render.h"
 #include "ldk_client/local_engine/scene_controlling.h"
-#include "lc_client/eng_procedures/openGL/gl_graphics_entities_loading.h"
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
 #include "lc_client/eng_procedures/tier1/gl_tier1.h"
+#include "lc_client/eng_graphics/openGL/gl_mesh_work.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
 
 
 Game::Game(IWindow* pWindow) {
@@ -40,19 +41,26 @@ void Game::init() {
 
 	m_pScene = SceneControlling::getScene();
 	m_pModelManager = new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry());
+	
+	m_pMeshWork = new MeshWorkGl(&m_pScene->getUtilRegistry());
+	m_pShaderWorkScene = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry());
+
 	SceneDependencies sceneDependecies;
 	sceneDependecies.pShaderManager = m_pTier1->getShaderManager();
 	sceneDependecies.pResource = m_pResource;
-	sceneDependecies.pGraphicsEntitiesLoading = 
-		new GraphicsEntitiesLoadingGl(m_pTier1->getShaderManager(), m_pTier1->getTextureManager(), m_pModelManager,
-			&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry(), &m_pScene->getUtilRegistry());
+	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoading(&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry());
 
 	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("dev", "test");
 
-	m_pRender->setRegistries(m_pScene->getMapRegistry(), m_pScene->getSceneRegistry(), m_pScene->getUtilRegistry());
+	m_pRender->setDependecies(m_pScene);
 
 	m_pRender->init();
+
+	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pScene, m_pModelManager);
+
+	m_pScene->getSkybox().setLightColor(255, 255, 236);
+	m_pScene->getSkybox().setLightStrength(0.4);
 }
 
 void Game::input() {
@@ -127,6 +135,8 @@ void Game::update() {
 
 	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
 
+	m_pSystems->update();
+
 	auto view = pSceneRegistry->view<Properties, Transform>();
 	for (auto& entity : view) {
 		if (view.get<Properties>(entity).id == "example_entity_1") {
@@ -137,18 +147,21 @@ void Game::update() {
 			if (rotation.x < -89.0f)
 				rotation.x = 0.0f;
 
-			glm::vec3& position = view.get<Transform>(entity).position;
-
 			using namespace std::chrono;
 
 			auto time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
-			position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
-			position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
+			
+			glm::vec3& position = view.get<Transform>(entity).position;
+
+			//position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
+			//position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
 		}
 	}
 }
 
-void Game::render() { m_pRender->render(); }
+void Game::render() { 
+	m_pSystems->frame();
+	m_pRender->render(); }
 
 void Game::cleanUp() {}

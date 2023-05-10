@@ -1,5 +1,4 @@
-﻿# CMakeList.txt : CMake project for industry, include source and define
-# project specific logic here.
+﻿# project specific logic here.
 #
 cmake_minimum_required (VERSION 3.13)
 set(CMAKE_CXX_STANDARD 20)

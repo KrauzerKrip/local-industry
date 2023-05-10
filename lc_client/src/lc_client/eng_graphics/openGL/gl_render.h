@@ -7,6 +7,8 @@
 #include "lc_client/eng_graphics/i_window.h"
 #include "lc_client/eng_scene/entt/components.h"
 #include "lc_client/eng_graphics/camera/camera.h"
+#include "lc_client/eng_scene/scene.h"
+#include "lc_client/eng_scene/skybox.h"
 
 class RenderGL : public IRender {
 public:
@@ -17,7 +19,7 @@ public:
 	void render();
 	void clear();
 	void cleanUp();
-	void setRegistries(entt::registry& pSceneRegistry, entt::registry& pMapRegistry, entt::registry& pUtilRegistry);
+	void setDependecies(Scene* pScene);
 
 private:
 	void transform(glm::mat4& transformation, Transform& transform);
@@ -25,6 +27,8 @@ private:
 	IWindow* m_pWindow; //mb remove it
 	Camera* m_pCamera;
 	
+	Scene* m_pScene = nullptr;
+
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pMapRegistry = nullptr;
 	entt::registry* m_pUtilRegistry = nullptr;

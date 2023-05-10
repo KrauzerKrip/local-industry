@@ -8,6 +8,7 @@
 #include "lc_client/util/i_eng_resource.h"
 #include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
 #include "lc_client/eng_scene/scene_loading.h"
+#include "lc_client/eng_scene/skybox.h"
 
 class GraphicsEntitiesLoading;
 
@@ -28,6 +29,8 @@ public:
 	entt::registry& getSceneRegistry();
 	entt::registry& getUtilRegistry();
 
+	Skybox& getSkybox();
+
 private:
 	entt::registry m_mapRegistry;
 	entt::registry m_sceneRegistry;
@@ -35,6 +38,8 @@ private:
 
 	std::string m_name;
 	std::string m_pack;
+
+	Skybox m_skybox;
 
 	TextureManager* m_pTextureManager = nullptr;
 	
