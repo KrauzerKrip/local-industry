@@ -5,3 +5,4 @@
 
 
 void bindTransform(lua_State* L);
+void bindPointLight(lua_State* L);

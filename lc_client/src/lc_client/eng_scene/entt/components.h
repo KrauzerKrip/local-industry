@@ -18,7 +18,7 @@ struct Transform {
 	glm::vec3 rotation;
 	glm::vec3 scale;
 
-	Transform() : scale(glm::vec3(1.0)){};
+	Transform() : scale(glm::vec3(1.0)), rotation(glm::vec3(1.0f, 0.0f, 0.0f)){};
 	Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 		: position(position),
 		  rotation(rotation),

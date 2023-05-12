@@ -56,6 +56,7 @@ void ScriptLua::loadAPI() {
 
 	bindVec3(m_pL);
 	bindTransform(m_pL);
+	bindPointLight(m_pL);
 
 	bindApi(m_pL);
 	bindSceneApi(m_pL);

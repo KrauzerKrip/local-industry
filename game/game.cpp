@@ -59,7 +59,7 @@ void Game::init() {
 
 	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pScene, m_pModelManager);
 
-	m_pScene->getSkybox().setLightColor(255, 255, 236);
+	m_pScene->getSkybox().setLightColor(255, 255, 200); // 255, 255, 236
 	m_pScene->getSkybox().setLightStrength(0.4);
 }
 
@@ -138,6 +138,7 @@ void Game::update() {
 	m_pSystems->update();
 
 	auto view = pSceneRegistry->view<Properties, Transform>();
+
 	for (auto& entity : view) {
 		if (view.get<Properties>(entity).id == "example_entity_1") {
 			glm::vec3& rotation = view.get<Transform>(entity).rotation;

@@ -22,6 +22,7 @@ void bindSceneApi(lua_State* L) {
 		.beginClass<SceneApi>("SceneApi")
 		.addFunction("requestModel", &SceneApi::requestModel)
 		.addFunction("addTransform", &SceneApi::addTranfsorm)
+		.addFunction("addPointLight", &SceneApi::addPointLight)
 		.endClass()
 		.endNamespace();
 }

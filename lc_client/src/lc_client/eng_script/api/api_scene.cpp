@@ -1,4 +1,5 @@
 #include "api_scene.h"
+#include "api_scene.h"
 
 #include "ldk_client/local_engine/scene_controlling.h"
 #include <lc_client/eng_model/entt/components.h>
@@ -12,6 +13,11 @@ TransformHelper SceneApi::addTranfsorm(entt::id_type ent) {
 
 	auto entity = constructEntity(ent);
 	return TransformHelper(&m_pRegistry->emplace_or_replace<Transform>(entity));
+}
+
+PointLight& SceneApi::addPointLight(entt::id_type ent) { 
+	auto entity = constructEntity(ent);
+	return m_pRegistry->emplace_or_replace<PointLight>(entity);
 }
 
 void SceneApi::requestModel(entt::id_type ent, std::string packName, std::string modelName) {
