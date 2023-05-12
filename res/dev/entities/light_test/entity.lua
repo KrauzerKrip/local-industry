@@ -14,7 +14,7 @@ function init(ent, Api)
 	entity.transform:setScale(scale)
 
 	entity.point_light = api.scene:addPointLight(ent)
-	entity.point_light:setColor(255, 255, 255);
+	entity.point_light:setColor(80, 120, 255);
 end
 
 function frame()
@@ -22,7 +22,9 @@ function frame()
 end
 
 function update() 
-
+	position = entity.transform:getPosition()
+	position:setX(position:x() + 0.01)
+	--entity.transform:setPosition(position)
 end
 
 function use()

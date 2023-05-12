@@ -10,6 +10,8 @@
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_graphics/texture.h"
 #include "lc_client/eng_model/entt/components.h"
+#include "lc_client/eng_lighting/entt/components.h"
+
 
 RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera) {
 	m_pWindow = pWindow; //mb remove it
@@ -33,6 +35,25 @@ void RenderGL::render() {
 	glm::mat4 view = m_pCamera->getViewMatrix(); // glm::mat4(1.0f);
 
 
+	// auto test = m_pSceneRegistry->view<Properties, Transform>();
+	// for (auto& ent : test) {
+	//	if (test.get<Properties>(ent).id == "surface") {
+	//		std::cout << test.get<Transform>(ent).position.x << std::endl;
+	//	}
+	// }
+
+
+	auto pointLights = m_pSceneRegistry->view<Transform, PointLight>();
+
+	glm::vec3 lightColor;
+	glm::vec3 lightPos;
+
+	for (entt::entity entity : pointLights) {
+		lightColor = pointLights.get<PointLight>(entity).color;
+		lightPos = pointLights.get<Transform>(entity).position;
+	}
+
+
 	auto materialEntitiesGroup = m_pSceneRegistry->group<Model, Transform, ShaderGl>(); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
@@ -53,18 +74,30 @@ void RenderGL::render() {
 			glm::value_ptr(m_pScene->getSkybox().getLightColor()));
 		glUniform1f(glGetUniformLocation(shaderProgram, "ambientLightStrength"), m_pScene->getSkybox().getLightStrength());
 
+		
+		glUniform3fv(glGetUniformLocation(shaderProgram, "lightColor"), 1, glm::value_ptr(lightColor));
+		glUniform3fv(glGetUniformLocation(shaderProgram, "lightPos"), 1, glm::value_ptr(lightPos));
+
+
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);
+		
+		glm::mat4 normalMatrix = modelMatrix;
+		glm::inverse(normalMatrix);
+		glm::transpose(normalMatrix);
+		
 
 		//glm::mat4 modelView = view * model;
 
 		unsigned int modelLoc = glGetUniformLocation(shaderProgram, "model");
 		unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
 		unsigned int projLoc = glGetUniformLocation(shaderProgram, "projection");
+		unsigned int normalMatrixLoc = glGetUniformLocation(shaderProgram, "normalMatrix");
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 
 		for (entt::entity& meshEntity : meshes) {
 			Mesh& mesh = m_pUtilRegistry->get<Mesh>(meshEntity);

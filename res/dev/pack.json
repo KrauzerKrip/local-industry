@@ -46,7 +46,7 @@
       "textures_path": "dev/models/lamp/",
       "material_type": "sg",
       "vertex_shader": "base",
-      "fragment_shader": "base"
+      "fragment_shader": "lighting"
     },
     "test_cube": {
       "model_path": "dev/models/test_cube/model.dae",
