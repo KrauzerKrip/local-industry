@@ -60,7 +60,7 @@
       "textures_path": "dev/models/test_cube_white/",
       "material_type": "sg",
       "vertex_shader": "base",
-      "fragment_shader": "base"
+      "fragment_shader": "lighting"
     },
     "test_surface": {
       "model_path": "dev/models/test_cube_white/model.dae",

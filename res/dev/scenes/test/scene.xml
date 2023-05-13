@@ -28,6 +28,19 @@
       </model_data>
     </components>
   </entity>
+  <entity id="cube" uuid="">
+    <components>
+      <transform>
+        <position x="2.0" y="0" z="0.0"></position>
+        <rotation x="0" y="1" z="0"></rotation>
+        <scale x="1" y="1" z="1"></scale>
+      </transform>
+      <model_data>
+        <pack>dev</pack>
+        <model>test_cube</model>
+      </model_data>
+    </components>
+  </entity>
   <entity id="trigger_1" uuid="" >
     <components>
       <transform>

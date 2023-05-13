@@ -67,16 +67,18 @@ void RenderGL::render() {
 
 		glUseProgram(shaderProgram);
 
-		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerColor"), 4);
-		glUniform1i(glGetUniformLocation(shaderProgram, "textureSamplerNormal"), 1);
+		glUniform1i(glGetUniformLocation(shaderProgram, "material.diffuse"), TextureType::DIFFUSE);
+		glUniform1i(glGetUniformLocation(shaderProgram, "material.normal"), TextureType::NORMAL);
+		glUniform3fv(glGetUniformLocation(shaderProgram, "material.specular"), 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
 
-		glUniform3fv(glGetUniformLocation(shaderProgram, "ambientLightColor"), 1,
+		glUniform3fv(glGetUniformLocation(shaderProgram, "light.ambientColor"), 1,
 			glm::value_ptr(m_pScene->getSkybox().getLightColor()));
-		glUniform1f(glGetUniformLocation(shaderProgram, "ambientLightStrength"), m_pScene->getSkybox().getLightStrength());
+		glUniform1f(glGetUniformLocation(shaderProgram, "light.ambientStrength"), m_pScene->getSkybox().getLightStrength());
 
 		
-		glUniform3fv(glGetUniformLocation(shaderProgram, "lightColor"), 1, glm::value_ptr(lightColor));
-		glUniform3fv(glGetUniformLocation(shaderProgram, "lightPos"), 1, glm::value_ptr(lightPos));
+		glUniform3fv(glGetUniformLocation(shaderProgram, "light.diffuse"), 1, glm::value_ptr(lightColor * glm::vec3(0.5, 0.5, 0.5)));
+		glUniform3fv(glGetUniformLocation(shaderProgram, "light.specular"), 1, glm::value_ptr(lightColor * glm::vec3(0.2, 0.2, 0.2)));
+		glUniform3fv(glGetUniformLocation(shaderProgram, "light.position"), 1, glm::value_ptr(lightPos));
 
 		glUniform3fv(glGetUniformLocation(shaderProgram, "viewPos"), 1, glm::value_ptr(m_pCamera->getPosition()));
 
