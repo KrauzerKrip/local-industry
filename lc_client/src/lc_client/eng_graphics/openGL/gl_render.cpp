@@ -78,6 +78,8 @@ void RenderGL::render() {
 		glUniform3fv(glGetUniformLocation(shaderProgram, "lightColor"), 1, glm::value_ptr(lightColor));
 		glUniform3fv(glGetUniformLocation(shaderProgram, "lightPos"), 1, glm::value_ptr(lightPos));
 
+		glUniform3fv(glGetUniformLocation(shaderProgram, "viewPos"), 1, glm::value_ptr(m_pCamera->getPosition()));
+
 
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);
