@@ -66,7 +66,7 @@ void WindowGL::init() {
 	//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
 
-	//glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
+	glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
 
 	if (m_vSync) {
 		glfwSwapInterval(1);
@@ -138,11 +138,12 @@ static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 
 	const int widthWindow = width;
 	//const int aspectRatio = pWindowGL->getAspectRatio()[0] / pWindowGL->getAspectRatio()[1];
-	const int heightWindow = height; //std::round(width / aspectRatio);
+	const int heightWindow = height; // std::round(width / aspectRatio);
 	pWindowGL->setSize(widthWindow, heightWindow);
-	
-	
+
 	glViewport(0, 0, widthWindow, heightWindow);
+
+	pWindowGL->update();
 }
 
 static void mouseCallback(GLFWwindow* window, double x, double y) {

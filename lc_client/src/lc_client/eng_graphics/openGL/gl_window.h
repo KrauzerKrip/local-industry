@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <string>
 
+static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 static void mouseCallback(GLFWwindow* window, double x, double y);
 
 class WindowGL : public IWindow {
