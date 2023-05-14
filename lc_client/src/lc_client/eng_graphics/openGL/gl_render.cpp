@@ -1,7 +1,7 @@
 #include "gl_render.h"
 
 #include <iostream>
-#include <glad/glad.h> 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -14,17 +14,13 @@
 
 
 RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera) {
-	m_pWindow = pWindow; //mb remove it
+	m_pWindow = pWindow; // mb remove it
 	m_pCamera = pCamera;
 }
 
-RenderGL::~RenderGL() {
+RenderGL::~RenderGL() {}
 
-}
-
-void RenderGL::init() {
-	glEnable(GL_DEPTH_TEST);
-}
+void RenderGL::init() { glEnable(GL_DEPTH_TEST); }
 
 void RenderGL::render() {
 
@@ -43,14 +39,14 @@ void RenderGL::render() {
 	// }
 
 
-	auto directionalLights = m_pSceneRegistry->view<DirectionalLight>();
+	auto pointLights = m_pSceneRegistry->view<Transform, PointLight>();
 
 	glm::vec3 lightColor;
-	glm::vec3 direction;
+	glm::vec3 lightPos;
 
-	for (entt::entity entity : directionalLights) {
-		lightColor = directionalLights.get<DirectionalLight>(entity).color;
-		direction = directionalLights.get<DirectionalLight>(entity).direction;
+	for (entt::entity entity : pointLights) {
+		lightColor = pointLights.get<PointLight>(entity).color;
+		lightPos = pointLights.get<Transform>(entity).position;
 	}
 
 
@@ -71,28 +67,49 @@ void RenderGL::render() {
 		glUniform1i(glGetUniformLocation(shaderProgram, "material.normal"), TextureType::NORMAL);
 		glUniform1i(glGetUniformLocation(shaderProgram, "material.specular"), TextureType::SPECULAR);
 
-		glUniform3fv(glGetUniformLocation(shaderProgram, "light.ambientColor"), 1,
+		glUniform3fv(glGetUniformLocation(shaderProgram, "ambientLight.color"), 1,
 			glm::value_ptr(m_pScene->getSkybox().getLightColor()));
-		glUniform1f(glGetUniformLocation(shaderProgram, "light.ambientStrength"), m_pScene->getSkybox().getLightStrength());
+		glUniform1f(
+			glGetUniformLocation(shaderProgram, "ambientLight.strength"), m_pScene->getSkybox().getLightStrength());
 
-		
-		glUniform3fv(glGetUniformLocation(shaderProgram, "light.diffuse"), 1, glm::value_ptr(lightColor * glm::vec3(1.0, 1.0, 1.0)));
-		glUniform3fv(glGetUniformLocation(shaderProgram, "light.specular"), 1,
+		/*	glUniform1f(glGetUniformLocation(shaderProgram, "pointLight.constant"), 1.0f);
+			glUniform1f(glGetUniformLocation(shaderProgram, "pointLight.linear"), 0.09f);
+			glUniform1f(glGetUniformLocation(shaderProgram, "pointLight.quadratic"), 0.032f);
+
+			glUniform3fv(glGetUniformLocation(shaderProgram, "pointLight.diffuse"), 1, glm::value_ptr(lightColor *
+		   glm::vec3(1.0, 1.0, 1.0))); glUniform3fv(glGetUniformLocation(shaderProgram, "pointLight.specular"), 1,
+				glm::value_ptr(lightColor * glm::vec3(1.0, 1.0, 1.0)));
+			glUniform3fv(glGetUniformLocation(shaderProgram, "pointLight.position"), 1,
+		   glm::value_ptr(m_pCamera->getPosition()));*/
+
+		glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.constant"), 1.0f);
+		glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.linear"), 0.09f);
+		glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.quadratic"), 0.032f);
+
+		glUniform3fv(glGetUniformLocation(shaderProgram, "pointLight.diffuse"), 1,
 			glm::value_ptr(lightColor * glm::vec3(1.0, 1.0, 1.0)));
-		glUniform3fv(glGetUniformLocation(shaderProgram, "light.direction"), 1, glm::value_ptr(direction));
+		glUniform3fv(glGetUniformLocation(shaderProgram, "spotLight.specular"), 1,
+			glm::value_ptr(lightColor * glm::vec3(1.0, 1.0, 1.0)));
+		glUniform3fv(
+			glGetUniformLocation(shaderProgram, "spotLight.position"), 1, glm::value_ptr(m_pCamera->getPosition()));
+		glUniform3fv(
+			glGetUniformLocation(shaderProgram, "spotLight.direction"), 1, glm::value_ptr(m_pCamera->getCameraFront()));
+		glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.cutOff"), glm::cos(glm::radians(12.5f)));
+		glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.outerCutOff"), glm::cos(glm::radians(17.5f)));
+
 
 		glUniform3fv(glGetUniformLocation(shaderProgram, "viewPos"), 1, glm::value_ptr(m_pCamera->getPosition()));
 
 
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);
-		
+
 		glm::mat4 normalMatrix = modelMatrix;
 		glm::inverse(normalMatrix);
 		glm::transpose(normalMatrix);
-		
 
-		//glm::mat4 modelView = view * model;
+
+		// glm::mat4 modelView = view * model;
 
 		unsigned int modelLoc = glGetUniformLocation(shaderProgram, "model");
 		unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
@@ -122,20 +139,12 @@ void RenderGL::render() {
 			glBindVertexArray(vao);
 			glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
 		}
-
-
-
 	}
-
 }
 
-void RenderGL::clear() {
+void RenderGL::clear() {}
 
-}
-
-void RenderGL::cleanUp() {
-
-}
+void RenderGL::cleanUp() {}
 
 void RenderGL::setDependecies(Scene* pScene) {
 	m_pScene = pScene;

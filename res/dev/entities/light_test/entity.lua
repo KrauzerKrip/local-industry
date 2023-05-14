@@ -23,7 +23,7 @@ end
 
 function update() 
 	position = entity.transform:getPosition()
-	position:setX(position:x() + 0.01)
+	position:setY(position:y() + 0.01)
 	--entity.transform:setPosition(position)
 	scale = entity.transform:getScale()
 	scale:setXYZ(scale:x() + 0.01, scale:y() + 0.01, scale:z() + 0.01)
