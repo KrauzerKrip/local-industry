@@ -15,7 +15,7 @@
 #include "lc_client/exceptions/input_exceptions.h"
 #include "lc_client/eng_procedures/tier1/gl_tier1.h"
 #include "lc_client/eng_graphics/openGL/gl_mesh_work.h"
-#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_work.h"]
 
 
 Game::Game(IWindow* pWindow) {
@@ -61,6 +61,15 @@ void Game::init() {
 
 	m_pScene->getSkybox().setLightColor(255, 255, 200); // 255, 255, 236
 	m_pScene->getSkybox().setLightStrength(0.4);
+
+
+
+	auto dirLight = m_pScene->getSceneRegistry().create(); // temp
+	auto dirLightComponent = m_pScene->getSceneRegistry().emplace<DirectionalLight>(dirLight);
+	dirLightComponent.color = glm::vec3(1, 1, 1);
+	dirLightComponent.direction = glm::vec3(-0.2f, -1.0f, -0.3f);
+
+
 }
 
 void Game::input() {

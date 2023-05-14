@@ -16,7 +16,8 @@ struct PointLight {
 };
 
 struct DirectionalLight {
-
+	glm::vec3 direction;
+	glm::vec3 color;
 };
 
 struct SpotLight {

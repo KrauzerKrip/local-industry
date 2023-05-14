@@ -43,14 +43,14 @@ void RenderGL::render() {
 	// }
 
 
-	auto pointLights = m_pSceneRegistry->view<Transform, PointLight>();
+	auto directionalLights = m_pSceneRegistry->view<DirectionalLight>();
 
 	glm::vec3 lightColor;
-	glm::vec3 lightPos;
+	glm::vec3 direction;
 
-	for (entt::entity entity : pointLights) {
-		lightColor = pointLights.get<PointLight>(entity).color;
-		lightPos = pointLights.get<Transform>(entity).position;
+	for (entt::entity entity : directionalLights) {
+		lightColor = directionalLights.get<DirectionalLight>(entity).color;
+		direction = directionalLights.get<DirectionalLight>(entity).direction;
 	}
 
 
@@ -69,16 +69,17 @@ void RenderGL::render() {
 
 		glUniform1i(glGetUniformLocation(shaderProgram, "material.diffuse"), TextureType::DIFFUSE);
 		glUniform1i(glGetUniformLocation(shaderProgram, "material.normal"), TextureType::NORMAL);
-		glUniform3fv(glGetUniformLocation(shaderProgram, "material.specular"), 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
+		glUniform1i(glGetUniformLocation(shaderProgram, "material.specular"), TextureType::SPECULAR);
 
 		glUniform3fv(glGetUniformLocation(shaderProgram, "light.ambientColor"), 1,
 			glm::value_ptr(m_pScene->getSkybox().getLightColor()));
 		glUniform1f(glGetUniformLocation(shaderProgram, "light.ambientStrength"), m_pScene->getSkybox().getLightStrength());
 
 		
-		glUniform3fv(glGetUniformLocation(shaderProgram, "light.diffuse"), 1, glm::value_ptr(lightColor * glm::vec3(0.5, 0.5, 0.5)));
-		glUniform3fv(glGetUniformLocation(shaderProgram, "light.specular"), 1, glm::value_ptr(lightColor * glm::vec3(0.2, 0.2, 0.2)));
-		glUniform3fv(glGetUniformLocation(shaderProgram, "light.position"), 1, glm::value_ptr(lightPos));
+		glUniform3fv(glGetUniformLocation(shaderProgram, "light.diffuse"), 1, glm::value_ptr(lightColor * glm::vec3(1.0, 1.0, 1.0)));
+		glUniform3fv(glGetUniformLocation(shaderProgram, "light.specular"), 1,
+			glm::value_ptr(lightColor * glm::vec3(1.0, 1.0, 1.0)));
+		glUniform3fv(glGetUniformLocation(shaderProgram, "light.direction"), 1, glm::value_ptr(direction));
 
 		glUniform3fv(glGetUniformLocation(shaderProgram, "viewPos"), 1, glm::value_ptr(m_pCamera->getPosition()));
 
@@ -111,10 +112,12 @@ void RenderGL::render() {
 			Texture* aoTexture = materialSG.aoTexture;
 			Texture* diffuseTexture = materialSG.diffuseTexture;
 			Texture* normalMap = materialSG.normalMap;
+			Texture* specularMap = materialSG.specularTexture;
 
 			aoTexture->bind();
 			diffuseTexture->bind();
 			normalMap->bind();
+			specularMap->bind();
 
 			glBindVertexArray(vao);
 			glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);

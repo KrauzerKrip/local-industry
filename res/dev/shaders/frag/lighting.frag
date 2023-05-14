@@ -9,7 +9,7 @@ in vec3 FragPos;
 struct Material {
 	sampler2D diffuse;
 	sampler2D normal;
-	vec3 specular;
+	sampler2D specular;
 };
 
 uniform Material material;
@@ -19,7 +19,8 @@ struct Light {
 	float ambientStrength;
 	vec3 diffuse;
 	vec3 specular;
-	vec3 position;
+	//vec3 position;
+	vec3 direction;
 };
 
 uniform Light light;
@@ -34,7 +35,7 @@ void main()
 	vec4 normal = texture(material.normal, TexCoord);
 
 	vec3 norm = normalize(Normal);
-	vec3 lightDir = normalize(light.position - FragPos);
+	vec3 lightDir = normalize(-light.direction);
 
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 diffuse = 1 * diff * vec3(texture(material.diffuse, TexCoord));
@@ -43,7 +44,7 @@ void main()
 	vec3 reflectDir = reflect(-lightDir, norm);
 
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-	vec3 specular = spec * light.specular * material.specular;
+	vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoord));
 
 	vec3 ambient = light.ambientColor * light.ambientStrength;
 	vec3 result = (ambient + diffuse + specular) * vec3(color.x, color.y, color.z);
