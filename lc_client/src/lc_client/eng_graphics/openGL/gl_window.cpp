@@ -48,6 +48,8 @@ void WindowGL::init() {
 	glfwWindowHint(GLFW_RESIZABLE, true);
 	glfwWindowHint(GLFW_DECORATED, true);
 
+	glfwWindowHint(GLFW_SAMPLES, 8);
+
 	m_pGlfwWindow = glfwCreateWindow(m_width, m_height, m_title.c_str(), NULL, NULL);
 
 	if (m_pGlfwWindow == nullptr) {

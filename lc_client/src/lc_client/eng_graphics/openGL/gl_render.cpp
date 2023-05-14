@@ -14,7 +14,7 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
-RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera) {
+RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera) { 
 	m_pWindow = pWindow; // mb remove it
 	m_pCamera = pCamera;
 }
@@ -28,6 +28,8 @@ void RenderGL::init() {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
+
+	glEnable(GL_MULTISAMPLE);
 }
 
 void RenderGL::render() {
