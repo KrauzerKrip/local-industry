@@ -59,7 +59,7 @@ void RenderGL::render() {
 		setUniform(shaderProgram, "material.diffuse", TextureType::DIFFUSE);
 		setUniform(shaderProgram, "material.normal", TextureType::NORMAL);
 		setUniform(shaderProgram, "material.specular", TextureType::SPECULAR);
-		setUniform(shaderProgram, "material.shininess", 32);
+		setUniform(shaderProgram, "material.shininess", 32.0f);
 
 		setUniform(shaderProgram, "ambientLight.color", m_pScene->getSkybox().getLightColor());
 		setUniform(shaderProgram, "ambientLight.strength", m_pScene->getSkybox().getLightStrength());
@@ -84,8 +84,8 @@ void RenderGL::render() {
 			std::string iStr = std::to_string(i);
 
 			setUniform(shaderProgram, "pointLights["+iStr+"].position", pos);
-			setUniform(shaderProgram, "pointLights[" + iStr + "].diffuse", color);
-			setUniform(shaderProgram, "pointLights[" + iStr + "].specular", color * 0.5f);
+			setUniform(shaderProgram, "pointLights[" + iStr + "].diffuse", color * 0.5f);
+			setUniform(shaderProgram, "pointLights[" + iStr + "].specular", color * 0.25f);
 			setUniform(shaderProgram, "pointLights[" + iStr + "].constant", 1.0f);
 			setUniform(shaderProgram, "pointLights[" + iStr + "].linear", 0.09f);
 			setUniform(shaderProgram, "pointLights[" + iStr + "].quadratic", 0.032f);
@@ -96,6 +96,8 @@ void RenderGL::render() {
 		setUniform(shaderProgram, "directionalLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
 		setUniform(shaderProgram, "directionalLight.diffuse", glm::vec3(1.0f, 1.0f, 0.8f));
 		setUniform(shaderProgram, "directionalLight.specular", glm::vec3(1.0f, 1.0f, 0.8f));
+
+		setUniform(shaderProgram, "pointLightsCount", i);
 
 		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
 
