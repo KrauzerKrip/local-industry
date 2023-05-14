@@ -55,6 +55,13 @@
       "vertex_shader": "base",
       "fragment_shader": "lighting"
     },
+    "test_cube_blend": {
+      "model_path": "dev/models/test_cube_blend/model.dae",
+      "textures_path": "dev/models/test_cube_blend/",
+      "material_type": "sg",
+      "vertex_shader": "base",
+      "fragment_shader": "lighting"
+    },
     "test_cube_white": {
       "model_path": "dev/models/test_cube_white/model.dae",
       "textures_path": "dev/models/test_cube_white/",

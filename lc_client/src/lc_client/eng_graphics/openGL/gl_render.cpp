@@ -11,7 +11,7 @@
 #include "lc_client/eng_graphics/texture.h"
 #include "lc_client/eng_model/entt/components.h"
 #include "lc_client/eng_lighting/entt/components.h"
-#include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"	
+#include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
 RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera) {
@@ -21,7 +21,11 @@ RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera) {
 
 RenderGL::~RenderGL() {}
 
-void RenderGL::init() { glEnable(GL_DEPTH_TEST); }
+void RenderGL::init() { 
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
 
 void RenderGL::render() {
 
@@ -63,18 +67,18 @@ void RenderGL::render() {
 
 		setUniform(shaderProgram, "ambientLight.color", m_pScene->getSkybox().getLightColor());
 		setUniform(shaderProgram, "ambientLight.strength", m_pScene->getSkybox().getLightStrength());
-		
+
 		setUniform(shaderProgram, "spotLight.position", m_pCamera->getPosition());
 		setUniform(shaderProgram, "spotLight.direction", m_pCamera->getCameraFront());
-		setUniform(shaderProgram, "spotLight.cutOff", (float) glm::cos(glm::radians(12.5)));
-		setUniform(shaderProgram, "spotLight.outerCutOff", (float) glm::cos(glm::radians(17.5)));
+		setUniform(shaderProgram, "spotLight.cutOff", (float)glm::cos(glm::radians(12.5)));
+		setUniform(shaderProgram, "spotLight.outerCutOff", (float)glm::cos(glm::radians(17.5)));
 		setUniform(shaderProgram, "spotLight.diffuse", glm::vec3(1.0f));
 		setUniform(shaderProgram, "spotLight.specular", glm::vec3(0.5f));
 		setUniform(shaderProgram, "spotLight.constant", 1.0f);
 		setUniform(shaderProgram, "spotLight.linear", 0.09f);
 		setUniform(shaderProgram, "spotLight.quadratic", 0.032f);
 
-		
+
 		int i = 0;
 
 		for (entt::entity entity : pointLights) {
@@ -83,7 +87,7 @@ void RenderGL::render() {
 
 			std::string iStr = std::to_string(i);
 
-			setUniform(shaderProgram, "pointLights["+iStr+"].position", pos);
+			setUniform(shaderProgram, "pointLights[" + iStr + "].position", pos);
 			setUniform(shaderProgram, "pointLights[" + iStr + "].diffuse", color * 0.5f);
 			setUniform(shaderProgram, "pointLights[" + iStr + "].specular", color * 0.25f);
 			setUniform(shaderProgram, "pointLights[" + iStr + "].constant", 1.0f);
@@ -102,7 +106,7 @@ void RenderGL::render() {
 		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
 
 
-	
+
 
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);

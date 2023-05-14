@@ -75,6 +75,10 @@ vec3 calculateSpotLight(SpotLight light, AmbientLight ambientLight, vec3 normal,
 void main()
 {	
 
+	if (texture(material.diffuse, TexCoord).a < 0.1) {
+		discard;
+	}
+
 	// properties
 	vec3 normal = normalize(Normal);
 	vec3 viewDir = normalize(viewPos - FragPos);
@@ -100,7 +104,7 @@ void main()
 		result += ambientLight.color * ambientLight.strength * vec3(texture(material.diffuse, TexCoord));
 	}
 	
-	FragColor = vec4(result, 1.0);
+	FragColor = vec4(result, texture(material.diffuse, TexCoord).a);
 }
 
 vec3 calculateDirectionalLight(DirectionalLight light, AmbientLight ambientLight, vec3 normal, vec3 viewDir) 
