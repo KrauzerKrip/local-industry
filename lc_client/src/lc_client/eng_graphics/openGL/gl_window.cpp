@@ -64,8 +64,8 @@ void WindowGL::init() {
 
 	glViewport(0, 0, m_width, m_height);
 	//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	//glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
+	//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
 

@@ -60,7 +60,7 @@ void Game::init() {
 	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pScene, m_pModelManager);
 
 	m_pScene->getSkybox().setLightColor(255, 255, 200); // 255, 255, 236
-	m_pScene->getSkybox().setLightStrength(0.1);
+	m_pScene->getSkybox().setLightStrength(0.4);
 
 
 

@@ -1,12 +1,54 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <entities>
-  <entity id="light" uuid="">
+  <entity id="light_0" uuid="">
     <components>
       <transform>
-        <position x="0.0" y="0.0" z="1.0"></position>
+        <position x="0.0" y="0.1" z="1.0"></position>
         <rotation x="0" y="0" z="0"></rotation>
-        <scale x="1.0" y="1.0" z="1.0"></scale>
+        <scale x="0.1" y="0.1" z="0.1"></scale>
+      </transform>
+      <model_data>
+        <pack>dev</pack>
+        <model>test_cube</model>
+      </model_data>
+      <script is_eternal="false">dev/entities/light_test/entity.lua</script>
+    </components>
+  </entity>
+  <entity id="light_1" uuid="">
+    <components>
+      <transform>
+        <position x="0.5" y="0.1" z="1.0"></position>
+        <rotation x="0" y="0" z="0"></rotation>
+        <scale x="0.1" y="0.1" z="0.1"></scale>
+      </transform>
+      <model_data>
+        <pack>dev</pack>
+        <model>test_cube</model>
+      </model_data>
+      <script is_eternal="false">dev/entities/light_test/entity.lua</script>
+    </components>
+  </entity>
+  <entity id="light_2" uuid="">
+    <components>
+      <transform>
+        <position x="-0.5" y="0.1" z="1.0"></position>
+        <rotation x="0" y="0" z="0"></rotation>
+        <scale x="0.1" y="0.1" z="0.1"></scale>
+      </transform>
+      <model_data>
+        <pack>dev</pack>
+        <model>test_cube</model>
+      </model_data>
+      <script is_eternal="false">dev/entities/light_test/entity.lua</script>
+    </components>
+  </entity>
+  <entity id="light_3" uuid="">
+    <components>
+      <transform>
+        <position x="0.0" y="0.1" z="0.5"></position>
+        <rotation x="0" y="0" z="0"></rotation>
+        <scale x="0.1" y="0.1" z="0.1"></scale>
       </transform>
       <model_data>
         <pack>dev</pack>

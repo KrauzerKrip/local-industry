@@ -11,6 +11,7 @@
 #include "lc_client/eng_graphics/texture.h"
 #include "lc_client/eng_model/entt/components.h"
 #include "lc_client/eng_lighting/entt/components.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"	
 
 
 RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera) {
@@ -41,15 +42,6 @@ void RenderGL::render() {
 
 	auto pointLights = m_pSceneRegistry->view<Transform, PointLight>();
 
-	glm::vec3 lightColor;
-	glm::vec3 lightPos;
-
-	for (entt::entity entity : pointLights) {
-		lightColor = pointLights.get<PointLight>(entity).color;
-		lightPos = pointLights.get<Transform>(entity).position;
-	}
-
-
 	auto materialEntitiesGroup = m_pSceneRegistry->group<Model, Transform, ShaderGl>(); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
@@ -63,43 +55,52 @@ void RenderGL::render() {
 
 		glUseProgram(shaderProgram);
 
-		glUniform1i(glGetUniformLocation(shaderProgram, "material.diffuse"), TextureType::DIFFUSE);
-		glUniform1i(glGetUniformLocation(shaderProgram, "material.normal"), TextureType::NORMAL);
-		glUniform1i(glGetUniformLocation(shaderProgram, "material.specular"), TextureType::SPECULAR);
 
-		glUniform3fv(glGetUniformLocation(shaderProgram, "ambientLight.color"), 1,
-			glm::value_ptr(m_pScene->getSkybox().getLightColor()));
-		glUniform1f(
-			glGetUniformLocation(shaderProgram, "ambientLight.strength"), m_pScene->getSkybox().getLightStrength());
+		setUniform(shaderProgram, "material.diffuse", TextureType::DIFFUSE);
+		setUniform(shaderProgram, "material.normal", TextureType::NORMAL);
+		setUniform(shaderProgram, "material.specular", TextureType::SPECULAR);
+		setUniform(shaderProgram, "material.shininess", 32);
 
-		/*	glUniform1f(glGetUniformLocation(shaderProgram, "pointLight.constant"), 1.0f);
-			glUniform1f(glGetUniformLocation(shaderProgram, "pointLight.linear"), 0.09f);
-			glUniform1f(glGetUniformLocation(shaderProgram, "pointLight.quadratic"), 0.032f);
+		setUniform(shaderProgram, "ambientLight.color", m_pScene->getSkybox().getLightColor());
+		setUniform(shaderProgram, "ambientLight.strength", m_pScene->getSkybox().getLightStrength());
+		
+		setUniform(shaderProgram, "spotLight.position", m_pCamera->getPosition());
+		setUniform(shaderProgram, "spotLight.direction", m_pCamera->getCameraFront());
+		setUniform(shaderProgram, "spotLight.cutOff", (float) glm::cos(glm::radians(12.5)));
+		setUniform(shaderProgram, "spotLight.outerCutOff", (float) glm::cos(glm::radians(17.5)));
+		setUniform(shaderProgram, "spotLight.diffuse", glm::vec3(1.0f));
+		setUniform(shaderProgram, "spotLight.specular", glm::vec3(0.5f));
+		setUniform(shaderProgram, "spotLight.constant", 1.0f);
+		setUniform(shaderProgram, "spotLight.linear", 0.09f);
+		setUniform(shaderProgram, "spotLight.quadratic", 0.032f);
 
-			glUniform3fv(glGetUniformLocation(shaderProgram, "pointLight.diffuse"), 1, glm::value_ptr(lightColor *
-		   glm::vec3(1.0, 1.0, 1.0))); glUniform3fv(glGetUniformLocation(shaderProgram, "pointLight.specular"), 1,
-				glm::value_ptr(lightColor * glm::vec3(1.0, 1.0, 1.0)));
-			glUniform3fv(glGetUniformLocation(shaderProgram, "pointLight.position"), 1,
-		   glm::value_ptr(m_pCamera->getPosition()));*/
+		
+		int i = 0;
 
-		glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.constant"), 1.0f);
-		glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.linear"), 0.09f);
-		glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.quadratic"), 0.032f);
+		for (entt::entity entity : pointLights) {
+			glm::vec3 color = pointLights.get<PointLight>(entity).color;
+			glm::vec3 pos = pointLights.get<Transform>(entity).position;
 
-		glUniform3fv(glGetUniformLocation(shaderProgram, "pointLight.diffuse"), 1,
-			glm::value_ptr(lightColor * glm::vec3(1.0, 1.0, 1.0)));
-		glUniform3fv(glGetUniformLocation(shaderProgram, "spotLight.specular"), 1,
-			glm::value_ptr(lightColor * glm::vec3(1.0, 1.0, 1.0)));
-		glUniform3fv(
-			glGetUniformLocation(shaderProgram, "spotLight.position"), 1, glm::value_ptr(m_pCamera->getPosition()));
-		glUniform3fv(
-			glGetUniformLocation(shaderProgram, "spotLight.direction"), 1, glm::value_ptr(m_pCamera->getCameraFront()));
-		glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.cutOff"), glm::cos(glm::radians(12.5f)));
-		glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.outerCutOff"), glm::cos(glm::radians(17.5f)));
+			std::string iStr = std::to_string(i);
+
+			setUniform(shaderProgram, "pointLights["+iStr+"].position", pos);
+			setUniform(shaderProgram, "pointLights[" + iStr + "].diffuse", color);
+			setUniform(shaderProgram, "pointLights[" + iStr + "].specular", color * 0.5f);
+			setUniform(shaderProgram, "pointLights[" + iStr + "].constant", 1.0f);
+			setUniform(shaderProgram, "pointLights[" + iStr + "].linear", 0.09f);
+			setUniform(shaderProgram, "pointLights[" + iStr + "].quadratic", 0.032f);
+
+			i++;
+		}
+
+		setUniform(shaderProgram, "directionalLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
+		setUniform(shaderProgram, "directionalLight.diffuse", glm::vec3(1.0f, 1.0f, 0.8f));
+		setUniform(shaderProgram, "directionalLight.specular", glm::vec3(1.0f, 1.0f, 0.8f));
+
+		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
 
 
-		glUniform3fv(glGetUniformLocation(shaderProgram, "viewPos"), 1, glm::value_ptr(m_pCamera->getPosition()));
-
+	
 
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);

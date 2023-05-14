@@ -21,5 +21,5 @@ struct DirectionalLight {
 };
 
 struct SpotLight {
-
+	glm::vec3 direction;
 };
