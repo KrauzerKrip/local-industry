@@ -49,6 +49,7 @@ add_subdirectory("src/lc_client/eng_model")
 add_subdirectory("src/lc_client/eng_scene")
 add_subdirectory("src/lc_client/eng_lighting")
 add_subdirectory("src/lc_client/eng_script")
+add_subdirectory("src/lc_client/tier1")
 add_subdirectory("src/lc_client/exceptions")
 add_subdirectory("src/lc_client/util")
 

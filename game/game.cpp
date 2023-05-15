@@ -13,7 +13,7 @@
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
-#include "lc_client/eng_procedures/tier1/gl_tier1.h"
+#include "lc_client/tier1/openGL/gl_tier1.h"
 #include "lc_client/eng_graphics/openGL/gl_mesh_work.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_work.h"]
 

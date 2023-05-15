@@ -9,7 +9,7 @@
 #include "lc_client/util/directories.h"
 #include "lc_client/util/file_util.h"
 #include "lc_client/util/pack.h"
-#include "lc_client/eng_procedures/tier1/game_info.h"
+#include "lc_client/tier1/game_info.h"
 
 
 ShaderManagerGl::ShaderManagerGl(eng::IResource* pResource) {

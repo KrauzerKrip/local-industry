@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lc_client/eng_procedures/texture_manager.h"
+#include "lc_client/tier1/texture_manager.h"
 
 class TextureManagerGl : public TextureManager {
 public:

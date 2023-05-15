@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lc_client/eng_procedures/tier1/tier1.h"
+#include "lc_client/tier1/tier1.h"
 
 
 
