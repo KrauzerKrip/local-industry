@@ -11,7 +11,7 @@
 #include "lc_client/eng_graphics/openGL/gl_render.h"
 #include "ldk_client/local_engine/scene_controlling.h"
 #include "lc_client/util/eng_resource.h"
-#include "lc_client/eng_input/glfw_input.h"
+#include "lc_client/eng_input/glfw_input_raw.h"
 #include "lc_client/exceptions/input_exceptions.h"
 #include "lc_client/eng_procedures/tier1/gl_tier1.h"
 #include "lc_client/eng_graphics/openGL/gl_mesh_work.h"

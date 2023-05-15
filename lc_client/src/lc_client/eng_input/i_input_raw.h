@@ -2,9 +2,9 @@
 
 #include <string>
 
-class IInput {
+class IInputRaw {
 public:
-	virtual ~IInput() {};
+	virtual ~IInputRaw() {};
 
 	virtual bool isKeyPressed(std::string key) = 0;
 	virtual double getMousePosX() = 0;
