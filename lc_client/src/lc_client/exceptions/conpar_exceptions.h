@@ -14,3 +14,10 @@ public:
 	ConsoleParameterConstantValueException(std::string name)
 		: std::runtime_error("Attempt to change value of console parameter flagged as CONSTANT. Console parameter: '" + name + "'") {}
 };
+
+class ConsoleParameterCheatsException : public std::runtime_error {
+public:
+	ConsoleParameterCheatsException(std::string name)
+		: std::runtime_error(
+			  "Console parameter '" + name + "' is protected by sv_cheats.") {}
+};
