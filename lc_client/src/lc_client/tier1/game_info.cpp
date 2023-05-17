@@ -25,11 +25,11 @@ std::map<std::string, std::string> GameInfo::getPacks() {
 	return packs;
 }
 
-std::vector<std::string> GameInfo::getConfig() { 
-	std::vector<std::string> config;
+std::map<std::string, std::string> GameInfo::getConfig() { 
+	std::map<std::string, std::string> config;
 
-	for (auto& command : m_json.at("config").items()) {
-		config.push_back(command.value());
+	for (auto& parameter : m_json.at("config").items()) {
+		config.emplace(parameter.key(), parameter.value());
 	}
 
 	return config;

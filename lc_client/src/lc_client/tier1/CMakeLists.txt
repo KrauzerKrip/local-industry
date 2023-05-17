@@ -15,6 +15,13 @@ target_sources(lc_client
         "openGL/gl_tier1.h"
         "openGL/gl_tier1.cpp"
 
+        "conpar/conpar.h"
+        "conpar/conpar.cpp"
+        "conpar/parameters.h"
+        "conpar/parameters.cpp"
+        "conpar/conpars_init.h"
+        "conpar/conpars_init.cpp"
+
         "game_info.h"
         "game_info.cpp"
         "tier1.h"

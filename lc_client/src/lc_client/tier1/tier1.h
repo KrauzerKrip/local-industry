@@ -3,6 +3,7 @@
 #include "lc_client/util/i_eng_resource.h"
 
 #include "lc_client/eng_procedures/graphics_entities_loading.h"
+#include "lc_client/tier1/conpar/parameters.h"
 #include "lc_client/tier1/i_shaders.h"
 #include "lc_client/tier1/texture_manager.h"
 
@@ -14,14 +15,16 @@
 class Tier1 {
 public:
 	Tier1(eng::IResource* pResource);
-	~Tier1() = default;
+	~Tier1();
 
+	Parameters* getParameters();
 	TextureManager* getTextureManager();
 	IShaderManager* getShaderManager();
 
 protected:
 	eng::IResource* m_pResource;
 
+	Parameters* m_pParameters;
 	TextureManager* m_pTextureManager;
 	IShaderManager* m_pShaderManager;
 	
