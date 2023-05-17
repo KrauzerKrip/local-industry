@@ -4,7 +4,10 @@
 #include <vector>
 
 
-enum class Flags { CONFIRMATION, CHEATS };
+#include "lc_client/exceptions/conpar_exceptions.h"
+  
+
+enum class Flags { CONFIRMATION, CHEATS, CONSTANT };
 
 template <typename T>
 concept IsAppliableType = std::is_same<T, bool>::value || std::is_same<T, std::string>::value ||
@@ -17,8 +20,10 @@ public:
 	ConPar(std::string name, T value);
 	const std::string getName() const;
 	const std::vector<Flags>& getFlags() const;
+	bool checkFlag(const Flags flag) const;
 
 	T getValue() const;
+	void setValue(T value);
 
 private:
 	const std::string m_name;
@@ -41,5 +46,24 @@ template <IsAppliableType T> const std::string ConPar<T>::getName() const { retu
 
 template <IsAppliableType T> const std::vector<Flags>& ConPar<T>::getFlags() const { return m_flags; }
 
+template <IsAppliableType T> bool ConPar<T>::checkFlag(const Flags flag) const {
+	for (auto& f : m_flags) {
+		if (f == flag) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 
 template <IsAppliableType T> T ConPar<T>::getValue() const { return m_value; }
+
+template <IsAppliableType T> void ConPar<T>::setValue(T value) {
+	if (checkFlag(Flags::CONSTANT)) {
+		throw ConsoleParameterConstantValueException(m_name);
+	}
+	else {
+		m_value = value;
+	}
+}

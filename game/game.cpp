@@ -62,7 +62,7 @@ void Game::init() {
 	m_pScene->getSkybox().setLightColor(255, 255, 200); // 255, 255, 236
 	m_pScene->getSkybox().setLightStrength(0.4);
 
-
+	m_pTier1->getParameters()->setParameterValue<bool>("gh_triggers_display", true);
 
 	auto dirLight = m_pScene->getSceneRegistry().create(); // temp
 	auto dirLightComponent = m_pScene->getSceneRegistry().emplace<DirectionalLight>(dirLight);

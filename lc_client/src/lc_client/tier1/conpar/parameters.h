@@ -12,6 +12,17 @@ class Parameters {
 public:
 	Parameters();
 
+	template <IsAppliableType T> T getParameterValue(std::string name);
+	template <IsAppliableType T> void setParameterValue(std::string name, T value) {
+		getParameter<T>(name).setValue(value);
+	}
+
+	void addParameter(ConPar<bool> parameter);
+	void addParameter(ConPar<std::string> parameter);
+	void addParameter(ConPar<int> parameter);
+	void addParameter(ConPar<float> parameter);
+
+private:
 	template <IsAppliableType T> ConPar<T>& getParameter(std::string name) {
 		static_assert("Don`t call me like that. I don`t appreciate the type you have given me.");
 	}
@@ -48,14 +59,6 @@ public:
 		}
 	};
 
-	template <IsAppliableType T> T getParameterValue(std::string name);
-
-	void addParameter(ConPar<bool> parameter);
-	void addParameter(ConPar<std::string> parameter);
-	void addParameter(ConPar<int> parameter);
-	void addParameter(ConPar<float> parameter);
-
-private:
 	std::unordered_map<std::string, ConPar<bool>> m_boolConpars;
 	std::unordered_map<std::string, ConPar<std::string>> m_stringConpars;
 	std::unordered_map<std::string, ConPar<int>> m_intConpars;

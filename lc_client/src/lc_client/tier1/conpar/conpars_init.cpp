@@ -31,5 +31,5 @@ static void initKeybinds(Parameters& parameters) {
 }
 
 void initGraphicsParameters(Parameters& parameters) {
-	ADD_PARAMETER_BOOL_F("gh_triggers_display", true, std::vector<Flags>{Flags::CHEATS});
+	ADD_PARAMETER_BOOL_F("gh_triggers_display", true, std::vector<Flags>({Flags::CHEATS}));
 }
