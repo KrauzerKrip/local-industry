@@ -15,7 +15,7 @@
 #include "lc_client/exceptions/input_exceptions.h"
 #include "lc_client/tier1/openGL/gl_tier1.h"
 #include "lc_client/eng_graphics/openGL/gl_mesh_work.h"
-#include "lc_client/eng_graphics/openGL/gl_shader_work.h"]
+#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
 
 
 Game::Game(IWindow* pWindow) {

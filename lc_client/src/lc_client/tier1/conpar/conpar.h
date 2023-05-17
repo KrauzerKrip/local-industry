@@ -15,8 +15,8 @@ template <IsAppliableType T> class ConPar {
 public:
 	ConPar(std::string name, T value, std::vector<Flags> flags);
 	ConPar(std::string name, T value);
-	std::string getName() const;
-	std::vector<Flags>& getFlags() const;
+	const std::string getName() const;
+	const std::vector<Flags>& getFlags() const;
 
 	T getValue() const;
 
@@ -37,9 +37,9 @@ ConPar<T>::ConPar(std::string name, T value) : m_name(name),
 											   m_value(value),
 											   m_flags(std::vector<Flags>()) {}
 
-template <IsAppliableType T> std::string ConPar<T>::getName() const { return m_name; }
+template <IsAppliableType T> const std::string ConPar<T>::getName() const { return m_name; }
 
-template <IsAppliableType T> std::vector<Flags>& ConPar<T>::getFlags() const { return m_flags; }
+template <IsAppliableType T> const std::vector<Flags>& ConPar<T>::getFlags() const { return m_flags; }
 
 
 template <IsAppliableType T> T ConPar<T>::getValue() const { return m_value; }
