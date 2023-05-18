@@ -23,6 +23,7 @@ Game::Game(IWindow* pWindow) {
 	m_pCamera = new Camera();
 	m_pRender = new RenderGL(m_pWindow, m_pCamera);
 	m_pResource = new eng::Resource("D:/Industry/industry/res/");
+	m_pTier0 = new Tier0();
 	m_pTier1 = new Tier1Gl(m_pResource);
 }
 
@@ -31,6 +32,7 @@ Game::~Game() {
 	delete m_pResource;
 	delete m_pTier1;
 	delete m_pCamera;
+	delete m_pTier0;
 };
 
 void Game::init() {

@@ -16,6 +16,7 @@
 #include "lc_client/systems.h"
 #include "lc_client/eng_graphics/mesh_work.h"
 #include "lc_client/eng_graphics/shader_work.h"
+#include "lc_client/tier0/tier0.h"
 
 
 class Game : public IGameLogic {
@@ -41,7 +42,7 @@ private:
 	MeshWork* m_pMeshWork;
 	ShaderWork* m_pShaderWorkScene;
 
-
+	Tier0* m_pTier0;
 	Tier1* m_pTier1;
 
 	double m_lastMousePosX = 0.0;

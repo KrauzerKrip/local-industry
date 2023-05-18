@@ -4,7 +4,6 @@
 #include <string>
 
 #include "conpar.h"
-#include "lc_client/tier1/game_info.h"
 #include "lc_client/exceptions/conpar_exceptions.h"
 
 
