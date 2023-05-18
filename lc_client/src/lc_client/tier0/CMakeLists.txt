@@ -12,4 +12,13 @@ target_sources(lc_client
         "conpar/conpars_init.cpp"
         "tier0.h"
         "tier0.cpp"
+
+        "console/i_console.h"
+        "console/i_console_input.h"
+        "console/console.h"
+        "console/console.cpp"
+        "console/command_parser.h"
+        "console/command_parser.cpp"
+        "console/command.h"
+        "console/command.cpp"
 )

@@ -17,6 +17,8 @@
 #include "lc_client/eng_graphics/openGL/gl_mesh_work.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_work.h"
 
+#include "lc_client/tier0/console/i_console.h"
+
 
 Game::Game(IWindow* pWindow) {
 	m_pWindow = pWindow;

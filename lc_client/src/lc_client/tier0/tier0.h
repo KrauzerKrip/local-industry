@@ -1,6 +1,8 @@
 #pragma once
 
 #include "conpar/parameters.h"
+#include "console/i_console.h"
+#include "console/console.h"
 
 
 /**
@@ -13,7 +15,10 @@ public:
 	~Tier0();
 
 	Parameters* getParameters();
+	Console* getConsole();
+
 protected:
 
-	Parameters* m_pParameters;
+	Parameters* m_pParameters = nullptr;
+	Console* m_pConsole = nullptr;
 };
