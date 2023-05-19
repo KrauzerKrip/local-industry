@@ -21,7 +21,7 @@
 
 class Game : public IGameLogic {
 public:
-	Game(IWindow *pWindow);
+	Game(IWindow *pWindow, Tier0* pTier0);
 	virtual ~Game();
 
 	void init();
