@@ -16,6 +16,7 @@
 #include "lc_client/tier1/openGL/gl_tier1.h"
 #include "lc_client/eng_graphics/openGL/gl_mesh_work.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_work.h"
+#include "lc_client/eng_gui/gui_console.h"
 
 #include "lc_client/tier0/console/i_console.h"
 
@@ -27,6 +28,8 @@ Game::Game(IWindow* pWindow) {
 	m_pResource = new eng::Resource("D:/Industry/industry/res/");
 	m_pTier0 = new Tier0();
 	m_pTier1 = new Tier1Gl(m_pResource);
+
+	m_pConsoleGui = new ConsoleGui(m_pTier0->getConsole());
 }
 
 Game::~Game() {
@@ -71,11 +74,19 @@ void Game::init() {
 	auto dirLightComponent = m_pScene->getSceneRegistry().emplace<DirectionalLight>(dirLight);
 	dirLightComponent.color = glm::vec3(1, 1, 1);
 	dirLightComponent.direction = glm::vec3(-0.2f, -1.0f, -0.3f);
+
+	m_pConsoleGui->open();
 }
 
 void Game::input() {
+	m_pConsoleGui->update();
+
 	double offsetMouseX = m_pInput->getMousePosX() - m_lastMousePosX;
 	double offsetMouseY = m_lastMousePosY - m_pInput->getMousePosY();
+
+	if (m_pConsoleGui->isOpened()) {
+		offsetMouseX, offsetMouseY = 0;
+	}
 
 	m_lastMousePosX = m_pInput->getMousePosX();
 	m_lastMousePosY = m_pInput->getMousePosY();

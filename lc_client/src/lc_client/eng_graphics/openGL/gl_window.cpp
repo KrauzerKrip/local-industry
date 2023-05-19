@@ -76,7 +76,7 @@ void WindowGL::init() {
 		glfwSwapInterval(1);
 	}
 
-	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	
 	ImGui::CreateContext();
@@ -88,6 +88,10 @@ void WindowGL::init() {
 
 	glfwSetWindowUserPointer(m_pGlfwWindow, this);
 	glfwSetWindowAspectRatio(m_pGlfwWindow, m_pAspectRatio[0], m_pAspectRatio[1]);
+
+	ImGui::StyleColorsDark();
+
+	glfwMaximizeWindow(m_pGlfwWindow); 
 
 	std::cout << "Window init" << std::endl;
 

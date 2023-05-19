@@ -17,6 +17,7 @@
 #include "lc_client/eng_graphics/mesh_work.h"
 #include "lc_client/eng_graphics/shader_work.h"
 #include "lc_client/tier0/tier0.h"
+#include "lc_client/eng_gui/gui_console.h"
 
 
 class Game : public IGameLogic {
@@ -41,6 +42,7 @@ private:
 	Systems* m_pSystems;
 	MeshWork* m_pMeshWork;
 	ShaderWork* m_pShaderWorkScene;
+	ConsoleGui* m_pConsoleGui;
 
 	Tier0* m_pTier0;
 	Tier1* m_pTier1;

@@ -3,6 +3,8 @@
 #include <vector>
 #include <chrono>
 
+#include <imgui.h>
+
 #include "lc_client/tier0/console/i_console_input.h"
 
 enum class MessageType { DEV_MESSAGE, MESSAGE, WARN };
@@ -21,9 +23,12 @@ public:
 	void open();
 	void close();
 	void update();
+	
+	bool isOpened();
 
 private:
 	std::vector<Message> m_messages;
-	IConsoleInput* m_pConsole;
-	bool isOpened = false;
+	IConsoleInput* m_pConsole = nullptr;
+	bool m_isOpened = false;
+	ImFont* m_font = nullptr;
 };
