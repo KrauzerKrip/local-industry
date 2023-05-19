@@ -78,8 +78,6 @@ void WindowGL::init() {
 
 	//glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	
-	ImGui::CreateContext();
 
 	ImGui_ImplGlfw_InitForOpenGL(m_pGlfwWindow, true);
 	ImGui_ImplOpenGL3_Init("#version 400");

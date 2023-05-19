@@ -1,5 +1,6 @@
 #include "tier0.h"
-#include "tier0.h"
+
+#include <imgui.h>
 
 #include "conpar/conpars_init.h"
 #include "conpar/parameters.h"
@@ -12,6 +13,10 @@ Tier0::Tier0() {
 	initParameters(*m_pParameters);
 	
 	m_pConsole = new Console(m_pParameters);
+
+	ImGui::CreateContext();
+
+	m_pImGuiFonts = new ImGuiFonts();
 }
 
 Tier0::~Tier0() {
@@ -22,3 +27,5 @@ Tier0::~Tier0() {
 Parameters* Tier0::getParameters() { return m_pParameters; }
 
 Console* Tier0::getConsole() { return m_pConsole; }
+
+ImGuiFonts* Tier0::getImGuiFonts() { return m_pImGuiFonts; }

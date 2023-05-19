@@ -21,4 +21,6 @@ target_sources(lc_client
         "console/command_parser.cpp"
         "console/command.h"
         "console/command.cpp"
+
+        "imgui_fonts.h"
 )

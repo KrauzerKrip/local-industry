@@ -29,7 +29,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource);
 
-	m_pConsoleGui = new ConsoleGui(m_pTier0->getConsole());
+	m_pConsoleGui = new ConsoleGui(m_pTier0->getConsole(), m_pTier0->getImGuiFonts());
 }
 
 Game::~Game() {

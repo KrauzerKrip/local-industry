@@ -6,6 +6,7 @@
 #include <imgui.h>
 
 #include "lc_client/tier0/console/i_console_input.h"
+#include "lc_client/tier0/imgui_fonts.h"
 
 enum class MessageType { DEV_MESSAGE, MESSAGE, WARN };
 
@@ -18,7 +19,7 @@ struct Message {
 
 class ConsoleGui {
 public:
-	ConsoleGui(IConsoleInput* pConsole);
+	ConsoleGui(IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts);
 
 	void open();
 	void close();
@@ -30,5 +31,5 @@ private:
 	std::vector<Message> m_messages;
 	IConsoleInput* m_pConsole = nullptr;
 	bool m_isOpened = false;
-	ImFont* m_font = nullptr;
+	ImGuiFonts* m_pImGuiFonts = nullptr;
 };

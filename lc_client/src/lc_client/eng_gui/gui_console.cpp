@@ -8,12 +8,9 @@
 using namespace ImGui;
 
 
-ConsoleGui::ConsoleGui(IConsoleInput* pConsole) { 
+ConsoleGui::ConsoleGui(IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts) { 
 	m_pConsole = pConsole;
-
-	ImGuiIO io;
-
-	//ImFont* m_font = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Tahoma.ttf", 17.0f);
+	m_pImGuiFonts = pImGuiFonts;
 }
 
 void ConsoleGui::open() { m_isOpened = true; }
@@ -39,11 +36,11 @@ void ConsoleGui::update() {
 
 	bool isOpened;
 
+	PushFont(m_pImGuiFonts->m_pFontText);
+
 	Begin("Console", &isOpened, ImGuiWindowFlags_NoScrollbar);
 
 	m_isOpened = isOpened;
-
-	//PushFont(m_font);
 
 	BeginChild("Scrolling", ImVec2(1080 - 10, 720 - 120), true);
 	for (int n = 0; n < 0; n++)
@@ -67,6 +64,7 @@ void ConsoleGui::update() {
 
 	Button("Submit");
 
+	PopFont();
 
 	End();
 }
