@@ -46,7 +46,8 @@ void Loop::startLoop() {
 		m_deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
 		Time::m_deltaTime = m_deltaTime;
-
+		
+		m_pWindow->startFrame();
 		m_pGameLogic->input();
 
 		//

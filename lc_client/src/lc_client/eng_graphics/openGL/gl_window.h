@@ -16,6 +16,7 @@ public:
 
 	void init();
 	void update();
+	void startFrame(); 
 	bool windowShouldClose();
 	void terminate();
 	IInput* getInput();

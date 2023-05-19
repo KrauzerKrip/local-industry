@@ -4,4 +4,8 @@ project(eng_gui)
 
 target_sources(lc_client 
     PRIVATE
+    "gui_console.h"
+    "gui_console.cpp"
+
+
 )

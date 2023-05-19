@@ -1,13 +1,16 @@
 #include "gl_window.h"
 #include "gl_window.h"
-#include "gl_window.h"
+
 #include "lc_client/eng_graphics/openGL/gl_window.h"
 
 #include <iostream>
 #include <cmath>
+#include <string>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <string>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 #include <iostream>
 
@@ -75,20 +78,36 @@ void WindowGL::init() {
 
 	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+	
+	ImGui::CreateContext();
+
+	ImGui_ImplGlfw_InitForOpenGL(m_pGlfwWindow, true);
+	ImGui_ImplOpenGL3_Init("#version 400");
+
+	startFrame();
+
 	glfwSetWindowUserPointer(m_pGlfwWindow, this);
 	glfwSetWindowAspectRatio(m_pGlfwWindow, m_pAspectRatio[0], m_pAspectRatio[1]);
 
 	std::cout << "Window init" << std::endl;
 
 	m_pInput = new InputGlfw(this);
-
 }
 
 void WindowGL::update() {
 	//if (resizer)
 
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 	glfwSwapBuffers(m_pGlfwWindow);
 	glfwPollEvents();
+}
+
+void WindowGL::startFrame() { 
+	ImGui_ImplGlfw_NewFrame();
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui::NewFrame();
 }
 
 bool WindowGL::windowShouldClose() {
@@ -96,6 +115,10 @@ bool WindowGL::windowShouldClose() {
 }
 
 void WindowGL::terminate() {
+	ImGui_ImplGlfw_Shutdown();
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui::DestroyContext();
+
 	glfwTerminate();
 }
 
