@@ -21,12 +21,12 @@
 #include "lc_client/tier0/console/i_console.h"
 
 
-Game::Game(IWindow* pWindow) {
+Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pWindow = pWindow;
 	m_pCamera = new Camera();
 	m_pRender = new RenderGL(m_pWindow, m_pCamera);
 	m_pResource = new eng::Resource("D:/Industry/industry/res/");
-	m_pTier0 = new Tier0();
+	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource);
 
 	m_pConsoleGui = new ConsoleGui(m_pTier0->getConsole());
