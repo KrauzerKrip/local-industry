@@ -1,8 +1,15 @@
 #include "gui_console.h"
-#include "gui_console.h"
+
+#include <iostream>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 
 #include <imgui.h>
 #include <imgui_stdlib.h>
+
+#include "lc_client/exceptions/conpar_exceptions.h"
+#include "lc_client/exceptions/command_exceptions.h"
 
 
 using namespace ImGui;
@@ -11,6 +18,52 @@ using namespace ImGui;
 ConsoleGui::ConsoleGui(IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts) { 
 	m_pConsole = pConsole;
 	m_pImGuiFonts = pImGuiFonts;
+
+	Callbacks* callbacks = new Callbacks();
+
+	callbacks->pDevMessageCallback = [&m_messages = this->m_messages](std::string text) {
+		
+		Message message;
+
+		message.type = MessageType::DEV_MESSAGE;
+		std::time_t t = std::time(nullptr);
+		std::tm tm = *std::localtime(&t);
+		std::stringstream buffer;
+		buffer << std::put_time(&tm, "%T");
+		std::string timeString = buffer.str();
+		message.text = "[" + timeString + "] " + "[DEV] " + text;
+		m_messages.push_back(message);
+	};
+
+	callbacks->pMessageCallback = [&m_messages = this->m_messages](std::string text) {
+		Message message;
+
+		message.type = MessageType::MESSAGE;
+		std::time_t t = std::time(nullptr);
+		std::tm tm = *std::localtime(&t);
+		std::stringstream buffer;
+		buffer << std::put_time(&tm, "%T");
+		std::string timeString = buffer.str();
+		message.text = "[" + timeString + "] " + "[INFO] " + text;
+		m_messages.push_back(message);
+	};
+
+	callbacks->pWarnCallback = [&m_messages = this->m_messages](std::string text) {
+		Message message;
+
+		message.type = MessageType::WARN;
+		std::time_t t = std::time(nullptr);
+		std::tm tm = *std::localtime(&t);
+		std::stringstream buffer;
+		buffer << std::put_time(&tm, "%T");
+		std::string timeString = buffer.str();
+		message.text = "[" + timeString + "] " + "[WARNING] " + text;
+		m_messages.push_back(message);
+	};
+
+
+	
+	m_pConsole->setCallbacks(callbacks);
 }
 
 void ConsoleGui::open() { m_isOpened = true; }
@@ -18,33 +71,42 @@ void ConsoleGui::open() { m_isOpened = true; }
 void ConsoleGui::close() { m_isOpened = false; }
 
 void ConsoleGui::update() {
+
 	if (!m_isOpened) {
 		return;
 	}
-
-
-	// BeginChild("Scrolling");
-	// for (int n = 0; n < 50; n++)
-	//	Text("%04d: Some text", n);
-	// EndChild();
-
-	bool var;
 
 	SetNextWindowPos(ImVec2(100, 80));
 
 	SetNextWindowSize(ImVec2(1080, 720));
 
-	bool isOpened;
 
 	PushFont(m_pImGuiFonts->m_pFontText);
 
-	Begin("Console", &isOpened, ImGuiWindowFlags_NoScrollbar);
+	Begin("Console", &this->m_isOpened, ImGuiWindowFlags_NoScrollbar);
 
-	m_isOpened = isOpened;
+	BeginChild("Scrolling", ImVec2(1080 - 10, 720 - 90), true, ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
-	BeginChild("Scrolling", ImVec2(1080 - 10, 720 - 120), true);
-	for (int n = 0; n < 0; n++)
-		Text("%04d: Some text", n);
+	for (auto& message : m_messages) {
+		if (message.type == MessageType::DEV_MESSAGE) {
+			TextColored(ImVec4(52 / 255.0f, 152 / 255.0f, 219 / 255.0f, 1.0f), message.text.c_str());
+		}
+		else if (message.type == MessageType::MESSAGE) {
+			TextColored(ImVec4(46 / 255.0f, 204 / 255.0f, 113 / 255.0f, 1.0f), message.text.c_str());
+		}
+		else if (message.type == MessageType::WARN) {
+			TextColored(ImVec4(231 / 255.0f, 76 / 255.0f, 60 / 255.0f, 1.0f), message.text.c_str());
+		}
+		else if (message.type == MessageType::ANSWER) {
+			auto str = "^ \n" + message.text;
+			Text(str.c_str());
+		}
+		else if (message.type == MessageType::USER_INPUT) {
+			auto str = "> " + message.text;
+			Text(str.c_str());
+		}
+
+	}
 	EndChild();
 
 	std::string commandText;
@@ -57,7 +119,19 @@ void ConsoleGui::update() {
 
 	PushItemWidth(GetWindowWidth()-128);
 	if (InputText(" ", &commandText, input_text_flags)) {
-		
+		try {
+			Message message{MessageType::USER_INPUT, commandText};
+			m_messages.push_back(std::move(message));
+			m_pConsole->enter(commandText);
+		}
+		catch (ConsoleParameterNotFoundException& exception) {
+			Message message{MessageType::ANSWER, exception.what()};
+			m_messages.push_back(std::move(message));
+		}
+		catch (IncorrectCommandException& exception) {
+			Message message{MessageType::ANSWER, exception.what()};
+			m_messages.push_back(std::move(message));
+		}
 	}
 
 	SameLine();

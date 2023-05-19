@@ -8,12 +8,10 @@
 #include "lc_client/tier0/console/i_console_input.h"
 #include "lc_client/tier0/imgui_fonts.h"
 
-enum class MessageType { DEV_MESSAGE, MESSAGE, WARN };
+enum class MessageType { DEV_MESSAGE, MESSAGE, WARN, ANSWER, USER_INPUT };
 
 struct Message {
 	MessageType type;
-	std::chrono::time_point<std::chrono::system_clock> time;
-	std::string timeString;
 	std::string text;
 };
 
