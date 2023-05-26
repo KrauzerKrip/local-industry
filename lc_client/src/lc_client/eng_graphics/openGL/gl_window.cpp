@@ -1,6 +1,9 @@
 #include "gl_window.h"
 #include "gl_window.h"
 #include "gl_window.h"
+#include "gl_window.h"
+#include "gl_window.h"
+#include "gl_window.h"
 #include "lc_client/eng_graphics/openGL/gl_window.h"
 
 #include <iostream>
@@ -67,7 +70,10 @@ void WindowGL::init() {
 	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
 	//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
+	glfwSetWindowUserPointer(m_pGlfwWindow, this);
+
 	glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
+	glfwSetKeyCallback(m_pGlfwWindow, keyCallback);
 
 	if (m_vSync) {
 		glfwSwapInterval(1);
@@ -75,7 +81,6 @@ void WindowGL::init() {
 
 	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	glfwSetWindowUserPointer(m_pGlfwWindow, this);
 	glfwSetWindowAspectRatio(m_pGlfwWindow, m_pAspectRatio[0], m_pAspectRatio[1]);
 
 	std::cout << "Window init" << std::endl;
@@ -85,7 +90,6 @@ void WindowGL::init() {
 }
 
 void WindowGL::update() {
-	//if (resizer)
 
 	glfwSwapBuffers(m_pGlfwWindow);
 	glfwPollEvents();
@@ -104,8 +108,13 @@ IInput* WindowGL::getInput() {
 }
 
 GLFWwindow* WindowGL::getGlfwWindow() {
-	return m_pGlfwWindow;
+	return m_pGlfwWindow; }
+
+void WindowGL::addKeyCallback(int glfwKey, std::function<void()> callback) {
+	m_callbacks.insert_or_assign(glfwKey, callback);
 }
+
+std::unordered_map<int, std::function<void()>>& WindowGL::getCallbacks() { return m_callbacks; }
 
 int* WindowGL::getSize() {
 	int* size = new int[2];
@@ -129,7 +138,19 @@ float WindowGL::getFov() {
 }
 
 void WindowGL::setFov(float fov) {
-	m_fov = fov;
+	m_fov = fov; }
+
+void WindowGL::keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods) {
+	WindowGL* pWindow = static_cast<WindowGL*>(glfwGetWindowUserPointer(pGlfwWindow));
+	
+	auto& callbacks = pWindow->getCallbacks();
+
+	for (auto& [k, callback] : callbacks) {
+		if (k == key) {
+			callback();
+			break;
+		}
+	}
 }
 
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {

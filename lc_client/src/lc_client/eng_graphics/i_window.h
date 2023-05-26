@@ -36,6 +36,7 @@ public:
 	 * DO NOT USE IT
 	 */
 	virtual GLFWwindow* getGlfwWindow() = 0;
+
 	virtual int* getAspectRatio() = 0;
 	virtual float getFov() = 0;
 	virtual void setFov(float fov) = 0;
