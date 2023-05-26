@@ -2,6 +2,9 @@
 
 #include "lc_client/eng_graphics/i_window.h"
 
+#include <unordered_map>
+#include <functional>
+
 #include <GLFW/glfw3.h>
 #include <string>
 
@@ -21,17 +24,23 @@ public:
 	void terminate();
 	IInput* getInput();
 	GLFWwindow* getGlfwWindow();
+	void addKeyCallback(int glfwKey, std::function<void()> callback);
+	std::unordered_map<int, std::function<void()>>& getCallbacks();
 	int* getSize();
 	void setSize(int width, int height);
 	int* getAspectRatio();
 	float getFov();
 	void setFov(float fov);
 
+	static void keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods);
+	// static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
+	// static void mouseSizeCallback(GLFWwindow* window, double x, double y);
+
 private:
-	//static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
-	//static void mouseSizeCallback(GLFWwindow* window, double x, double y);
 
 	friend void mouseCallback(GLFWwindow* window, double x, double y);
+
+	std::unordered_map<int, std::function<void()>> m_callbacks;
 
 	std::string m_title;
 	int m_width;
