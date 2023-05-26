@@ -55,6 +55,9 @@ CommandParser::CommandParser(std::string text) {
 	else if (tokens.at(0) == "execute") {
 		m_type = CommandType::EXECUTE;
 	}
+	else if ((tokens.at(0) == "exit") || (tokens.at(0) == "quit")) {
+		exit(0);
+	}
 	else {
 		throw IncorrectCommandException(text);
 	}

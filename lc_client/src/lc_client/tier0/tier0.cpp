@@ -1,4 +1,5 @@
 #include "tier0.h"
+#include "tier0.h"
 
 #include <imgui.h>
 
@@ -17,6 +18,8 @@ Tier0::Tier0() {
 	ImGui::CreateContext();
 
 	m_pImGuiFonts = new ImGuiFonts();
+
+	m_pIConsole = m_pConsole;
 }
 
 Tier0::~Tier0() {
@@ -29,3 +32,7 @@ Parameters* Tier0::getParameters() { return m_pParameters; }
 Console* Tier0::getConsole() { return m_pConsole; }
 
 ImGuiFonts* Tier0::getImGuiFonts() { return m_pImGuiFonts; }
+
+IConsole* Tier0::getIConsole() { return m_pIConsole; }
+
+IConsole* Tier0::m_pIConsole = nullptr;

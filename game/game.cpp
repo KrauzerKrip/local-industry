@@ -20,6 +20,8 @@
 
 #include "lc_client/tier0/console/i_console.h"
 
+#include "lc_client/eng_graphics/openGL/gl_window.h"
+
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pWindow = pWindow;
@@ -30,6 +32,8 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pTier1 = new Tier1Gl(m_pResource);
 
 	m_pConsoleGui = new ConsoleGui(m_pTier0->getConsole(), m_pTier0->getImGuiFonts());
+
+	WindowGL::m_pConsoleGui = m_pConsoleGui;
 }
 
 Game::~Game() {
@@ -47,7 +51,7 @@ void Game::init() {
 	m_pTier1->getShaderManager()->loadShaders();
 
 	m_pScene = SceneControlling::getScene();
-	m_pModelManager = new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry());
+	m_pModelManager = new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
 	
 	m_pMeshWork = new MeshWorkGl(&m_pScene->getUtilRegistry());
 	m_pShaderWorkScene = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry());
@@ -79,14 +83,15 @@ void Game::init() {
 }
 
 void Game::input() {
+
 	m_pConsoleGui->update();
+
+	if (m_pConsoleGui->isOpened()) {
+		return;
+	}
 
 	double offsetMouseX = m_pInput->getMousePosX() - m_lastMousePosX;
 	double offsetMouseY = m_lastMousePosY - m_pInput->getMousePosY();
-
-	if (m_pConsoleGui->isOpened()) {
-		offsetMouseX, offsetMouseY = 0;
-	}
 
 	m_lastMousePosX = m_pInput->getMousePosX();
 	m_lastMousePosY = m_pInput->getMousePosY();

@@ -1,7 +1,5 @@
 #include "gl_window.h"
 
-#include "lc_client/eng_graphics/openGL/gl_window.h"
-
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -11,7 +9,9 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
-#include <iostream>
+
+#include "lc_client/eng_graphics/openGL/gl_window.h"
+#include "lc_client/tier0/console/i_console_input.h"
 
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/glfw_exceptions.h"
@@ -194,3 +194,10 @@ static void mouseCallback(GLFWwindow* window, double x, double y) {
 	WindowGL* pWindowGL = (WindowGL*)glfwGetWindowUserPointer(window);
 	
 }
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	
+}
+
+
+ConsoleGui* WindowGL::m_pConsoleGui = nullptr;

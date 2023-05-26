@@ -1,14 +1,14 @@
 #pragma once
 
 #include <vector>
-#include <chrono>
+#include <string>
 
 #include <imgui.h>
 
 #include "lc_client/tier0/console/i_console_input.h"
 #include "lc_client/tier0/imgui_fonts.h"
 
-enum class MessageType { DEV_MESSAGE, MESSAGE, WARN, ANSWER, USER_INPUT };
+enum class MessageType { DEV_MESSAGE, MESSAGE, WARN, ANSWER, ANSWER_ERROR, USER_INPUT };
 
 struct Message {
 	MessageType type;
@@ -30,4 +30,6 @@ private:
 	IConsoleInput* m_pConsole = nullptr;
 	bool m_isOpened = false;
 	ImGuiFonts* m_pImGuiFonts = nullptr;
+
+	void enterCommand(std::string commandText);
 };

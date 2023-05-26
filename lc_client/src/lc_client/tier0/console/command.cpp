@@ -37,25 +37,25 @@ void Command::execute(std::string text) {
 	}
 	else if (type == CommandType::GET) {
 		try {
-			m_pConsole->message(std::to_string(m_pParameters->getParameterValue<bool>(op)));
+			m_pConsole->message(op + " = " + std::to_string(m_pParameters->getParameterValue<bool>(op)));
 			return;
 		}
 		catch (ConsoleParameterNotFoundException&) {
 		}
 		try {
-			m_pConsole->message(m_pParameters->getParameterValue<std::string>(op));
+			m_pConsole->message(op + " = " + m_pParameters->getParameterValue<std::string>(op));
 			return;
 		}
 		catch (ConsoleParameterNotFoundException&) {
 		}
 		try {
-			m_pConsole->message(std::to_string(m_pParameters->getParameterValue<int>(op)));
+			m_pConsole->message(op + " = " + std::to_string(m_pParameters->getParameterValue<int>(op)));
 			return;
 		}
 		catch (ConsoleParameterNotFoundException&) {
 		}
 		try {
-			m_pConsole->message(std::to_string(m_pParameters->getParameterValue<float>(op)));
+			m_pConsole->message(op + " = " + std::to_string(m_pParameters->getParameterValue<float>(op)));
 			return;
 		}
 		catch (ConsoleParameterNotFoundException&) {
@@ -71,10 +71,10 @@ bool Command::checkSetBool(std::string op, std::string arg) {
 
 		m_pParameters->getParameterValue<bool>(op);
 
-		if (arg == "true") {
+		if ((arg == "true") || (arg == "1")) {
 			m_pParameters->setParameterValue<bool>(op, true);
 		}
-		else if (arg == "false") {
+		else if ((arg == "false") || (arg == "0")) {
 			m_pParameters->setParameterValue<bool>(op, false);
 		}
 		else {

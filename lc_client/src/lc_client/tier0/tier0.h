@@ -19,9 +19,13 @@ public:
 	Console* getConsole();
 	ImGuiFonts* getImGuiFonts();
 
+	static IConsole* getIConsole();
+
 protected:
 
 	Parameters* m_pParameters = nullptr;
 	Console* m_pConsole = nullptr;
 	ImGuiFonts* m_pImGuiFonts;
+
+	static IConsole* m_pIConsole;
 };

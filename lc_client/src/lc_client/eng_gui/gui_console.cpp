@@ -101,9 +101,13 @@ void ConsoleGui::update() {
 			auto str = "^ \n" + message.text;
 			Text(str.c_str());
 		}
+		else if (message.type == MessageType::ANSWER_ERROR) {
+			auto str = "^ \n" + message.text;
+			TextColored(ImVec4(231 / 255.0f, 76 / 255.0f, 60 / 255.0f, 1.0f), str.c_str());
+		}
 		else if (message.type == MessageType::USER_INPUT) {
 			auto str = "> " + message.text;
-			Text(str.c_str());
+			TextColored(ImVec4(189 / 255.0f, 195 / 255.0f, 199 / 255.0f, 1.0f), str.c_str());
 		}
 
 	}
@@ -119,24 +123,14 @@ void ConsoleGui::update() {
 
 	PushItemWidth(GetWindowWidth()-128);
 	if (InputText(" ", &commandText, input_text_flags)) {
-		try {
-			Message message{MessageType::USER_INPUT, commandText};
-			m_messages.push_back(std::move(message));
-			m_pConsole->enter(commandText);
-		}
-		catch (ConsoleParameterNotFoundException& exception) {
-			Message message{MessageType::ANSWER, exception.what()};
-			m_messages.push_back(std::move(message));
-		}
-		catch (IncorrectCommandException& exception) {
-			Message message{MessageType::ANSWER, exception.what()};
-			m_messages.push_back(std::move(message));
-		}
+		enterCommand(commandText);
 	}
 
 	SameLine();
 
-	Button("Submit");
+	if (Button("Submit")) {
+		enterCommand(commandText);
+	}
 
 	PopFont();
 
@@ -144,3 +138,27 @@ void ConsoleGui::update() {
 }
 
 bool ConsoleGui::isOpened() { return m_isOpened; }
+
+void ConsoleGui::enterCommand(std::string commandText) {
+	try {
+		Message message{MessageType::USER_INPUT, commandText};
+		m_messages.push_back(std::move(message));
+		m_pConsole->enter(commandText);
+	}
+	catch (ConsoleParameterNotFoundException& exception) {
+		Message message{MessageType::ANSWER_ERROR, exception.what()};
+		m_messages.push_back(std::move(message));
+	}
+	catch (IncorrectCommandException& exception) {
+		Message message{MessageType::ANSWER_ERROR, exception.what()};
+		m_messages.push_back(std::move(message));
+	}
+	catch (ConsoleParameterCheatsException& exception) {
+		Message message{MessageType::ANSWER_ERROR, exception.what()};
+		m_messages.push_back(std::move(message));
+	}
+	catch (std::invalid_argument& exception) {
+		Message message{MessageType::ANSWER_ERROR, "Inappropriate argument."};
+		m_messages.push_back(std::move(message));
+	}
+}
