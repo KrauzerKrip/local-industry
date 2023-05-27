@@ -1,4 +1,5 @@
 #include "gui_console.h"
+#include "gui_console.h"
 
 #include <iostream>
 #include <ctime>
@@ -21,7 +22,7 @@ ConsoleGui::ConsoleGui(IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts) {
 
 	Callbacks* callbacks = new Callbacks();
 
-	callbacks->pDevMessageCallback = [&m_messages = this->m_messages](std::string text) {
+	callbacks->pDevMessageCallback = [this](std::string text) {
 		
 		Message message;
 
@@ -32,10 +33,10 @@ ConsoleGui::ConsoleGui(IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts) {
 		buffer << std::put_time(&tm, "%T");
 		std::string timeString = buffer.str();
 		message.text = "[" + timeString + "] " + "[DEV] " + text;
-		m_messages.push_back(message);
+		addMessage(std::move(message));
 	};
 
-	callbacks->pMessageCallback = [&m_messages = this->m_messages](std::string text) {
+	callbacks->pMessageCallback = [this](std::string text) {
 		Message message;
 
 		message.type = MessageType::MESSAGE;
@@ -45,10 +46,10 @@ ConsoleGui::ConsoleGui(IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts) {
 		buffer << std::put_time(&tm, "%T");
 		std::string timeString = buffer.str();
 		message.text = "[" + timeString + "] " + "[INFO] " + text;
-		m_messages.push_back(message);
+		addMessage(std::move(message));
 	};
 
-	callbacks->pWarnCallback = [&m_messages = this->m_messages](std::string text) {
+	callbacks->pWarnCallback = [this](std::string text) {
 		Message message;
 
 		message.type = MessageType::WARN;
@@ -58,7 +59,7 @@ ConsoleGui::ConsoleGui(IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts) {
 		buffer << std::put_time(&tm, "%T");
 		std::string timeString = buffer.str();
 		message.text = "[" + timeString + "] " + "[WARNING] " + text;
-		m_messages.push_back(message);
+		addMessage(std::move(message));
 	};
 
 
@@ -109,8 +110,24 @@ void ConsoleGui::update() {
 			auto str = "> " + message.text;
 			TextColored(ImVec4(189 / 255.0f, 195 / 255.0f, 199 / 255.0f, 1.0f), str.c_str());
 		}
-
 	}
+
+
+	if (m_scrollToBottom && m_autoScroll) {
+		SetScrollHereY(1.0f);
+	}
+
+	
+	if (GetScrollY() == GetScrollMaxY()) {
+		m_autoScroll = true;
+	}
+	else {
+		m_autoScroll = false;
+	}
+
+	m_scrollToBottom = false;
+
+
 	EndChild();
 
 	std::string commandText;
@@ -142,23 +159,30 @@ bool ConsoleGui::isOpened() { return m_isOpened; }
 void ConsoleGui::enterCommand(std::string commandText) {
 	try {
 		Message message{MessageType::USER_INPUT, commandText};
-		m_messages.push_back(std::move(message));
+		addMessage(std::move(message));
 		m_pConsole->enter(commandText);
 	}
 	catch (ConsoleParameterNotFoundException& exception) {
 		Message message{MessageType::ANSWER_ERROR, exception.what()};
-		m_messages.push_back(std::move(message));
+		addMessage(std::move(message));
 	}
 	catch (IncorrectCommandException& exception) {
 		Message message{MessageType::ANSWER_ERROR, exception.what()};
-		m_messages.push_back(std::move(message));
+		addMessage(std::move(message));
 	}
 	catch (ConsoleParameterCheatsException& exception) {
 		Message message{MessageType::ANSWER_ERROR, exception.what()};
-		m_messages.push_back(std::move(message));
+		addMessage(std::move(message));
 	}
 	catch (std::invalid_argument& exception) {
 		Message message{MessageType::ANSWER_ERROR, "Inappropriate argument."};
-		m_messages.push_back(std::move(message));
+		addMessage(std::move(message));
 	}
+
+	m_autoScroll = true;
+}
+
+void ConsoleGui::addMessage(Message&& message) { 
+	m_messages.push_back(message);
+	m_scrollToBottom = true;
 }

@@ -30,6 +30,9 @@ private:
 	IConsoleInput* m_pConsole = nullptr;
 	bool m_isOpened = false;
 	ImGuiFonts* m_pImGuiFonts = nullptr;
+	bool m_scrollToBottom = false;
+	bool m_autoScroll = false;
 
 	void enterCommand(std::string commandText);
+	void addMessage(Message&& message);
 };

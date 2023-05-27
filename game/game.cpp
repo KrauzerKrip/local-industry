@@ -93,6 +93,11 @@ void Game::input() {
 
 	m_pConsoleGui->update();
 
+	
+	if (m_pInput->isKeyPressed("B")) {
+		m_pTier0->getConsole()->message("/b");
+	}
+
 	if (m_pConsoleGui->isOpened()) {
 		m_lastMousePosX = m_pInput->getMousePosX();
 		m_lastMousePosY = m_pInput->getMousePosY();
