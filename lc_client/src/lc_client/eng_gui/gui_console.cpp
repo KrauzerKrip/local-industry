@@ -78,9 +78,7 @@ void ConsoleGui::update() {
 	}
 
 	SetNextWindowPos(ImVec2(100, 80));
-
 	SetNextWindowSize(ImVec2(1080, 720));
-
 
 	PushFont(m_pImGuiFonts->m_pFontText);
 
@@ -88,7 +86,32 @@ void ConsoleGui::update() {
 
 	BeginChild("Scrolling", ImVec2(1080 - 10, 720 - 90), true, ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
+	ImDrawList* pDrawList = ImGui::GetWindowDrawList();
+
+	int i = 0;
+
 	for (auto& message : m_messages) {
+
+		i++;
+
+		auto textSize = CalcTextSize(message.text.c_str());
+
+		ImVec2 sPos = ImGui::GetCursorScreenPos();
+
+		if (message.type == MessageType::ANSWER || message.type == MessageType::ANSWER_ERROR) {
+			textSize.y *= 2;
+		}
+
+		ImVec2 textMin = ImVec2(sPos.x, sPos.y);
+		ImVec2 textMax = ImVec2(GetWindowWidth() + sPos.x, textSize.y + sPos.y);
+
+		if (i % 2 == 0) {
+			pDrawList->AddRectFilled(textMin, textMax, IM_COL32(255, 255, 255, 25));
+		}
+		else {
+			pDrawList->AddRectFilled(textMin, textMax, IM_COL32(0, 0, 0, 0));
+		}
+
 		if (message.type == MessageType::DEV_MESSAGE) {
 			TextColored(ImVec4(52 / 255.0f, 152 / 255.0f, 219 / 255.0f, 1.0f), message.text.c_str());
 		}
@@ -110,6 +133,15 @@ void ConsoleGui::update() {
 			auto str = "> " + message.text;
 			TextColored(ImVec4(189 / 255.0f, 195 / 255.0f, 199 / 255.0f, 1.0f), str.c_str());
 		}
+
+		SameLine();
+
+		ImGui::SetCursorPosX(GetWindowWidth() - 72);
+
+		if (SmallButton("Copy")) {
+			SetClipboardText(message.text.c_str());
+		}
+
 	}
 
 
@@ -128,17 +160,17 @@ void ConsoleGui::update() {
 	m_scrollToBottom = false;
 
 
-	EndChild();
+	ImGui::EndChild();
 
 	std::string commandText;
 
 	ImGuiInputTextFlags input_text_flags = ImGuiInputTextFlags_EnterReturnsTrue  |
 										   ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory;
 
-	Separator();
+	ImGui::Separator();
 
 
-	PushItemWidth(GetWindowWidth()-128);
+	ImGui::PushItemWidth(GetWindowWidth() - 128);
 	if (InputText(" ", &commandText, input_text_flags)) {
 		enterCommand(commandText);
 	}
@@ -151,7 +183,7 @@ void ConsoleGui::update() {
 
 	PopFont();
 
-	End();
+	ImGui::End();
 }
 
 bool ConsoleGui::isOpened() { return m_isOpened; }
