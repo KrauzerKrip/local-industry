@@ -94,7 +94,7 @@ void ConsoleGui::update() {
 
 		i++;
 
-		auto textSize = CalcTextSize(message.text.c_str());
+		auto textSize = CalcTextSize(message.text.c_str(), NULL, false, GetWindowWidth());
 
 		ImVec2 sPos = ImGui::GetCursorScreenPos();
 
@@ -106,11 +106,13 @@ void ConsoleGui::update() {
 		ImVec2 textMax = ImVec2(GetWindowWidth() + sPos.x, textSize.y + sPos.y);
 
 		if (i % 2 == 0) {
-			pDrawList->AddRectFilled(textMin, textMax, IM_COL32(255, 255, 255, 25));
+			pDrawList->AddRectFilled(textMin, textMax, IM_COL32(255, 255, 255, 20));
 		}
 		else {
 			pDrawList->AddRectFilled(textMin, textMax, IM_COL32(0, 0, 0, 0));
 		}
+
+		PushTextWrapPos(0.0f);
 
 		if (message.type == MessageType::DEV_MESSAGE) {
 			TextColored(ImVec4(52 / 255.0f, 152 / 255.0f, 219 / 255.0f, 1.0f), message.text.c_str());
@@ -133,6 +135,8 @@ void ConsoleGui::update() {
 			auto str = "> " + message.text;
 			TextColored(ImVec4(189 / 255.0f, 195 / 255.0f, 199 / 255.0f, 1.0f), str.c_str());
 		}
+
+		PopTextWrapPos();
 
 		SameLine();
 
