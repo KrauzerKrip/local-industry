@@ -49,15 +49,17 @@ void Game::init() {
 	m_pTier1->getShaderManager()->loadShaders();
 
 	m_pScene = SceneControlling::getScene();
-	m_pModelManager = new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
-	
+	m_pModelManager = new ModelManager(
+		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
+
 	m_pMeshWork = new MeshWorkGl(&m_pScene->getUtilRegistry());
 	m_pShaderWorkScene = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry());
 
 	SceneDependencies sceneDependecies;
 	sceneDependecies.pShaderManager = m_pTier1->getShaderManager();
 	sceneDependecies.pResource = m_pResource;
-	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoading(&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry());
+	sceneDependecies.pGraphicsEntitiesLoading =
+		new GraphicsEntitiesLoading(&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry());
 
 	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("dev", "test");
@@ -80,20 +82,29 @@ void Game::init() {
 	m_pInput->addKeyCallback("GRAVE_ACCENT", [pConsoleGui = this->m_pConsoleGui, pWindow = this->m_pWindow]() {
 		if (pConsoleGui->isOpened()) {
 			pConsoleGui->close();
-			pWindow->setMode(WindowMode::GAME);
 		}
 		else {
 			pConsoleGui->open();
-			pWindow->setMode(WindowMode::GUI);
 		}
 	});
 }
 
 void Game::input() {
 
+	if (m_pConsoleGui->isOpened()) {
+		if (m_pWindow->getMode() == WindowMode::GAME) {
+			m_pWindow->setMode(WindowMode::GUI);
+		}
+	}
+	else {
+		if (m_pWindow->getMode() == WindowMode::GUI) {
+			m_pWindow->setMode(WindowMode::GAME);
+		}
+	}
+
 	m_pConsoleGui->update();
 
-	
+
 	if (m_pInput->isKeyPressed("B")) {
 		m_pTier0->getConsole()->message("/b");
 	}
@@ -192,17 +203,18 @@ void Game::update() {
 
 			auto time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
-			
+
 			glm::vec3& position = view.get<Transform>(entity).position;
 
-			//position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
-			//position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
+			// position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
+			// position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
 		}
 	}
 }
 
-void Game::render() { 
+void Game::render() {
 	m_pSystems->frame();
-	m_pRender->render(); }
+	m_pRender->render();
+}
 
 void Game::cleanUp() {}

@@ -1,5 +1,6 @@
 #include "gl_window.h"
 #include "gl_window.h"
+#include "gl_window.h"
 
 #include <iostream>
 #include <cmath>
@@ -80,6 +81,7 @@ void WindowGL::init() {
 	}
 
 	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	m_windowMode = WindowMode::GAME;
 
 
 	ImGui_ImplGlfw_InitForOpenGL(m_pGlfwWindow, true);
@@ -129,13 +131,16 @@ IInput* WindowGL::getInput() {
 	return m_pInput; }
 
 void WindowGL::setMode(WindowMode mode) {
+	m_windowMode = mode;
 	if (mode == WindowMode::GAME) {
 		glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
-	else {
+	else if(mode == WindowMode::GUI) {
 		glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 }
+
+WindowMode WindowGL::getMode() { return m_windowMode; }
 
 GLFWwindow* WindowGL::getGlfwWindow() {
 	return m_pGlfwWindow; }

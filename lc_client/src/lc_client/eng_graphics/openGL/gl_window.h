@@ -26,6 +26,7 @@ public:
 	void terminate();
 	IInput* getInput();
 	void setMode(WindowMode mode);
+	WindowMode getMode();
 
 	GLFWwindow* getGlfwWindow();
 	void addKeyCallback(int glfwKey, std::function<void()> callback);
@@ -55,6 +56,7 @@ private:
 	float m_fov;
 	double mouseOffsetX;
 	double mouseOffsetY;
+	WindowMode m_windowMode;
 
 	GLFWwindow* m_pGlfwWindow;
 	IInput* m_pInput;

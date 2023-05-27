@@ -29,6 +29,7 @@ public:
 	virtual void terminate() = 0;
 	virtual IInput* getInput() = 0;
 	virtual void setMode(WindowMode mode) = 0;
+	virtual WindowMode getMode() = 0;
 	
 	/**
 	 * Breaks encapsulation
