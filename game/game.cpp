@@ -32,8 +32,6 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pTier1 = new Tier1Gl(m_pResource);
 
 	m_pConsoleGui = new ConsoleGui(m_pTier0->getConsole(), m_pTier0->getImGuiFonts());
-
-	WindowGL::m_pConsoleGui = m_pConsoleGui;
 }
 
 Game::~Game() {
@@ -79,7 +77,16 @@ void Game::init() {
 	dirLightComponent.color = glm::vec3(1, 1, 1);
 	dirLightComponent.direction = glm::vec3(-0.2f, -1.0f, -0.3f);
 
-	m_pConsoleGui->open();
+	m_pInput->addKeyCallback("GRAVE_ACCENT", [pConsoleGui = this->m_pConsoleGui, pWindow = this->m_pWindow]() {
+		if (pConsoleGui->isOpened()) {
+			pConsoleGui->close();
+			pWindow->setMode(WindowMode::GAME);
+		}
+		else {
+			pConsoleGui->open();
+			pWindow->setMode(WindowMode::GUI);
+		}
+	});
 }
 
 void Game::input() {
@@ -87,6 +94,8 @@ void Game::input() {
 	m_pConsoleGui->update();
 
 	if (m_pConsoleGui->isOpened()) {
+		m_lastMousePosX = m_pInput->getMousePosX();
+		m_lastMousePosY = m_pInput->getMousePosY();
 		return;
 	}
 

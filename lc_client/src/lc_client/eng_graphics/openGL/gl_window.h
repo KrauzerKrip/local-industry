@@ -25,6 +25,8 @@ public:
 	bool windowShouldClose();
 	void terminate();
 	IInput* getInput();
+	void setMode(WindowMode mode);
+
 	GLFWwindow* getGlfwWindow();
 	void addKeyCallback(int glfwKey, std::function<void()> callback);
 	std::unordered_map<int, std::function<void()>>& getCallbacks();
@@ -33,26 +35,6 @@ public:
 	int* getAspectRatio();
 	float getFov();
 	void setFov(float fov);
-	
-	static ConsoleGui* m_pConsoleGui;
-
-	inline static auto keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) -> void {
-		WindowGL* pWindow = static_cast<WindowGL*>(glfwGetWindowUserPointer(window));
-
-
-
-		if (key == GLFW_KEY_GRAVE_ACCENT && action == GLFW_PRESS) {
-			
-			if (m_pConsoleGui != nullptr) {
-				if (m_pConsoleGui->isOpened()) {
-					m_pConsoleGui->close();
-				}
-				else {
-					m_pConsoleGui->open();
-				}
-			}
-		}
-	}
 
 	static void keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods);
 	// static void framebufferSizeCallback(GLFWwindow* window, int width, int height);

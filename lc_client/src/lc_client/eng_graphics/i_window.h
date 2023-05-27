@@ -7,6 +7,12 @@
 #include "lc_client/eng_input/i_input.h"
 
 
+enum class WindowMode {
+	GAME,
+	GUI
+};
+
+
 /**
 * Window interface to be implemented by window class (e.g gl_window.h).
 *
@@ -22,6 +28,7 @@ public:
 	virtual bool windowShouldClose() = 0;
 	virtual void terminate() = 0;
 	virtual IInput* getInput() = 0;
+	virtual void setMode(WindowMode mode) = 0;
 	
 	/**
 	 * Breaks encapsulation

@@ -1,4 +1,5 @@
 #include "gl_window.h"
+#include "gl_window.h"
 
 #include <iostream>
 #include <cmath>
@@ -78,7 +79,7 @@ void WindowGL::init() {
 		glfwSwapInterval(1);
 	}
 
-	//glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 
 	ImGui_ImplGlfw_InitForOpenGL(m_pGlfwWindow, true);
@@ -125,7 +126,15 @@ void WindowGL::terminate() {
 }
 
 IInput* WindowGL::getInput() {
-	return m_pInput;
+	return m_pInput; }
+
+void WindowGL::setMode(WindowMode mode) {
+	if (mode == WindowMode::GAME) {
+		glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+	else {
+		glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
 }
 
 GLFWwindow* WindowGL::getGlfwWindow() {
@@ -167,7 +176,7 @@ void WindowGL::keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int a
 	auto& callbacks = pWindow->getCallbacks();
 
 	for (auto& [k, callback] : callbacks) {
-		if (k == key) {
+		if (k == key && action == GLFW_PRESS) {
 			callback();
 			break;
 		}
@@ -194,10 +203,3 @@ static void mouseCallback(GLFWwindow* window, double x, double y) {
 	WindowGL* pWindowGL = (WindowGL*)glfwGetWindowUserPointer(window);
 	
 }
-
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	
-}
-
-
-ConsoleGui* WindowGL::m_pConsoleGui = nullptr;

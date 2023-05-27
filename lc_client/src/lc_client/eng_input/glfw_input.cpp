@@ -21,7 +21,7 @@ InputGlfw::InputGlfw(WindowGL* pWindow) {
 	m_keyMapping.emplace("LEFT_SHIFT", GLFW_KEY_LEFT_SHIFT);
 	m_keyMapping.emplace("LEFT_CTRL", GLFW_KEY_LEFT_CONTROL);
 
-	m_keyMapping.emplace("F", GLFW_KEY_F);
+	m_keyMapping.emplace("GRAVE_ACCENT", GLFW_KEY_GRAVE_ACCENT);
 }
 
 InputGlfw::~InputGlfw() {};
