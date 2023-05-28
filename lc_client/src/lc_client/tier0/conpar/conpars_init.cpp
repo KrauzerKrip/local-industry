@@ -16,6 +16,7 @@ void initParameters(Parameters& parameters) {
 	initKeybinds(parameters);
 	initGraphicsParameters(parameters);
 	initUtilParameters(parameters);
+	initGuiParameters(parameters);
 }
 
 static void initKeybinds(Parameters& parameters) {
@@ -37,4 +38,8 @@ void initGraphicsParameters(Parameters& parameters) {
 
 void initUtilParameters(Parameters& parameters) {
 	ADD_PARAMETER_BOOL_F("sv_cheats", false, std::vector<Flags>());
+}
+
+void initGuiParameters(Parameters& parameters) {
+	ADD_PARAMETER_BOOL("gui_imgui_debug", false);
 }

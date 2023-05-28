@@ -30,8 +30,6 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pResource = new eng::Resource("D:/Industry/industry/res/");
 	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource);
-
-	m_pConsoleGui = new ConsoleGui(m_pTier0->getConsole(), m_pTier0->getImGuiFonts());
 }
 
 Game::~Game() {
@@ -43,6 +41,8 @@ Game::~Game() {
 };
 
 void Game::init() {
+
+	m_pConsoleGui = new ConsoleGui(m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier1->getTextureManager(), m_pTier0->getParameters());
 
 	m_pInput = m_pWindow->getInput();
 
@@ -106,7 +106,11 @@ void Game::input() {
 
 
 	if (m_pInput->isKeyPressed("B")) {
-		m_pTier0->getConsole()->message("/b");
+		m_pTier0->getConsole()->message("/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b");
+	}
+
+	if (m_pInput->isKeyPressed("ESC")) {
+		exit(0);
 	}
 
 	if (m_pConsoleGui->isOpened()) {
@@ -170,10 +174,6 @@ void Game::input() {
 			m_pWindow->setFov(45);
 		}
 
-
-		if (m_pInput->isKeyPressed("ESC")) {
-			exit(0);
-		}
 	}
 	catch (UnknownKeyCodeException& exception) {
 		std::cerr << exception.what() << std::endl;

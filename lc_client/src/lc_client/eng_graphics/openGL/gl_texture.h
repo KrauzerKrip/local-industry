@@ -12,6 +12,7 @@ public:
 	void unload();
 	void bind();
 	void setTextureType(TextureType textureType);
+	int getId();
 
 private:
 	unsigned int m_textureGl;

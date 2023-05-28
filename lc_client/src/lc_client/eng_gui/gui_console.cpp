@@ -11,19 +11,21 @@
 
 #include "lc_client/exceptions/conpar_exceptions.h"
 #include "lc_client/exceptions/command_exceptions.h"
+#include "lc_client/eng_graphics/openGL/gl_texture.h"
 
 
 using namespace ImGui;
 
 
-ConsoleGui::ConsoleGui(IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts) { 
+ConsoleGui::ConsoleGui(
+	IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts, TextureManager* pTextureManager, Parameters* pParameters) {
 	m_pConsole = pConsole;
 	m_pImGuiFonts = pImGuiFonts;
+	m_pParameters = pParameters;
 
 	Callbacks* callbacks = new Callbacks();
 
 	callbacks->pDevMessageCallback = [this](std::string text) {
-		
 		Message message;
 
 		message.type = MessageType::DEV_MESSAGE;
@@ -63,7 +65,6 @@ ConsoleGui::ConsoleGui(IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts) {
 	};
 
 
-	
 	m_pConsole->setCallbacks(callbacks);
 }
 
@@ -105,11 +106,17 @@ void ConsoleGui::update() {
 		ImVec2 textMin = ImVec2(sPos.x, sPos.y);
 		ImVec2 textMax = ImVec2(GetWindowWidth() + sPos.x, textSize.y + sPos.y);
 
+		auto mousePos = ImGui::GetMousePos();
+		int colorSelection = 0;
+		if (mousePos.x > textMin.x && mousePos.x < textMax.x && mousePos.y > textMin.y && mousePos.y < textMax.y) {
+			colorSelection = 20;					
+		}
+
 		if (i % 2 == 0) {
-			pDrawList->AddRectFilled(textMin, textMax, IM_COL32(255, 255, 255, 20));
+			pDrawList->AddRectFilled(textMin, textMax, IM_COL32(255, 255, 255, 20 + colorSelection));
 		}
 		else {
-			pDrawList->AddRectFilled(textMin, textMax, IM_COL32(0, 0, 0, 0));
+			pDrawList->AddRectFilled(textMin, textMax, IM_COL32(127, 127, 127, colorSelection));
 		}
 
 		PushTextWrapPos(0.0f);
@@ -140,12 +147,11 @@ void ConsoleGui::update() {
 
 		SameLine();
 
-		ImGui::SetCursorPosX(GetWindowWidth() - 72);
-
-		if (SmallButton("Copy")) {
+		ImGui::SetCursorPosX(0);	
+		std::string buttonId = "##" + std::to_string(i);
+		if (InvisibleButton(buttonId.c_str(), ImVec2(GetWindowSize().x, textSize.y))) {
 			SetClipboardText(message.text.c_str());
 		}
-
 	}
 
 
@@ -153,7 +159,7 @@ void ConsoleGui::update() {
 		SetScrollHereY(1.0f);
 	}
 
-	
+
 	if (GetScrollY() == GetScrollMaxY()) {
 		m_autoScroll = true;
 	}
@@ -164,11 +170,16 @@ void ConsoleGui::update() {
 	m_scrollToBottom = false;
 
 
+	if (m_pParameters->getParameterValue<bool>("gui_imgui_debug")) {
+		ImGui::ShowMetricsWindow();
+	}
+
+
 	ImGui::EndChild();
 
 	std::string commandText;
 
-	ImGuiInputTextFlags input_text_flags = ImGuiInputTextFlags_EnterReturnsTrue  |
+	ImGuiInputTextFlags input_text_flags = ImGuiInputTextFlags_EnterReturnsTrue |
 										   ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory;
 
 	ImGui::Separator();
@@ -181,9 +192,9 @@ void ConsoleGui::update() {
 
 	SameLine();
 
-	if (Button("Submit")) {
-		enterCommand(commandText);
-	}
+	//if (Button("Submit")) {
+	//	enterCommand(commandText);
+	//}
 
 	PopFont();
 
@@ -218,7 +229,7 @@ void ConsoleGui::enterCommand(std::string commandText) {
 	m_autoScroll = true;
 }
 
-void ConsoleGui::addMessage(Message&& message) { 
+void ConsoleGui::addMessage(Message&& message) {
 	m_messages.push_back(message);
 	m_scrollToBottom = true;
 }
