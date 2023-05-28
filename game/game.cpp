@@ -104,11 +104,6 @@ void Game::input() {
 
 	m_pConsoleGui->update();
 
-
-	if (m_pInput->isKeyPressed("B")) {
-		m_pTier0->getConsole()->message("/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b/b");
-	}
-
 	if (m_pInput->isKeyPressed("ESC")) {
 		exit(0);
 	}
