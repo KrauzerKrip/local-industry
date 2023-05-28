@@ -59,6 +59,9 @@ bool InputGlfw::isKeyPressed(std::string key) {
 	else if (key == "APOSTROPHE") {
 		return glfwGetKey(m_pGlfwWindow, GLFW_KEY_APOSTROPHE) == GLFW_PRESS;
 	}
+	else if (key == "ALT") {
+		return glfwGetKey(m_pGlfwWindow, GLFW_KEY_LEFT_ALT) == GLFW_PRESS;
+	}
 
 	else {
 		throw UnknownKeyCodeException(key);

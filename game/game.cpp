@@ -133,13 +133,13 @@ void Game::input() {
 	m_pCamera->setRotation(cameraRot);
 
 
-	float cameraSpeed = 0.05f;
+	float cameraSpeed = 0.05;
 
 	glm::vec3 cameraPos = m_pCamera->getPosition();
 
 	try {
 		if (m_pInput->isKeyPressed("LEFT_SHIFT")) {
-			cameraSpeed = 0.1f;
+			cameraSpeed *= 2.0f;
 		}
 
 		if (m_pInput->isKeyPressed("W")) {

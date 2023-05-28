@@ -32,10 +32,12 @@ public:
 
 private:
 	std::vector<Message> m_messages;
+	std::vector<std::string> m_history;
+	int m_historyPos = 0;
 	IConsoleInput* m_pConsole = nullptr;
-	bool m_isOpened = false;
 	ImGuiFonts* m_pImGuiFonts = nullptr;
 	Parameters* m_pParameters = nullptr;
+	bool m_isOpened = false;
 	bool m_scrollToBottom = false;
 	bool m_autoScroll = false;
 	unsigned int m_copyIconTexture = 0;
@@ -43,4 +45,7 @@ private:
 	void enterCommand(std::string commandText);
 	void addMessage(Message&& message);
 	std::tuple<ImVec2, ImVec2> getTextSize(Message& message);
+
+	static int textEditCallbackStub(ImGuiInputTextCallbackData* data);
+	int textEditCallback(ImGuiInputTextCallbackData* data);
 };

@@ -1,6 +1,8 @@
 #include "gui_console.h"
 #include "gui_console.h"
 #include "gui_console.h"
+#include "gui_console.h"
+#include "gui_console.h"
 
 #include <iostream>
 #include <ctime>
@@ -169,13 +171,14 @@ void ConsoleGui::update() {
 
 	std::string commandText;
 
-	ImGuiInputTextFlags input_text_flags = ImGuiInputTextFlags_EnterReturnsTrue |
+	ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_EnterReturnsTrue |
 									   ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory;
 
 	ImGui::Separator();
 
+	//SetKeyboardFocusHere();
 	ImGui::PushItemWidth(GetWindowWidth() - 128);
-	if (InputText(" ", &commandText, input_text_flags)) {
+	if (InputText(" ", &commandText, inputTextFlags, &textEditCallbackStub, (void*)this)) {
 		enterCommand(commandText);
 	}
 
@@ -194,6 +197,16 @@ bool ConsoleGui::isOpened() { return m_isOpened; }
 void ConsoleGui::enterCommand(std::string commandText) {
 	try {
 		Message message{MessageType::USER_INPUT, commandText};
+
+		m_historyPos = -1;
+		for (std::vector<std::string>::iterator itr = m_history.begin(); itr < m_history.end(); itr++) {
+			if (*itr == message.text) {
+				m_history.erase(itr);
+				break;
+			}
+		}
+		m_history.push_back(message.text);
+
 		addMessage(std::move(message));
 		m_pConsole->enter(commandText);
 	}
@@ -235,4 +248,100 @@ std::tuple<ImVec2, ImVec2> ConsoleGui::getTextSize(Message& message) {
 	ImVec2 textMax = ImVec2(GetWindowWidth() + sPos.x, textSize.y + sPos.y);
 
 	return std::tuple(textMin, textMax);
+}
+
+int ConsoleGui::textEditCallbackStub(ImGuiInputTextCallbackData* data) {
+	ConsoleGui* console = (ConsoleGui*)data->UserData;
+	return console->textEditCallback(data);
+}
+
+
+/**
+ * https://github.com/ocornut/imgui/blob/master/imgui_demo.cpp#L6867
+ */
+int ConsoleGui::textEditCallback(ImGuiInputTextCallbackData* data) {
+	switch (data->EventFlag) {
+	//case ImGuiInputTextFlags_CallbackCompletion: {
+	//	// Locate beginning of current word
+	//	const char* word_end = data->Buf + data->CursorPos;
+	//	const char* word_start = word_end;
+	//	while (word_start > data->Buf) {
+	//		const char c = word_start[-1];
+	//		if (c == ' ' || c == '\t' || c == ',' || c == ';')
+	//			break;
+	//		word_start--;
+	//	}
+
+	//	// Build a list of candidates
+	//	ImVector<const char*> candidates;
+	//	for (int i = 0; i < Commands.Size; i++)
+	//		if (Strnicmp(Commands[i], word_start, (int)(word_end - word_start)) == 0)
+	//			candidates.push_back(Commands[i]);
+
+	//	if (candidates.Size == 0) {
+	//		// No match
+	//		AddLog("No match for \"%.*s\"!\n", (int)(word_end - word_start), word_start);
+	//	}
+	//	else if (candidates.Size == 1) {
+	//		// Single match. Delete the beginning of the word and replace it entirely so we've got nice casing.
+	//		data->DeleteChars((int)(word_start - data->Buf), (int)(word_end - word_start));
+	//		data->InsertChars(data->CursorPos, candidates[0]);
+	//		data->InsertChars(data->CursorPos, " ");
+	//	}
+	//	else {
+	//		// Multiple matches. Complete as much as we can..
+	//		// So inputing "C"+Tab will complete to "CL" then display "CLEAR" and "CLASSIFY" as matches.
+	//		int match_len = (int)(word_end - word_start);
+	//		for (;;) {
+	//			int c = 0;
+	//			bool all_candidates_matches = true;
+	//			for (int i = 0; i < candidates.Size && all_candidates_matches; i++)
+	//				if (i == 0)
+	//					c = toupper(candidates[i][match_len]);
+	//				else if (c == 0 || c != toupper(candidates[i][match_len]))
+	//					all_candidates_matches = false;
+	//			if (!all_candidates_matches)
+	//				break;
+	//			match_len++;
+	//		}
+
+	//		if (match_len > 0) {
+	//			data->DeleteChars((int)(word_start - data->Buf), (int)(word_end - word_start));
+	//			data->InsertChars(data->CursorPos, candidates[0], candidates[0] + match_len);
+	//		}
+
+	//		// List matches
+	//		AddLog("Possible matches:\n");
+	//		for (int i = 0; i < candidates.Size; i++)
+	//			AddLog("- %s\n", candidates[i]);
+	//	}
+
+	//	break;
+	//}
+	case ImGuiInputTextFlags_CallbackHistory: {
+		const int prevHistoryPos = m_historyPos;
+		if (data->EventKey == ImGuiKey_UpArrow) {
+			if (m_historyPos == -1) {
+				m_historyPos = m_history.size() - 1;
+			}
+			else if (m_historyPos > 0) {
+				m_historyPos--;
+			}
+		}
+		else if (data->EventKey == ImGuiKey_DownArrow) {
+			if (m_historyPos != -1) {
+				if (++m_historyPos >= m_history.size()) {
+					m_historyPos = -1;
+				}
+			}
+		}
+
+		if (prevHistoryPos != m_historyPos) {
+			const char* history_str = (m_historyPos >= 0) ? m_history[m_historyPos].c_str() : "";
+			data->DeleteChars(0, data->BufTextLen);
+			data->InsertChars(0, history_str);
+		}
+	}
+	}
+	return 0;
 }
