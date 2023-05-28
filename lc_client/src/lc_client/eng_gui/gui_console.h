@@ -40,7 +40,10 @@ private:
 	bool m_isOpened = false;
 	bool m_scrollToBottom = false;
 	bool m_autoScroll = false;
+	bool m_reclaimFocus = true;
 	unsigned int m_copyIconTexture = 0;
+
+	std::string m_commandText;
 
 	void enterCommand(std::string commandText);
 	void addMessage(Message&& message);

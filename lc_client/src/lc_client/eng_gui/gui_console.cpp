@@ -104,7 +104,7 @@ void ConsoleGui::update() {
 		auto mousePos = ImGui::GetMousePos();
 		int colorSelection = 0;
 		if (mousePos.x > textMin.x && mousePos.x < textMax.x && mousePos.y > textMin.y && mousePos.y < textMax.y) {
-			colorSelection = 20;					
+			colorSelection = 20;
 		}
 
 		if (i % 2 == 0) {
@@ -142,7 +142,7 @@ void ConsoleGui::update() {
 
 		SameLine();
 
-		ImGui::SetCursorPosX(0);	
+		ImGui::SetCursorPosX(0);
 		std::string buttonId = "##" + std::to_string(i);
 		if (InvisibleButton(buttonId.c_str(), ImVec2(GetWindowSize().x, textMax.y - textMin.y))) {
 			SetClipboardText(message.text.c_str());
@@ -169,18 +169,41 @@ void ConsoleGui::update() {
 
 	ImGui::EndChild();
 
-	std::string commandText;
-
-	ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_EnterReturnsTrue |
-									   ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory;
+	ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CallbackCompletion |
+										 ImGuiInputTextFlags_CallbackHistory;
 
 	ImGui::Separator();
 
-	//SetKeyboardFocusHere();
-	ImGui::PushItemWidth(GetWindowWidth() - 128);
-	if (InputText(" ", &commandText, inputTextFlags, &textEditCallbackStub, (void*)this)) {
-		enterCommand(commandText);
+	SetItemDefaultFocus();
+
+	if (m_reclaimFocus) {
+		SetKeyboardFocusHere();
 	}
+
+	ImGui::PushItemWidth(GetWindowWidth() - 128);
+	if (InputText(" ", &m_commandText, inputTextFlags, &textEditCallbackStub, (void*)this)) {
+		enterCommand(m_commandText);
+		m_commandText.clear();
+	}
+
+	// this workaround doesn`t work
+	if ((IsMouseHoveringRect(ImVec2(GetWindowPos().x + GetWindowWidth() - 64, GetWindowPos().y - 64),
+			ImVec2(GetWindowPos().x + GetWindowWidth(), GetWindowPos().y + 64)))) {
+	}
+	else {
+		if (IsMouseClicked(ImGuiMouseButton_Left)) {
+			if (IsMouseHoveringRect(GetItemRectMin(), GetItemRectMax())) {
+				m_reclaimFocus = true;
+			}
+			else {
+				m_reclaimFocus = false;
+			}
+		}
+	}
+
+	//pDrawList->AddRectFilled(ImVec2(GetWindowPos().x + GetWindowWidth() - 64, GetWindowPos().y - 64),
+	//	ImVec2(GetWindowPos().x + GetWindowWidth(), GetWindowPos().y + 64),
+	//	IM_COL32(255, 255, 255, 255));
 
 	SameLine();
 	//if (Button("Submit")) {
