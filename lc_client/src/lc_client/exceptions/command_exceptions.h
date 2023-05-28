@@ -6,5 +6,5 @@
 
 class IncorrectCommandException : public std::runtime_error {
 public:
-	IncorrectCommandException(std::string command) : std::runtime_error("Incorrect command: '" + command + "'") {}
+	IncorrectCommandException(std::string command) : std::runtime_error("Incorrect command.") {}
 };
