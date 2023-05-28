@@ -1,15 +1,19 @@
 #include "gl_window.h"
 #include "gl_window.h"
 #include "gl_window.h"
-#include "lc_client/eng_graphics/openGL/gl_window.h"
 
 #include <iostream>
 #include <cmath>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <string>
 
-#include <iostream>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
+
+
+#include "lc_client/eng_graphics/openGL/gl_window.h"
+#include "lc_client/tier0/console/i_console_input.h"
 
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/glfw_exceptions.h"
@@ -69,28 +73,48 @@ void WindowGL::init() {
 	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
 	//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
+	glfwSetWindowUserPointer(m_pGlfwWindow, this);
+
 	glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
+	glfwSetKeyCallback(m_pGlfwWindow, keyCallback);
 
 	if (m_vSync) {
 		glfwSwapInterval(1);
 	}
 
 	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	m_windowMode = WindowMode::GAME;
 
-	glfwSetWindowUserPointer(m_pGlfwWindow, this);
+
+	ImGui_ImplGlfw_InitForOpenGL(m_pGlfwWindow, true);
+	ImGui_ImplOpenGL3_Init("#version 400");
+
+	startFrame();
+
 	glfwSetWindowAspectRatio(m_pGlfwWindow, m_pAspectRatio[0], m_pAspectRatio[1]);
+
+	ImGui::StyleColorsDark();
+
+	glfwMaximizeWindow(m_pGlfwWindow); 
 
 	std::cout << "Window init" << std::endl;
 
 	m_pInput = new InputGlfw(this);
-
 }
 
 void WindowGL::update() {
-	//if (resizer)
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	glfwSwapBuffers(m_pGlfwWindow);
 	glfwPollEvents();
+}
+
+void WindowGL::startFrame() { 
+	ImGui_ImplGlfw_NewFrame();
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui::NewFrame();
 }
 
 bool WindowGL::windowShouldClose() {
@@ -98,16 +122,36 @@ bool WindowGL::windowShouldClose() {
 }
 
 void WindowGL::terminate() {
+	ImGui_ImplGlfw_Shutdown();
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui::DestroyContext();
+
 	glfwTerminate();
 }
 
 IInput* WindowGL::getInput() {
-	return m_pInput;
+	return m_pInput; }
+
+void WindowGL::setMode(WindowMode mode) {
+	m_windowMode = mode;
+	if (mode == WindowMode::GAME) {
+		glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+	else if(mode == WindowMode::GUI) {
+		glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
 }
 
+WindowMode WindowGL::getMode() { return m_windowMode; }
+
 GLFWwindow* WindowGL::getGlfwWindow() {
-	return m_pGlfwWindow;
+	return m_pGlfwWindow; }
+
+void WindowGL::addKeyCallback(int glfwKey, std::function<void()> callback) {
+	m_callbacks.insert_or_assign(glfwKey, callback);
 }
+
+std::unordered_map<int, std::function<void()>>& WindowGL::getCallbacks() { return m_callbacks; }
 
 int* WindowGL::getSize() {
 	int* size = new int[2];
@@ -131,7 +175,19 @@ float WindowGL::getFov() {
 }
 
 void WindowGL::setFov(float fov) {
-	m_fov = fov;
+	m_fov = fov; }
+
+void WindowGL::keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods) {
+	WindowGL* pWindow = static_cast<WindowGL*>(glfwGetWindowUserPointer(pGlfwWindow));
+	
+	auto& callbacks = pWindow->getCallbacks();
+
+	for (auto& [k, callback] : callbacks) {
+		if (k == key && action == GLFW_PRESS) {
+			callback();
+			break;
+		}
+	}
 }
 
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {

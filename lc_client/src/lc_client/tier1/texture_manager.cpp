@@ -6,6 +6,7 @@
 
 #include "lc_client/util/image.h"
 #include "lc_client/exceptions/io_exceptions.h"
+#include "lc_client/tier0/tier0.h"
 
 
 TextureManager::TextureManager(eng::IResource* pResource) { 
@@ -26,6 +27,7 @@ Texture* TextureManager::getTexture(std::string path) {
 		}
 		catch (ResourceFileNotFoundException& exception) {
 			std::cerr << exception.what() << std::endl;
+			Tier0::getIConsole()->warn(exception.what());
 			pTexture = loadTexture("dev/textures/eng_texture_not_found/color");
 		}
 		catch (FileTooLargeException) {
@@ -33,12 +35,13 @@ Texture* TextureManager::getTexture(std::string path) {
 		}
 		catch (ImageLoadFailureException& exception) {
 			std::cerr << "Failed to load texture: " << path << ": " << exception.what() << std::endl;
+			Tier0::getIConsole()->warn("Failed to load texture: " + path + ": " + exception.what());
 			pTexture = loadTexture("dev/textures/eng_texture_not_found/color");
 		}
 
 		if (pTexture == nullptr) {
-			std::cerr << "TextureManagerGL: pTexture is nullptt. Path given: " << path << std::endl;
-			throw std::runtime_error("TextureManagerGL: pTexture is nullptt. Path given: " + path);
+			std::string str = "TextureManagerGL: pTexture is nullptt. Path given: " + path;
+			_ASSERT(str.c_str());
 		}
 
 		return pTexture;

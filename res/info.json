@@ -4,7 +4,16 @@
   "packs": {
     "dev": "dev/pack.json"
   },
-  "config": [
-    "set: ObjectsParameters triggersDisplay = false;"
-  ]
+  "config": {
+    "kb_forward": "W",
+    "kb_left": "A",
+    "kb_back": "S",
+    "kb_right": "D",
+    "kb_up": "SPACE",
+    "kb_fast": "LEFT_SHIFT",
+    "kb_down": "CONTROL",
+    "kb_use": "E",
+    "kb_menu": "ESC",
+    "kb_select": "LEFT_CLICK"
+  }
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "eng_procedures/tier1/tier1.h"
+#include "tier1/tier1.h"
 #include "eng_graphics/shader_work.h"
 #include "eng_graphics/mesh_work.h"
 #include "eng_scene/scene.h"

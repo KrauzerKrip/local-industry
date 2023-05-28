@@ -13,16 +13,22 @@
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
-#include "lc_client/eng_procedures/tier1/gl_tier1.h"
+#include "lc_client/tier1/openGL/gl_tier1.h"
 #include "lc_client/eng_graphics/openGL/gl_mesh_work.h"
-#include "lc_client/eng_graphics/openGL/gl_shader_work.h"]
+#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
+#include "lc_client/eng_gui/gui_console.h"
+
+#include "lc_client/tier0/console/i_console.h"
+
+#include "lc_client/eng_graphics/openGL/gl_window.h"
 
 
-Game::Game(IWindow* pWindow) {
+Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pWindow = pWindow;
 	m_pCamera = new Camera();
 	m_pRender = new RenderGL(m_pWindow, m_pCamera);
 	m_pResource = new eng::Resource("D:/Industry/industry/res/");
+	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource);
 }
 
@@ -31,24 +37,29 @@ Game::~Game() {
 	delete m_pResource;
 	delete m_pTier1;
 	delete m_pCamera;
+	delete m_pTier0;
 };
 
 void Game::init() {
+
+	m_pConsoleGui = new ConsoleGui(m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier1->getTextureManager(), m_pTier0->getParameters());
 
 	m_pInput = m_pWindow->getInput();
 
 	m_pTier1->getShaderManager()->loadShaders();
 
 	m_pScene = SceneControlling::getScene();
-	m_pModelManager = new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry());
-	
+	m_pModelManager = new ModelManager(
+		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
+
 	m_pMeshWork = new MeshWorkGl(&m_pScene->getUtilRegistry());
 	m_pShaderWorkScene = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry());
 
 	SceneDependencies sceneDependecies;
 	sceneDependecies.pShaderManager = m_pTier1->getShaderManager();
 	sceneDependecies.pResource = m_pResource;
-	sceneDependecies.pGraphicsEntitiesLoading = new GraphicsEntitiesLoading(&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry());
+	sceneDependecies.pGraphicsEntitiesLoading =
+		new GraphicsEntitiesLoading(&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry());
 
 	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("dev", "test");
@@ -63,16 +74,46 @@ void Game::init() {
 	m_pScene->getSkybox().setLightStrength(0.4);
 
 
-
 	auto dirLight = m_pScene->getSceneRegistry().create(); // temp
 	auto dirLightComponent = m_pScene->getSceneRegistry().emplace<DirectionalLight>(dirLight);
 	dirLightComponent.color = glm::vec3(1, 1, 1);
 	dirLightComponent.direction = glm::vec3(-0.2f, -1.0f, -0.3f);
 
-
+	m_pInput->addKeyCallback("GRAVE_ACCENT", [pConsoleGui = this->m_pConsoleGui, pWindow = this->m_pWindow]() {
+		if (pConsoleGui->isOpened()) {
+			pConsoleGui->close();
+		}
+		else {
+			pConsoleGui->open();
+		}
+	});
 }
 
 void Game::input() {
+
+	if (m_pConsoleGui->isOpened()) {
+		if (m_pWindow->getMode() == WindowMode::GAME) {
+			m_pWindow->setMode(WindowMode::GUI);
+		}
+	}
+	else {
+		if (m_pWindow->getMode() == WindowMode::GUI) {
+			m_pWindow->setMode(WindowMode::GAME);
+		}
+	}
+
+	m_pConsoleGui->update();
+
+	if (m_pInput->isKeyPressed("ESC")) {
+		exit(0);
+	}
+
+	if (m_pConsoleGui->isOpened()) {
+		m_lastMousePosX = m_pInput->getMousePosX();
+		m_lastMousePosY = m_pInput->getMousePosY();
+		return;
+	}
+
 	double offsetMouseX = m_pInput->getMousePosX() - m_lastMousePosX;
 	double offsetMouseY = m_lastMousePosY - m_pInput->getMousePosY();
 
@@ -92,13 +133,13 @@ void Game::input() {
 	m_pCamera->setRotation(cameraRot);
 
 
-	float cameraSpeed = 0.05f;
+	float cameraSpeed = 0.05;
 
 	glm::vec3 cameraPos = m_pCamera->getPosition();
 
 	try {
 		if (m_pInput->isKeyPressed("LEFT_SHIFT")) {
-			cameraSpeed = 0.1f;
+			cameraSpeed *= 2.0f;
 		}
 
 		if (m_pInput->isKeyPressed("W")) {
@@ -128,10 +169,6 @@ void Game::input() {
 			m_pWindow->setFov(45);
 		}
 
-
-		if (m_pInput->isKeyPressed("ESC")) {
-			exit(0);
-		}
 	}
 	catch (UnknownKeyCodeException& exception) {
 		std::cerr << exception.what() << std::endl;
@@ -161,17 +198,18 @@ void Game::update() {
 
 			auto time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
-			
+
 			glm::vec3& position = view.get<Transform>(entity).position;
 
-			//position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
-			//position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
+			// position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
+			// position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
 		}
 	}
 }
 
-void Game::render() { 
+void Game::render() {
 	m_pSystems->frame();
-	m_pRender->render(); }
+	m_pRender->render();
+}
 
 void Game::cleanUp() {}

@@ -1,4 +1,6 @@
 #include "tier1.h"
+#include "tier1.h"
+#include "tier1.h"
 
 #include <map>
 #include <string>
@@ -7,8 +9,13 @@
 #include "lc_client/util/pack.h"
 
 
-Tier1::Tier1(eng::IResource* pResource) { 
-	loadPacks(pResource); 
+Tier1::Tier1(eng::IResource* pResource) {
+	loadPacks(pResource);
+}
+
+Tier1::~Tier1() {
+	delete m_pShaderManager;
+	delete m_pTextureManager;
 }
 
 TextureManager* Tier1::getTextureManager() { return m_pTextureManager; }

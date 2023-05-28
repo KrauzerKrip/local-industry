@@ -1,4 +1,4 @@
-#include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
+#include "lc_client/tier1/openGL/gl_texture_manager.h"
 
 #include <iostream>
 

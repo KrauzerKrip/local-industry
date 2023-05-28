@@ -17,7 +17,7 @@ public:
 	std::string getProject();
 	std::string getVersion();
 	std::map<std::string, std::string> getPacks();
-	std::vector<std::string> getConfig();
+	std::map<std::string, std::string> getConfig();
 
 private: 
 	nlohmann::json m_json;
