@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <tuple>
 
 #include <imgui.h>
 
@@ -41,4 +42,5 @@ private:
 
 	void enterCommand(std::string commandText);
 	void addMessage(Message&& message);
+	std::tuple<ImVec2, ImVec2> getTextSize(Message& message);
 };

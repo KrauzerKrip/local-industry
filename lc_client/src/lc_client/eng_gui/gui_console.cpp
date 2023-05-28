@@ -1,5 +1,6 @@
 #include "gui_console.h"
 #include "gui_console.h"
+#include "gui_console.h"
 
 #include <iostream>
 #include <ctime>
@@ -73,7 +74,6 @@ void ConsoleGui::open() { m_isOpened = true; }
 void ConsoleGui::close() { m_isOpened = false; }
 
 void ConsoleGui::update() {
-
 	if (!m_isOpened) {
 		return;
 	}
@@ -95,16 +95,9 @@ void ConsoleGui::update() {
 
 		i++;
 
-		auto textSize = CalcTextSize(message.text.c_str(), NULL, false, GetWindowWidth());
-
-		ImVec2 sPos = ImGui::GetCursorScreenPos();
-
-		if (message.type == MessageType::ANSWER || message.type == MessageType::ANSWER_ERROR) {
-			textSize.y *= 2;
-		}
-
-		ImVec2 textMin = ImVec2(sPos.x, sPos.y);
-		ImVec2 textMax = ImVec2(GetWindowWidth() + sPos.x, textSize.y + sPos.y);
+		ImVec2 textMin;
+		ImVec2 textMax;
+		std::tie(textMin, textMax) = getTextSize(message);
 
 		auto mousePos = ImGui::GetMousePos();
 		int colorSelection = 0;
@@ -149,7 +142,7 @@ void ConsoleGui::update() {
 
 		ImGui::SetCursorPosX(0);	
 		std::string buttonId = "##" + std::to_string(i);
-		if (InvisibleButton(buttonId.c_str(), ImVec2(GetWindowSize().x, textSize.y))) {
+		if (InvisibleButton(buttonId.c_str(), ImVec2(GetWindowSize().x, textMax.y - textMin.y))) {
 			SetClipboardText(message.text.c_str());
 		}
 	}
@@ -158,7 +151,6 @@ void ConsoleGui::update() {
 	if (m_scrollToBottom && m_autoScroll) {
 		SetScrollHereY(1.0f);
 	}
-
 
 	if (GetScrollY() == GetScrollMaxY()) {
 		m_autoScroll = true;
@@ -169,21 +161,18 @@ void ConsoleGui::update() {
 
 	m_scrollToBottom = false;
 
-
 	if (m_pParameters->getParameterValue<bool>("gui_imgui_debug")) {
 		ImGui::ShowMetricsWindow();
 	}
-
 
 	ImGui::EndChild();
 
 	std::string commandText;
 
 	ImGuiInputTextFlags input_text_flags = ImGuiInputTextFlags_EnterReturnsTrue |
-										   ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory;
+									   ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory;
 
 	ImGui::Separator();
-
 
 	ImGui::PushItemWidth(GetWindowWidth() - 128);
 	if (InputText(" ", &commandText, input_text_flags)) {
@@ -191,7 +180,6 @@ void ConsoleGui::update() {
 	}
 
 	SameLine();
-
 	//if (Button("Submit")) {
 	//	enterCommand(commandText);
 	//}
@@ -232,4 +220,19 @@ void ConsoleGui::enterCommand(std::string commandText) {
 void ConsoleGui::addMessage(Message&& message) {
 	m_messages.push_back(message);
 	m_scrollToBottom = true;
+}
+
+std::tuple<ImVec2, ImVec2> ConsoleGui::getTextSize(Message& message) {
+	auto textSize = CalcTextSize(message.text.c_str(), NULL, false, GetWindowWidth());
+
+	ImVec2 sPos = ImGui::GetCursorScreenPos();
+
+	if (message.type == MessageType::ANSWER || message.type == MessageType::ANSWER_ERROR) {
+		textSize.y *= 2;
+	}
+
+	ImVec2 textMin = ImVec2(sPos.x, sPos.y);
+	ImVec2 textMax = ImVec2(GetWindowWidth() + sPos.x, textSize.y + sPos.y);
+
+	return std::tuple(textMin, textMax);
 }
