@@ -37,7 +37,11 @@ ConsoleGui::ConsoleGui(
 		std::stringstream buffer;
 		buffer << std::put_time(&tm, "%T");
 		std::string timeString = buffer.str();
-		message.text = "[" + timeString + "] " + "[DEV] " + text;
+		if (m_pParameters->getParameterValue<bool>("console_log_time")) {
+			message.text = "[" + timeString + "] " + "[DEV] " + text;
+		} else {
+			message.text = "[DEV] " + text;
+		}
 		addMessage(std::move(message));
 	};
 
@@ -50,7 +54,12 @@ ConsoleGui::ConsoleGui(
 		std::stringstream buffer;
 		buffer << std::put_time(&tm, "%T");
 		std::string timeString = buffer.str();
-		message.text = "[" + timeString + "] " + "[INFO] " + text;
+		if (m_pParameters->getParameterValue<bool>("console_log_time")) {
+			message.text = "[" + timeString + "] " + "[INFO] " + text;
+		}
+		else {
+			message.text = "[INFO] " + text;
+		}
 		addMessage(std::move(message));
 	};
 
@@ -63,7 +72,12 @@ ConsoleGui::ConsoleGui(
 		std::stringstream buffer;
 		buffer << std::put_time(&tm, "%T");
 		std::string timeString = buffer.str();
-		message.text = "[" + timeString + "] " + "[WARNING] " + text;
+		if (m_pParameters->getParameterValue<bool>("console_log_time")) {
+			message.text = "[" + timeString + "] " + "[WARNING] " + text;
+		}
+		else {
+			message.text = "[WARNING] " + text;
+		}
 		addMessage(std::move(message));
 	};
 

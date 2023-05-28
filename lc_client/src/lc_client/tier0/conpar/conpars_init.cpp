@@ -38,6 +38,7 @@ void initGraphicsParameters(Parameters& parameters) {
 
 void initUtilParameters(Parameters& parameters) {
 	ADD_PARAMETER_BOOL_F("sv_cheats", false, std::vector<Flags>());
+	ADD_PARAMETER_BOOL("console_log_time", false);
 }
 
 void initGuiParameters(Parameters& parameters) {
