@@ -3,12 +3,14 @@
 
   "shaders": {
     "vertex": {
-      "base": "dev/shaders/vert/base.vert"
+      "base": "dev/shaders/vert/base.vert",
+      "framebuffer" :  "dev/shaders/vert/framebuffer.vert"
     },
     "fragment": {
       "base": "dev/shaders/frag/base.frag",
       "camera_model": "dev/shaders/frag/base.frag",
-      "lighting":  "dev/shaders/frag/lighting.frag"
+      "lighting": "dev/shaders/frag/lighting.frag",
+      "framebuffer": "dev/shaders/frag/framebuffer.frag"
     }
   },
 

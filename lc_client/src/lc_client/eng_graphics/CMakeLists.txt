@@ -26,6 +26,8 @@ target_sources(lc_client
         "openGL/gl_shader_work.h"
         "openGL/gl_shader_work.cpp"
         "openGL/gl_shader_uniform.h"
+        "openGL/gl_framebuffer.h"
+        "openGL/gl_framebuffer.cpp"
 
         "entt/components.h"
 

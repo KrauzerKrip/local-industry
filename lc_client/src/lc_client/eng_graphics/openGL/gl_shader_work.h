@@ -5,9 +5,12 @@
 #include <vector>
 
 #include "lc_client/tier1/i_shaders.h"
+#include "lc_client/eng_graphics/openGL/gl_render.h"
 
 
 class ShaderWorkGl : public ShaderWork {
+	friend class RenderGL; 
+
 public:
 	ShaderWorkGl(IShaderManager* pShaderManager, entt::registry* pRegistry)
 		: ShaderWork(pRegistry),

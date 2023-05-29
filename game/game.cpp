@@ -26,7 +26,6 @@
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pWindow = pWindow;
 	m_pCamera = new Camera();
-	m_pRender = new RenderGL(m_pWindow, m_pCamera);
 	m_pResource = new eng::Resource("D:/Industry/industry/res/");
 	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource);
@@ -53,7 +52,10 @@ void Game::init() {
 		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
 
 	m_pMeshWork = new MeshWorkGl(&m_pScene->getUtilRegistry());
-	m_pShaderWorkScene = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry());
+	auto pShaderWork = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry());
+	m_pShaderWorkScene = pShaderWork;
+
+	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork);
 
 	SceneDependencies sceneDependecies;
 	sceneDependecies.pShaderManager = m_pTier1->getShaderManager();
