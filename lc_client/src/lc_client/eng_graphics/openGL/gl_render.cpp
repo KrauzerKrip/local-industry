@@ -1,4 +1,5 @@
 #include "gl_render.h"
+#include "gl_render.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -33,21 +34,7 @@ void RenderGL::init() {
 
 	glEnable(GL_MULTISAMPLE);
 
-
-	float quadVertices[] = {// positions // texCoords
-		-1.0f, 1.0f, 0.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f};
-
-	unsigned int quadVBO;
-	glGenVertexArrays(1, &m_framebufferVao);
-	glGenBuffers(1, &quadVBO);
-	glBindVertexArray(m_framebufferVao);
-	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+	createFramebufferVao();
 
 	m_framebufferShader = m_pShaderWork->createShaderProgram("framebuffer", "framebuffer");
 
@@ -60,6 +47,7 @@ void RenderGL::init() {
 void RenderGL::render() {
 
 	m_pFramebuffer->bind();
+
 	glEnable(GL_DEPTH_TEST);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -114,7 +102,7 @@ void RenderGL::render() {
 
 		int i = 0;
 
-		for (entt::entity entity : pointLights) {
+		for (entt::entity entity : pointLights) { 
 			glm::vec3 color = pointLights.get<PointLight>(entity).color;
 			glm::vec3 pos = pointLights.get<Transform>(entity).position;
 
@@ -209,4 +197,21 @@ void RenderGL::transform(glm::mat4& model, Transform& transform) {
 	model = glm::translate(model, transform.position);
 	model = glm::rotate(model, glm::radians(-55.0f), transform.rotation);
 	model = glm::scale(model, transform.scale);
+}
+
+void RenderGL::createFramebufferVao() {
+	float quadVertices[] = {// positions // texCoords
+		-1.0f, 1.0f, 0.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f};
+
+	unsigned int quadVBO;
+	glGenVertexArrays(1, &m_framebufferVao);
+	glGenBuffers(1, &quadVBO);
+	glBindVertexArray(m_framebufferVao);
+	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 }

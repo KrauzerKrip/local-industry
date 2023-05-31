@@ -28,6 +28,7 @@ public:
 
 private:
 	void transform(glm::mat4& transformation, Transform& transform);
+	void createFramebufferVao();
 
 	IWindow* m_pWindow; //mb remove it
 	Camera* m_pCamera;
