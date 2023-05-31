@@ -103,7 +103,7 @@ void main()
 	else {
 		result += ambientLight.color * ambientLight.strength * vec3(texture(material.diffuse, TexCoord));
 	}
-	
+
 	FragColor = vec4(result, texture(material.diffuse, TexCoord).a);
 }
 

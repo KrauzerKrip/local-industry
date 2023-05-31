@@ -10,6 +10,7 @@
 #include "lc_client/eng_scene/scene.h"
 #include "lc_client/eng_scene/skybox.h"
 #include "gl_shader_work.h"
+#include "lc_client/eng_graphics/openGL/gl_framebuffer.h"
 
 
 class ShaderWorkGl;
@@ -38,9 +39,8 @@ private:
 	entt::registry* m_pMapRegistry = nullptr;
 	entt::registry* m_pUtilRegistry = nullptr;
 
+	Framebuffer* m_pFramebuffer = nullptr;
 	unsigned int m_framebufferTexture = 0;
-	unsigned int m_fbo = 0;
-	unsigned int m_rbo = 0;
 	unsigned int m_framebufferVao = 0;
 	unsigned int m_framebufferShader = 0;
 };

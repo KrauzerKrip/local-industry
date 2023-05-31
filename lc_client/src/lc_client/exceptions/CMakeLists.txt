@@ -11,4 +11,5 @@ target_sources(lc_client
         "lua_exceptions.h"
         "conpar_exceptions.h"
         "command_exceptions.h"
+        "graphics_exceptions.h"
 )

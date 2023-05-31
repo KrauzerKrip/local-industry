@@ -18,19 +18,12 @@ RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork)
 	m_pWindow = pWindow; // mb remove it
 	m_pCamera = pCamera;
 	m_pShaderWork = pShaderWork;
+	m_pFramebuffer = new Framebuffer(pWindow->getSize()[0], pWindow->getSize()[1]);
 }
 
 RenderGL::~RenderGL() {}
 
 void RenderGL::init() { 
-
-	auto pWindowSize = m_pWindow->getSize();
-
-	const int WINDOW_WIDTH = pWindowSize[0];
-	const int WINDOW_HEIGHT = pWindowSize[1];
-
-	delete[] pWindowSize;
-
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -39,30 +32,6 @@ void RenderGL::init() {
 	glFrontFace(GL_CCW);
 
 	glEnable(GL_MULTISAMPLE);
-
-	glGenFramebuffers(1, &m_fbo);
-	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-	glGenTextures(1, &m_framebufferTexture);
-	glBindTexture(GL_TEXTURE_2D, m_framebufferTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	// attach it to currently bound framebuffer object
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_framebufferTexture, 0);
-
-	glGenRenderbuffers(1, &m_rbo);
-	glBindRenderbuffer(GL_RENDERBUFFER, m_rbo);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, WINDOW_WIDTH, WINDOW_HEIGHT);
-	glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo);
-
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
-	}
-
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
 	float quadVertices[] = {// positions // texCoords
@@ -81,11 +50,16 @@ void RenderGL::init() {
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
 	m_framebufferShader = m_pShaderWork->createShaderProgram("framebuffer", "framebuffer");
+
+	m_pWindow->setResizeCallback([this](int width, int height) {
+		delete m_pFramebuffer;
+		m_pFramebuffer = new Framebuffer(width, height);
+	});
 }
 
 void RenderGL::render() {
 
-	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+	m_pFramebuffer->bind();
 	glEnable(GL_DEPTH_TEST);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -208,11 +182,9 @@ void RenderGL::render() {
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+	m_pFramebuffer->bindTexture();
 	glDisable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT);
-
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_framebufferTexture);
 
 	glUseProgram(m_framebufferShader);
 

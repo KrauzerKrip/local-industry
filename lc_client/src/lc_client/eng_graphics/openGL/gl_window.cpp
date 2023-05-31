@@ -1,6 +1,8 @@
 #include "gl_window.h"
 #include "gl_window.h"
 #include "gl_window.h"
+#include "gl_window.h"
+#include "gl_window.h"
 
 #include <iostream>
 #include <cmath>
@@ -27,6 +29,8 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio, b
 	m_pAspectRatio = aspectRatio;
 	m_vSync = vSync;
 	m_fov = fov;
+
+	m_resizeCallback = [](int width, int height) {};
 }
 
 WindowGL::~WindowGL() {
@@ -100,6 +104,8 @@ void WindowGL::init() {
 	std::cout << "Window init" << std::endl;
 
 	m_pInput = new InputGlfw(this);
+
+	m_debug = true;
 }
 
 void WindowGL::update() {
@@ -144,6 +150,8 @@ void WindowGL::setMode(WindowMode mode) {
 
 WindowMode WindowGL::getMode() { return m_windowMode; }
 
+void WindowGL::setResizeCallback(std::function<void(int, int)> callback) { m_resizeCallback = callback; }
+
 GLFWwindow* WindowGL::getGlfwWindow() {
 	return m_pGlfwWindow; }
 
@@ -153,8 +161,10 @@ void WindowGL::addKeyCallback(int glfwKey, std::function<void()> callback) {
 
 std::unordered_map<int, std::function<void()>>& WindowGL::getCallbacks() { return m_callbacks; }
 
-int* WindowGL::getSize() {
-	int* size = new int[2];
+std::function<void(int, int)>& WindowGL::getResizeCallback() { return m_resizeCallback; }
+
+std::array<int, 2> WindowGL::getSize() {
+	std::array<int, 2> size;
 	size[0] = m_width;
 	size[1] = m_height;
 
@@ -193,7 +203,8 @@ void WindowGL::keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int a
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 
 	WindowGL* pWindowGL = (WindowGL*)glfwGetWindowUserPointer(window);
-	int* size = pWindowGL->getSize();
+
+	bool debug = pWindowGL->m_debug;
 
 	const int widthWindow = width;
 	//const int aspectRatio = pWindowGL->getAspectRatio()[0] / pWindowGL->getAspectRatio()[1];
@@ -201,6 +212,9 @@ static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 	pWindowGL->setSize(widthWindow, heightWindow);
 
 	glViewport(0, 0, widthWindow, heightWindow);
+
+	std::function<void(int, int)>& resizeCallback = pWindowGL->getResizeCallback();
+	resizeCallback(width, height);
 
 	pWindowGL->update();
 }

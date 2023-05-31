@@ -2,6 +2,9 @@
 
 #include <lc_client/local_engine.h>
 
+#include <array>
+#include <functional>
+
 #include <GLFW/glfw3.h>
 
 #include "lc_client/eng_input/i_input.h"
@@ -30,6 +33,7 @@ public:
 	virtual IInput* getInput() = 0;
 	virtual void setMode(WindowMode mode) = 0;
 	virtual WindowMode getMode() = 0;
+	virtual void setResizeCallback(std::function<void(int, int)> callback) = 0;
 	
 	/**
 	 * Breaks encapsulation
@@ -49,5 +53,5 @@ public:
 	virtual int* getAspectRatio() = 0;
 	virtual float getFov() = 0;
 	virtual void setFov(float fov) = 0;
-	virtual int* getSize() = 0;
+	virtual std::array<int, 2> getSize() = 0;
 };

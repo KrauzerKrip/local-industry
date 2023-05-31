@@ -13,8 +13,10 @@
 int main() {
 
 	std::string title = "Local` Engine";
-	int width = 1080;
-	int height = 720;
+	//int width = 1080;
+	//int height = 720;
+	int width = 1920;
+	int height = 1080;
 	bool vSync = true;
 
 	int targetFPS = 60;

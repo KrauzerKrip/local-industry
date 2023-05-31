@@ -27,11 +27,13 @@ public:
 	IInput* getInput();
 	void setMode(WindowMode mode);
 	WindowMode getMode();
+	void setResizeCallback(std::function<void(int, int)> callback);
 
 	GLFWwindow* getGlfwWindow();
 	void addKeyCallback(int glfwKey, std::function<void()> callback);
 	std::unordered_map<int, std::function<void()>>& getCallbacks();
-	int* getSize();
+	std::function<void(int, int)>& getResizeCallback();
+	std::array<int, 2> getSize();
 	void setSize(int width, int height);
 	int* getAspectRatio();
 	float getFov();
@@ -41,12 +43,15 @@ public:
 	// static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 	// static void mouseSizeCallback(GLFWwindow* window, double x, double y);
 
+	bool m_debug = false;
+
 private:
 
 
 	friend void mouseCallback(GLFWwindow* window, double x, double y);
 
 	std::unordered_map<int, std::function<void()>> m_callbacks;
+	std::function<void(int, int)> m_resizeCallback;
 
 	std::string m_title;
 	int m_width;
