@@ -1,12 +1,12 @@
 #include "gl_framebuffer.h"
 
 #include <glad/glad.h>
+#include <iostream>
 
 #include <cassert>
 
 
 Framebuffer::Framebuffer(int width, int height) {
-
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -46,6 +46,7 @@ Framebuffer::Framebuffer(int width, int height) {
 
 Framebuffer::~Framebuffer() { 
 	glDeleteFramebuffers(1, &m_fbo);
+	glDeleteRenderbuffers(1, &m_rbo);
 	glDeleteTextures(1, &m_texture);
 }
 
