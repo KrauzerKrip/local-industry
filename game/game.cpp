@@ -62,7 +62,7 @@ void Game::init() {
 	m_pShaderWorkScene = pShaderWork;
 
 	Pack pack = Pack::getPack("dev");
-	std::string skyboxPath = Pack::Skybox(pack, "default").getPath();
+	std::string skyboxPath = Pack::Skybox(pack, "anime").getPath();
 	std::unique_ptr<CubemapMaterial> skyboxMaterial = CubemapLoader(skyboxPath, m_pResource).getMaterial();
 	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(skyboxMaterial.get(), pShaderWork);
 	Skybox* pSkybox = new Skybox(pSkyboxRender);

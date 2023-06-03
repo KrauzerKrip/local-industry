@@ -18,7 +18,10 @@
 
   "skyboxes": {
     "default": {
-      "path" : "dev/skyboxes/default/"
+      "path": "dev/skyboxes/default/"
+    },
+    "anime": {
+      "path": "dev/skyboxes/anime/"
     }
   },
 
