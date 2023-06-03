@@ -41,6 +41,5 @@ public:
 
 protected:
 	std::string m_name;
-	std::shared_ptr<eng::Image> m_image;
 	TextureType m_textureType = TextureType::NONE;
 };

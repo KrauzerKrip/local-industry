@@ -16,4 +16,5 @@ public:
 
 private:
 	unsigned int m_textureGl;
+	std::shared_ptr<eng::Image> m_image;
 };

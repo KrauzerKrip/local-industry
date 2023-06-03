@@ -2,6 +2,12 @@
 #include "skybox.h"
 #include "skybox.h"
 #include "skybox.h"
+#include "skybox.h"
+#include "skybox.h"
+
+Skybox::Skybox(SkyboxRender* pRender) { m_pRender = pRender; }
+
+void Skybox::render() { m_pRender->render(); }
 
 glm::vec3 Skybox::getLightColor() const { return m_lightColor; }
 

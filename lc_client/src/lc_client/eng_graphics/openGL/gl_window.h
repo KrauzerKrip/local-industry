@@ -4,14 +4,19 @@
 
 #include <unordered_map>
 #include <functional>
-
-#include <GLFW/glfw3.h>
 #include <string>
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include <lc_client/eng_gui/gui_console.h>
+
 
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 static void mouseCallback(GLFWwindow* window, double x, double y);
 static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+static void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
+	const GLchar* message, const void* userParam);
 
 class WindowGL : public IWindow {
 public:
@@ -40,6 +45,7 @@ public:
 	void setFov(float fov);
 
 	static void keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods);
+
 	// static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 	// static void mouseSizeCallback(GLFWwindow* window, double x, double y);
 

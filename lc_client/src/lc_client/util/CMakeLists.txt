@@ -15,4 +15,6 @@ target_sources(lc_client
         "image.cpp"
         "pack.cpp"
         "pack.h"
+        "cubemap_loader.h"
+        "cubemap_loader.cpp"
 )

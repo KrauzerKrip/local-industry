@@ -4,13 +4,19 @@
   "shaders": {
     "vertex": {
       "base": "dev/shaders/vert/base.vert",
-      "framebuffer" :  "dev/shaders/vert/framebuffer.vert"
+      "framebuffer": "dev/shaders/vert/framebuffer.vert"
     },
     "fragment": {
       "base": "dev/shaders/frag/base.frag",
       "camera_model": "dev/shaders/frag/base.frag",
       "lighting": "dev/shaders/frag/lighting.frag",
       "framebuffer": "dev/shaders/frag/framebuffer.frag"
+    }
+  },
+
+  "skyboxes": {
+    "default": {
+      "path" : "dev/skyboxes/default/"
     }
   },
 

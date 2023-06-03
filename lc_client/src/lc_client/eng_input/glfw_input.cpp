@@ -1,7 +1,4 @@
 #include "glfw_input.h"
-#include "glfw_input.h"
-
-#include <GLFW/glfw3.h>
 
 #include "lc_client/exceptions/input_exceptions.h"
 

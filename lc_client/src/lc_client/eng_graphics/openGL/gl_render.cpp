@@ -56,6 +56,7 @@ void RenderGL::render() {
 	glm::mat4 projection = glm::perspective(glm::radians(m_pWindow->getFov()), aspectRatio, 0.1f, 100.0f);
 	glm::mat4 view = m_pCamera->getViewMatrix(); // glm::mat4(1.0f);
 
+	m_pSkybox->render();
 
 	// auto test = m_pSceneRegistry->view<Properties, Transform>();
 	// for (auto& ent : test) {
@@ -86,8 +87,8 @@ void RenderGL::render() {
 		setUniform(shaderProgram, "material.specular", TextureType::SPECULAR);
 		setUniform(shaderProgram, "material.shininess", 32.0f);
 
-		setUniform(shaderProgram, "ambientLight.color", m_pScene->getSkybox().getLightColor());
-		setUniform(shaderProgram, "ambientLight.strength", m_pScene->getSkybox().getLightStrength());
+		setUniform(shaderProgram, "ambientLight.color", m_pSkybox->getLightColor());
+		setUniform(shaderProgram, "ambientLight.strength", m_pSkybox->getLightStrength());
 
 		setUniform(shaderProgram, "spotLight.position", m_pCamera->getPosition());
 		setUniform(shaderProgram, "spotLight.direction", m_pCamera->getCameraFront());
@@ -185,12 +186,14 @@ void RenderGL::clear() {}
 
 void RenderGL::cleanUp() {}
 
-void RenderGL::setDependecies(Scene* pScene) {
+void RenderGL::setDependecies(Scene* pScene, Skybox* pSkybox) {
 	m_pScene = pScene;
 
 	m_pMapRegistry = &pScene->getMapRegistry();
 	m_pSceneRegistry = &pScene->getSceneRegistry();
 	m_pUtilRegistry = &pScene->getUtilRegistry();
+
+	m_pSkybox = pSkybox;
 }
 
 void RenderGL::transform(glm::mat4& model, Transform& transform) {

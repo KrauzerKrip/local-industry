@@ -3,8 +3,6 @@
 #include <string>
 #include <unordered_map>
 
-#include <GLFW/glfw3.h>
-
 #include "lc_client/eng_input/i_input.h"
 #include "lc_client/eng_graphics/openGL/gl_window.h"
 

@@ -1,5 +1,6 @@
 #include "scene.h"
 #include "scene.h"
+#include "scene.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -60,4 +61,6 @@ entt::registry& Scene::getSceneRegistry() { return m_sceneRegistry; }
 
 entt::registry& Scene::getUtilRegistry() { return m_utilRegistry; }
 
-Skybox& Scene::getSkybox() { return m_skybox; }
+Skybox* Scene::getSkybox() { return m_pSkybox; }
+
+void Scene::setSkybox(Skybox* pSkybox) { m_pSkybox = pSkybox; }

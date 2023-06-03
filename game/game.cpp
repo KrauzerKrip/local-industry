@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <chrono>
+#include <memory>
 
 #include <entt/entt.hpp>
 #include <GLFW/glfw3.h>
@@ -17,6 +18,9 @@
 #include "lc_client/eng_graphics/openGL/gl_mesh_work.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_work.h"
 #include "lc_client/eng_gui/gui_console.h"
+#include "lc_client/eng_scene/skybox.h"
+#include "lc_client/util/cubemap_loader.h"
+#include "lc_client/util/pack.h"
 
 #include "lc_client/tier0/console/i_console.h"
 
@@ -47,13 +51,21 @@ void Game::init() {
 
 	m_pTier1->getShaderManager()->loadShaders();
 
-	m_pScene = SceneControlling::getScene();
+	m_pScene = new Scene();
+	SceneControlling::setScene(m_pScene);
+
 	m_pModelManager = new ModelManager(
 		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
 
 	m_pMeshWork = new MeshWorkGl(&m_pScene->getUtilRegistry());
 	auto pShaderWork = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry());
 	m_pShaderWorkScene = pShaderWork;
+
+	Pack pack = Pack::getPack("dev");
+	std::string skyboxPath = Pack::Skybox(pack, "default").getPath();
+	std::unique_ptr<CubemapMaterial> skyboxMaterial = CubemapLoader(skyboxPath, m_pResource).getMaterial();
+	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(skyboxMaterial.get(), pShaderWork);
+	Skybox* pSkybox = new Skybox(pSkyboxRender);
 
 	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork);
 
@@ -66,14 +78,14 @@ void Game::init() {
 	m_pScene->setDependencies(sceneDependecies);
 	SceneControlling::loadScene("dev", "test");
 
-	m_pRender->setDependecies(m_pScene);
+	m_pRender->setDependecies(m_pScene, pSkybox);
 
 	m_pRender->init();
 
 	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pScene, m_pModelManager);
 
-	m_pScene->getSkybox().setLightColor(255, 255, 200); // 255, 255, 236
-	m_pScene->getSkybox().setLightStrength(0.4);
+	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
+	pSkybox->setLightStrength(0.4);
 
 
 	auto dirLight = m_pScene->getSceneRegistry().create(); // temp

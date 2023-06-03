@@ -24,7 +24,7 @@ public:
 	void render();
 	void clear();
 	void cleanUp();
-	void setDependecies(Scene* pScene);
+	void setDependecies(Scene* pScene, Skybox* pSkybox);
 
 private:
 	void transform(glm::mat4& transformation, Transform& transform);
@@ -35,6 +35,7 @@ private:
 	ShaderWorkGl* m_pShaderWork;
 	
 	Scene* m_pScene = nullptr;
+	Skybox* m_pSkybox = nullptr;
 
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pMapRegistry = nullptr;

@@ -9,6 +9,8 @@ target_sources(lc_client
         "texture.h"
         "mesh_work.h"
         "shader_work"
+        "skybox_render.h"
+        "skybox_render.cpp"
         
         "shader_system.h"
         "shader_system.cpp"
@@ -28,6 +30,11 @@ target_sources(lc_client
         "openGL/gl_shader_uniform.h"
         "openGL/gl_framebuffer.h"
         "openGL/gl_framebuffer.cpp"
+        "openGL/gl_skybox_render.h"
+        "openGL/gl_skybox_render.cpp"
+        #"openGL/gl_texture_cubemap.h"
+        #"openGL/gl_texture_cubemap.cpp"
+
 
         "entt/components.h"
 

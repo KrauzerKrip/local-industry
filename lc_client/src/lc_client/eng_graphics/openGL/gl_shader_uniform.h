@@ -7,7 +7,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-
 void setUniform(unsigned int shaderProgram, std::string uniform, float value) { 
 	glUniform1f(glGetUniformLocation(shaderProgram, uniform.c_str()), value); 
 }

@@ -29,7 +29,8 @@ public:
 	entt::registry& getSceneRegistry();
 	entt::registry& getUtilRegistry();
 
-	Skybox& getSkybox();
+	Skybox* getSkybox();
+	void setSkybox(Skybox* pSkybox);
 
 private:
 	entt::registry m_mapRegistry;
@@ -39,7 +40,7 @@ private:
 	std::string m_name;
 	std::string m_pack;
 
-	Skybox m_skybox;
+	Skybox* m_pSkybox = nullptr;
 
 	TextureManager* m_pTextureManager = nullptr;
 	

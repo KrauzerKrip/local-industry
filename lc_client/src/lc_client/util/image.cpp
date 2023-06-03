@@ -1,4 +1,8 @@
 #include "image.h"
+#include "image.h"
+#include "image.h"
+#include "image.h"
+#include "image.h"
 
 #include <limits>
 
@@ -13,13 +17,26 @@ namespace eng{
 		loadData(buffer);
 	}
 
-	Image::~Image() {
-		delete[] m_data;
+	Image::~Image() {}
+
+	Image::Image(const Image& image) { 
+		m_data = std::vector<unsigned char>(image.m_data);
+		m_width = image.m_width;
+		m_height = image.m_height;
+		m_nrChannels = image.m_nrChannels;
 	}
 
-	unsigned char* Image::getData() {
-		return m_data;
-	}
+	Image::Image(Image&& image) noexcept {
+		m_data = std::move(image.m_data);
+		m_width = image.m_width;
+		m_height = image.m_height;
+		m_nrChannels = image.m_nrChannels;
+	};
+
+	const unsigned char* Image::getData() const { 
+		return m_data.data(); }
+
+	std::vector<unsigned char>& Image::getDataVector() { return m_data;}
 
 	void Image::loadData(std::vector<unsigned char>& buffer) {
 
@@ -36,7 +53,10 @@ namespace eng{
 			throw ImageLoadFailureException(stbi_failure_reason());
 		}
 
-		m_data = data;
+		unsigned long long imageDataSize = m_width * m_height * m_nrChannels * sizeof(unsigned char);
+
+		m_data = std::vector<unsigned char>(size);
+		m_data.assign(data, data + imageDataSize);
 		/*m_data.assign(data, data + sizeof(data));*/
 		/*delete[] data;*/
 	}
@@ -46,6 +66,6 @@ namespace eng{
 	}
 
 	int Image::getHeight() {
-		return m_height;
-	}
+		return m_height; }
+	int eng::Image::getChannelsNumber() { return m_nrChannels; }
 }

@@ -8,6 +8,11 @@ public:
 	static void loadScene(std::string pack, std::string scene);
 	static Scene* getScene();
 
+	/**
+	 * temporary
+	 */
+	static void setScene(Scene* pScene) { m_pScene = pScene; };
+
 private:
 	static Scene* m_pScene;
 	static IShaderManager* m_pShaderManager;

@@ -6,10 +6,12 @@
 
 #include "lc_client/tier1/i_shaders.h"
 #include "lc_client/eng_graphics/openGL/gl_render.h"
+#include "lc_client/eng_graphics/openGL/gl_skybox_render.h"
 
 
 class ShaderWorkGl : public ShaderWork {
 	friend class RenderGL; 
+	friend class SkyboxRenderGl;
 
 public:
 	ShaderWorkGl(IShaderManager* pShaderManager, entt::registry* pRegistry)
