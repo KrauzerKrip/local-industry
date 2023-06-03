@@ -72,7 +72,7 @@ namespace eng {
 				}
 			}
 			else {
-				assert("hmmm");
+				assert("eng_resource chunk dividing error.");
 			}
 		}
 
