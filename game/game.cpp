@@ -58,7 +58,7 @@ void Game::init() {
 		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
 
 	m_pMeshWork = new MeshWorkGl(&m_pScene->getUtilRegistry());
-	auto pShaderWork = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry());
+	auto pShaderWork = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry(), m_pTier0->getConsole());
 	m_pShaderWorkScene = pShaderWork;
 
 	Pack pack = Pack::getPack("dev");
