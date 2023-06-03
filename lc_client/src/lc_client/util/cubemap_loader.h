@@ -23,7 +23,7 @@ struct CubemapMaterial {
 		  back(back),
 		  front(front) {}
 
-	CubemapMaterial(CubemapMaterial&& material)
+	CubemapMaterial(CubemapMaterial&& material) noexcept
 		: right(std::move(material.right)),
 		  left(std::move(material.left)),
 		  top(std::move(material.top)),
