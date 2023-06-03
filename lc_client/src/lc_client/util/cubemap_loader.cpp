@@ -1,7 +1,7 @@
 #include "cubemap_loader.h"
 
 CubemapLoader::CubemapLoader(std::string path, eng::IResource* pResource) {
-	std::vector<unsigned char> bufferRight = pResource->getFileResource(path + "right" + FILE_FORMAT);
+	const std::vector<unsigned char>& bufferRight = pResource->getFileResource(path + "right" + FILE_FORMAT);
 	eng::Image right = eng::Image(bufferRight);
 	std::vector<unsigned char> bufferLeft = pResource->getFileResource(path + "left" + FILE_FORMAT);
 	eng::Image left = eng::Image(bufferLeft);

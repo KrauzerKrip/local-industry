@@ -7,7 +7,7 @@ namespace eng {
 	class Image {
 	public:
 		/*Image(std::string path);*/
-		Image(std::vector<unsigned char>& buffer);
+		Image(const std::vector<unsigned char>& buffer);
 		~Image();
 		Image(const Image& image);
 		Image(Image&& image) noexcept;
@@ -20,7 +20,7 @@ namespace eng {
 		int getChannelsNumber();
 
 	private:
-		void loadData(std::vector<unsigned char>& buffer);
+		void loadData(const std::vector<unsigned char>& buffer);
 
 		std::vector<unsigned char> m_data;
 		/*std::vector<unsigned char> m_data;*/

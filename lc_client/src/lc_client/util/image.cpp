@@ -13,7 +13,7 @@
 
 namespace eng{
 
-	Image::Image(std::vector<unsigned char>& buffer) {
+	Image::Image(const std::vector<unsigned char>& buffer) {
 		loadData(buffer);
 	}
 
@@ -38,7 +38,7 @@ namespace eng{
 
 	std::vector<unsigned char>& Image::getDataVector() { return m_data;}
 
-	void Image::loadData(std::vector<unsigned char>& buffer) {
+	void Image::loadData(const std::vector<unsigned char>& buffer) {
 
 		if (buffer.size() > std::numeric_limits<int>::max()) {
 			throw FileTooLargeException("Image buffer is too large for stb_image! It`s size shouldn`t be larger than max value of int type.");
