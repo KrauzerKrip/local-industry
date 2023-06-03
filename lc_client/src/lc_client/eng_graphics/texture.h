@@ -15,6 +15,8 @@ enum TextureType {
 	DIFFUSE = 4,
 	GLOSSINESS = 5,
 	SPECULAR = 6,
+	SKYBOX = 7,
+	CUBEMAP = 8
 };
 
 class Texture {

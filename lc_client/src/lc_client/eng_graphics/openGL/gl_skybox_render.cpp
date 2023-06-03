@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "lc_client/exceptions/graphics_exceptions.h"
+#include "lc_client/eng_graphics/texture.h"
 
 
 SkyboxRenderGl::SkyboxRenderGl(CubemapMaterial* material, ShaderWorkGl* pShaderWork) {
@@ -88,6 +89,7 @@ void SkyboxRenderGl::render(glm::mat4& projection, glm::mat4& view) {
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 	glBindVertexArray(m_vao);
+	glActiveTexture(GL_TEXTURE0 + TextureType::SKYBOX);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glDepthMask(GL_TRUE);
