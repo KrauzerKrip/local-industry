@@ -12,7 +12,7 @@ class ShaderWorkGl;
 class SkyboxRenderGl : public SkyboxRender {
 public:
 	SkyboxRenderGl(CubemapMaterial* material, ShaderWorkGl* pShaderWork);
-	void render();
+	void render(glm::mat4& projection, glm::mat4& view);
 
 private:
 	unsigned int m_texture;

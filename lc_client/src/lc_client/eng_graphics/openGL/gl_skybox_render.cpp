@@ -1,6 +1,9 @@
 #include "gl_skybox_render.h"
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "lc_client/exceptions/graphics_exceptions.h"
 
@@ -66,9 +69,18 @@ SkyboxRenderGl::SkyboxRenderGl(CubemapMaterial* material, ShaderWorkGl* pShaderW
 	m_shader = pShaderWork->createShaderProgram("skybox", "skybox");
 }
 
-void SkyboxRenderGl::render() {
+void SkyboxRenderGl::render(glm::mat4& projection, glm::mat4& view) {
 	glDepthMask(GL_FALSE);
 	glUseProgram(m_shader);
+
+	unsigned int viewLoc = glGetUniformLocation(m_shader, "view");
+	unsigned int projLoc = glGetUniformLocation(m_shader, "projection");
+
+	glm::mat4 skyboxView = glm::mat4(glm::mat3(view));
+
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(skyboxView));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
 	glBindVertexArray(m_vao);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture);
 	glDrawArrays(GL_TRIANGLES, 0, 36);

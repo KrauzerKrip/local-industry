@@ -7,10 +7,10 @@
 
 class Skybox {
 public:
-	Skybox(SkyboxRender* pRender);
+	Skybox(SkyboxRender* pSkyboxRender);
 	~Skybox() = default;
 
-	void render();
+	void render(glm::mat4& projection, glm::mat4& view);
 
 	glm::vec3 getLightColor() const;
 	void setLightColor(glm::vec3 color);
@@ -21,7 +21,7 @@ public:
 	void setLightStrength(float strength);
 
 private:
-	SkyboxRender* m_pRender;
+	SkyboxRender* m_pSkyboxRender;
 
 	glm::vec3 m_lightColor;
 	float m_lightStrength;

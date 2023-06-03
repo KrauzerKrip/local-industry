@@ -56,7 +56,7 @@ void RenderGL::render() {
 	glm::mat4 projection = glm::perspective(glm::radians(m_pWindow->getFov()), aspectRatio, 0.1f, 100.0f);
 	glm::mat4 view = m_pCamera->getViewMatrix(); // glm::mat4(1.0f);
 
-	m_pSkybox->render();
+	m_pSkybox->render(projection, view);
 
 	// auto test = m_pSceneRegistry->view<Properties, Transform>();
 	// for (auto& ent : test) {
