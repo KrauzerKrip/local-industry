@@ -79,6 +79,7 @@ void RenderGL::render() {
 
 		glUseProgram(shaderProgram);
 
+		m_pSkybox->bindTexture();
 
 		setUniform(shaderProgram, "material.diffuse", TextureType::DIFFUSE);
 		setUniform(shaderProgram, "material.normal", TextureType::NORMAL);

@@ -11,6 +11,7 @@ public:
 	~Skybox() = default;
 
 	void render(glm::mat4& projection, glm::mat4& view);
+	void bindTexture();
 
 	glm::vec3 getLightColor() const;
 	void setLightColor(glm::vec3 color);

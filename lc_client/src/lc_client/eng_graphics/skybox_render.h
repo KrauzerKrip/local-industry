@@ -17,4 +17,5 @@ struct SkyboxMaterial {
 class SkyboxRender {
 public:
 	virtual void render(glm::mat4& projection, glm::mat4& view) = 0;
+	virtual void bindTexture() = 0;
 };

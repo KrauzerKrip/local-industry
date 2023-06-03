@@ -1,4 +1,5 @@
 #include "gl_skybox_render.h"
+#include "gl_skybox_render.h"
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -91,3 +92,5 @@ void SkyboxRenderGl::render(glm::mat4& projection, glm::mat4& view) {
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glDepthMask(GL_TRUE);
 }
+
+void SkyboxRenderGl::bindTexture() { glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture); }

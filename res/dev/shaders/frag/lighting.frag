@@ -6,6 +6,8 @@ in vec2 TexCoord;
 in vec3 Normal;
 in vec3 FragPos;
 
+uniform samplerCube skybox;
+
 struct Material {
 	sampler2D diffuse;
 	sampler2D normal;
@@ -104,7 +106,13 @@ void main()
 		result += ambientLight.color * ambientLight.strength * vec3(texture(material.diffuse, TexCoord));
 	}
 
-	FragColor = vec4(result, texture(material.diffuse, TexCoord).a);
+	vec3 I = normalize(FragPos - viewPos);
+	vec3 R = reflect(I, normalize(Normal));
+	vec3 reflectColor = vec3(texture(skybox, R).rgb);
+
+	vec3 color = mix(result, reflectColor, 0.5);
+
+	FragColor = vec4(color, texture(material.diffuse, TexCoord).a);
 }
 
 vec3 calculateDirectionalLight(DirectionalLight light, AmbientLight ambientLight, vec3 normal, vec3 viewDir) 
