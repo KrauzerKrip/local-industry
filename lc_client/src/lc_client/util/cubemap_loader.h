@@ -41,5 +41,7 @@ public:
 private:
 	CubemapMaterial* m_pMaterial;
 
+	void testLoadImages(eng::IResource* pResource, std::string path);
+
 	const static std::string FILE_FORMAT;
 };
