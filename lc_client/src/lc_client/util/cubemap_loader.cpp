@@ -1,11 +1,12 @@
 #include "cubemap_loader.h"
 
 #include <iostream>
+#include <thread>
+#include <future>
+#include <chrono>
 
 
 CubemapLoader::CubemapLoader(std::string path, eng::IResource* pResource) {
-
-	
 	std::vector<std::string> paths{path + "right" + FILE_FORMAT, path + "left" + FILE_FORMAT,
 		path + "top" + FILE_FORMAT, path + "bottom" + FILE_FORMAT, path + "back" + FILE_FORMAT,
 		path + "front" + FILE_FORMAT};
@@ -19,12 +20,19 @@ CubemapLoader::CubemapLoader(std::string path, eng::IResource* pResource) {
 	const std::vector<unsigned char>& bufferBack = buffers.at(4);
 	const std::vector<unsigned char>& bufferFront = buffers.at(5);
 
-	eng::Image right = eng::Image(bufferRight);
-	eng::Image left = eng::Image(bufferLeft);
-	eng::Image top = eng::Image(bufferTop);
-	eng::Image bottom = eng::Image(bufferBottom);
-	eng::Image back = eng::Image(bufferBack);
-	eng::Image front = eng::Image(bufferFront);
+	std::future<eng::Image> futureRight = std::async([bufferRight]() -> eng::Image { return eng::Image(bufferRight); });
+	std::future<eng::Image> futureLeft = std::async([bufferLeft]() -> eng::Image { return eng::Image(bufferLeft); });
+	std::future<eng::Image> futureTop = std::async([bufferTop]() -> eng::Image { return eng::Image(bufferTop); });
+	std::future<eng::Image> futureBottom = std::async([bufferBottom]() -> eng::Image { return eng::Image(bufferBottom); });
+	std::future<eng::Image> futureBack = std::async([bufferBack]() -> eng::Image { return eng::Image(bufferBack); });
+	std::future<eng::Image> futureFront = std::async([bufferFront]() -> eng::Image { return eng::Image(bufferFront); });
+
+	eng::Image right = futureRight.get(); 
+	eng::Image left = futureLeft.get();	
+	eng::Image top = futureTop.get();	 
+	eng::Image bottom = futureBottom.get(); 
+	eng::Image back = futureBack.get();	  
+	eng::Image front = futureFront.get();	 
 
 	m_pMaterial = new CubemapMaterial{
 		std::move(right), std::move(left), std::move(top), std::move(bottom), std::move(back), std::move(front)};
