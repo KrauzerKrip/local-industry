@@ -7,7 +7,6 @@ in vec3 Normal;
 in vec3 FragPos;
 
 uniform samplerCube skybox;
-uniform samplerCube cubemap;
 
 struct Material {
 	sampler2D diffuse;
@@ -111,18 +110,16 @@ void main()
 	float ratio = 1.00 / 1.52;
 
 	vec3 I = normalize(FragPos - viewPos);
-	vec3 R = reflect(I, normalize(Normal)); // reflection
-	//vec3 R = refract(I, normalize(Normal), ratio); // refraction
-	vec3 skyboxReflect = texture(skybox, R).rgb;
-	vec3 envReflect = texture(cubemap, R).rgb;
+	vec3 Rl = reflect(I, normalize(Normal)); // reflection
+	vec3 Rf = refract(I, normalize(Normal), ratio); // refraction
+	vec3 rlColor = vec3(texture(skybox, Rl).rgb);
+	vec3 rfColor = vec3(texture(skybox, Rf).rgb);
 
-	vec3 reflectColor = mix(skyboxReflect, envReflect, 1.0); 
+	vec3 rrColor = mix(rlColor, rfColor, 0.3);
 
-//	vec3 color = mix(result, reflectColor, 0.05);
-	vec3 color = mix(result, reflectColor, 0.5);
+	vec3 color = mix(result, rrColor, 1.0);
 
-
-	FragColor = vec4(color, texture(material.diffuse, TexCoord).a);
+	FragColor = vec4(color, 0.2);
 }
 
 vec3 calculateDirectionalLight(DirectionalLight light, AmbientLight ambientLight, vec3 normal, vec3 viewDir) 

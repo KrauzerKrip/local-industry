@@ -19,8 +19,9 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_work.h"
 #include "lc_client/eng_gui/gui_console.h"
 #include "lc_client/eng_scene/skybox.h"
-#include "lc_client/util/cubemap_loader.h"
+#include "lc_client/eng_cubemaps/cubemap_loader.h"
 #include "lc_client/util/pack.h"
+#include "lc_client/eng_cubemaps/openGL/gl_cubemap_work.h"
 
 #include "lc_client/tier0/console/i_console.h"
 
@@ -82,7 +83,9 @@ void Game::init() {
 
 	m_pRender->init();
 
-	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pScene, m_pModelManager);
+	m_pCubemapWork = new CubemapWorkGl(&m_pScene->getSceneRegistry(), m_pResource);
+
+	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pCubemapWork, m_pScene, m_pModelManager);
 
 	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
 	pSkybox->setLightStrength(0.4);

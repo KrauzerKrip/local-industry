@@ -14,6 +14,7 @@
 #include "lc_client/eng_scene/entt/components.h"
 #include "entt/components.h"
 #include "lc_client/util/pack.h"
+#include "lc_client/eng_cubemaps/entt/components.h"
 
 
 Scene::Scene() {
@@ -41,6 +42,14 @@ void Scene::loadScene(std::string pack, std::string scene) {
 	m_utilRegistry.clear();
 
 	m_pSceneLoading->loadScene(pack + "/scenes/" + scene + "/scene.xml");
+
+
+	entt::entity cubemap = m_sceneRegistry.create();
+
+	m_sceneRegistry.emplace<CubemapLoadRequest>(cubemap, "dev/textures/test_cubemap/");
+	Transform transform;
+	transform.position = glm::vec3(0, 0, 0);
+	m_sceneRegistry.emplace<Transform>(cubemap, transform);
 
 	m_pGraphicsEntitiesLoading->loadMapEntities();
 	m_pGraphicsEntitiesLoading->loadSceneEntities();

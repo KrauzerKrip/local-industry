@@ -12,7 +12,8 @@
       "camera_model": "dev/shaders/frag/base.frag",
       "lighting": "dev/shaders/frag/lighting.frag",
       "framebuffer": "dev/shaders/frag/framebuffer.frag",
-      "skybox" : "dev/shaders/frag/skybox.frag"
+      "skybox": "dev/shaders/frag/skybox.frag",
+      "water": "dev/shaders/frag/water.frag"
     }
   },
 
@@ -88,6 +89,13 @@
       "material_type": "sg",
       "vertex_shader": "base",
       "fragment_shader": "lighting"
+    },
+    "test_cube_water": {
+      "model_path": "dev/models/test_cube_water/model.dae",
+      "textures_path": "dev/models/test_cube_water/",
+      "material_type": "sg",
+      "vertex_shader": "base",
+      "fragment_shader": "water"
     }
   }
 }

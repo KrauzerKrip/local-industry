@@ -92,7 +92,7 @@
       </transform>
       <model_data>
         <pack>dev</pack>
-        <model>test_cube_blend</model>
+        <model>test_cube_water</model>
       </model_data>
     </components>
   </entity>

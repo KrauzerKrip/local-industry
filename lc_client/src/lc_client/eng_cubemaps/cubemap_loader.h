@@ -3,8 +3,8 @@
 #include <string>
 #include <memory>
 
-#include "image.h"
-#include "eng_resource.h"
+#include "lc_client/util/image.h"
+#include "lc_client/util/eng_resource.h"
 
 
 struct CubemapMaterial {

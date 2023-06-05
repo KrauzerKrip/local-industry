@@ -13,6 +13,7 @@
 #include "lc_client/eng_model/entt/components.h"
 #include "lc_client/eng_lighting/entt/components.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
+#include "lc_client/eng_cubemaps/entt/components.h"
 
 
 RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork) { 
@@ -64,14 +65,44 @@ void RenderGL::render() {
 	// }
 
 
+	auto cubemapEntities = m_pSceneRegistry->view<CubemapGl, Transform>();
+
 	auto pointLights = m_pSceneRegistry->view<Transform, PointLight>();
 
 	auto materialEntitiesGroup = m_pSceneRegistry->group<Model, Transform, ShaderGl>(); // TODO
 
+
 	for (entt::entity entity : materialEntitiesGroup) {
+		float minDistance = 0;
+		unsigned int nearestCubemapId = 0;
+
+		Transform& transform = materialEntitiesGroup.get<Transform>(entity);
+		glm::vec3& position = transform.position;
+
+		bool isFirstTime = true;
+
+		for (entt::entity cubemap : cubemapEntities) {
+			Transform& cubemapTransform = cubemapEntities.get<Transform>(cubemap);
+			glm::vec3& cubemapPosition = cubemapTransform.position;
+			unsigned int cubemapId = cubemapEntities.get<CubemapGl>(cubemap).textureId;
+
+			if (isFirstTime) {
+				float distance = glm::distance(cubemapPosition, position);	
+				minDistance = distance;
+				nearestCubemapId = cubemapId;
+			}
+			else {
+				float distance = glm::distance(cubemapPosition, position);
+				if (distance < minDistance) {
+					minDistance = distance;
+					nearestCubemapId = cubemapId;
+				}
+			}
+
+			isFirstTime = false;
+		}
 
 		Model& model = materialEntitiesGroup.get<Model>(entity);
-		Transform& transform = materialEntitiesGroup.get<Transform>(entity);
 
 		std::vector<entt::entity>& meshes = model.meshes;
 
@@ -80,8 +111,14 @@ void RenderGL::render() {
 		glUseProgram(shaderProgram);
 
 		m_pSkybox->bindTexture();
+
+		if (nearestCubemapId != 0) {
+			glActiveTexture(GL_TEXTURE0 + TextureType::CUBEMAP);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, nearestCubemapId);
+		}
 		 
 		setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
+		setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
 
 		setUniform(shaderProgram, "material.diffuse", TextureType::DIFFUSE);
 		setUniform(shaderProgram, "material.normal", TextureType::NORMAL);
@@ -137,7 +174,6 @@ void RenderGL::render() {
 		glm::mat4 normalMatrix = modelMatrix;
 		glm::inverse(normalMatrix);
 		glm::transpose(normalMatrix);
-
 
 		// glm::mat4 modelView = view * model;
 

@@ -18,6 +18,7 @@
 #include "lc_client/eng_graphics/shader_work.h"
 #include "lc_client/tier0/tier0.h"
 #include "lc_client/eng_gui/gui_console.h"
+#include "lc_client/eng_cubemaps/cubemap_work.h"
 
 
 class Game : public IGameLogic {
@@ -43,6 +44,8 @@ private:
 	MeshWork* m_pMeshWork;
 	ShaderWork* m_pShaderWorkScene;
 	ConsoleGui* m_pConsoleGui;
+	CubemapWork* m_pCubemapWork;
+
 
 	Tier0* m_pTier0;
 	Tier1* m_pTier1;

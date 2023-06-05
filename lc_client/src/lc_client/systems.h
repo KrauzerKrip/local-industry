@@ -3,6 +3,7 @@
 #include "tier1/tier1.h"
 #include "eng_graphics/shader_work.h"
 #include "eng_graphics/mesh_work.h"
+#include "eng_cubemaps/cubemap_work.h"
 #include "eng_scene/scene.h"
 #include "eng_model/model_manager.h"
 
@@ -10,11 +11,12 @@
 #include "eng_graphics/material_system.h"
 #include "eng_model/model_system.h"
 #include "eng_script/script_system.h"
+#include "eng_cubemaps/cubemap_system.h"
 
 
 class Systems {
 public:
-	Systems(Tier1* pTier1, ShaderWork* pShaderWork, MeshWork* pMeshWork, Scene* pScene, ModelManager* pModelManager);
+	Systems(Tier1* pTier1, ShaderWork* pShaderWork, MeshWork* pMeshWork, CubemapWork* pCubemapWork, Scene* pScene, ModelManager* pModelManager);
 
 	void update();
 	void frame();
@@ -23,6 +25,7 @@ private:
 	Tier1* m_pTier1 = nullptr;
 	ShaderWork* m_pShaderWork = nullptr;
 	MeshWork* m_pMeshWork = nullptr;
+	CubemapWork* m_pCubemapWork = nullptr;
 	Scene* m_pScene = nullptr;
 	ModelManager* m_pModelManager = nullptr;
 
@@ -30,4 +33,6 @@ private:
 	MaterialSystem* m_pMaterialSystem = nullptr;
 	ModelSystem* m_pModelSystem = nullptr;
 	ScriptSystem* m_pScriptSystem = nullptr;
+	CubemapSystem* m_pCubemapSystem = nullptr;
+
 };
