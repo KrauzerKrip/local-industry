@@ -7,6 +7,7 @@ in vec3 Normal;
 in vec3 FragPos;
 
 uniform samplerCube skybox;
+uniform sampler2D diffuse;
 
 struct Material {
 	sampler2D diffuse;

@@ -11,7 +11,13 @@
 #include "lc_client/eng_scene/skybox.h"
 #include "gl_shader_work.h"
 #include "lc_client/eng_graphics/openGL/gl_framebuffer.h"
+#include "lc_client/eng_cubemaps/entt/components.h"
+#include "lc_client/eng_lighting/entt/components.h"
 
+
+typedef decltype(entt::registry().view<CubemapGl, Transform>()) CubemapView;
+typedef decltype(entt::registry().view<Transform, PointLight>()) PointLightView;
+typedef decltype(entt::registry().view<Transform, SpotLight>()) SpotLightView;
 
 class ShaderWorkGl;
 
@@ -29,6 +35,13 @@ public:
 private:
 	void transform(glm::mat4& transformation, Transform& transform);
 	void createFramebufferVao();
+
+	void setLighting(unsigned int shaderProgram, PointLightView& pointLights);
+
+	void setPointLight(unsigned int shaderProgram, int number, PointLight& pointLight, Transform& transform);
+	void setMaterialSg(unsigned int shaderProgram);
+	unsigned int getNearestCubemap(glm::vec3& entityPosition, CubemapView& cubemapEntities);
+	void setMatrices(unsigned int shaderProgram, glm::mat4& model, glm::mat4& view, glm::mat4 projection);
 
 	IWindow* m_pWindow; //mb remove it
 	Camera* m_pCamera;
