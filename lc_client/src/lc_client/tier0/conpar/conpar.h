@@ -33,6 +33,7 @@ public:
 
 	T getValue() const;
 	void setValue(T value);
+	inline void setValueConvert(std::string value);
 
 private:
 	const std::string m_name;
@@ -68,4 +69,25 @@ template <IsAppliableType T> void ConPar<T>::setValue(T value) {
 	else {
 		m_value = value;
 	}
+}
+
+template <IsAppliableType T> inline void ConPar<T>::setValueConvert(std::string value){}; 
+
+template <> inline void ConPar<bool>::setValueConvert(std::string value) {
+	if ((value == "true") || (value == "1")) {
+		m_value = true;
+	}
+	else if ((value == "false") || (value == "0")) {
+		m_value = false;
+	}
+	else {
+		throw std::invalid_argument("Command.cpp: Not valid bool.");
+	}
+}
+
+template <> inline void ConPar<int>::setValueConvert(std::string value) {
+	m_value = std::stoi(value);
+}
+template <> inline void ConPar<float>::setValueConvert(std::string value) {
+	m_value = std::stof(value);
 }
