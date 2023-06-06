@@ -1,11 +1,4 @@
 #include "gl_render.h"
-#include "gl_render.h"
-#include "gl_render.h"
-#include "gl_render.h"
-#include "gl_render.h"
-#include "gl_render.h"
-#include "gl_render.h"
-#include "gl_render.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -70,6 +63,8 @@ void RenderGL::render() {
 	// }
 
 
+	namespace sc = std::chrono;
+
 	entt::view<entt::get_t<CubemapGl, Transform>, entt::exclude_t<>> cubemapEntities =
 		m_pSceneRegistry->view<CubemapGl, Transform>();
 
@@ -115,9 +110,53 @@ void RenderGL::render() {
 		}
 	}
 
+
 	glDepthFunc(GL_LEQUAL);
 	m_pSkybox->render(projection, view);
 	glDepthFunc(GL_LESS);
+
+	auto waterEntitiesGroup = m_pSceneRegistry->view<Water, Model, Transform, ShaderGl>();
+
+	for (entt::entity entity : waterEntitiesGroup) {
+		Model& model = waterEntitiesGroup.get<Model>(entity);
+		std::vector<entt::entity>& meshes = model.meshes;
+		unsigned int shaderProgram = waterEntitiesGroup.get<ShaderGl>(entity).shaderProgram;
+		glUseProgram(shaderProgram);
+		m_pSkybox->bindTexture();
+		Transform& transform = waterEntitiesGroup.get<Transform>(entity);
+		unsigned int nearestCubemapId = getNearestCubemap(transform.position, cubemapEntities);
+		if (nearestCubemapId != 0) {
+			glActiveTexture(GL_TEXTURE0 + TextureType::CUBEMAP);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, nearestCubemapId);
+		}
+
+		m_pFramebuffer->bindTexture();
+		setUniform(shaderProgram, "framebuffer", TextureType::FRAMEBUFFER);
+
+		setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
+		setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
+		setLighting(shaderProgram, pointLights);
+		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
+		glm::mat4 modelMatrix = glm::mat4(1.0f);
+		RenderGL::transform(modelMatrix, transform);
+		setMatrices(shaderProgram, modelMatrix, view, projection);
+
+		for (entt::entity& meshEntity : meshes) {
+			Mesh& mesh = m_pUtilRegistry->get<Mesh>(meshEntity);
+			int vao = m_pUtilRegistry->get<VaoGl>(meshEntity).vaoId;
+			MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(meshEntity);
+			Texture* aoTexture = materialSG.aoTexture;
+			Texture* diffuseTexture = materialSG.diffuseTexture;
+			Texture* normalMap = materialSG.normalMap;
+			Texture* specularMap = materialSG.specularTexture;
+			aoTexture->bind();
+			diffuseTexture->bind();
+			normalMap->bind();
+			specularMap->bind();
+			glBindVertexArray(vao);
+			glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
+		}
+	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
 	m_pFramebuffer->bindTexture();
@@ -125,6 +164,7 @@ void RenderGL::render() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(m_framebufferShader);
+	setUniform(m_framebufferShader, "screenTexture", TextureType::FRAMEBUFFER);
 
 	glBindVertexArray(m_framebufferVao);
 	glDrawArrays(GL_TRIANGLES, 0, 6);

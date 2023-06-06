@@ -116,10 +116,10 @@ void main()
 	vec3 skyboxReflect = texture(skybox, R).rgb;
 	vec3 envReflect = texture(cubemap, R).rgb;
 
-	vec3 reflectColor = mix(skyboxReflect, envReflect, 1.0); 
+	vec3 reflectColor = mix(skyboxReflect, envReflect, 0.0); 
 
 //	vec3 color = mix(result, reflectColor, 0.05);
-	vec3 color = mix(result, reflectColor, 0.5);
+	vec3 color = mix(result, reflectColor, 0.05);
 
 
 	FragColor = vec4(color, texture(material.diffuse, TexCoord).a);

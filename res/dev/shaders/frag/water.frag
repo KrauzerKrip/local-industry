@@ -5,9 +5,10 @@ out vec4 FragColor;
 in vec2 TexCoord;
 in vec3 Normal;
 in vec3 FragPos;
+in vec4 ClipSpace;
 
 uniform samplerCube skybox;
-uniform sampler2D diffuse;
+uniform sampler2D framebuffer;
 
 struct Material {
 	sampler2D diffuse;
@@ -69,6 +70,7 @@ uniform vec3 viewPos;
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
 uniform int pointLightsCount;
 
+vec3 waterColor = vec3(0.8, 0.8, 1.0);
 
 vec3 calculateDirectionalLight(DirectionalLight light, AmbientLight ambientLight, vec3 normal, vec3 viewDir);
 vec3 calculatePointLight(PointLight light, AmbientLight ambientLight, vec3 normal, vec3 fragPos, vec3 viewDir);
@@ -104,9 +106,8 @@ void main()
 		result += calculateSpotLight(spotLight, ambientLight, normal, FragPos, viewDir);
 	}
 	else {
-		result += ambientLight.color * ambientLight.strength * vec3(texture(material.diffuse, TexCoord));
+		result += ambientLight.color * ambientLight.strength * waterColor;
 	}
-
 
 	float ratio = 1.00 / 1.52;
 
@@ -118,9 +119,17 @@ void main()
 
 	vec3 rrColor = mix(rlColor, rfColor, 0.3);
 
-	vec3 color = mix(result, rrColor, 1.0);
+	vec3 color = mix(result, rrColor, 0.0);
 
-	FragColor = vec4(color, 0.2);
+	vec2 ndc = vec2(ClipSpace.xy / ClipSpace.w); 
+	ndc = ndc / 2.0 + 0.5; // translate to screen space coords
+	vec2 refrCoord = vec2(ndc.x, ndc.y);
+
+	vec3 screenColor = texture(framebuffer, refrCoord).rgb;
+
+	vec3 color2 = mix(color, screenColor, 0.7);
+
+	FragColor = vec4(color2, 1.0);
 }
 
 vec3 calculateDirectionalLight(DirectionalLight light, AmbientLight ambientLight, vec3 normal, vec3 viewDir) 
@@ -132,8 +141,8 @@ vec3 calculateDirectionalLight(DirectionalLight light, AmbientLight ambientLight
 	vec3 reflectDir = reflect(-lightDir, normal);
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
 	// combine results
-	vec3 ambient = ambientLight.color * ambientLight.strength * vec3(texture(material.diffuse, TexCoord));
-	vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoord));
+	vec3 ambient = ambientLight.color * ambientLight.strength * waterColor;
+	vec3 diffuse = light.diffuse * diff * waterColor;
 	vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoord));
 
 	return (ambient + diffuse + specular) / 4;
@@ -153,8 +162,8 @@ vec3 calculatePointLight(PointLight light, AmbientLight ambientLight, vec3 norma
 	float attenuation = 1.0 / (light.constant + light.linear * distance +
 	light.quadratic * (distance * distance));
 	// combine results
-	vec3 ambient = ambientLight.color * ambientLight.strength * vec3(texture(material.diffuse, TexCoord));
-	vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoord));
+	vec3 ambient = ambientLight.color * ambientLight.strength * waterColor;
+	vec3 diffuse = light.diffuse * diff * waterColor;
 	vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoord));
 
 	ambient *= attenuation;
@@ -173,7 +182,7 @@ vec3 calculateSpotLight(SpotLight light, AmbientLight ambientLight, vec3 normal,
 		light.quadratic * (distance * distance)); // Fatt = 1.0 / (Kc + K1*d + Kq * d^2)
 
 		float diff = max(dot(normal, lightDir), 0.0);
-		vec3 diffuse = 1 * diff * vec3(texture(material.diffuse, TexCoord));
+		vec3 diffuse = 1 * diff * waterColor;
 
 		vec3 reflectDir = reflect(-lightDir, normal);
 
@@ -184,7 +193,7 @@ vec3 calculateSpotLight(SpotLight light, AmbientLight ambientLight, vec3 normal,
 		float epsilon = light.cutOff - light.outerCutOff;
 		float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
 
-		vec3 ambient = ambientLight.color * ambientLight.strength * vec3(texture(material.diffuse, TexCoord));
+		vec3 ambient = ambientLight.color * ambientLight.strength * waterColor;
 
 		//ambient *= attenuation;
 		diffuse *= intensity * attenuation;

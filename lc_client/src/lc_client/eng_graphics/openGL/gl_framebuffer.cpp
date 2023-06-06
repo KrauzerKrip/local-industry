@@ -3,6 +3,8 @@
 #include <glad/glad.h>
 #include <iostream>
 
+#include "lc_client/eng_graphics/texture.h"
+
 #include <cassert>
 
 
@@ -55,6 +57,6 @@ void Framebuffer::bind() {
 }
 
 void Framebuffer::bindTexture() {
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE0 + TextureType::FRAMEBUFFER);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 }

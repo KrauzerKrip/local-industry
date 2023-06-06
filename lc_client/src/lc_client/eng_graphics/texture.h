@@ -8,7 +8,7 @@
 
 enum TextureType {
 	NONE = -1,
-	COLOR = 0,
+	FRAMEBUFFER = 0,
 	NORMAL = 1,
 	AO = 2,
 	METALLIC = 3,

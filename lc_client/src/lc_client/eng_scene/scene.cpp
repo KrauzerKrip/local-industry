@@ -43,6 +43,12 @@ void Scene::loadScene(std::string pack, std::string scene) {
 
 	m_pSceneLoading->loadScene(pack + "/scenes/" + scene + "/scene.xml");
 
+	auto view = m_sceneRegistry.view<Properties>();
+	for (auto& ent : view) {
+		if (view.get<Properties>(ent).id == "cube_water") {
+			m_sceneRegistry.emplace<Water>(ent);
+		}
+	}
 
 	entt::entity cubemap = m_sceneRegistry.create();
 

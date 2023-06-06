@@ -5,7 +5,8 @@
     "vertex": {
       "base": "dev/shaders/vert/base.vert",
       "framebuffer": "dev/shaders/vert/framebuffer.vert",
-      "skybox": "dev/shaders/vert/skybox.vert"
+      "skybox": "dev/shaders/vert/skybox.vert",
+      "water" :  "dev/shaders/vert/water.vert"
     },
     "fragment": {
       "base": "dev/shaders/frag/base.frag",
@@ -94,7 +95,7 @@
       "model_path": "dev/models/test_cube_water/model.dae",
       "textures_path": "dev/models/test_cube_water/",
       "material_type": "sg",
-      "vertex_shader": "base",
+      "vertex_shader": "water",
       "fragment_shader": "water"
     }
   }

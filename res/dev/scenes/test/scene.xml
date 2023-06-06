@@ -83,7 +83,7 @@
       </model_data>
     </components>
   </entity>
-  <entity id="cube_1" uuid="">
+  <entity id="cube_water" uuid="">
     <components>
       <transform>
         <position x="5" y="0" z="-0.5"></position>
