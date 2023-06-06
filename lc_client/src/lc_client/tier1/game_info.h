@@ -20,5 +20,5 @@ public:
 	std::map<std::string, std::string> getConfig();
 
 private: 
-	nlohmann::json m_json;
+	static nlohmann::json m_json;
 };

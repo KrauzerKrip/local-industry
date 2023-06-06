@@ -7,8 +7,10 @@ using json = nlohmann::json;
 
 
 GameInfo::GameInfo(eng::IResource* pResource) {
-	std::vector<unsigned char> buffer = pResource->getFileResource("info.json");
-	m_json = json::parse(buffer);
+	if (m_json.empty()) {
+		std::vector<unsigned char> buffer = pResource->getFileResource("info.json");
+		m_json = json::parse(buffer);
+	}
 }
 
 std::string GameInfo::getProject() { return m_json.at("project"); }
@@ -34,3 +36,5 @@ std::map<std::string, std::string> GameInfo::getConfig() {
 
 	return config;
 }
+
+nlohmann::json GameInfo::m_json;
