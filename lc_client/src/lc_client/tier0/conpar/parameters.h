@@ -15,7 +15,7 @@ public:
 	template <IsAppliableType T> void setParameterValue(std::string name, T value) {
 		ConPar<T>& conpar = getParameter<T>(name); 
 		
-		if (conpar.checkFlag(Flags::CHEATS) && !getParameterValue<bool>("sv_cheats")) {
+		if (conpar.checkFlag(ConparFlags::CHEATS) && !getParameterValue<bool>("sv_cheats")) {
 			throw ConsoleParameterCheatsException(name);
 		}
 
