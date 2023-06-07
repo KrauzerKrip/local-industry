@@ -10,6 +10,18 @@
 #include "lc_client/tier0/tier0.h"
 
 
+void printException(const std::exception& e, int level = 0) {
+	std::cerr << std::string(level, ' ') << "Exception: " << e.what() << '\n';
+	try {
+		std::rethrow_if_nested(e);
+	}
+	catch (const std::exception& nestedException) {
+		printException(nestedException, level + 1);
+	}
+	catch (...) {
+	}
+}
+
 int main() {
 
 	std::string title = "Local` Engine";
@@ -42,7 +54,7 @@ int main() {
 		pWindow->terminate(); // mb in loop
 	}
 	catch (std::runtime_error& exception) {
-		std::cerr << "Exception: " << exception.what() << std::endl;
+		printException(exception);
 		exit(-1);
 	}
 
