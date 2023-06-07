@@ -33,7 +33,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pCamera = new Camera();
 	m_pResource = new eng::Resource("D:/Industry/industry/res/");
 	m_pTier0 = pTier0;
-	m_pTier1 = new Tier1Gl(m_pResource);
+	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
 }
 
 Game::~Game() {

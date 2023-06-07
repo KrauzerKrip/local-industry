@@ -6,11 +6,15 @@
 using json = nlohmann::json;
 
 
-GameInfo::GameInfo(eng::IResource* pResource) {
+GameInfo::GameInfo() {
 	if (m_json.empty()) {
-		std::vector<unsigned char> buffer = pResource->getFileResource("info.json");
-		m_json = json::parse(buffer);
+		assert("GameInfo json isn`t parsed.");
 	}
+}
+
+void GameInfo::parse(eng::IResource* pResource) {
+	std::vector<unsigned char> buffer = pResource->getFileResource("info.json");
+	m_json = json::parse(buffer);
 }
 
 std::string GameInfo::getProject() { return m_json.at("project"); }

@@ -11,8 +11,10 @@
 
 class GameInfo {
 public:
-	GameInfo(eng::IResource* pResource);
+	GameInfo();
 	~GameInfo() = default;
+
+	static void parse(eng::IResource* pResource);
 
 	std::string getProject();
 	std::string getVersion();

@@ -18,4 +18,6 @@ target_sources(lc_client
         "game_info.cpp"
         "tier1.h"
         "tier1.cpp"
+        "config.h"
+        "config.cpp"
 )

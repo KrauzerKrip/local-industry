@@ -38,7 +38,7 @@ ShaderManagerGl::~ShaderManagerGl() {
  */
 void ShaderManagerGl::loadShaders() {
 
-	GameInfo gameInfo(m_pResource);
+	GameInfo gameInfo;
 	std::map<std::string, std::string> packs = gameInfo.getPacks();
 
 	for (auto& [name, path] : packs) {

@@ -22,6 +22,8 @@ public:
 		conpar.setValue(value);
 	}
 
+	void setParameterValueConvert(std::string name, std::string value);
+
 	void addParameter(ConPar<bool> parameter);
 	void addParameter(ConPar<std::string> parameter);
 	void addParameter(ConPar<int> parameter);
