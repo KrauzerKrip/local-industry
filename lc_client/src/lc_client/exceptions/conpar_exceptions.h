@@ -21,3 +21,10 @@ public:
 		: std::runtime_error(
 			  "Console parameter '" + name + "' is protected by sv_cheats.") {}
 };
+
+class ConfigException : public std::runtime_error {
+public:
+	ConfigException()
+		: std::runtime_error("Config reading exception: ") {}
+};
+
