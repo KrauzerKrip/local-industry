@@ -25,6 +25,7 @@ target_sources(lc_client
     "api/helpers/glm_helpers.h"
     "api/helpers/glm_helpers.cpp"
     "api/helpers/components.h"
+    "api/helpers/components.cpp"
 
     "script_system.h"
     "script_system.cpp"

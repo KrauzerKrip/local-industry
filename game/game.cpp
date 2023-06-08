@@ -198,30 +198,57 @@ void Game::update() {
 
 	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
 
-	m_pSystems->update();
+	auto view_ = pSceneRegistry->view<Properties, Transform>();
+	for (auto& ent : view_) {
+		if (view_.get<Properties>(ent).id == "cube") {
+			Transform& transform = view_.get<Transform>(ent);
 
-	auto view = pSceneRegistry->view<Properties, Transform>();
+			std::string id = ScriptSystem::m_currentId;
 
-	for (auto& entity : view) {
-		if (view.get<Properties>(entity).id == "example_entity_1") {
-			glm::vec3& rotation = view.get<Transform>(entity).rotation;
-			rotation += glm::vec3(1.0, -1.0, 1.0) * Time::getDeltaTime();
-			if (rotation.x > 89.0f)
-				rotation.x = 0.0f;
-			if (rotation.x < -89.0f)
-				rotation.x = 0.0f;
+			long iPtr = (long)&transform;
 
-			using namespace std::chrono;
-
-			auto time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-
-
-			glm::vec3& position = view.get<Transform>(entity).position;
-
-			// position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
-			// position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
+			std::string str = std::to_string(iPtr);
+			m_pTier0->getIConsole()->devMessage("GAME: PRE SYSTEMS transform PTR: " + str);
 		}
 	}
+
+	m_pSystems->update();
+
+	for (auto& ent : view_) {
+		if (view_.get<Properties>(ent).id == "cube") {
+			Transform& transform = view_.get<Transform>(ent);
+
+			std::string id = ScriptSystem::m_currentId;
+
+			long iPtr = (long)&transform;
+
+			std::string str = std::to_string(iPtr);
+			m_pTier0->getIConsole()->devMessage("GAME: POST SYSTEMS transform PTR: " + str);
+		}
+	}
+
+	//auto view = pSceneRegistry->view<Properties, Transform>();
+
+	//for (auto& entity : view) {
+	//	if (view.get<Properties>(entity).id == "example_entity_1") {
+	//		glm::vec3& rotation = view.get<Transform>(entity).rotation;
+	//		rotation += glm::vec3(1.0, -1.0, 1.0) * Time::getDeltaTime();
+	//		if (rotation.x > 89.0f)
+	//			rotation.x = 0.0f;
+	//		if (rotation.x < -89.0f)
+	//			rotation.x = 0.0f;
+
+	//		using namespace std::chrono;
+
+	//		auto time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+
+
+	//		glm::vec3& position = view.get<Transform>(entity).position;
+
+	//		// position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
+	//		// position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
+	//	}
+	//}
 }
 
 void Game::render() {

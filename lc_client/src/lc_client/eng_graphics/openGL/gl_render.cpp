@@ -14,6 +14,8 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 #include "lc_client/eng_cubemaps/entt/components.h"
 
+#include "lc_client/tier0/tier0.h"
+
 
 RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork) {
 	m_pWindow = pWindow; // mb remove it
@@ -63,14 +65,12 @@ void RenderGL::render() {
 	// }
 
 
-	namespace sc = std::chrono;
-
 	entt::view<entt::get_t<CubemapGl, Transform>, entt::exclude_t<>> cubemapEntities =
 		m_pSceneRegistry->view<CubemapGl, Transform>();
 
 	auto pointLights = m_pSceneRegistry->view<Transform, PointLight>();
 
-	auto materialEntitiesGroup = m_pSceneRegistry->group<Model, Transform, ShaderGl>(entt::exclude<Water>); // TODO
+	auto materialEntitiesGroup = m_pSceneRegistry->group<Model, Transform, ShaderGl, Properties>(entt::exclude<Water>); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
 		Model& model = materialEntitiesGroup.get<Model>(entity);
@@ -92,6 +92,21 @@ void RenderGL::render() {
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);
 		setMatrices(shaderProgram, modelMatrix, view, projection);
+
+		glm::vec3& pos = transform.position;
+		std::string x = std::to_string(pos.x);
+		std::string y = std::to_string(pos.y);
+		std::string z = std::to_string(pos.z);
+
+		std::string id = materialEntitiesGroup.get<Properties>(entity).id;
+
+		if (id == "cube") {
+			long iPtr = (long)&transform;
+			std::string str = std::to_string(iPtr);
+			Tier0::getIConsole()->devMessage("RENDER Transform ptr: " + id + " " + str);
+		}
+
+		Tier0::getIConsole()->devMessage(id + " " + x + " " + y + " " + z);
 
 		for (entt::entity& meshEntity : meshes) {
 			Mesh& mesh = m_pUtilRegistry->get<Mesh>(meshEntity);

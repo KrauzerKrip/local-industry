@@ -15,6 +15,7 @@
 #include "entt/components.h"
 #include "lc_client/util/pack.h"
 #include "lc_client/eng_cubemaps/entt/components.h"
+#include "lc_client/tier0/tier0.h"
 
 
 Scene::Scene() {
@@ -47,6 +48,19 @@ void Scene::loadScene(std::string pack, std::string scene) {
 	for (auto& ent : view) {
 		if (view.get<Properties>(ent).id == "cube_water") {
 			m_sceneRegistry.emplace<Water>(ent);
+		}
+	}
+
+	auto view2 = m_sceneRegistry.view<Properties, Transform>();
+	for (auto& ent : view2) {
+		if (view.get<Properties>(ent).id == "cube") {
+
+			Transform& transform = view2.get<Transform>(ent);
+
+			std::string id = view2.get<Properties>(ent).id;
+			long iPtr = (long)&transform;
+			std::string str = std::to_string(iPtr);
+			Tier0::getIConsole()->devMessage("Transform ptr scene: " + id + " " + str);
 		}
 	}
 
