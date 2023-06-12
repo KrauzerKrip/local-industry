@@ -107,7 +107,7 @@ void RenderGL::render() {
 			normalMap->bind();
 			specularMap->bind();
 			glBindVertexArray(vao);
-			glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, (GLsizei) mesh.indices.size(), GL_UNSIGNED_INT, 0);
 		}
 	}
 
@@ -155,7 +155,7 @@ void RenderGL::render() {
 			normalMap->bind();
 			specularMap->bind();
 			glBindVertexArray(vao);
-			glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, (GLsizei) mesh.indices.size(), GL_UNSIGNED_INT, 0);
 		}
 	}
 

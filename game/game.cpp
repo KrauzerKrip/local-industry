@@ -91,7 +91,7 @@ void Game::init() {
 	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pCubemapWork, m_pScene, m_pModelManager);
 
 	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
-	pSkybox->setLightStrength(0.4);
+	pSkybox->setLightStrength(0.4f);
 
 
 	auto dirLight = m_pScene->getSceneRegistry().create(); // temp
@@ -134,8 +134,8 @@ void Game::input() {
 		return;
 	}
 
-	double offsetMouseX = m_pInput->getMousePosX() - m_lastMousePosX;
-	double offsetMouseY = m_lastMousePosY - m_pInput->getMousePosY();
+	float offsetMouseX = (float) (m_pInput->getMousePosX() - m_lastMousePosX);
+	float offsetMouseY = (float) (m_lastMousePosY - m_pInput->getMousePosY());
 
 	m_lastMousePosX = m_pInput->getMousePosX();
 	m_lastMousePosY = m_pInput->getMousePosY();
@@ -153,7 +153,7 @@ void Game::input() {
 	m_pCamera->setRotation(cameraRot);
 
 
-	float cameraSpeed = 0.05;
+	float cameraSpeed = 0.05f;
 
 	glm::vec3 cameraPos = m_pCamera->getPosition();
 

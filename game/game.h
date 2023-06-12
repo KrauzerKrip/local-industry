@@ -33,22 +33,22 @@ public:
 	void cleanUp();
 
 private:
-	IWindow* m_pWindow;;
-	IInput* m_pInput;
-	Camera* m_pCamera;
-	IRender* m_pRender;
-	Scene* m_pScene;
-	eng::IResource* m_pResource;
-	ModelManager* m_pModelManager;
-	Systems* m_pSystems;
-	MeshWork* m_pMeshWork;
-	ShaderWork* m_pShaderWorkScene;
-	ConsoleGui* m_pConsoleGui;
-	CubemapWork* m_pCubemapWork;
+	IWindow* m_pWindow = nullptr;
+	IInput* m_pInput = nullptr;
+	Camera* m_pCamera = nullptr;
+	IRender* m_pRender = nullptr;
+	Scene* m_pScene = nullptr;
+	eng::IResource* m_pResource = nullptr;
+	ModelManager* m_pModelManager = nullptr;
+	Systems* m_pSystems = nullptr;
+	MeshWork* m_pMeshWork = nullptr;
+	ShaderWork* m_pShaderWorkScene = nullptr;
+	ConsoleGui* m_pConsoleGui = nullptr;
+	CubemapWork* m_pCubemapWork = nullptr;
 
 
-	Tier0* m_pTier0;
-	Tier1* m_pTier1;
+	Tier0* m_pTier0 = nullptr;
+	Tier1* m_pTier1 = nullptr;
 
 	double m_lastMousePosX = 0.0;
 	double m_lastMousePosY = 0.0;
