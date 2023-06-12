@@ -16,7 +16,7 @@ function frame() end
 function update() 
 	transform = api.registry:getTransform(entity.ent)
 	position = transform:getPosition()
-	position:setX(position:x() + 0.01)
+	position:setY(position:y() + 0.01)
 end
 
 function use()

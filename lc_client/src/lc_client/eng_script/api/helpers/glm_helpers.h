@@ -5,7 +5,7 @@
 
 class Vec3fHelper {
 public:
-	Vec3fHelper(const glm::vec3& vector) : m_vector(vector){};
+	Vec3fHelper(glm::vec3& vector) : m_vector(vector){};
 
 	float x() const { return m_vector.x; };
 
@@ -26,5 +26,5 @@ public:
 	}
 
 private:
-	glm::vec3 m_vector;
+	glm::vec3& m_vector;
 };

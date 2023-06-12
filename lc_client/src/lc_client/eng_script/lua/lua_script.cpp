@@ -11,6 +11,7 @@
 #include "lc_client/eng_script/api/bindings/glm_binding.h"
 #include "lc_client/eng_script/api/bindings/api_binding.h"
 #include "lc_client/exceptions/lua_exceptions.h"
+#include "lc_client/eng_script/api/bindings/registry_helper_binding.h"
 
 
 using namespace luabridge;
@@ -53,13 +54,11 @@ ScriptLua::ScriptLua(const std::string path, const eng::IResource* resource) {
 lua_State* ScriptLua::getState() { return m_pL; }
 
 void ScriptLua::loadAPI() { 
-
 	bindVec3(m_pL);
 	bindTransform(m_pL);
 	bindPointLight(m_pL);
 
 	bindApi(m_pL);
 	bindSceneApi(m_pL);
-
-
+	bindRegistryHelper(m_pL);
 }

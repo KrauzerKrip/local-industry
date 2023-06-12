@@ -6,14 +6,17 @@ function init(ent, Api)
 	entity.ent = ent
 	api.scene = Api:getSceneApi()
 
-	api.scene:requestModel(ent, "dev", "lamp")
+	api.scene = Api:getSceneApi()
+	api.registry = api.scene:getRegistry()
+
+	api.registry:requestModel(ent, "dev", "lamp")
 
 	--entity.transform = api.scene:addTransform(ent)
 	--scale = entity.transform:getScale()
 	--scale:setXYZ(0.1, 0.1, 0.1)
 	--entity.transform:setScale(scale)
 
-	entity.point_light = api.scene:addPointLight(ent)
+	entity.point_light = api.registry:addPointLight(ent)
 	entity.point_light:setColor(255, 255, 230);
 end
 

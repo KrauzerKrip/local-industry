@@ -11,21 +11,18 @@ class TransformHelper {
 public:
 	TransformHelper(entt::entity entity, entt::registry* pSceneRegistry);
 	
-	Vec3fHelper getPosition() { //
-		Transform& transform = m_pRegistry->get<Transform>(m_entity);
-		
-		return Vec3fHelper(transform.position); 
-	};
+	Vec3fHelper getPosition();
 
 	void setPosition(Vec3fHelper vector);
 
-	Vec3fHelper getScale() { return Vec3fHelper(m_transform.scale); };
+	Vec3fHelper getScale() { return Vec3fHelper(m_transform->scale); };
 
-	void setScale(Vec3fHelper vector) { m_transform.scale = glm::vec3(vector.x(), vector.y(), vector.z());
+	void setScale(Vec3fHelper vector) { m_transform->scale = glm::vec3(vector.x(), vector.y(), vector.z());
 	};
 
 private:
-	Transform& m_transform;
+	Transform* m_transform;
+	Transform* m_transform2;
 	entt::entity m_entity;
 	entt::registry* m_pRegistry;
 };

@@ -15,7 +15,7 @@
       <script is_eternal="false">dev/entities/light_test/entity.lua</script>
     </components>
   </entity>
-  <!--<entity id="light_0" uuid="">
+  <entity id="light_0" uuid="">
     <components>
       <transform>
         <position x="-4" y="0.1" z="-4"></position>
@@ -35,13 +35,13 @@
         <position x="4" y="0.1" z="-4"></position>
         <rotation x="0" y="0" z="0"></rotation>
         <scale x="0.1" y="0.1" z="0.1"></scale>
-      </transform>
+      </transform>   
       <model_data>
         <pack>dev</pack>
         <model>test_cube</model>
       </model_data>
       <script is_eternal="false">dev/entities/light_test/entity.lua</script>
-    </components>
+    </components> 
   </entity>
   <entity id="light_3" uuid="">
     <components>
@@ -56,7 +56,7 @@
       </model_data>
       <script is_eternal="false">dev/entities/light_test/entity.lua</script>
     </components>
-  </entity>-->
+  </entity>
   <entity id="cube_water" uuid="">
     <components>
       <transform>
@@ -68,6 +68,7 @@
         <pack>dev</pack>
         <model>test_cube_water</model>
       </model_data>
+    <script is_eternal="false">dev/scripts/example_script_2.lua</script>
     </components>
   </entity>
   <entity id="surface" uuid="">
@@ -83,6 +84,19 @@
       </model_data>
     </components>
   </entity>
+  <!--<entity id="cube_2" uuid="">
+    <components>
+      <transform>
+        <position x="2.0" y="0" z="0.0"></position>
+        <rotation x="0" y="1" z="0"></rotation>
+        <scale x="1" y="1" z="1"></scale>
+      </transform>
+      <model_data>
+        <pack>dev</pack>
+        <model>test_cube</model>
+      </model_data>
+    </components>
+  </entity>-->
   <entity id="cube" uuid="">
     <components>
       <transform>

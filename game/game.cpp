@@ -26,6 +26,7 @@
 #include "lc_client/tier0/console/i_console.h"
 
 #include "lc_client/eng_graphics/openGL/gl_window.h"
+#include "lc_client/eng_script/entt/components.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -46,7 +47,8 @@ Game::~Game() {
 
 void Game::init() {
 
-	m_pConsoleGui = new ConsoleGui(m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier1->getTextureManager(), m_pTier0->getParameters());
+	m_pConsoleGui = new ConsoleGui(
+		m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier1->getTextureManager(), m_pTier0->getParameters());
 
 	m_pInput = m_pWindow->getInput();
 
@@ -59,7 +61,8 @@ void Game::init() {
 		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
 
 	m_pMeshWork = new MeshWorkGl(&m_pScene->getUtilRegistry());
-	auto pShaderWork = new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry(), m_pTier0->getConsole());
+	auto pShaderWork =
+		new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry(), m_pTier0->getConsole());
 	m_pShaderWorkScene = pShaderWork;
 
 	Pack pack = Pack::getPack("dev");
@@ -185,7 +188,6 @@ void Game::input() {
 		else {
 			m_pWindow->setFov(45);
 		}
-
 	}
 	catch (UnknownKeyCodeException& exception) {
 		std::cerr << exception.what() << std::endl;
@@ -195,60 +197,7 @@ void Game::input() {
 }
 
 void Game::update() {
-
 	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
-
-	auto view_ = pSceneRegistry->view<Properties, Transform>();
-	for (auto& ent : view_) {
-		if (view_.get<Properties>(ent).id == "cube") {
-			Transform& transform = view_.get<Transform>(ent);
-
-			std::string id = ScriptSystem::m_currentId;
-
-			long iPtr = (long)&transform;
-
-			std::string str = std::to_string(iPtr);
-			m_pTier0->getIConsole()->devMessage("GAME: PRE SYSTEMS transform PTR: " + str);
-		}
-	}
-
-	m_pSystems->update();
-
-	for (auto& ent : view_) {
-		if (view_.get<Properties>(ent).id == "cube") {
-			Transform& transform = view_.get<Transform>(ent);
-
-			std::string id = ScriptSystem::m_currentId;
-
-			long iPtr = (long)&transform;
-
-			std::string str = std::to_string(iPtr);
-			m_pTier0->getIConsole()->devMessage("GAME: POST SYSTEMS transform PTR: " + str);
-		}
-	}
-
-	//auto view = pSceneRegistry->view<Properties, Transform>();
-
-	//for (auto& entity : view) {
-	//	if (view.get<Properties>(entity).id == "example_entity_1") {
-	//		glm::vec3& rotation = view.get<Transform>(entity).rotation;
-	//		rotation += glm::vec3(1.0, -1.0, 1.0) * Time::getDeltaTime();
-	//		if (rotation.x > 89.0f)
-	//			rotation.x = 0.0f;
-	//		if (rotation.x < -89.0f)
-	//			rotation.x = 0.0f;
-
-	//		using namespace std::chrono;
-
-	//		auto time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-
-
-	//		glm::vec3& position = view.get<Transform>(entity).position;
-
-	//		// position.x += std::sin(time / 1000) * 1.0f * Time::getDeltaTime();
-	//		// position.y += std::cos(time / 1000) * 1.0f * Time::getDeltaTime();
-	//	}
-	//}
 }
 
 void Game::render() {
