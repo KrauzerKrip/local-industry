@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <entities>
-  <entity id="light_1" uuid="">
+  <entity id="light_0" uuid="">
     <components>
       <transform>
-        <position x="-4" y="0.1" z="4"></position>
-        <rotation x="0" y="0" z="0"></rotation>
+        <position x="-4" y="0.1" z="-4"></position>
+        <rotation x="0.1" y="0" z="0"></rotation>
         <scale x="0.1" y="0.1" z="0.1"></scale>
       </transform>
       <model_data>
@@ -15,11 +15,11 @@
       <script is_eternal="false">dev/entities/light_test/entity.lua</script>
     </components>
   </entity>
-  <entity id="light_0" uuid="">
+  <entity id="light_1" uuid="">
     <components>
       <transform>
-        <position x="-4" y="0.1" z="-4"></position>
-        <rotation x="0" y="0" z="0"></rotation>
+        <position x="-4" y="0.1" z="4"></position>
+        <rotation x="0.1" y="0" z="0"></rotation>
         <scale x="0.1" y="0.1" z="0.1"></scale>
       </transform>
       <model_data>
@@ -33,7 +33,7 @@
     <components>
       <transform>
         <position x="4" y="0.1" z="-4"></position>
-        <rotation x="0" y="0" z="0"></rotation>
+        <rotation x="0.1" y="0" z="0"></rotation>
         <scale x="0.1" y="0.1" z="0.1"></scale>
       </transform>   
       <model_data>
@@ -47,7 +47,7 @@
     <components>
       <transform>
         <position x="4" y="0.1" z="4"></position>
-        <rotation x="0" y="0" z="0"></rotation>
+        <rotation x="0.1" y="0" z="0"></rotation>
         <scale x="0.1" y="0.1" z="0.1"></scale>
       </transform>
       <model_data>
