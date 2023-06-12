@@ -1,5 +1,8 @@
 #pragma once
 
+#include <unordered_map>
+#include <array>
+
 #include <entt/entt.hpp>
 
 #include "model_manager.h"
@@ -16,4 +19,6 @@ private:
 	ModelManager* m_pModelManager = nullptr;
 	MeshWork* m_pMeshWork = nullptr;
 	entt::registry* m_pSceneRegistry = nullptr;
+
+	std::unordered_map<ModelRequest, Model*> m_loadedModelMap;
 };

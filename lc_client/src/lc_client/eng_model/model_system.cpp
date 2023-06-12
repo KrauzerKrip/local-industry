@@ -2,6 +2,7 @@
 
 #include "lc_client/eng_model/entt/components.h"
 #include "lc_client/util/pack.h"
+#include "lc_client/util/timer.h"
 
 
 ModelSystem::ModelSystem(ModelManager* pModelManager, MeshWork* pMeshWork, entt::registry* pSceneRegistry) {
@@ -18,8 +19,18 @@ void ModelSystem::update() {
 
 		Model* pModel = nullptr;
 
+		Pack& pack = Pack::getPack(modelRequest.packName);
+
+		auto modelCashed = m_loadedModelMap.find(modelRequest);
+
+		if (modelCashed != m_loadedModelMap.end()) {
+			pModel = modelCashed->second;
+			m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel);
+			m_pSceneRegistry->erase<ModelRequest>(entity);
+			break;
+		}
+
 		try {
-			Pack& pack = Pack::getPack(modelRequest.packName);
 			Pack::Model modelData(pack, modelRequest.modelName);
 
 			pModel = m_pModelManager->getModel(
@@ -43,6 +54,8 @@ void ModelSystem::update() {
 
 		m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel);
 
+		m_loadedModelMap.emplace(modelRequest, pModel);
+
 		m_pSceneRegistry->erase<ModelRequest>(entity);
 	}
-}
+} 
