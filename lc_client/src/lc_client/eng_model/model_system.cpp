@@ -17,22 +17,24 @@ void ModelSystem::update() {
 	for (auto& entity : entities) {
 		ModelRequest& modelRequest = entities.get<ModelRequest>(entity);
 
-		Model* pModel = nullptr;
-
 		Pack& pack = Pack::getPack(modelRequest.packName);
+		Pack::Model modelData(pack, modelRequest.modelName);
+
+		Model* pModel = nullptr;
 
 		auto modelCashed = m_loadedModelMap.find(modelRequest);
 
 		if (modelCashed != m_loadedModelMap.end()) {
 			pModel = modelCashed->second;
 			m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel);
+			m_pSceneRegistry->emplace<ShaderRequest>(
+				entity, modelRequest.packName, modelData.getVertexShader(), modelData.getFragmentShader());
 			m_pSceneRegistry->erase<ModelRequest>(entity);
+			
 			break;
 		}
 
 		try {
-			Pack::Model modelData(pack, modelRequest.modelName);
-
 			pModel = m_pModelManager->getModel(
 				modelData.getPath(), modelData.getTexturesPath(), modelData.getMaterialType());
 
@@ -58,4 +60,4 @@ void ModelSystem::update() {
 
 		m_pSceneRegistry->erase<ModelRequest>(entity);
 	}
-} 
+}
