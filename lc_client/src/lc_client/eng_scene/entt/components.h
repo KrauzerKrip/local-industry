@@ -26,7 +26,7 @@ struct Transform {
 	Vec3fHelper getScale() { return Vec3fHelper(scale); };
 	void setScale(Vec3fHelper vector) { scale = glm::vec3(vector.x(), vector.y(), vector.z()); };
 
-	Transform() : scale(glm::vec3(1.0)), rotation(glm::vec3(1.0f, 0.0f, 0.0f)){};
+	Transform() : position(glm::vec3(0.0)), scale(glm::vec3(1.0)), rotation(glm::vec3(1.0f, 0.0f, 0.0f)){};
 	Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 		: position(position),
 		  rotation(rotation),

@@ -70,7 +70,8 @@ void RenderGL::render() {
 
 	auto pointLights = m_pSceneRegistry->view<Transform, PointLight>();
 
-	auto materialEntitiesGroup = m_pSceneRegistry->group<Model, Transform, ShaderGl, Properties>(entt::exclude<Water>); // TODO
+	auto materialEntitiesGroup =
+		m_pSceneRegistry->group<Model, Transform, ShaderGl, Properties>(entt::exclude<Water>); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
 		Model& model = materialEntitiesGroup.get<Model>(entity);
@@ -92,19 +93,6 @@ void RenderGL::render() {
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);
 		setMatrices(shaderProgram, modelMatrix, view, projection);
-
-		glm::vec3& pos = transform.position;
-		std::string x = std::to_string(pos.x);
-		std::string y = std::to_string(pos.y);
-		std::string z = std::to_string(pos.z);
-
-		std::string id = materialEntitiesGroup.get<Properties>(entity).id;
-
-		if (id == "cube") {
-			long iPtr = (long)&transform;
-			std::string str = std::to_string(iPtr);
-			Tier0::getIConsole()->devMessage("RENDER Transform ptr: " + id + " " + str);
-		}
 
 		for (entt::entity& meshEntity : meshes) {
 			Mesh& mesh = m_pUtilRegistry->get<Mesh>(meshEntity);
