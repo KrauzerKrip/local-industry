@@ -26,8 +26,6 @@ target_sources(lc_client
 
     "api/helpers/glm_helpers.h"
     "api/helpers/glm_helpers.cpp"
-    "api/helpers/components.h"
-    "api/helpers/components.cpp"
     "api/helpers/registry_helper.h"
     "api/helpers/registry_helper.cpp"
 

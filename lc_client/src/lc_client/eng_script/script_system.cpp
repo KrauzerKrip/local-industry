@@ -8,7 +8,7 @@
 using namespace luabridge;
 
 
-std::string ScriptSystem::m_currentId;
+//std::string ScriptSystem::m_currentId;
 
 ScriptSystem::ScriptSystem(entt::registry* pRegistry) : m_api(pRegistry) {
 	m_pRegistry = pRegistry;
@@ -27,7 +27,7 @@ void ScriptSystem::update() {
 		LuaRef init = getGlobal(L, "init");
 		LuaRef upd = getGlobal(L, "update");
 
-		ScriptSystem::m_currentId = uninitedEntities.get<Properties>(entity).id;
+		//ScriptSystem::m_currentId = uninitedEntities.get<Properties>(entity).id;
 
 		try {
 			init(ent, &m_api);
@@ -44,9 +44,6 @@ void ScriptSystem::update() {
 	for (auto entity : entities) {
 		Script& script = entities.get<Script>(entity);
 		lua_State* L = script.luaState;
-
-		ScriptSystem::m_currentId = entities.get<Properties>(entity).id;
-		Tier0::getIConsole()->devMessage("SCRIPT_SYSTEM: current script: " + script.path);
 
 		LuaRef update = getGlobal(L, "update");
 		update();

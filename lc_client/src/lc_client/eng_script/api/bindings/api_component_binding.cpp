@@ -6,7 +6,6 @@
 
 #include "lc_client/eng_scene/entt/components.h"
 #include "lc_client/eng_script/api/helpers/glm_helpers.h"
-#include "lc_client/eng_script/api/helpers/components.h"
 #include "lc_client/eng_lighting/entt/components.h"
 
 

@@ -13,7 +13,7 @@ public:
 	void update();
 	void frame();
 
-	static std::string m_currentId;
+	//static std::string m_currentId;
 
 private:
 	entt::registry* m_pRegistry;

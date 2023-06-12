@@ -3,7 +3,6 @@
 #include <entt/entt.hpp>
 
 #include "lc_client/eng_scene/entt/components.h"
-#include "lc_client/eng_script/api/helpers/components.h"
 #include "lc_client/eng_lighting/entt/components.h"
 
 

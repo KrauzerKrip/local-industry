@@ -106,8 +106,6 @@ void RenderGL::render() {
 			Tier0::getIConsole()->devMessage("RENDER Transform ptr: " + id + " " + str);
 		}
 
-		Tier0::getIConsole()->devMessage(id + " " + x + " " + y + " " + z);
-
 		for (entt::entity& meshEntity : meshes) {
 			Mesh& mesh = m_pUtilRegistry->get<Mesh>(meshEntity);
 			int vao = m_pUtilRegistry->get<VaoGl>(meshEntity).vaoId;
