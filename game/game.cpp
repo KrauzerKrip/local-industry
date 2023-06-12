@@ -197,6 +197,8 @@ void Game::input() {
 }
 
 void Game::update() {
+	m_pSystems->update();
+
 	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
 }
 
