@@ -13,6 +13,8 @@ target_sources(lc_client
         "file_util.cpp"
         "image.h"
         "image.cpp"
-        "pack.cpp"
         "pack.h"
+        "pack.cpp"
+        "timer.h"
+        "timer.cpp"
 )
