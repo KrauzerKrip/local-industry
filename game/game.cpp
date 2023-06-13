@@ -200,6 +200,16 @@ void Game::update() {
 	m_pSystems->update();
 
 	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
+
+	auto view = pSceneRegistry->view<Transform, Properties>();
+
+	//for (auto& entity : view) {
+	//	if (view.get<Properties>(entity).id == "cube") {
+	//		auto& transform = view.get<Transform>(entity);
+	//		transform.rotation *= glm::angleAxis(glm::radians(1.f), glm::vec3(0.f, 1.f, 0.f));
+	//	}
+	//}
+
 }
 
 void Game::render() {
