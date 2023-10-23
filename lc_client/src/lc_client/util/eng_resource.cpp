@@ -5,20 +5,21 @@
 #include <thread>
 #include <future>
 #include <algorithm>
+#include <assert.h>
 
 
 namespace eng {
 
 	Resource::Resource(std::string resourceRootPath) { m_resourceRootPath = resourceRootPath; }
 
-	auto Resource::getFile(std::string path) const -> cmrc::file {
-		auto fileSystem = cmrc::eng_resources::get_filesystem();
-		auto file = fileSystem.open(path);
+	//auto Resource::getFile(std::string path) const -> cmrc::file {
+	//	auto fileSystem = cmrc::eng_resources::get_filesystem();
+	//	auto file = fileSystem.open(path);
 
-		return file;
-	}
+	//	return file;
+	//}
 
-	auto Resource::getFileSystem() const -> cmrc::embedded_filesystem { return cmrc::eng_resources::get_filesystem(); }
+	//auto Resource::getFileSystem() const -> cmrc::embedded_filesystem { return cmrc::eng_resources::get_filesystem(); }
 
 	auto Resource::getFileResource(std::string path) const -> std::vector<unsigned char> {
 		std::ifstream binaryFile(m_resourceRootPath + path, std::ios::binary);

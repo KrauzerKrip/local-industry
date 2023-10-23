@@ -4,5 +4,5 @@
 
 void Timer::showWindow() {
 	stop();
-	MessageBox(NULL, std::to_string(elapsedMilliseconds()).c_str(), "Time elapsed:", MB_OK); 
+	//MessageBox(NULL, std::to_string(elapsedMilliseconds()).c_str(), "Time elapsed:", MB_OK); 
 }
