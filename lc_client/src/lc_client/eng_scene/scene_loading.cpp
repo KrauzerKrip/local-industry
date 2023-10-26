@@ -10,15 +10,15 @@
 #include "lc_client/tier0/tier0.h"
 
 
-SceneLoading::SceneLoading(entt::registry& sceneRegistry, entt::registry& mapRegistry, eng::IResource* pResource) {
-	m_pSceneRegistry = &sceneRegistry;
-	m_pMapRegistry = &mapRegistry;
+SceneLoading::SceneLoading(eng::IResource* pResource) {
 	m_pResource = pResource;
 }
 
 SceneLoading::~SceneLoading() {}
 
-void SceneLoading::loadScene(std::string path) {
+void SceneLoading::loadScene(std::string path, entt::registry& sceneRegistry) {
+	m_pSceneRegistry = &sceneRegistry;
+
 	pugi::xml_document document;
 	std::vector<unsigned char> buffer = m_pResource->getFileResource(path);
 	pugi::xml_parse_result result = document.load_buffer(buffer.data(), buffer.size());

@@ -32,9 +32,10 @@
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pWindow = pWindow;
 	m_pCamera = new Camera();
-	m_pResource = new eng::Resource("D:/Industry/industry/res/");
+	m_pResource = new eng::Resource("E:/Industry/industry/res/"); 
 	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
+	m_pMap = new Map();
 }
 
 Game::~Game() {
@@ -53,8 +54,9 @@ void Game::init() {
 	m_pInput = m_pWindow->getInput();
 
 	m_pTier1->getShaderManager()->loadShaders();
-
-	m_pScene = new Scene();
+	
+	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
+	m_pScene = new Scene(m_pResource, pSceneLoading);
 	SceneControlling::setScene(m_pScene);
 
 	m_pModelManager = new ModelManager(
@@ -73,14 +75,8 @@ void Game::init() {
 
 	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork);
 
-	SceneDependencies sceneDependecies;
-	sceneDependecies.pShaderManager = m_pTier1->getShaderManager();
-	sceneDependecies.pResource = m_pResource;
-	sceneDependecies.pGraphicsEntitiesLoading =
-		new GraphicsEntitiesLoading(&m_pScene->getMapRegistry(), &m_pScene->getSceneRegistry());
-
-	m_pScene->setDependencies(sceneDependecies);
-	SceneControlling::loadScene("dev", "test");
+	m_pScene->loadScene("dev", "test");
+	m_pMap->loadMap("dev", "test");
 
 	m_pRender->setDependecies(m_pScene, pSkybox);
 
@@ -88,7 +84,7 @@ void Game::init() {
 
 	m_pCubemapWork = new CubemapWorkGl(&m_pScene->getSceneRegistry(), m_pResource);
 
-	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pCubemapWork, m_pScene, m_pModelManager);
+	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pCubemapWork, m_pScene, m_pMap, m_pModelManager);
 
 	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
 	pSkybox->setLightStrength(0.4f);

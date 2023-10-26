@@ -19,6 +19,7 @@
 #include "lc_client/tier0/tier0.h"
 #include "lc_client/eng_gui/gui_console.h"
 #include "lc_client/eng_cubemaps/cubemap_work.h"
+#include "lc_client/eng_map/map.h"
 
 
 class Game : public IGameLogic {
@@ -38,6 +39,7 @@ private:
 	Camera* m_pCamera = nullptr;
 	IRender* m_pRender = nullptr;
 	Scene* m_pScene = nullptr;
+	Map* m_pMap = nullptr;
 	eng::IResource* m_pResource = nullptr;
 	ModelManager* m_pModelManager = nullptr;
 	Systems* m_pSystems = nullptr;

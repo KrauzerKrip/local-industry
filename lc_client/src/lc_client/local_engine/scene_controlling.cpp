@@ -8,5 +8,5 @@ Scene* SceneControlling::getScene() {
 	return m_pScene;  
 }
 
-Scene* SceneControlling::m_pScene = new Scene();
+Scene* SceneControlling::m_pScene = nullptr;
 

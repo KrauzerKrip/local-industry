@@ -18,10 +18,12 @@
 #include "lc_client/tier0/tier0.h"
 
 
-Scene::Scene() {
+Scene::Scene(eng::IResource* pResource, SceneLoading* pSceneLoading) {
 	m_mapRegistry = entt::registry();
 	m_sceneRegistry = entt::registry();
 	m_utilRegistry = entt::registry();
+	m_pResource = pResource;
+	m_pSceneLoading = pSceneLoading;
 }
 
 Scene::~Scene() {
@@ -33,16 +35,11 @@ void Scene::loadScene(std::string pack, std::string scene) {
 	m_name = scene;
 	m_pack = pack;
 
-	if (m_pShaderManager == nullptr) {
-		std::cerr << "NullPointerException: m_pShaderManager wasn`t initialized." << std::endl;
-		throw std::runtime_error("NullPointerException: m_pShaderManager wasn`t initialized.");
-	}
-
 	m_mapRegistry.clear();
 	m_sceneRegistry.clear();
 	m_utilRegistry.clear();
 
-	m_pSceneLoading->loadScene(pack + "/scenes/" + scene + "/scene.xml");
+	m_pSceneLoading->loadScene(pack + "/scenes/" + scene + "/scene.xml", m_sceneRegistry);
 
 	auto view = m_sceneRegistry.view<Properties>();
 	for (auto& ent : view) {
@@ -57,19 +54,7 @@ void Scene::loadScene(std::string pack, std::string scene) {
 	Transform transform;
 	transform.position = glm::vec3(0, 0, 0);
 	m_sceneRegistry.emplace<Transform>(cubemap, transform);
-
-	m_pGraphicsEntitiesLoading->loadMapEntities();
-	m_pGraphicsEntitiesLoading->loadSceneEntities();
 }
-
-void Scene::setDependencies(SceneDependencies& sceneDependencies) {
-	m_pShaderManager = sceneDependencies.pShaderManager;
-	m_pResource = sceneDependencies.pResource;
-	m_pGraphicsEntitiesLoading = sceneDependencies.pGraphicsEntitiesLoading;
-
-	m_pSceneLoading = new SceneLoading(m_sceneRegistry, m_mapRegistry, m_pResource);
-}
-
 
 entt::registry& Scene::getMapRegistry() { return m_mapRegistry; }
 

@@ -20,11 +20,10 @@ struct SceneDependencies {
 
 class Scene {
 public:
-	Scene();
+	Scene(eng::IResource* pResource, SceneLoading* pSceneLoading);
 	~Scene();
 
 	void loadScene(std::string pack, std::string scene);
-	void setDependencies(SceneDependencies& sceneDependencies);
 	entt::registry& getMapRegistry();
 	entt::registry& getSceneRegistry();
 	entt::registry& getUtilRegistry();
@@ -42,10 +41,6 @@ private:
 
 	Skybox* m_pSkybox = nullptr;
 
-	TextureManager* m_pTextureManager = nullptr;
-	
 	SceneLoading* m_pSceneLoading = nullptr;
-	IShaderManager* m_pShaderManager = nullptr;
-	GraphicsEntitiesLoading* m_pGraphicsEntitiesLoading = nullptr;
 	eng::IResource* m_pResource = nullptr;
 };
