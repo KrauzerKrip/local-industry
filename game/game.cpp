@@ -78,7 +78,7 @@ void Game::init() {
 	m_pScene->loadScene("dev", "test");
 	m_pMap->loadMap("dev", "test");
 
-	m_pRender->setDependecies(m_pScene, pSkybox);
+	m_pRender->setDependecies(m_pMap, m_pScene, pSkybox);
 
 	m_pRender->init();
 

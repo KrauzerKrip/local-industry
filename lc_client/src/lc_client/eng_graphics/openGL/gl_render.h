@@ -13,6 +13,9 @@
 #include "lc_client/eng_graphics/openGL/gl_framebuffer.h"
 #include "lc_client/eng_cubemaps/entt/components.h"
 #include "lc_client/eng_lighting/entt/components.h"
+#include "renders/gl_render_map.h"
+#include "lc_client/eng_map/map.h"
+#include "lc_client/eng_graphics/openGL/renders/gl_lighting.h"
 
 
 typedef decltype(entt::registry().view<CubemapGl, Transform>()) CubemapView;
@@ -21,7 +24,12 @@ typedef decltype(entt::registry().view<Transform, SpotLight>()) SpotLightView;
 
 class ShaderWorkGl;
 
+class RenderMapGl;
+
 class RenderGL : public IRender {
+
+friend class RenderMapGl;
+
 public:
 	RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork);
 	~RenderGL();
@@ -30,15 +38,13 @@ public:
 	void render();
 	void clear();
 	void cleanUp();
-	void setDependecies(Scene* pScene, Skybox* pSkybox);
+	void setDependecies(Map* pMap, Scene* pScene, Skybox* pSkybox);
 
 private:
 	void transform(glm::mat4& transformation, Transform& transform);
 	void createFramebufferVao();
+	void renderMesh(entt::entity meshEntity, entt::registry* pUtilRegistry);
 
-	void setLighting(unsigned int shaderProgram, PointLightView& pointLights);
-
-	void setPointLight(unsigned int shaderProgram, int number, PointLight& pointLight, Transform& transform);
 	void setMaterialSg(unsigned int shaderProgram);
 	unsigned int getNearestCubemap(glm::vec3& entityPosition, CubemapView& cubemapEntities);
 	void setMatrices(unsigned int shaderProgram, glm::mat4& model, glm::mat4& view, glm::mat4 projection);
@@ -46,9 +52,10 @@ private:
 	IWindow* m_pWindow; //mb remove it
 	Camera* m_pCamera;
 	ShaderWorkGl* m_pShaderWork;
-	
+	RenderMapGl* m_pRenderMap;	
 	Scene* m_pScene = nullptr;
 	Skybox* m_pSkybox = nullptr;
+	LightingGl* m_pLighting = nullptr;
 
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pMapRegistry = nullptr;

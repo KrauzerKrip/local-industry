@@ -34,6 +34,10 @@ target_sources(lc_client
         "openGL/gl_skybox_render.cpp"
         #"openGL/gl_texture_cubemap.h"
         #"openGL/gl_texture_cubemap.cpp"
+        "openGL/renders/gl_render_map.h"
+        "openGL/renders/gl_render_map.cpp"
+        "openGL/renders/gl_lighting.h"
+        "openGL/renders/gl_lighting.cpp"
 
 
         "entt/components.h"
@@ -41,4 +45,4 @@ target_sources(lc_client
         "camera/camera.h"
         "camera/camera.cpp"
 
-)
+ "openGL/gl_shader_uniform.cpp")

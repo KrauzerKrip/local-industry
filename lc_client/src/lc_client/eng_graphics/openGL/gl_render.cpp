@@ -64,6 +64,8 @@ void RenderGL::render() {
 	//	}
 	// }
 
+	//m_pRenderMap->render(view, projection);
+
 
 	entt::view<entt::get_t<CubemapGl, Transform>, entt::exclude_t<>> cubemapEntities =
 		m_pSceneRegistry->view<CubemapGl, Transform>();
@@ -88,26 +90,15 @@ void RenderGL::render() {
 
 		setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
 		setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
-		setLighting(shaderProgram, pointLights);
+		setMaterialSg(shaderProgram);
+		m_pLighting->setLighting(shaderProgram);
 		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);
 		setMatrices(shaderProgram, modelMatrix, view, projection);
 
 		for (entt::entity& meshEntity : meshes) {
-			Mesh& mesh = m_pUtilRegistry->get<Mesh>(meshEntity);
-			int vao = m_pUtilRegistry->get<VaoGl>(meshEntity).vaoId;
-			MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(meshEntity);
-			Texture* aoTexture = materialSG.aoTexture;
-			Texture* diffuseTexture = materialSG.diffuseTexture;
-			Texture* normalMap = materialSG.normalMap;
-			Texture* specularMap = materialSG.specularTexture;
-			aoTexture->bind();
-			diffuseTexture->bind();
-			normalMap->bind();
-			specularMap->bind();
-			glBindVertexArray(vao);
-			glDrawElements(GL_TRIANGLES, (GLsizei) mesh.indices.size(), GL_UNSIGNED_INT, 0);
+			renderMesh(meshEntity, m_pUtilRegistry);
 		}
 	}
 
@@ -136,26 +127,15 @@ void RenderGL::render() {
 
 		setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
 		setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
-		setLighting(shaderProgram, pointLights);
+		setMaterialSg(shaderProgram);
+		m_pLighting->setLighting(shaderProgram);
 		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		RenderGL::transform(modelMatrix, transform);
 		setMatrices(shaderProgram, modelMatrix, view, projection);
 
 		for (entt::entity& meshEntity : meshes) {
-			Mesh& mesh = m_pUtilRegistry->get<Mesh>(meshEntity);
-			int vao = m_pUtilRegistry->get<VaoGl>(meshEntity).vaoId;
-			MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(meshEntity);
-			Texture* aoTexture = materialSG.aoTexture;
-			Texture* diffuseTexture = materialSG.diffuseTexture;
-			Texture* normalMap = materialSG.normalMap;
-			Texture* specularMap = materialSG.specularTexture;
-			aoTexture->bind();
-			diffuseTexture->bind();
-			normalMap->bind();
-			specularMap->bind();
-			glBindVertexArray(vao);
-			glDrawElements(GL_TRIANGLES, (GLsizei) mesh.indices.size(), GL_UNSIGNED_INT, 0);
+			//renderMesh(meshEntity, m_pUtilRegistry);
 		}
 	}
 
@@ -175,7 +155,7 @@ void RenderGL::clear() {}
 
 void RenderGL::cleanUp() {}
 
-void RenderGL::setDependecies(Scene* pScene, Skybox* pSkybox) {
+void RenderGL::setDependecies(Map* pMap, Scene* pScene, Skybox* pSkybox) {
 	m_pScene = pScene;
 
 	m_pMapRegistry = &pScene->getMapRegistry();
@@ -183,6 +163,10 @@ void RenderGL::setDependecies(Scene* pScene, Skybox* pSkybox) {
 	m_pUtilRegistry = &pScene->getUtilRegistry();
 
 	m_pSkybox = pSkybox;
+	
+	m_pLighting = new LightingGl(m_pMapRegistry, m_pSceneRegistry, m_pCamera, m_pSkybox);
+
+	m_pRenderMap = new RenderMapGl(m_pLighting, this, m_pCamera, &pMap->getRegistry(), &pMap->getUtilRegistry());
 }
 
 void RenderGL::transform(glm::mat4& model, Transform& transform) {
@@ -208,47 +192,20 @@ void RenderGL::createFramebufferVao() {
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 }
 
-void RenderGL::setLighting(unsigned int shaderProgram, PointLightView& pointLights) {
-	setMaterialSg(shaderProgram);
-
-	setUniform(shaderProgram, "ambientLight.color", m_pSkybox->getLightColor());
-	setUniform(shaderProgram, "ambientLight.strength", m_pSkybox->getLightStrength());
-
-	setUniform(shaderProgram, "spotLight.position", m_pCamera->getPosition());
-	setUniform(shaderProgram, "spotLight.direction", m_pCamera->getCameraFront());
-	setUniform(shaderProgram, "spotLight.cutOff", (float)glm::cos(glm::radians(12.5)));
-	setUniform(shaderProgram, "spotLight.outerCutOff", (float)glm::cos(glm::radians(17.5)));
-	setUniform(shaderProgram, "spotLight.diffuse", glm::vec3(1.0f));
-	setUniform(shaderProgram, "spotLight.specular", glm::vec3(0.5f));
-	setUniform(shaderProgram, "spotLight.constant", 1.0f);
-	setUniform(shaderProgram, "spotLight.linear", 0.09f);
-	setUniform(shaderProgram, "spotLight.quadratic", 0.032f);
-
-	int i = 0;
-	for (entt::entity entity : pointLights) {
-		setPointLight(shaderProgram, i, pointLights.get<PointLight>(entity), pointLights.get<Transform>(entity));
-		i++;
-	}
-
-	setUniform(shaderProgram, "pointLightsCount", i);
-
-	setUniform(shaderProgram, "directionalLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
-	setUniform(shaderProgram, "directionalLight.diffuse", glm::vec3(1.0f, 1.0f, 0.8f));
-	setUniform(shaderProgram, "directionalLight.specular", glm::vec3(1.0f, 1.0f, 0.8f));
-}
-
-void RenderGL::setPointLight(unsigned int shaderProgram, int number, PointLight& pointLight, Transform& transform) {
-	std::string iStr = std::to_string(number);
-
-	glm::vec3 color = pointLight.color;
-	glm::vec3 pos = transform.position;
-
-	setUniform(shaderProgram, "pointLights[" + iStr + "].position", pos);
-	setUniform(shaderProgram, "pointLights[" + iStr + "].diffuse", color * 0.5f);
-	setUniform(shaderProgram, "pointLights[" + iStr + "].specular", color * 0.25f);
-	setUniform(shaderProgram, "pointLights[" + iStr + "].constant", 1.0f);
-	setUniform(shaderProgram, "pointLights[" + iStr + "].linear", 0.09f);
-	setUniform(shaderProgram, "pointLights[" + iStr + "].quadratic", 0.032f);
+void RenderGL::renderMesh(entt::entity meshEntity, entt::registry* pUtilRegistry) {
+	Mesh& mesh = pUtilRegistry->get<Mesh>(meshEntity);
+	int vao = pUtilRegistry->get<VaoGl>(meshEntity).vaoId;
+	MaterialSG& materialSG = pUtilRegistry->get<MaterialSG>(meshEntity);
+	Texture* aoTexture = materialSG.aoTexture; 
+	Texture* diffuseTexture = materialSG.diffuseTexture;
+	Texture* normalMap = materialSG.normalMap;
+	Texture* specularMap = materialSG.specularTexture;
+	aoTexture->bind();
+	diffuseTexture->bind();
+	normalMap->bind();
+	specularMap->bind();
+	glBindVertexArray(vao);
+	glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, 0);
 }
 
 void RenderGL::setMaterialSg(unsigned int shaderProgram) {
