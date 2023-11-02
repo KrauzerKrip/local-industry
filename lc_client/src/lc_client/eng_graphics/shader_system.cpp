@@ -3,21 +3,21 @@
 #include "lc_client/eng_graphics/entt/components.h"
 
 
-ShaderSystem::ShaderSystem(ShaderWork* pShaderWork, entt::registry* pMapRegistry, entt::registry* pSceneRegistry) {
+ShaderSystem::ShaderSystem(ShaderWork* pShaderWork, entt::registry* pRegistry) {
 	m_pShaderWork = pShaderWork;
-	m_pMapRegistry = pMapRegistry;
-	m_pSceneRegistry = pSceneRegistry;
+	m_pRegistry = pRegistry;
 }
 
 void ShaderSystem::update() { 
-	auto entities = m_pSceneRegistry->view<ShaderRequest>();
+	auto sceneEntities = m_pRegistry->view<ShaderRequest>();
 
-	for (auto& entity : entities) {
+	for (auto& entity : sceneEntities) {
 
-		ShaderRequest& shaderRequest = entities.get<ShaderRequest>(entity);
+		ShaderRequest& shaderRequest = sceneEntities.get<ShaderRequest>(entity);
 
-		m_pShaderWork->loadShaders(entity, shaderRequest.vertexShaderName, shaderRequest.fragmentShaderName);
+		m_pShaderWork->loadShaders(
+			m_pRegistry, entity, shaderRequest.vertexShaderName, shaderRequest.fragmentShaderName);
 
-		m_pSceneRegistry->erase<ShaderRequest>(entity);
+		m_pRegistry->erase<ShaderRequest>(entity);
 	}
 }

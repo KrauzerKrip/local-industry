@@ -5,10 +5,10 @@
 #include <glad/glad.h>
 
 
-void ShaderWorkGl::loadShaders(entt::entity entity, const std::string vertexShaderName,
+void ShaderWorkGl::loadShaders(entt::registry* pRegistry, entt::entity entity, const std::string vertexShaderName,
 							   const std::string fragmentShaderName) {
 
-	m_pRegistry->emplace_or_replace<ShaderGl>(entity, (int) createShaderProgram(vertexShaderName, fragmentShaderName));
+	pRegistry->emplace_or_replace<ShaderGl>(entity, (int) createShaderProgram(vertexShaderName, fragmentShaderName));
 }
 
 unsigned int ShaderWorkGl::createShaderProgram(std::string vertexShaderName, std::string fragmentShaderName) {

@@ -8,9 +8,9 @@
 
 class CubemapWorkGl : public CubemapWork {
 public:
-	CubemapWorkGl(entt::registry* pRegistry, eng::IResource* pResource) : CubemapWork(pRegistry, pResource){};
+	CubemapWorkGl(eng::IResource* pResource) : CubemapWork(pResource){};
 
-	void loadCubemap(entt::entity entity, std::string path); 
+	void loadCubemap(entt::registry* pRegistry, entt::entity entity, std::string path); 
 
 private:
 	unsigned int getTexture(std::unique_ptr<CubemapMaterial> material);

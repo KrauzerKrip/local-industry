@@ -5,10 +5,12 @@
 #include "lc_client/util/timer.h"
 
 
-ModelSystem::ModelSystem(ModelManager* pModelManager, MeshWork* pMeshWork, entt::registry* pSceneRegistry) {
+ModelSystem::ModelSystem(
+	ModelManager* pModelManager, MeshWork* pMeshWork, entt::registry* pSceneRegistry, entt::registry* pUtilRegistry) {
 	m_pModelManager = pModelManager;
 	m_pMeshWork = pMeshWork;
 	m_pSceneRegistry = pSceneRegistry;
+	m_pUtilRegistry = pUtilRegistry;
 }
 
 void ModelSystem::update() {
@@ -51,7 +53,7 @@ void ModelSystem::update() {
 		}
 
 		for (auto& mesh : pModel->meshes) {
-			m_pMeshWork->loadMesh(mesh);
+			m_pMeshWork->loadMesh(m_pUtilRegistry, mesh);
 		}
 
 		m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel);

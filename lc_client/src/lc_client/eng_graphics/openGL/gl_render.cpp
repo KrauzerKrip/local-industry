@@ -64,11 +64,11 @@ void RenderGL::render() {
 	//	}
 	// }
 
-	//m_pRenderMap->render(view, projection);
+	m_pRenderMap->render(view, projection);
 
 
 	entt::view<entt::get_t<CubemapGl, Transform>, entt::exclude_t<>> cubemapEntities =
-		m_pSceneRegistry->view<CubemapGl, Transform>();
+		m_pMapRegistry->view<CubemapGl, Transform>();
 
 	auto pointLights = m_pSceneRegistry->view<Transform, PointLight>();
 
@@ -135,7 +135,7 @@ void RenderGL::render() {
 		setMatrices(shaderProgram, modelMatrix, view, projection);
 
 		for (entt::entity& meshEntity : meshes) {
-			//renderMesh(meshEntity, m_pUtilRegistry);
+			renderMesh(meshEntity, m_pUtilRegistry);
 		}
 	}
 
@@ -166,7 +166,7 @@ void RenderGL::setDependecies(Map* pMap, Scene* pScene, Skybox* pSkybox) {
 	
 	m_pLighting = new LightingGl(m_pMapRegistry, m_pSceneRegistry, m_pCamera, m_pSkybox);
 
-	m_pRenderMap = new RenderMapGl(m_pLighting, this, m_pCamera, &pMap->getRegistry(), &pMap->getUtilRegistry());
+	m_pRenderMap = new RenderMapGl(m_pLighting, this, m_pCamera, m_pSkybox, &pMap->getRegistry(), &pMap->getUtilRegistry());
 }
 
 void RenderGL::transform(glm::mat4& model, Transform& transform) {

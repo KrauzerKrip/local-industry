@@ -3,15 +3,15 @@
 #include <glad/glad.h>
 
 
-void MeshWorkGl::loadMesh(entt::entity entity) {
-	Mesh& mesh = m_pUtilRegistry->get<Mesh>(entity);
+void MeshWorkGl::loadMesh(entt::registry* pUtilRegistry, entt::entity entity) {
+	Mesh& mesh = pUtilRegistry->get<Mesh>(entity);
 
-	if (!m_pUtilRegistry->all_of<VaoGl>(entity)) { 
-		m_pUtilRegistry->emplace<VaoGl>(entity, createVao(mesh.vertices, mesh.indices));
+	if (!pUtilRegistry->all_of<VaoGl>(entity)) { 
+		pUtilRegistry->emplace<VaoGl>(entity, createVao(mesh.vertices, mesh.indices));
 	}
 
-	if (!m_pUtilRegistry->all_of<MaterialLoadRequest>(entity)) {
-		m_pUtilRegistry->emplace<MaterialLoadRequest>(entity);
+	if (!pUtilRegistry->all_of<MaterialLoadRequest>(entity)) {
+		pUtilRegistry->emplace<MaterialLoadRequest>(entity);
 	}
 }
 

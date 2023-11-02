@@ -47,13 +47,6 @@ void Scene::loadScene(std::string pack, std::string scene) {
 			m_sceneRegistry.emplace<Water>(ent);
 		}
 	}
-
-	entt::entity cubemap = m_sceneRegistry.create();
-
-	m_sceneRegistry.emplace<CubemapLoadRequest>(cubemap, "dev/textures/test_cubemap/");
-	Transform transform;
-	transform.position = glm::vec3(0, 0, 0);
-	m_sceneRegistry.emplace<Transform>(cubemap, transform);
 }
 
 entt::registry& Scene::getMapRegistry() { return m_mapRegistry; }

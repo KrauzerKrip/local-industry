@@ -7,13 +7,12 @@
 
 class ShaderSystem {
 public:
-	ShaderSystem(ShaderWork* pShaderWork, entt::registry* pMapRegistry, entt::registry* pSceneRegistry);
+	ShaderSystem(ShaderWork* pShaderWork, entt::registry* pRegistry);
 
 	void update();
 
 private:
 	ShaderWork* m_pShaderWork = nullptr;
 
-	entt::registry* m_pMapRegistry = nullptr;
-	entt::registry* m_pSceneRegistry = nullptr;
+	entt::registry* m_pRegistry = nullptr;
 };

@@ -8,11 +8,10 @@
 
 class CubemapWork {
 public:
-	CubemapWork(entt::registry* pRegistry, eng::IResource* pResource) : m_pRegistry(pRegistry), m_pResource(pResource) {};
+	CubemapWork(eng::IResource* pResource) : m_pResource(pResource) {};
 
-	virtual void loadCubemap(entt::entity entity, std::string path) = 0;
+	virtual void loadCubemap(entt::registry* pRegistry, entt::entity entity, std::string path) = 0;
 
 protected: 
-	entt::registry* m_pRegistry;
 	eng::IResource* m_pResource;
 };

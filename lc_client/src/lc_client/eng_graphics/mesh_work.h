@@ -7,10 +7,9 @@
 
 class MeshWork {
 public:
-	MeshWork(entt::registry* pUtilRegistry) : m_pUtilRegistry(pUtilRegistry){};
+	MeshWork() {};
 
-	virtual void loadMesh(entt::entity mesh) = 0;
+	virtual void loadMesh(entt::registry* pUtilRegistry, entt::entity mesh) = 0;
 
 protected: 
-	entt::registry* m_pUtilRegistry;
 };

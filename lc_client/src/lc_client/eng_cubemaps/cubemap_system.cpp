@@ -12,7 +12,7 @@ void CubemapSystem::update() {
 	for (entt::entity entity : requestEntities) {
 		CubemapLoadRequest& request = requestEntities.get<CubemapLoadRequest>(entity);
 
-		m_pCubemapWork->loadCubemap(entity, request.path);
+		m_pCubemapWork->loadCubemap(m_pRegistry, entity, request.path);
 
 		m_pRegistry->erase<CubemapLoadRequest>(entity);
 	}

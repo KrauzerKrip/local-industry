@@ -62,9 +62,8 @@ void Game::init() {
 	m_pModelManager = new ModelManager(
 		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
 
-	m_pMeshWork = new MeshWorkGl(&m_pScene->getUtilRegistry());
-	auto pShaderWork =
-		new ShaderWorkGl(m_pTier1->getShaderManager(), &m_pScene->getSceneRegistry(), m_pTier0->getConsole());
+	m_pMeshWork = new MeshWorkGl();
+	auto pShaderWork = new ShaderWorkGl(m_pTier1->getShaderManager(), m_pTier0->getConsole());
 	m_pShaderWorkScene = pShaderWork;
 
 	Pack pack = Pack::getPack("dev");
@@ -82,7 +81,7 @@ void Game::init() {
 
 	m_pRender->init();
 
-	m_pCubemapWork = new CubemapWorkGl(&m_pScene->getSceneRegistry(), m_pResource);
+	m_pCubemapWork = new CubemapWorkGl(m_pResource);
 
 	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pCubemapWork, m_pScene, m_pMap, m_pModelManager);
 
@@ -193,9 +192,38 @@ void Game::input() {
 }
 
 void Game::update() {
+	entt::registry* pMapRegistry = &m_pMap->getRegistry();
+	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
+
+	entt::entity surface;
+	entt::entity surfaceScene;
+
+	if (pMapRegistry->view<Mesh>().size() == 0) {
+		surface = pMapRegistry->create();
+		surfaceScene = pSceneRegistry->create();
+
+		pSceneRegistry->emplace<ModelRequest>(surfaceScene, "dev", "test_surface");
+	}
+
 	m_pSystems->update();
 
-	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
+	if (pMapRegistry->view<Mesh>().size() == 0) {
+		m_pSystems->update();
+		Model* model = &pSceneRegistry->get<Model>(surfaceScene);
+		auto meshEnt = model->meshes.at(0);
+		entt::registry* pUtilReg = &m_pScene->getUtilRegistry();
+		Mesh* pMesh = &pUtilReg->get<Mesh>(meshEnt);
+		pMapRegistry->emplace<Mesh>(surface, *pMesh);
+		VaoGl* pVao = &pUtilReg->get<VaoGl>(meshEnt);
+		pMapRegistry->emplace<VaoGl>(surface, *pVao);
+		MaterialSG* pMaterial = &pUtilReg->get<MaterialSG>(meshEnt);
+		pMapRegistry->emplace<MaterialSG>(surface, *pMaterial);
+
+		ShaderGl shader = pSceneRegistry->get<ShaderGl>(surfaceScene);
+		pMapRegistry->emplace<ShaderGl>(surface, shader);
+
+		pMapRegistry->emplace<Transform>(surface, glm::vec3(0, -1, 0), glm::vec3(0, 0, 0), glm::vec3(100, 0.1, 100));
+	}
 
 	auto view = pSceneRegistry->view<Transform, Properties>();
 

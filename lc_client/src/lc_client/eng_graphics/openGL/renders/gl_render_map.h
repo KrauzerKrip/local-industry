@@ -8,7 +8,7 @@ class RenderGL;
 
 class RenderMapGl {
 public:
-	RenderMapGl(LightingGl* pLighting, RenderGL* pRenderGl, Camera* pCamera, entt::registry* pMapRegistry,
+	RenderMapGl(LightingGl* pLighting, RenderGL* pRenderGl, Camera* pCamera,  Skybox* pSkybox, entt::registry* pMapRegistry,
 		entt::registry* pUtilRegistry);
 
 	void render(glm::mat4 view, glm::mat4 projection);
@@ -20,4 +20,5 @@ private:
 	RenderGL* m_pRenderGl = nullptr;
 	LightingGl* m_pLighting = nullptr;
 	Camera* m_pCamera = nullptr;
+	Skybox* m_pSkybox = nullptr;
 };

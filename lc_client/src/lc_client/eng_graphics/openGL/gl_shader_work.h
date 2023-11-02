@@ -15,12 +15,13 @@ class ShaderWorkGl : public ShaderWork {
 	friend class SkyboxRenderGl;
 
 public:
-	ShaderWorkGl(IShaderManager* pShaderManager, entt::registry* pRegistry, IConsole* pConsole)
-		: ShaderWork(pRegistry),
+	ShaderWorkGl(IShaderManager* pShaderManager, IConsole* pConsole)
+		: ShaderWork(),
 		  m_pShaderManager(pShaderManager),
 		  m_pConsole(pConsole) {};
 
-	void loadShaders(entt::entity entity, const std::string vertexShaderName, const std::string fragmentShaderName);
+	void loadShaders(entt::registry* pRegistry, entt::entity entity, const std::string vertexShaderName,
+		const std::string fragmentShaderName);
 
 private:
 	IShaderManager* m_pShaderManager;

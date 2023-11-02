@@ -7,9 +7,9 @@
 
 class MeshWorkGl : public MeshWork {
 public:
-	MeshWorkGl(entt::registry* pUtilRegistry) : MeshWork(pUtilRegistry){};
+	MeshWorkGl() {};
 	
-	void loadMesh(entt::entity mesh);
+	void loadMesh(entt::registry* pUtilRegistry, entt::entity mesh);
 
 private:
 	unsigned int createVao(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);

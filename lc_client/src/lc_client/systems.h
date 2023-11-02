@@ -31,6 +31,7 @@ private:
 	ModelManager* m_pModelManager = nullptr;
 
 	ShaderSystem* m_pShaderSystem = nullptr;
+	ShaderSystem* m_pShaderSystemMap = nullptr;
 	MaterialSystem* m_pMaterialSystem = nullptr;
 	MaterialSystem* m_pMaterialSystemMap = nullptr;
 	ModelSystem* m_pModelSystem = nullptr;
