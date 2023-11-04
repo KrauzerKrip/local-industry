@@ -6,7 +6,8 @@
       "base": "dev/shaders/vert/base.vert",
       "framebuffer": "dev/shaders/vert/framebuffer.vert",
       "skybox": "dev/shaders/vert/skybox.vert",
-      "water" :  "dev/shaders/vert/water.vert"
+      "water": "dev/shaders/vert/water.vert",
+      "text": "dev/shaders/vert/text.vert"
     },
     "fragment": {
       "base": "dev/shaders/frag/base.frag",
@@ -14,7 +15,8 @@
       "lighting": "dev/shaders/frag/lighting.frag",
       "framebuffer": "dev/shaders/frag/framebuffer.frag",
       "skybox": "dev/shaders/frag/skybox.frag",
-      "water": "dev/shaders/frag/water.frag"
+      "water": "dev/shaders/frag/water.frag",
+      "text": "dev/shaders/frag/text.frag"
     }
   },
 

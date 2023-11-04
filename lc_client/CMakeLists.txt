@@ -71,8 +71,7 @@ find_package(nlohmann_json CONFIG REQUIRED)
 find_path(LUABRIDGE_INCLUDE_DIRS "LuaBridge/List.h")
 find_package(Lua REQUIRED)
 find_package(imgui CONFIG REQUIRED)
-
-
+find_package(freetype CONFIG REQUIRED)
 
 
 target_link_libraries(lc_client PUBLIC glfw glad::glad EnTT::EnTT)
@@ -84,6 +83,7 @@ target_include_directories(lc_client PRIVATE ${LUABRIDGE_INCLUDE_DIRS})
 target_include_directories(lc_client PRIVATE ${LUA_INCLUDE_DIR})
 target_link_libraries(lc_client PRIVATE ${LUA_LIBRARIES})
 target_link_libraries(lc_client PRIVATE imgui::imgui)
+target_link_libraries(lc_client PRIVATE freetype)
 
 #target_link_libraries(lc_client PRIVATE eng::rc)
 target_link_libraries(lc_client PRIVATE stb)   

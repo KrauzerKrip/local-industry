@@ -7,5 +7,6 @@ target_sources(lc_client
     "gui_console.h"
     "gui_console.cpp"
 
-
+    "text/text.h"
+    "text/text.cpp"
 )

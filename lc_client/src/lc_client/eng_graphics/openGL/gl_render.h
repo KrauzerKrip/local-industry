@@ -16,6 +16,7 @@
 #include "renders/gl_render_map.h"
 #include "lc_client/eng_map/map.h"
 #include "lc_client/eng_graphics/openGL/renders/gl_lighting.h"
+#include "lc_client/eng_gui/text/text.h"
 
 
 typedef decltype(entt::registry().view<CubemapGl, Transform>()) CubemapView;
@@ -56,6 +57,8 @@ private:
 	Scene* m_pScene = nullptr;
 	Skybox* m_pSkybox = nullptr;
 	LightingGl* m_pLighting = nullptr;
+	Text* m_pText = nullptr;
+
 
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pMapRegistry = nullptr;
