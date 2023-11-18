@@ -1,4 +1,4 @@
-#include "text.h"
+#include "gl_render_text.h"
 
 #include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -6,8 +6,8 @@
 #include <iostream>
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
-Text::Text(IConsole* pConsole) {
-	m_pConsole = pConsole;
+RenderTextGl::RenderTextGl(IConsole* pConsole, ShaderGl shader) : RenderText(pConsole) {
+	m_shader = shader.shaderProgram;
 
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft)) {
@@ -66,17 +66,23 @@ Text::Text(IConsole* pConsole) {
 	glBindVertexArray(0);
 }
 
-void Text::render(unsigned int shaderProgram, std::string text, float x, float y, float scale, glm::vec3 color) {
+void RenderTextGl::render(Text& text) {
+	float x = text.getPosition().x;
+	float y = text.getPosition().y;
+	glm::vec3 color = text.getColor();
+	float scale = text.getScale();
+	std::string textString = text.getText();
+
 	// activate corresponding render state
-	glUseProgram(shaderProgram);
-	unsigned int projLoc = glGetUniformLocation(shaderProgram, "projection");
+	glUseProgram(m_shader);
+	unsigned int projLoc = glGetUniformLocation(m_shader, "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
-	glUniform3f(glGetUniformLocation(shaderProgram, "textColor"), color.x, color.y, color.z);
+	glUniform3f(glGetUniformLocation(m_shader, "textColor"), color.x, color.y, color.z);
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(m_vao);
 	// iterate through all characters
 	std::string::const_iterator c;
-	for (c = text.begin(); c != text.end(); c++) {
+	for (c = textString.begin(); c != textString.end(); c++) {
 		Character ch = m_characters[*c];
 		float xpos = x + ch.bearing.x * scale;
 		float ypos = y - (ch.size.y - ch.bearing.y) * scale;

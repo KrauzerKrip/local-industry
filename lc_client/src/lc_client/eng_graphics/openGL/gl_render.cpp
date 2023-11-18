@@ -151,7 +151,7 @@ void RenderGL::render() {
 	}
 
 	m_pText->render(
-		textShaderProgram, "This is sample text", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+		textShaderProgram, "This is sample text \n cat", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
 	m_pFramebuffer->bindTexture();

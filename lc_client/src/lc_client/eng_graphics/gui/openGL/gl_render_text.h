@@ -4,11 +4,14 @@
 #include FT_FREETYPE_H
 
 #include <map>
+#pragma once
+
 #include <glm/glm.hpp>
 #include <string>
 
-#include "lc_client/tier0/console/i_console.h"
-
+#include "lc_client/eng_graphics/gui/render_text.h"
+#include "lc_client/eng_graphics/entt/components.h"
+#include "lc_client/eng_gui/paint_objects/text.h"
 
 struct Character {
 	unsigned int textureID; // ID handle of the glyph texture
@@ -17,15 +20,15 @@ struct Character {
 	unsigned int advance;	// Offset to advance to next glyph
 };
 
-class Text {
+class RenderTextGl : public RenderText {
 public:
-	Text(IConsole* pConsole);
+	RenderTextGl(IConsole* pConsole, ShaderGl shader);
 
-	void render(unsigned int shaderProgram, std::string text, float x, float y, float scale, glm::vec3 color);
+	void render(Text& text);
 
 private:
-	IConsole* m_pConsole = nullptr;
 	std::map<char, Character> m_characters;
+	unsigned int m_shader;
 	unsigned int m_vao;
 	unsigned int m_vbo;
 	glm::mat4 m_projection;
