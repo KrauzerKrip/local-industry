@@ -6,5 +6,5 @@ target_sources(lc_client
     PRIVATE
   "layout_controller.h" "layout_controller.cpp"
  "layouts/frame.h" "layouts/frame.cpp"
- "layouts/layout.h"
+ "layouts/layout.h" "widget_data.h" "layout_data.h"
 )

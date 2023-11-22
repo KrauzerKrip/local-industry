@@ -8,11 +8,14 @@
 #include "lc_client/eng_gui/layout/layouts/layout.h"
 #include "lc_client/eng_gui/paint_objects/background.h"
 #include "lc_client/eng_gui/paint_objects/text.h"
+#include "lc_client/eng_graphics/gui/render_background.h"
+
+class Layout;
 
 class Widget {
 public:
-	Widget();
-	virtual ~Widget() = 0;
+	Widget(Background background, RenderBackground* pBackgroundRender);
+	//virtual ~Widget() = 0;
 	
 	void show();
 	void hide();
@@ -20,16 +23,17 @@ public:
 	void setSize(glm::vec2 size);
 	glm::vec2 getPosition();
 	void setPosition(glm::vec2 position);
-	std::shared_ptr<Layout> getLayout();	
+	std::shared_ptr<Layout> getLayout();
+	void setLayout(std::shared_ptr<Layout> layout);
 	void setBackground(Background background);
 	void render();
-	std::array<glm::vec2, 4> getVertices();
-	void setVertices(std::array<glm::vec2, 4> vertices);
 
 private:
 	glm::vec2 m_size;
 	glm::vec2 m_position;
 	std::shared_ptr<Layout> m_layout;
 	bool m_isVisible = false;
-	std::array<glm::vec2, 4> m_vertices;
+	Background m_background;
+
+	RenderBackground* m_pBackroundRender;
 };

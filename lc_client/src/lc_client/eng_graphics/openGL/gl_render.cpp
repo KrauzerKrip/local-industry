@@ -22,7 +22,7 @@ RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork)
 	m_pCamera = pCamera;
 	m_pShaderWork = pShaderWork;
 	m_pFramebuffer = new Framebuffer(pWindow->getSize()[0], pWindow->getSize()[1]);
-	m_pText = new Text(Tier0::getIConsole());
+	//m_pText = new Text(Tier0::getIConsole());
 }
 
 RenderGL::~RenderGL() {}
@@ -150,8 +150,8 @@ void RenderGL::render() {
 		}
 	}
 
-	m_pText->render(
-		textShaderProgram, "This is sample text \n cat", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+	//m_pText->render(
+	//	textShaderProgram, "This is sample text \n cat", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
 	m_pFramebuffer->bindTexture();

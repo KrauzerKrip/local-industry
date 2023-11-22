@@ -6,6 +6,8 @@
 class Text {
 public:
 	Text(std::string text, glm::vec2 position, float scale, glm::vec3 color);
+	Text(Text& other);
+	Text& operator=(Text& other);  
 
 	std::string getText();
 	glm::vec2 getPosition();

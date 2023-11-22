@@ -16,7 +16,6 @@
 #include "renders/gl_render_map.h"
 #include "lc_client/eng_map/map.h"
 #include "lc_client/eng_graphics/openGL/renders/gl_lighting.h"
-#include "lc_client/eng_gui/text/text.h"
 #include "lc_client/eng_graphics/gui/openGL/gl_render_text.h"
 
 

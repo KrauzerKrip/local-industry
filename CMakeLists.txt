@@ -17,6 +17,3 @@ add_executable(industry "game/main.cpp" "game/main.h" "game/game.cpp" "game/game
 
 target_include_directories(industry PRIVATE lc_client)
 target_link_libraries(industry lc_client)
-
-
-# TODO: Add tests and install targets if needed.

@@ -58,5 +58,14 @@
         "CMAKE_BUILD_TYPE": "Release"
       }
     }
+  ],
+  "testPresets": [
+    {
+      "name": "testPresets",
+      "displayName": "Custom Test Preset",
+      "description": "Custom test preset description",
+      "configurePreset": "x64-debug",
+      "output": { "outputOnFailure": true }
+    }
   ]
 }

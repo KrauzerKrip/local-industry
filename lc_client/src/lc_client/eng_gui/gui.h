@@ -6,6 +6,6 @@ class Gui {
 public:
 	Gui();
 
-	std::vector<Text> getText();
+	void setLayout();
 
 };

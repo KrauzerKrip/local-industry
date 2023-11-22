@@ -6,13 +6,16 @@
 #include "lc_client/eng_gui/widgets/widget.h"
 #include "lc_client/eng_gui/widgets/text_widget.h"
 
-class Frame : Layout {
+
+class Frame : public Layout {
 public:
 	Frame();
 
-	std::vector<Widget> getChildrenWidgets();
-	void updateChildWidget(Widget& widgetData);
+	std::vector<std::shared_ptr<Widget>> getChildrenWidgets();
+	void updateChildWidget(WidgetData& widgetData);
+	void renderChildren();
+	void addChild(std::shared_ptr<Widget> widget);
 
 private:
-	std::vector<Widget> m_widgets;
+	std::vector<std::shared_ptr<Widget>> m_widgets;
 };

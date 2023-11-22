@@ -1,12 +1,14 @@
 #include "layout_controller.h"
 
 void LayoutController::update() {
-	std::vector<WidgetData> widgets;
+	m_widgets.clear();
 
-	updateLayout(m_layout, widgets);
+	LayoutData layoutData(m_layout);
 
-	m_textController->addText();
+	updateLayout(layoutData, m_widgets);
 }
+
+std::vector<WidgetData>& LayoutController::getWidgets() { return m_widgets; }
 
 void LayoutController::show() {
 	
@@ -16,24 +18,24 @@ void LayoutController::hide() {
 	
 }
 
-void LayoutController::updateLayout(std::shared_ptr<Layout> layout, std::vector<std::shared_ptr<Widget>>& widgets) {
-	std::vector<Widget> layoutWidgets = layout->getChildrenWidgets();
+void LayoutController::setLayout(std::shared_ptr<Layout> layout) { m_layout = layout; }
 
-	for (Widget& widget : layoutWidgets) {
-		std::shared_ptr<Layout> childLayout = widget.getLayout();
+void LayoutController::updateLayout(LayoutData layoutData, std::vector<WidgetData>& widgets) {
+	std::vector<std::shared_ptr<Widget>> layoutWidgets = layoutData.layout->getChildrenWidgets();
 
-		layout->updateChildWidget(widget);
-		updateLayout(childLayout, widgets);
+	for (std::shared_ptr<Widget>& widget : layoutWidgets) {
+		WidgetData widgetData(widget);
+		widgetData.position = layoutData.position;
+		layoutData.layout->updateChildWidget(widgetData);
 
-		// translate position of child widgets of the widget`s layout according to the widget.
-		for (Widget& dataChildren : childLayout->getChildrenWidgets()) {
-			auto vertices = dataChildren.getVertices();
-			for (glm::vec2& vertice : vertices) {
-				vertice += widget.getPosition();
-			}
-			dataChildren.setVertices(vertices);
+		LayoutData childLayoutData(widget->getLayout());
+		childLayoutData.position = widgetData.position;
+		childLayoutData.size = widgetData.size;
+
+		widgets.push_back(widgetData);
+		
+		if (widget->getLayout().get() != nullptr) {
+			updateLayout(childLayoutData, widgets);
 		}
 	}
-	 
-	widgets.insert(std::end(widgets), std::begin(layoutWidgets), std::end(layoutWidgets));
 }

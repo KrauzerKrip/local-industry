@@ -4,15 +4,18 @@
 
 Frame::Frame() {}
 
-std::vector<Widget> Frame::getChildrenWidgets() { 
+std::vector<std::shared_ptr<Widget>> Frame::getChildrenWidgets() { 
 	return m_widgets; }
 
-void Frame::updateChildWidget(Widget& widget) {
-	auto vertices = widget.getVertices();
-
-	for (glm::vec2& vertice : vertices) {
-		vertice += widget.getPosition();
-	}
-
-	widget.setVertices(vertices);
+void Frame::updateChildWidget(WidgetData& widgetData) {
+	widgetData.position += widgetData.widget->getPosition();
+	widgetData.size = widgetData.widget->getSize();
 }
+ 
+void Frame::renderChildren() {
+	for (std::shared_ptr<Widget> widget : m_widgets) {
+		widget->render();
+	}
+}
+
+void Frame::addChild(std::shared_ptr<Widget> widget) { m_widgets.push_back(widget); }
