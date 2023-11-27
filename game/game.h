@@ -20,6 +20,9 @@
 #include "lc_client/eng_gui/gui_console.h"
 #include "lc_client/eng_cubemaps/cubemap_work.h"
 #include "lc_client/eng_map/map.h"
+#include "lc_client/eng_gui/layout/layout_controller.h"
+#include "lc_client/eng_gui/view/gui_presenter.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
 
 
 class Game : public IGameLogic {
@@ -32,6 +35,8 @@ public:
 	void update();
 	void render();
 	void cleanUp();
+
+	void setUpGui(ShaderWorkGl* pShaderWorkGl);
 
 private:
 	IWindow* m_pWindow = nullptr;
@@ -47,6 +52,12 @@ private:
 	ShaderWork* m_pShaderWorkScene = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
 	CubemapWork* m_pCubemapWork = nullptr;
+
+	LayoutController* m_pLayoutController = nullptr;
+	GuiPresenter* m_pGuiPresenter = nullptr;
+	Layout* m_pGuiLayout = nullptr;
+	RenderBackground* m_pBackgroundRender = nullptr;
+	RenderText* m_pTextRender = nullptr;
 
 
 	Tier0* m_pTier0 = nullptr;

@@ -6,10 +6,10 @@
 
 class Background {
 public:
-	Background(glm::vec3 color);
+	Background(glm::vec4 color);
 
-	glm::vec3 getColor();
+	glm::vec4 getColor();
 	
 private:
-	glm::vec3 m_color;
+	glm::vec4 m_color;
 };

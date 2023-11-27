@@ -12,9 +12,12 @@ target_sources(lc_client
 
     "gui.h"
     "gui.cpp"
-    "view/text_presenter.h"
-    "paint_objects/text.h"
-    "paint_objects/text.cpp"
+    
+    "view/gui_presenter.h"
+    "view/gui_presenter.cpp"
+
+    
+    
     "controller/text_controller.h"
      "controller/i_text_controller.h"
     
@@ -22,4 +25,5 @@ target_sources(lc_client
  "paint_objects/background.cpp"
     "paint_objects/image_background.cpp"
     "paint_objects/image_background.cpp"
+    "paint_objects/text.h"
 )

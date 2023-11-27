@@ -6,8 +6,8 @@
 #include <iostream>
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
-RenderTextGl::RenderTextGl(IConsole* pConsole, ShaderGl shader) : RenderText(pConsole) {
-	m_shader = shader.shaderProgram;
+RenderTextGl::RenderTextGl(IConsole* pConsole, ShaderWorkGl* pShaderWork) : RenderText(pConsole) {
+	m_shader = pShaderWork->createShaderProgram("text", "text");
 
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft)) {
@@ -66,18 +66,23 @@ RenderTextGl::RenderTextGl(IConsole* pConsole, ShaderGl shader) : RenderText(pCo
 	glBindVertexArray(0);
 }
 
-void RenderTextGl::render(Text& text) {
-	float x = text.getPosition().x;
-	float y = text.getPosition().y;
-	glm::vec3 color = text.getColor();
-	float scale = text.getScale();
-	std::string textString = text.getText();
+void RenderTextGl::render(
+	std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, unsigned int layer) {
+	float x = absolutePosition.x;
+	float y = absolutePosition.y;
+	float scale = size;
+	std::string textString = text;
+
+	float zOffset = ((float)layer + 0.5f) / 100; // should not be bigger than 2
 
 	// activate corresponding render state
 	glUseProgram(m_shader);
 	unsigned int projLoc = glGetUniformLocation(m_shader, "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
 	glUniform3f(glGetUniformLocation(m_shader, "textColor"), color.x, color.y, color.z);
+	setUniform(m_shader, "textColor", color);
+	setUniform(m_shader, "zOffset", zOffset);
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(m_vao);
 	// iterate through all characters
@@ -102,6 +107,7 @@ void RenderTextGl::render(Text& text) {
 		// advance cursors for next glyph (advance is 1/64 pixels)
 		x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
 	}
+
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }

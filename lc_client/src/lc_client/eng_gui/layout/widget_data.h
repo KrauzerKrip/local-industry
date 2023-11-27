@@ -10,6 +10,7 @@ struct WidgetData {
 	std::shared_ptr<Widget> widget;
 	glm::vec2 position;
 	glm::vec2 size;
+	unsigned int layer = 0;
 
-	WidgetData(std::shared_ptr<Widget> widget) : widget(widget), position(glm::vec2(0)), size(glm::vec2(0)){};
+	WidgetData(std::shared_ptr<Widget> widget) : widget(widget), position(glm::vec2(0)), size(glm::vec2(0)) {};
 };

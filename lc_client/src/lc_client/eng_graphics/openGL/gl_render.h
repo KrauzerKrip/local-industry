@@ -17,6 +17,8 @@
 #include "lc_client/eng_map/map.h"
 #include "lc_client/eng_graphics/openGL/renders/gl_lighting.h"
 #include "lc_client/eng_graphics/gui/openGL/gl_render_text.h"
+#include "lc_client/eng_gui/view/gui_presenter.h"
+#include "lc_client/eng_graphics/gui/render_text.h"
 
 
 typedef decltype(entt::registry().view<CubemapGl, Transform>()) CubemapView;
@@ -32,7 +34,7 @@ class RenderGL : public IRender {
 friend class RenderMapGl;
 
 public:
-	RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork);
+	RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork, GuiPresenter* pGuiPresenter);
 	~RenderGL();
 
 	void init(); 
@@ -57,7 +59,8 @@ private:
 	Scene* m_pScene = nullptr;
 	Skybox* m_pSkybox = nullptr;
 	LightingGl* m_pLighting = nullptr;
-	Text* m_pText = nullptr;
+	GuiPresenter* m_pGuiPresenter = nullptr;
+	RenderText* m_pRenderText = nullptr;
 
 
 	entt::registry* m_pSceneRegistry = nullptr;

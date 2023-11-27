@@ -12,6 +12,10 @@
 #include "lc_client/eng_graphics/gui/render_text.h"
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_gui/paint_objects/text.h"
+#include "lc_client/eng_graphics/gui/queue_render.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
+
+class ShaderWorkGl;
 
 struct Character {
 	unsigned int textureID; // ID handle of the glyph texture
@@ -22,9 +26,9 @@ struct Character {
 
 class RenderTextGl : public RenderText {
 public:
-	RenderTextGl(IConsole* pConsole, ShaderGl shader);
+	RenderTextGl(IConsole* pConsole, ShaderWorkGl* pShaderWork);
 
-	void render(Text& text);
+	void render(std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, unsigned int layer);
 
 private:
 	std::map<char, Character> m_characters;

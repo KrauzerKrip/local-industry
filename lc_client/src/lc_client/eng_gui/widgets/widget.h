@@ -26,7 +26,8 @@ public:
 	std::shared_ptr<Layout> getLayout();
 	void setLayout(std::shared_ptr<Layout> layout);
 	void setBackground(Background background);
-	void render();
+	Background getBackground();
+	virtual void render(glm::vec2 absolutePosition, glm::vec2 size, unsigned int layer);
 
 private:
 	glm::vec2 m_size;

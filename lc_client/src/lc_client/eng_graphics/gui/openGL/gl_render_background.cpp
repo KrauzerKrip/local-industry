@@ -5,39 +5,18 @@
 #include<glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
-RenderBackgroundGl::RenderBackgroundGl(IConsole* pConsole, ShaderGl shader) : RenderBackground(m_pConsole) {
-	m_shader = shader.shaderProgram;
+RenderBackgroundGl::RenderBackgroundGl(IConsole* pConsole, ShaderWorkGl* pShaderWork) : RenderBackground(m_pConsole) {
+	pShaderWork->createShaderProgram("quad", "quad");
+
+	m_shader = pShaderWork->createShaderProgram("quad", "quad");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	m_projection = glm::ortho(0.0f, 1920.0f, 0.0f, 1080.0f);
-
-	//float quadVertices[] = {// positions     // colors
-	//	-0.05f, 0.05f, 1.0f, 
-	//	0.0f, 0.0f, 0.05f,
-	//	-0.05f, 0.0f, 1.0f,
-	//	0.0f, -0.05f, -0.05f,
-	//	0.0f, 0.0f, 1.0f,
-
-	//	-0.05f, 0.05f, 
-	//	
-	//	1.0f, 0.0f, 0.0f, 0.05f, -0.05f, 0.0f, 1.0f, 0.0f, 0.05f, 0.05f, 0.0f, 1.0f, 1.0f}; 
-
-float quadVertices[] = {
-		0.5f, 0.5f, 0.0f,	// top right
-		0.5f, -0.5f, 0.0f,	// bottom right
-		-0.5f, -0.5f, 0.0f, // bottom left
-		-0.5f, 0.5f, 0.0f	// top left
-	};
-
-unsigned int indices[] = {
-		// note that we start from 0!
-		0, 1, 3, // first triangle
-		1, 2, 3	 // second triangle
-	};
 
 	glGenVertexArrays(1, &m_vao);
 	glGenBuffers(1, &m_vbo);
@@ -74,40 +53,37 @@ unsigned int indices[] = {
 	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0) glBindVertexArray(0);
 }
 
-void RenderBackgroundGl::addToQueue(Background& background, std::array<glm::vec2, 4> vertices) { 
-	ColorQuad quad(background, vertices);
-	m_colorQuads.push(quad);
+void RenderBackgroundGl::renderColor(ColorQuad colorQuad) {
+	glUseProgram(m_shader);
+	unsigned int projLoc = glGetUniformLocation(m_shader, "projection");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
+	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(m_vao);
+
+	glm::vec2 bottomLeft = colorQuad.absolutePosition;
+	glm::vec2 topLeft = glm::vec2(colorQuad.absolutePosition.x, colorQuad.absolutePosition.y + colorQuad.size.y);
+	glm::vec2 topRight = glm::vec2(colorQuad.absolutePosition.x + colorQuad.size.x, colorQuad.absolutePosition.y + colorQuad.size.y);
+	glm::vec2 bottomRight = glm::vec2(colorQuad.absolutePosition.x + colorQuad.size.x, colorQuad.absolutePosition.y);
+
+	float vertices[6][4] = {{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomLeft.x, bottomLeft.y, 0.0f, 0.0f},
+		{bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+
+		{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+		{topRight.x, topRight.y, 1.0f, 1.0f}};
+
+	float zOffset = (float)colorQuad.layer / 100; // should not be bigger than 2
+
+	setUniform(m_shader, "zOffset", zOffset);
+	setUniform(m_shader, "quadColor", colorQuad.background.getColor());
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	// render quad
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void RenderBackgroundGl::addToQueue(ImageBackground& background, std::array<glm::vec2, 4> vertices) {
-	ImageQuad quad(background, vertices);
-	m_imageQuads.push(quad);
-}
-
-void RenderBackgroundGl::render() {
-	while (m_colorQuads.size() != 0) {
-		ColorQuad quad = m_colorQuads.front();
-		m_colorQuads.pop();
-
-		glm::vec2 bottomLeft = quad.vertices.at(0);
-		glm::vec2 topLeft = quad.vertices.at(1);
-		glm::vec2 topRight = quad.vertices.at(2);
-		glm::vec2 bottomRight = quad.vertices.at(3);
-
-        float vertices[6][4] = {
-            { topLeft.x,     topLeft.y,           0.0f, 1.0f },
-            { bottomRight.x, bottomRight.y,       1.0f, 0.0f },
-            { bottomLeft.x, bottomLeft.y,         0.0f, 0.0f },
- 
-            { topLeft.x, topLeft.y,               0.0f, 1.0f},
-            { topRight.x, topRight.y,             1.0f, 1.0f },
-			{ bottomRight.x, bottomRight.y,       1.0f, 0.0f}
-        };
-		
-		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		// render quad
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-	}
-}
+void RenderBackgroundGl::renderImage(ImageQuad colorQuad) {}

@@ -28,13 +28,17 @@ void LayoutController::updateLayout(LayoutData layoutData, std::vector<WidgetDat
 		widgetData.position = layoutData.position;
 		layoutData.layout->updateChildWidget(widgetData);
 
+		widgetData.layer = layoutData.layer;
+
 		LayoutData childLayoutData(widget->getLayout());
 		childLayoutData.position = widgetData.position;
 		childLayoutData.size = widgetData.size;
+		childLayoutData.layer = layoutData.layer;
 
 		widgets.push_back(widgetData);
 		
 		if (widget->getLayout().get() != nullptr) {
+			childLayoutData.layer++;
 			updateLayout(childLayoutData, widgets);
 		}
 	}

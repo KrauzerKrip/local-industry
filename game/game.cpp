@@ -22,6 +22,10 @@
 #include "lc_client/eng_cubemaps/cubemap_loader.h"
 #include "lc_client/util/pack.h"
 #include "lc_client/eng_cubemaps/openGL/gl_cubemap_work.h"
+#include "lc_client/eng_gui/layout/layouts/frame.h"
+#include "lc_client/eng_gui/widgets/widget.h"
+#include "lc_client/eng_graphics/gui/openGL/gl_render_background.h"
+#include "lc_client/eng_gui/widgets/text_widget.h"
 
 #include "lc_client/tier0/console/i_console.h"
 
@@ -36,6 +40,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
 	m_pMap = new Map();
+	m_pLayoutController = new LayoutController();
 }
 
 Game::~Game() {
@@ -47,7 +52,6 @@ Game::~Game() {
 };
 
 void Game::init() {
-
 	m_pConsoleGui = new ConsoleGui(
 		m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier1->getTextureManager(), m_pTier0->getParameters());
 
@@ -72,7 +76,13 @@ void Game::init() {
 	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(skyboxMaterial.get(), pShaderWork);
 	Skybox* pSkybox = new Skybox(pSkyboxRender);
 
-	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork);
+    m_pBackgroundRender = new RenderBackgroundGl(m_pTier0->getConsole(), pShaderWork);
+	m_pTextRender = new RenderTextGl(m_pTier0->getConsole(), pShaderWork);
+
+	std::vector<QueueRender*> queueRenders;
+	m_pGuiPresenter = new GuiPresenter(m_pLayoutController, queueRenders);
+
+	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork, m_pGuiPresenter);
 
 	m_pScene->loadScene("dev", "test");
 	m_pMap->loadMap("dev", "test");
@@ -102,6 +112,8 @@ void Game::init() {
 			pConsoleGui->open();
 		}
 	});
+
+	setUpGui(pShaderWork);
 }
 
 void Game::input() {
@@ -234,6 +246,8 @@ void Game::update() {
 	//	}
 	//}
 
+	m_pLayoutController->update();
+
 }
 
 void Game::render() {
@@ -242,3 +256,34 @@ void Game::render() {
 }
 
 void Game::cleanUp() {}
+
+void Game::setUpGui(ShaderWorkGl* pShaderWorkGl) { 
+	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
+
+	Background background(glm::vec4(1, 1, 1, 0.8));
+	Background background2(glm::vec4(0, 1, 1, 0.8));
+
+	std::shared_ptr<Widget> widget = std::make_shared<Widget>(background, m_pBackgroundRender);
+	widget->setPosition(glm::vec2(25, 25));
+	widget->setSize(glm::vec2(400, 200));
+	frame->addChild(widget);
+
+	std::shared_ptr<Layout> layout2 = std::make_shared<Frame>();
+	widget->setLayout(layout2);
+	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(background2, m_pBackgroundRender);
+	widget2->setPosition(glm::vec2(50, 100));
+	widget2->setSize(glm::vec2(50, 50));
+	//layout2->addChild(widget2);
+
+	Background background3(glm::vec4(1, 1, 1, 0));
+	RenderText* pTextRender = new RenderTextGl(m_pTier0->getConsole(), pShaderWorkGl);
+	std::shared_ptr<TextWidget> textWidget =
+		std::make_shared<TextWidget>(background3, m_pBackgroundRender, m_pTextRender);
+	textWidget->setPosition(glm::vec2(50, 100));
+	textWidget->setTextSize(1);
+	textWidget->setColor(glm::vec4(0, 0, 0, 1));
+	textWidget->setText("Test");
+	layout2->addChild(textWidget);
+
+	m_pLayoutController->setLayout(frame);
+}

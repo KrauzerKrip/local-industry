@@ -8,24 +8,17 @@
 #include "lc_client/eng_graphics/gui/render_background.h"
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_gui/paint_objects/text.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
 
-struct ColorQuad {
-	Background background;
-	std::array<glm::vec2, 4> vertices;
-};
 
-struct ImageQuad {
-	ImageBackground background;
-	std::array<glm::vec2, 4> vertices;
-};
+class ShaderWorkGl;
 
 class RenderBackgroundGl : public RenderBackground {
 public:
-	RenderBackgroundGl(IConsole* pConsole, ShaderGl shader);
+	RenderBackgroundGl(IConsole* pConsole, ShaderWorkGl* pShaderWork);
 
-	void addToQueue(Background& background, std::array<glm::vec2, 4> vertices);
-	void addToQueue(ImageBackground& background, std::array<glm::vec2, 4> vertices);
-	void render();
+	void renderColor(ColorQuad colorQuad);
+	void renderImage(ImageQuad colorQuad);
 
 private:
 	std::queue<ColorQuad> m_colorQuads;

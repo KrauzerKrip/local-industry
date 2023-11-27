@@ -17,12 +17,12 @@
 #include "lc_client/tier0/tier0.h"
 
 
-RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork) {
+RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork, GuiPresenter* pGuiPresenter) {
 	m_pWindow = pWindow; // mb remove it
 	m_pCamera = pCamera;
 	m_pShaderWork = pShaderWork;
 	m_pFramebuffer = new Framebuffer(pWindow->getSize()[0], pWindow->getSize()[1]);
-	//m_pText = new Text(Tier0::getIConsole());
+	m_pGuiPresenter = pGuiPresenter;
 }
 
 RenderGL::~RenderGL() {}
@@ -149,9 +149,8 @@ void RenderGL::render() {
 			textShaderProgram = m_pSceneRegistry->get<ShaderGl>(ent).shaderProgram;
 		}
 	}
-
-	//m_pText->render(
-	//	textShaderProgram, "This is sample text \n cat", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+	
+	m_pGuiPresenter->render();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
 	m_pFramebuffer->bindTexture();
