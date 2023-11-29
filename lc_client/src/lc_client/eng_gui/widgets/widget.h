@@ -8,13 +8,13 @@
 #include "lc_client/eng_gui/layout/layouts/layout.h"
 #include "lc_client/eng_gui/paint_objects/background.h"
 #include "lc_client/eng_gui/paint_objects/text.h"
-#include "lc_client/eng_graphics/gui/render_background.h"
+#include "lc_client/eng_graphics/gui/background_render.h"
 
 class Layout;
 
 class Widget {
 public:
-	Widget(Background background, RenderBackground* pBackgroundRender);
+	Widget(Background background, BackgroundRender* pBackgroundRender);
 	//virtual ~Widget() = 0;
 	
 	void show();
@@ -36,5 +36,5 @@ private:
 	bool m_isVisible = false;
 	Background m_background;
 
-	RenderBackground* m_pBackroundRender;
+	BackgroundRender* m_pBackroundRender;
 };

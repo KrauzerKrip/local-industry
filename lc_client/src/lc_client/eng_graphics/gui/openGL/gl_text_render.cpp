@@ -1,4 +1,4 @@
-#include "gl_render_text.h"
+#include "gl_text_render.h"
 
 #include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -6,8 +6,8 @@
 #include <iostream>
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
-RenderTextGl::RenderTextGl(IConsole* pConsole, ShaderWorkGl* pShaderWork) : RenderText(pConsole) {
-	m_shader = pShaderWork->createShaderProgram("text", "text");
+TextRenderGl::TextRenderGl(IConsole* pConsole, ShaderWorkGl* pShaderWork) : TextRender(pConsole) {
+	m_shader = pShaderWork->createShaderProgram("gui_text", "gui_text");
 
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft)) {
@@ -66,7 +66,7 @@ RenderTextGl::RenderTextGl(IConsole* pConsole, ShaderWorkGl* pShaderWork) : Rend
 	glBindVertexArray(0);
 }
 
-void RenderTextGl::render(
+void TextRenderGl::render(
 	std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, unsigned int layer) {
 	float x = absolutePosition.x;
 	float y = absolutePosition.y;

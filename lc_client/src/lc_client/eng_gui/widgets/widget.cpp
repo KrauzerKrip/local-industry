@@ -1,6 +1,6 @@
 #include "widget.h"
 
-Widget::Widget(Background background, RenderBackground* pBackgroundRender) : m_background(background)
+Widget::Widget(Background background, BackgroundRender* pBackgroundRender) : m_background(background)
 {
 	m_pBackroundRender = pBackgroundRender;
 	m_position = glm::vec2(0);

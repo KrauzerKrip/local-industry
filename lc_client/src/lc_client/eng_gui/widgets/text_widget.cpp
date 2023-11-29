@@ -1,6 +1,6 @@
 #include "text_widget.h"
 
-TextWidget::TextWidget(Background background, RenderBackground* pBackgroundRender, RenderText* pTextRender)
+TextWidget::TextWidget(Background background, BackgroundRender* pBackgroundRender, TextRender* pTextRender)
 	: Widget(background, pBackgroundRender) {
 	m_pBackgroundRender = pBackgroundRender;
 	m_pTextRender = pTextRender;

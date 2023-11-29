@@ -6,10 +6,10 @@
 #include "lc_client/tier0/console/i_console.h"
 
 
-class RenderText {
+class TextRender {
 public:
-	RenderText(IConsole* pConsole) : m_pConsole(pConsole){};
-	virtual ~RenderText(){};
+	TextRender(IConsole* pConsole) : m_pConsole(pConsole){};
+	virtual ~TextRender(){};
 	
 	virtual void render(
 		std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, unsigned int layer) = 0;

@@ -9,7 +9,7 @@
 #include <glm/glm.hpp>
 #include <string>
 
-#include "lc_client/eng_graphics/gui/render_text.h"
+#include "lc_client/eng_graphics/gui/text_render.h"
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_gui/paint_objects/text.h"
 #include "lc_client/eng_graphics/gui/queue_render.h"
@@ -24,9 +24,9 @@ struct Character {
 	unsigned int advance;	// Offset to advance to next glyph
 };
 
-class RenderTextGl : public RenderText {
+class TextRenderGl : public TextRender {
 public:
-	RenderTextGl(IConsole* pConsole, ShaderWorkGl* pShaderWork);
+	TextRenderGl(IConsole* pConsole, ShaderWorkGl* pShaderWork);
 
 	void render(std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, unsigned int layer);
 

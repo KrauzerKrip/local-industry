@@ -24,8 +24,9 @@
 #include "lc_client/eng_cubemaps/openGL/gl_cubemap_work.h"
 #include "lc_client/eng_gui/layout/layouts/frame.h"
 #include "lc_client/eng_gui/widgets/widget.h"
-#include "lc_client/eng_graphics/gui/openGL/gl_render_background.h"
+#include "lc_client/eng_graphics/gui/openGL/gl_background_render.h"
 #include "lc_client/eng_gui/widgets/text_widget.h"
+#include "lc_client/eng_graphics/openGL/gl_skybox_render.h"
 
 #include "lc_client/tier0/console/i_console.h"
 
@@ -76,8 +77,8 @@ void Game::init() {
 	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(skyboxMaterial.get(), pShaderWork);
 	Skybox* pSkybox = new Skybox(pSkyboxRender);
 
-    m_pBackgroundRender = new RenderBackgroundGl(m_pTier0->getConsole(), pShaderWork);
-	m_pTextRender = new RenderTextGl(m_pTier0->getConsole(), pShaderWork);
+    m_pBackgroundRender = new BackgroundRenderGl(m_pTier0->getConsole(), pShaderWork);
+	m_pTextRender = new TextRenderGl(m_pTier0->getConsole(), pShaderWork);
 
 	std::vector<QueueRender*> queueRenders;
 	m_pGuiPresenter = new GuiPresenter(m_pLayoutController, queueRenders);
@@ -276,7 +277,7 @@ void Game::setUpGui(ShaderWorkGl* pShaderWorkGl) {
 	//layout2->addChild(widget2);
 
 	Background background3(glm::vec4(1, 1, 1, 0));
-	RenderText* pTextRender = new RenderTextGl(m_pTier0->getConsole(), pShaderWorkGl);
+	TextRender* pTextRender = new TextRenderGl(m_pTier0->getConsole(), pShaderWorkGl);
 	std::shared_ptr<TextWidget> textWidget =
 		std::make_shared<TextWidget>(background3, m_pBackgroundRender, m_pTextRender);
 	textWidget->setPosition(glm::vec2(50, 100));

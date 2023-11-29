@@ -23,6 +23,7 @@
 #include "lc_client/eng_gui/layout/layout_controller.h"
 #include "lc_client/eng_gui/view/gui_presenter.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_work.h"
+#include "lc_client/eng_graphics/gui/text_render.h"
 
 
 class Game : public IGameLogic {
@@ -56,8 +57,8 @@ private:
 	LayoutController* m_pLayoutController = nullptr;
 	GuiPresenter* m_pGuiPresenter = nullptr;
 	Layout* m_pGuiLayout = nullptr;
-	RenderBackground* m_pBackgroundRender = nullptr;
-	RenderText* m_pTextRender = nullptr;
+	BackgroundRender* m_pBackgroundRender = nullptr;
+	TextRender* m_pTextRender = nullptr;
 
 
 	Tier0* m_pTier0 = nullptr;

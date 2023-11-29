@@ -1,4 +1,4 @@
-#include "gl_render_background.h"
+#include "gl_background_render.h"
 
 #include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -8,10 +8,8 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
-RenderBackgroundGl::RenderBackgroundGl(IConsole* pConsole, ShaderWorkGl* pShaderWork) : RenderBackground(m_pConsole) {
-	pShaderWork->createShaderProgram("quad", "quad");
-
-	m_shader = pShaderWork->createShaderProgram("quad", "quad");
+BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderWorkGl* pShaderWork) : BackgroundRender(m_pConsole) {
+	m_shader = pShaderWork->createShaderProgram("gui_quad", "gui_quad");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -20,40 +18,18 @@ RenderBackgroundGl::RenderBackgroundGl(IConsole* pConsole, ShaderWorkGl* pShader
 
 	glGenVertexArrays(1, &m_vao);
 	glGenBuffers(1, &m_vbo);
-	//unsigned int ebo;
-	//glGenBuffers(1, &ebo);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	
+
 	glBindVertexArray(m_vao);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-
-	//glBindVertexArray(VAO);
-	//// 2. copy our vertices array in a vertex buffer for OpenGL to use
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	//// 3. copy our index array in a element buffer for OpenGL to use
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	//// 4. then set the vertex attributes pointers
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	//glEnableVertexAttribArray(0);
-	//// ..:: Drawing code (in render loop) :: ..
-	//	glUseProgram(shaderProgram);
-	//glBindVertexArray(VAO);
-	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0) glBindVertexArray(0);
 }
 
-void RenderBackgroundGl::renderColor(ColorQuad colorQuad) {
+void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 	glUseProgram(m_shader);
 	unsigned int projLoc = glGetUniformLocation(m_shader, "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
@@ -86,4 +62,4 @@ void RenderBackgroundGl::renderColor(ColorQuad colorQuad) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void RenderBackgroundGl::renderImage(ImageQuad colorQuad) {}
+void BackgroundRenderGl::renderImage(ImageQuad colorQuad) {}

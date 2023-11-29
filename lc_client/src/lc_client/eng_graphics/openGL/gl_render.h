@@ -16,9 +16,9 @@
 #include "renders/gl_render_map.h"
 #include "lc_client/eng_map/map.h"
 #include "lc_client/eng_graphics/openGL/renders/gl_lighting.h"
-#include "lc_client/eng_graphics/gui/openGL/gl_render_text.h"
+#include "lc_client/eng_graphics/gui/openGL/gl_text_render.h"
 #include "lc_client/eng_gui/view/gui_presenter.h"
-#include "lc_client/eng_graphics/gui/render_text.h"
+#include "lc_client/eng_graphics/gui/text_render.h"
 
 
 typedef decltype(entt::registry().view<CubemapGl, Transform>()) CubemapView;
@@ -60,7 +60,7 @@ private:
 	Skybox* m_pSkybox = nullptr;
 	LightingGl* m_pLighting = nullptr;
 	GuiPresenter* m_pGuiPresenter = nullptr;
-	RenderText* m_pRenderText = nullptr;
+	TextRender* m_pRenderText = nullptr;
 
 
 	entt::registry* m_pSceneRegistry = nullptr;

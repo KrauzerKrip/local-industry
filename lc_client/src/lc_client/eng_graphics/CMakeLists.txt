@@ -39,12 +39,12 @@ target_sources(lc_client
         "openGL/renders/gl_lighting.h"
         "openGL/renders/gl_lighting.cpp"
 
-        "gui/render_text.h"
-        "gui/render_background.h"
-        "gui/openGL/gl_render_text.h"
-        "gui/openGL/gl_render_text.cpp"
-        "gui/openGL/gl_render_background.h"
-        "gui/openGL/gl_render_background.cpp"
+        "gui/text_render.h"
+        "gui/background_render.h"
+        "gui/openGL/gl_text_render.h"
+        "gui/openGL/gl_text_render.cpp"
+        "gui/openGL/gl_background_render.h"
+        "gui/openGL/gl_background_render.cpp"
 
 
         "entt/components.h"

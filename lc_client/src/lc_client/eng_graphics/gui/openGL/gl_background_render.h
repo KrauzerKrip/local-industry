@@ -5,7 +5,7 @@
 #include <array>
 #include <queue>
 
-#include "lc_client/eng_graphics/gui/render_background.h"
+#include "lc_client/eng_graphics/gui/background_render.h"
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_gui/paint_objects/text.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_work.h"
@@ -13,9 +13,9 @@
 
 class ShaderWorkGl;
 
-class RenderBackgroundGl : public RenderBackground {
+class BackgroundRenderGl : public BackgroundRender {
 public:
-	RenderBackgroundGl(IConsole* pConsole, ShaderWorkGl* pShaderWork);
+	BackgroundRenderGl(IConsole* pConsole, ShaderWorkGl* pShaderWork);
 
 	void renderColor(ColorQuad colorQuad);
 	void renderImage(ImageQuad colorQuad);

@@ -20,10 +20,10 @@ struct ImageQuad {
 };
 
 
-class RenderBackground {
+class BackgroundRender {
 public:
-	RenderBackground(IConsole* pConsole) : m_pConsole(pConsole){};
-	virtual ~RenderBackground(){};
+	BackgroundRender(IConsole* pConsole) : m_pConsole(pConsole){};
+	virtual ~BackgroundRender(){};
 
 	virtual void renderColor(ColorQuad colorQuad) = 0;
 	virtual void renderImage(ImageQuad colorQuad) = 0;

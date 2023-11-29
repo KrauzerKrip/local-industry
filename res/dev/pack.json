@@ -7,8 +7,8 @@
       "framebuffer": "dev/shaders/vert/framebuffer.vert",
       "skybox": "dev/shaders/vert/skybox.vert",
       "water": "dev/shaders/vert/water.vert",
-      "text": "dev/shaders/vert/text.vert",
-      "quad": "dev/shaders/vert/quad.vert",
+      "gui_text": "dev/shaders/vert/gui_text.vert",
+      "gui_quad": "dev/shaders/vert/gui_quad.vert",
       "quad_instancing": "dev/shaders/vert/quad_instancing.vert"
     },
     "fragment": {
@@ -18,8 +18,8 @@
       "framebuffer": "dev/shaders/frag/framebuffer.frag",
       "skybox": "dev/shaders/frag/skybox.frag",
       "water": "dev/shaders/frag/water.frag",
-      "text": "dev/shaders/frag/text.frag",
-      "quad": "dev/shaders/frag/quad.frag"
+      "gui_text": "dev/shaders/frag/gui_text.frag",
+      "gui_quad": "dev/shaders/frag/gui_quad.frag"
     }
   },
 
