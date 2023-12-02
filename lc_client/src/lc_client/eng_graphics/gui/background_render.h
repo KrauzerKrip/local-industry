@@ -4,19 +4,23 @@
 #include "lc_client/eng_gui/paint_objects/background.h"
 #include "lc_client/eng_gui/paint_objects/image_background.h"
 #include "lc_client/eng_graphics/gui/queue_render.h"
+#include "lc_client/eng_gui/widgets/rectangle.h"
+#include "lc_client/eng_gui/widgets/layer.h"
+
 
 struct ColorQuad {
 	Background background;
-	glm::vec2 absolutePosition;
-	glm::vec2 size;
-	unsigned int layer;
+	RectangleVertices vertices;
+	float zOffset;
+
+	ColorQuad(Background background) : background(background){};
+	ColorQuad(Background background, RectangleVertices vertices, float zOffset) : background(background), vertices(vertices), zOffset(zOffset) {};
 };
 
 struct ImageQuad {
 	ImageBackground background;
-	glm::vec2 absolutePosition;
-	glm::vec2 size;
-	unsigned int layer;
+	RectangleVertices vertices;
+	Layer layer;
 };
 
 

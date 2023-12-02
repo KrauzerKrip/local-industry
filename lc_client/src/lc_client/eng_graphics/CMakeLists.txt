@@ -41,10 +41,15 @@ target_sources(lc_client
 
         "gui/text_render.h"
         "gui/background_render.h"
+        "gui/zoffset_calculator.h"
         "gui/openGL/gl_text_render.h"
         "gui/openGL/gl_text_render.cpp"
         "gui/openGL/gl_background_render.h"
         "gui/openGL/gl_background_render.cpp"
+        "gui/openGl/gl_widget_zoffset_calculator.h"
+        "gui/openGl/gl_widget_zoffset_calculator.cpp"
+        "gui/openGl/gl_text_zoffset_calculator.h"
+        "gui/openGl/gl_text_zoffset_calculator.cpp"
 
 
         "entt/components.h"

@@ -67,13 +67,11 @@ TextRenderGl::TextRenderGl(IConsole* pConsole, ShaderWorkGl* pShaderWork) : Text
 }
 
 void TextRenderGl::render(
-	std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, unsigned int layer) {
+	std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, float zOffset) {
 	float x = absolutePosition.x;
 	float y = absolutePosition.y;
 	float scale = size;
 	std::string textString = text;
-
-	float zOffset = ((float)layer + 0.5f) / 100; // should not be bigger than 2
 
 	// activate corresponding render state
 	glUseProgram(m_shader);

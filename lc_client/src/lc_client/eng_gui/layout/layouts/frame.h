@@ -12,7 +12,7 @@ public:
 	Frame();
 
 	std::vector<std::shared_ptr<Widget>> getChildrenWidgets();
-	void updateChildWidget(WidgetData& widgetData);
+	void updateChildWidget(Widget& widget);
 	void renderChildren();
 	void addChild(std::shared_ptr<Widget> widget);
 

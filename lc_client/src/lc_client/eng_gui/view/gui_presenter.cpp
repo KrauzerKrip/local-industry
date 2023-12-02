@@ -9,10 +9,10 @@ GuiPresenter::GuiPresenter(LayoutController* pLayoutController, std::vector<Queu
 }
 
 void GuiPresenter::render() { 
-	std::vector<WidgetData> widgetsData = m_pLayoutController->getWidgets();
+	std::vector<std::shared_ptr<Widget>> widgets = m_pLayoutController->getWidgets();
 
-	for (WidgetData& widgetData : widgetsData) {
-		widgetData.widget->render(widgetData.position, widgetData.size, widgetData.layer);
+	for (std::shared_ptr<Widget>& widget : widgets) {
+		widget->render();
 	} 
 
 	for (QueueRender* pQueueRender : m_queueRenders) {

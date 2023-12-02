@@ -17,16 +17,22 @@ protected:
 TEST_F(LayoutControllerTest, layout_controller_test) { 
 	std::shared_ptr<Frame> layout = std::make_shared<Frame>();
 
-	Background background(glm::vec4(255, 255, 255, 1.0));
+	Background background(glm::vec4(1, 1, 1, 0.8));
+	Background background2(glm::vec4(0, 1, 1, 0.8));
 
-	std::shared_ptr<Widget> widget = std::make_shared<Widget>(background, nullptr);
+	WidgetDependecies widgetDependecies;
+	widgetDependecies.pBackgroundRender = nullptr;
+	widgetDependecies.pZOffsetCalculator = nullptr;
+
+
+	std::shared_ptr<Widget> widget = std::make_shared<Widget>(background, widgetDependecies);
 	widget->setPosition(glm::vec2(100, 100));
 	widget->setSize(glm::vec2(400, 400));
 	layout->addChild(widget);
 
 	std::shared_ptr<Layout> layout2 = std::make_shared<Frame>();
 	widget->setLayout(layout2);
-	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(background, nullptr);
+	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(background, widgetDependecies);
 	widget2->setPosition(glm::vec2(400, 400));
 	widget2->setSize(glm::vec2(100, 50));
 	layout2->addChild(widget2);
@@ -36,15 +42,13 @@ TEST_F(LayoutControllerTest, layout_controller_test) {
 
 	m_pLayoutController->update();
 
-	std::vector<WidgetData> widgets = m_pLayoutController->getWidgets();
+	std::vector<std::shared_ptr<Widget>> widgets = m_pLayoutController->getWidgets();
 
 	ASSERT_EQ(widgets.size(), 2);
-	EXPECT_EQ(widgets.at(0).position, glm::vec2(100, 100));
-	EXPECT_EQ(widgets.at(0).size, glm::vec2(400, 400));
-	EXPECT_EQ(widgets.at(0).layer, 0);
-	EXPECT_EQ(widgets.at(1).position, glm::vec2(500, 500));
-	EXPECT_EQ(widgets.at(1).size, glm::vec2(100, 50));
-	EXPECT_EQ(widgets.at(1).layer, 1);
+	EXPECT_EQ(widgets.at(0)->getRectangle().m_absolutePosition, glm::vec2(100, 100));
+	EXPECT_EQ(widgets.at(0)->getRectangle().m_size, glm::vec2(400, 400));
+	EXPECT_EQ(widgets.at(1)->getRectangle().m_absolutePosition, glm::vec2(500, 500));
+	EXPECT_EQ(widgets.at(1)->getRectangle().m_size, glm::vec2(100, 50));
 };
 
 int main(int argc, char* argv[]) {

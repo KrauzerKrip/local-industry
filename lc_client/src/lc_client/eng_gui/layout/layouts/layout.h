@@ -12,7 +12,7 @@ public:
 	virtual ~Layout(){};
 
 	virtual std::vector<std::shared_ptr<Widget>> getChildrenWidgets() = 0;
-	virtual void updateChildWidget(WidgetData& widgetData) = 0;
+	virtual void updateChildWidget(Widget& widget) = 0;
 	virtual void renderChildren() = 0;
 	virtual void addChild(std::shared_ptr<Widget> widget) = 0;
 };

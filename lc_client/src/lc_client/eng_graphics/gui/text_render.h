@@ -12,7 +12,7 @@ public:
 	virtual ~TextRender(){};
 	
 	virtual void render(
-		std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, unsigned int layer) = 0;
+		std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, float zOffset) = 0;
 	
 protected:
 	IConsole* m_pConsole = nullptr;

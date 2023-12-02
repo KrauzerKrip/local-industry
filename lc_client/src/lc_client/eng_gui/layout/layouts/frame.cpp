@@ -7,9 +7,9 @@ Frame::Frame() {}
 std::vector<std::shared_ptr<Widget>> Frame::getChildrenWidgets() { 
 	return m_widgets; }
 
-void Frame::updateChildWidget(WidgetData& widgetData) {
-	widgetData.position += widgetData.widget->getPosition();
-	widgetData.size = widgetData.widget->getSize();
+void Frame::updateChildWidget(Widget& widget) {
+	widget.getRectangle().m_absolutePosition += widget.getPosition();
+	widget.getRectangle().m_size = widget.getSize();
 }
  
 void Frame::renderChildren() {

@@ -32,6 +32,8 @@
 
 #include "lc_client/eng_graphics/openGL/gl_window.h"
 #include "lc_client/eng_script/entt/components.h"
+#include "lc_client/eng_graphics/gui/openGL/gl_widget_zoffset_calculator.h"
+#include "lc_client/eng_graphics/gui/openGL/gl_text_zoffset_calculator.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -264,26 +266,34 @@ void Game::setUpGui(ShaderWorkGl* pShaderWorkGl) {
 	Background background(glm::vec4(1, 1, 1, 0.8));
 	Background background2(glm::vec4(0, 1, 1, 0.8));
 
-	std::shared_ptr<Widget> widget = std::make_shared<Widget>(background, m_pBackgroundRender);
+	TextWidgetDependecies textDependencies;
+	textDependencies.pBackgroundRender = m_pBackgroundRender;
+	textDependencies.pTextRender = m_pTextRender;
+	textDependencies.pZOffsetCalculator = new TextZOffsetCalculatorGl;
+
+	WidgetDependecies widgetDependecies;
+	widgetDependecies.pBackgroundRender = m_pBackgroundRender;
+	widgetDependecies.pZOffsetCalculator = new WidgetZOffsetCalculatorGl;
+
+	std::shared_ptr<Widget> widget = std::make_shared<Widget>(background, widgetDependecies);
 	widget->setPosition(glm::vec2(25, 25));
 	widget->setSize(glm::vec2(400, 200));
 	frame->addChild(widget);
 
 	std::shared_ptr<Layout> layout2 = std::make_shared<Frame>();
 	widget->setLayout(layout2);
-	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(background2, m_pBackgroundRender);
+	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(background2, widgetDependecies);
 	widget2->setPosition(glm::vec2(50, 100));
 	widget2->setSize(glm::vec2(50, 50));
 	//layout2->addChild(widget2);
 
 	Background background3(glm::vec4(1, 1, 1, 0));
 	TextRender* pTextRender = new TextRenderGl(m_pTier0->getConsole(), pShaderWorkGl);
-	std::shared_ptr<TextWidget> textWidget =
-		std::make_shared<TextWidget>(background3, m_pBackgroundRender, m_pTextRender);
+	std::shared_ptr<TextWidget> textWidget = std::make_shared<TextWidget>(background3, textDependencies);
 	textWidget->setPosition(glm::vec2(50, 100));
 	textWidget->setTextSize(1);
 	textWidget->setColor(glm::vec4(0, 0, 0, 1));
-	textWidget->setText("Test");
+	textWidget->setText("test");
 	layout2->addChild(textWidget);
 
 	m_pLayoutController->setLayout(frame);

@@ -16,14 +16,14 @@ target_sources(lc_client
     "view/gui_presenter.h"
     "view/gui_presenter.cpp"
 
-    
-    
-    "controller/text_controller.h"
-     "controller/i_text_controller.h"
+    "input/input_receiver.h"   
+    "input/events.h"
+     
     
      "paint_objects/background.h"
  "paint_objects/background.cpp"
     "paint_objects/image_background.cpp"
     "paint_objects/image_background.cpp"
     "paint_objects/text.h"
+
 )

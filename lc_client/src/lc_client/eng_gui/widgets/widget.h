@@ -9,12 +9,15 @@
 #include "lc_client/eng_gui/paint_objects/background.h"
 #include "lc_client/eng_gui/paint_objects/text.h"
 #include "lc_client/eng_graphics/gui/background_render.h"
+#include "rectangle.h"
+#include "layer.h"
+#include "dependencies.h"
 
 class Layout;
 
 class Widget {
 public:
-	Widget(Background background, BackgroundRender* pBackgroundRender);
+	Widget(Background background, WidgetDependecies dependencies);
 	//virtual ~Widget() = 0;
 	
 	void show();
@@ -27,14 +30,18 @@ public:
 	void setLayout(std::shared_ptr<Layout> layout);
 	void setBackground(Background background);
 	Background getBackground();
-	virtual void render(glm::vec2 absolutePosition, glm::vec2 size, unsigned int layer);
+	virtual void render();
+	Rectangle& getRectangle();
+	Layer& getLayer();
 
-private:
+protected:
 	glm::vec2 m_size;
 	glm::vec2 m_position;
 	std::shared_ptr<Layout> m_layout;
 	bool m_isVisible = false;
 	Background m_background;
+	Rectangle m_rectangle;
+	Layer m_layer;
 
-	BackgroundRender* m_pBackroundRender;
+	BackgroundRender* m_pBackgroundRender;
 };

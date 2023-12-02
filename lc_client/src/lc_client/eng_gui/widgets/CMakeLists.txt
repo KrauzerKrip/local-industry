@@ -8,4 +8,11 @@ target_sources(lc_client
     "widget.cpp"
     "text_widget.h"
     "text_widget.cpp"
+    "button.h"
+    "button.cpp"
+    "rectangle.h"
+    "rectangle.cpp"
+    "layer.h"
+    "layer.cpp"
+    "dependencies.h"
 )

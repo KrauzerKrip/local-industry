@@ -1,10 +1,13 @@
 #include "widget.h"
 
-Widget::Widget(Background background, BackgroundRender* pBackgroundRender) : m_background(background)
-{
-	m_pBackroundRender = pBackgroundRender;
+Widget::Widget(Background background, WidgetDependecies dependencies)
+	: m_background(background),
+	  m_layer(dependencies.pZOffsetCalculator) {
+	m_pBackgroundRender = dependencies.pBackgroundRender;
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
+
+	m_rectangle = Rectangle();
 }
 
 void Widget::show() { m_isVisible = true; }
@@ -27,6 +30,12 @@ void Widget::setBackground(Background background) {}
 
 Background Widget::getBackground() { return m_background; }
 
-void Widget::render(glm::vec2 absolutePosition, glm::vec2 size, unsigned int layer) { 
-	m_pBackroundRender->renderColor(ColorQuad(m_background, absolutePosition, size, layer));
+void Widget::render() { 
+	m_pBackgroundRender->renderColor(ColorQuad(m_background, m_rectangle.getVertices(), m_layer.getOffsetZ()));
 }
+
+Rectangle& Widget::getRectangle() {
+	return m_rectangle;
+}
+
+Layer& Widget::getLayer() { return m_layer; }

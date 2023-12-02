@@ -36,10 +36,10 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(m_vao);
 
-	glm::vec2 bottomLeft = colorQuad.absolutePosition;
-	glm::vec2 topLeft = glm::vec2(colorQuad.absolutePosition.x, colorQuad.absolutePosition.y + colorQuad.size.y);
-	glm::vec2 topRight = glm::vec2(colorQuad.absolutePosition.x + colorQuad.size.x, colorQuad.absolutePosition.y + colorQuad.size.y);
-	glm::vec2 bottomRight = glm::vec2(colorQuad.absolutePosition.x + colorQuad.size.x, colorQuad.absolutePosition.y);
+	glm::vec2 bottomLeft = colorQuad.vertices.bottomLeft;
+	glm::vec2 topLeft = colorQuad.vertices.topLeft;
+	glm::vec2 topRight = colorQuad.vertices.topRight;
+	glm::vec2 bottomRight = colorQuad.vertices.bottomRight;
 
 	float vertices[6][4] = {{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomLeft.x, bottomLeft.y, 0.0f, 0.0f},
 		{bottomRight.x, bottomRight.y, 1.0f, 0.0f},
@@ -47,9 +47,7 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 		{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomRight.x, bottomRight.y, 1.0f, 0.0f},
 		{topRight.x, topRight.y, 1.0f, 1.0f}};
 
-	float zOffset = (float)colorQuad.layer / 100; // should not be bigger than 2
-
-	setUniform(m_shader, "zOffset", zOffset);
+	setUniform(m_shader, "zOffset", colorQuad.zOffset);
 	setUniform(m_shader, "quadColor", colorQuad.background.getColor());
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
