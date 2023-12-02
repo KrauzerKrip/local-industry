@@ -18,6 +18,7 @@ class Layout;
 class Widget {
 public:
 	Widget(Background background, WidgetDependecies dependencies);
+	Widget(WidgetDependecies dependencies);
 	//virtual ~Widget() = 0;
 	
 	void show();

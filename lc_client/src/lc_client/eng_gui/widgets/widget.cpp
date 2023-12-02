@@ -10,6 +10,14 @@ Widget::Widget(Background background, WidgetDependecies dependencies)
 	m_rectangle = Rectangle();
 }
 
+Widget::Widget(WidgetDependecies dependencies) : m_layer(dependencies.pZOffsetCalculator), m_background(Background(glm::vec4(0))) {
+	m_pBackgroundRender = dependencies.pBackgroundRender;
+	m_position = glm::vec2(0);
+	m_size = glm::vec2(0);
+
+	m_rectangle = Rectangle();
+}
+
 void Widget::show() { m_isVisible = true; }
 
 void Widget::hide() { m_isVisible = false; }
@@ -31,7 +39,9 @@ void Widget::setBackground(Background background) {}
 Background Widget::getBackground() { return m_background; }
 
 void Widget::render() { 
-	m_pBackgroundRender->renderColor(ColorQuad(m_background, m_rectangle.getVertices(), m_layer.getOffsetZ()));
+	if (m_isVisible) {
+		m_pBackgroundRender->renderColor(ColorQuad(m_background, m_rectangle.getVertices(), m_layer.getOffsetZ()));
+	}
 }
 
 Rectangle& Widget::getRectangle() {

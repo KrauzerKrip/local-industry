@@ -24,7 +24,6 @@ TEST_F(LayoutControllerTest, layout_controller_test) {
 	widgetDependecies.pBackgroundRender = nullptr;
 	widgetDependecies.pZOffsetCalculator = nullptr;
 
-
 	std::shared_ptr<Widget> widget = std::make_shared<Widget>(background, widgetDependecies);
 	widget->setPosition(glm::vec2(100, 100));
 	widget->setSize(glm::vec2(400, 400));

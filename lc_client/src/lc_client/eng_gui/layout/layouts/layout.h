@@ -11,8 +11,13 @@ class Layout {
 public:
 	virtual ~Layout(){};
 
-	virtual std::vector<std::shared_ptr<Widget>> getChildrenWidgets() = 0;
-	virtual void updateChildWidget(Widget& widget) = 0;
-	virtual void renderChildren() = 0;
-	virtual void addChild(std::shared_ptr<Widget> widget) = 0;
+	virtual std::vector<std::shared_ptr<Widget>> getChildrenWidgets();
+	virtual void addChild(std::shared_ptr<Widget> widget);
+	virtual void updateChildWidgets() = 0;
+
+	glm::vec2 m_position;
+	glm::vec2 m_size;
+
+protected:
+	std::vector<std::shared_ptr<Widget>> m_widgets;
 };

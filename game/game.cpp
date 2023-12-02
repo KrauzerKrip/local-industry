@@ -279,6 +279,7 @@ void Game::setUpGui(ShaderWorkGl* pShaderWorkGl) {
 	widget->setPosition(glm::vec2(25, 25));
 	widget->setSize(glm::vec2(400, 200));
 	frame->addChild(widget);
+	widget->show();
 
 	std::shared_ptr<Layout> layout2 = std::make_shared<Frame>();
 	widget->setLayout(layout2);
@@ -294,6 +295,7 @@ void Game::setUpGui(ShaderWorkGl* pShaderWorkGl) {
 	textWidget->setTextSize(1);
 	textWidget->setColor(glm::vec4(0, 0, 0, 1));
 	textWidget->setText("test");
+	textWidget->show();
 	layout2->addChild(textWidget);
 
 	m_pLayoutController->setLayout(frame);
