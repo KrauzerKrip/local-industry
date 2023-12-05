@@ -24,6 +24,7 @@
 #include "lc_client/eng_gui/view/gui_presenter.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_work.h"
 #include "lc_client/eng_graphics/gui/text_render.h"
+#include "game/gui/gui.h"
 
 
 class Game : public IGameLogic {
@@ -36,8 +37,6 @@ public:
 	void update();
 	void render();
 	void cleanUp();
-
-	void setUpGui(ShaderWorkGl* pShaderWorkGl);
 
 private:
 	IWindow* m_pWindow = nullptr;
@@ -54,11 +53,7 @@ private:
 	ConsoleGui* m_pConsoleGui = nullptr;
 	CubemapWork* m_pCubemapWork = nullptr;
 
-	LayoutController* m_pLayoutController = nullptr;
-	GuiPresenter* m_pGuiPresenter = nullptr;
-	Layout* m_pGuiLayout = nullptr;
-	BackgroundRender* m_pBackgroundRender = nullptr;
-	TextRender* m_pTextRender = nullptr;
+	Gui* m_pGui = nullptr;
 
 
 	Tier0* m_pTier0 = nullptr;

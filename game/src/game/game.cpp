@@ -34,6 +34,9 @@
 #include "lc_client/eng_script/entt/components.h"
 #include "lc_client/eng_graphics/gui/openGL/gl_widget_zoffset_calculator.h"
 #include "lc_client/eng_graphics/gui/openGL/gl_text_zoffset_calculator.h"
+#include "game/gui/dependencies_fabric/gui_dependencies_fabric.h"
+#include "game/gui/dependencies_fabric/openGL/gl_gui_dependencies_fabric.h"
+#include "game/gui/gui.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -43,7 +46,6 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
 	m_pMap = new Map();
-	m_pLayoutController = new LayoutController();
 }
 
 Game::~Game() {
@@ -79,13 +81,10 @@ void Game::init() {
 	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(skyboxMaterial.get(), pShaderWork);
 	Skybox* pSkybox = new Skybox(pSkyboxRender);
 
-    m_pBackgroundRender = new BackgroundRenderGl(m_pTier0->getConsole(), pShaderWork);
-	m_pTextRender = new TextRenderGl(m_pTier0->getConsole(), pShaderWork);
+	GuiDependenciesFabric* pGuiDependenciesFabric = new GuiDependenciesFabricGl(m_pTier0->getConsole(), pShaderWork); 
+	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric);
 
-	std::vector<QueueRender*> queueRenders;
-	m_pGuiPresenter = new GuiPresenter(m_pLayoutController, queueRenders);
-
-	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork, m_pGuiPresenter);
+	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork, m_pGui->getPresenter());
 
 	m_pScene->loadScene("dev", "test");
 	m_pMap->loadMap("dev", "test");
@@ -115,8 +114,6 @@ void Game::init() {
 			pConsoleGui->open();
 		}
 	});
-
-	setUpGui(pShaderWork);
 }
 
 void Game::input() {
@@ -249,7 +246,7 @@ void Game::update() {
 	//	}
 	//}
 
-	m_pLayoutController->update();
+	m_pGui->update();
 
 }
 
@@ -260,43 +257,43 @@ void Game::render() {
 
 void Game::cleanUp() {}
 
-void Game::setUpGui(ShaderWorkGl* pShaderWorkGl) { 
-	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
-
-	Background background(glm::vec4(1, 1, 1, 0.8));
-	Background background2(glm::vec4(0, 1, 1, 0.8));
-
-	TextWidgetDependecies textDependencies;
-	textDependencies.pBackgroundRender = m_pBackgroundRender;
-	textDependencies.pTextRender = m_pTextRender;
-	textDependencies.pZOffsetCalculator = new TextZOffsetCalculatorGl;
-
-	WidgetDependecies widgetDependecies;
-	widgetDependecies.pBackgroundRender = m_pBackgroundRender;
-	widgetDependecies.pZOffsetCalculator = new WidgetZOffsetCalculatorGl;
-
-	std::shared_ptr<Widget> widget = std::make_shared<Widget>(background, widgetDependecies);
-	widget->setPosition(glm::vec2(25, 25));
-	widget->setSize(glm::vec2(400, 200));
-	frame->addChild(widget);
-	widget->show();
-
-	std::shared_ptr<Layout> layout2 = std::make_shared<Frame>();
-	widget->setLayout(layout2);
-	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(background2, widgetDependecies);
-	widget2->setPosition(glm::vec2(50, 100));
-	widget2->setSize(glm::vec2(50, 50));
-	//layout2->addChild(widget2);
-
-	Background background3(glm::vec4(1, 1, 1, 0));
-	TextRender* pTextRender = new TextRenderGl(m_pTier0->getConsole(), pShaderWorkGl);
-	std::shared_ptr<TextWidget> textWidget = std::make_shared<TextWidget>(background3, textDependencies);
-	textWidget->setPosition(glm::vec2(50, 100));
-	textWidget->setTextSize(1);
-	textWidget->setColor(glm::vec4(0, 0, 0, 1));
-	textWidget->setText("test");
-	textWidget->show();
-	layout2->addChild(textWidget);
-
-	m_pLayoutController->setLayout(frame);
-}
+//void Game::setUpGui(ShaderWorkGl* pShaderWorkGl) { 
+//	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
+//
+//	Background background(glm::vec4(1, 1, 1, 0.8));
+//	Background background2(glm::vec4(0, 1, 1, 0.8));
+//
+//	TextWidgetDependecies textDependencies;
+//	textDependencies.pBackgroundRender = m_pBackgroundRender;
+//	textDependencies.pTextRender = m_pTextRender;
+//	textDependencies.pZOffsetCalculator = new TextZOffsetCalculatorGl;
+//
+//	WidgetDependecies widgetDependecies;
+//	widgetDependecies.pBackgroundRender = m_pBackgroundRender;
+//	widgetDependecies.pZOffsetCalculator = new WidgetZOffsetCalculatorGl;
+//
+//	std::shared_ptr<Widget> widget = std::make_shared<Widget>(background, widgetDependecies);
+//	widget->setPosition(glm::vec2(25, 25));
+//	widget->setSize(glm::vec2(400, 200));
+//	frame->addChild(widget);
+//	widget->show();
+//
+//	std::shared_ptr<Layout> layout2 = std::make_shared<Frame>();
+//	widget->setLayout(layout2);
+//	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(background2, widgetDependecies);
+//	widget2->setPosition(glm::vec2(50, 100));
+//	widget2->setSize(glm::vec2(50, 50));
+//	//layout2->addChild(widget2);
+//
+//	Background background3(glm::vec4(1, 1, 1, 0));
+//	TextRender* pTextRender = new TextRenderGl(m_pTier0->getConsole(), pShaderWorkGl);
+//	std::shared_ptr<TextWidget> textWidget = std::make_shared<TextWidget>(background3, textDependencies);
+//	textWidget->setPosition(glm::vec2(50, 100));
+//	textWidget->setTextSize(1);
+//	textWidget->setColor(glm::vec4(0, 0, 0, 1));
+//	textWidget->setText("test");
+//	textWidget->show();
+//	layout2->addChild(textWidget);
+//
+//	m_pLayoutController->setLayout(frame);
+//}

@@ -5,11 +5,13 @@
 
 class GuiPresenter {
 public:
-	GuiPresenter(LayoutController* pLayoutController, std::vector<QueueRender*> queueRenders);
+	GuiPresenter(
+		LayoutController* pOverlayLayoutController, LayoutController* pLayoutController, std::vector<QueueRender*> queueRenders);
 
 	void render();
 
 private:
+	LayoutController* m_pOverlayLayoutController = nullptr;
 	LayoutController* m_pLayoutController = nullptr;
 	std::vector<QueueRender*> m_queueRenders;
 };

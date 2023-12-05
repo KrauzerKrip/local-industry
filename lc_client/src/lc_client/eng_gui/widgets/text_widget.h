@@ -7,6 +7,7 @@
 class TextWidget : public Widget {
 public:
 	TextWidget(Background background, TextWidgetDependecies dependencies);
+	TextWidget(TextWidgetDependecies dependencies);
 	~TextWidget(){};
 	
 	void setText(std::string text);

@@ -3,6 +3,13 @@
 TextWidget::TextWidget(Background background, TextWidgetDependecies dependencies)
 	: Widget(background, WidgetDependecies(dependencies)) {
 	m_pTextRender = dependencies.pTextRender;
+	m_color = glm::vec4(0, 0, 0, 1);
+}
+
+TextWidget::TextWidget(TextWidgetDependecies dependencies)
+	: Widget(WidgetDependecies(dependencies)) {
+	m_pTextRender = dependencies.pTextRender;
+	m_color = glm::vec4(0, 0, 0, 1);
 }
 
 void TextWidget::setText(std::string text) { m_text = text; }

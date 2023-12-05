@@ -34,9 +34,11 @@ std::shared_ptr<Layout> Widget::getLayout() { return m_layout; }
 
 void Widget::setLayout(std::shared_ptr<Layout> layout) { m_layout = layout; }
 
-void Widget::setBackground(Background background) {}
+void Widget::setBackground(Background background) { m_background = background; }
 
 Background Widget::getBackground() { return m_background; }
+
+void Widget::setName(std::string name) { m_name = name; }
 
 void Widget::render() { 
 	if (m_isVisible) {

@@ -31,6 +31,7 @@ public:
 	void setLayout(std::shared_ptr<Layout> layout);
 	void setBackground(Background background);
 	Background getBackground();
+	void setName(std::string);
 	virtual void render();
 	Rectangle& getRectangle();
 	Layer& getLayer();
@@ -41,6 +42,7 @@ protected:
 	std::shared_ptr<Layout> m_layout;
 	bool m_isVisible = false;
 	Background m_background;
+	std::string m_name;
 	Rectangle m_rectangle;
 	Layer m_layer;
 

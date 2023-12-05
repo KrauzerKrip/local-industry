@@ -70,7 +70,6 @@ void TextRenderGl::render(
 	std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, float zOffset) {
 	float x = absolutePosition.x;
 	float y = absolutePosition.y;
-	float scale = size;
 	std::string textString = text;
 
 	// activate corresponding render state
@@ -85,13 +84,16 @@ void TextRenderGl::render(
 	glBindVertexArray(m_vao);
 	// iterate through all characters
 	std::string::const_iterator c;
+
+	float scale = float(size) / 48.0f;
+
 	for (c = textString.begin(); c != textString.end(); c++) {
 		Character ch = m_characters[*c];
 		float xpos = x + ch.bearing.x * scale;
 		float ypos = y - (ch.size.y - ch.bearing.y) * scale;
 		float w = ch.size.x * scale;
 		float h = ch.size.y * scale;
-		// update m_vbo for each character
+		// update m_vbo for each char.acter
 		float vertices[6][4] = {{xpos, ypos + h, 0.0f, 0.0f}, {xpos, ypos, 0.0f, 1.0f}, {xpos + w, ypos, 1.0f, 1.0f},
 			{xpos, ypos + h, 0.0f, 0.0f}, {xpos + w, ypos, 1.0f, 1.0f}, {xpos + w, ypos + h, 1.0f, 0.0f}};
 		// render glyph texture over quad
