@@ -20,7 +20,31 @@ Widget::Widget(WidgetDependecies dependencies) : m_layer(dependencies.pZOffsetCa
 
 void Widget::show() { m_isVisible = true; }
 
+void Widget::showWithChildren() { 
+	show();
+
+	if (m_layout.get() != nullptr) {
+		std::vector<std::shared_ptr<Widget>> widgets =  m_layout->getChildrenWidgets();
+
+		for (std::shared_ptr<Widget> widget : widgets) {
+			widget->showWithChildren();
+		}
+	}
+}
+
 void Widget::hide() { m_isVisible = false; }
+
+void Widget::hideWithChildren() {
+	hide();
+
+	if (m_layout.get() != nullptr) {
+		std::vector<std::shared_ptr<Widget>> widgets = m_layout->getChildrenWidgets();
+
+		for (std::shared_ptr<Widget> widget : widgets) {
+			widget->hideWithChildren();
+		}
+	}
+}
 
 glm::vec2 Widget::getSize() { return m_size; }
 

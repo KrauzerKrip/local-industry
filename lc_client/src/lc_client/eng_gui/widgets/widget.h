@@ -22,7 +22,9 @@ public:
 	//virtual ~Widget() = 0;
 	
 	void show();
+	void showWithChildren();
 	void hide();
+	void hideWithChildren();
 	glm::vec2 getSize();
 	void setSize(glm::vec2 size);
 	glm::vec2 getPosition();
