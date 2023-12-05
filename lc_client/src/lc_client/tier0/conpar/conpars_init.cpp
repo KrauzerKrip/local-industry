@@ -41,7 +41,7 @@ void initGraphicsParameters(Parameters& parameters) {
 void initUtilParameters(Parameters& parameters) {
 	ADD_PARAMETER_BOOL_F("sv_cheats", false, ConparFlags::NONE);
 	ADD_PARAMETER_BOOL("console_log_time", false);
-
+	ADD_PARAMETER_BOOL("cl_debug_mode", false);
 }
 
 void initGuiParameters(Parameters& parameters) {

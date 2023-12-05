@@ -61,6 +61,15 @@ DebugWidget::DebugWidget(Tier0* pTier0, WidgetDependecies dependencies, TextWidg
 
 	vbox->addChild(label);
 	vbox->addChild(rowFps);
+
+	pTier0->getParameters()->getParameter<bool>("cl_debug_mode").setCallback([this](bool value) {
+		if (value) {
+			this->showWithChildren();
+		}
+		else {
+			this->hideWithChildren();
+		}
+	});
 }
 
 void DebugWidget::render() { 
