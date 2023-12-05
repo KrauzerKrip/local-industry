@@ -21,7 +21,7 @@ static void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint id, GL
 class WindowGL : public IWindow {
 public:
 
-	WindowGL(std::string, int width, int height, int* aspectRatio, bool vSync, float fov);
+	WindowGL(std::string, int width, int height, int* aspectRatio);
 	virtual ~WindowGL();
 
 	void init();
@@ -41,8 +41,6 @@ public:
 	std::array<int, 2> getSize();
 	void setSize(int width, int height);
 	int* getAspectRatio();
-	float getFov();
-	void setFov(float fov);
 
 	static void keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods);
 

@@ -16,6 +16,8 @@ target_sources(lc_client
         "shader_system.cpp"
         "material_system.h"
         "material_system.cpp"
+        "graphics_settings.h"
+        "graphics_settings.cpp"
 
         "openGL/gl_render.cpp"
         "openGL/gl_render.h"

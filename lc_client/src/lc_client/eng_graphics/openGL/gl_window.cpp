@@ -16,13 +16,11 @@
 #include "lc_client/exceptions/glad_exceptions.h"
 
 
-WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio, bool vSync, float fov) {
+WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	m_title = title;
 	m_width = width;
 	m_height = height;
 	m_pAspectRatio = aspectRatio;
-	m_vSync = vSync;
-	m_fov = fov;
 
 	m_resizeCallback = [](int width, int height) {};
 }
@@ -189,13 +187,6 @@ void WindowGL::setSize(int width, int height) {
 int* WindowGL::getAspectRatio() {
 	return m_pAspectRatio;
 }
-
-float WindowGL::getFov() {
-	return m_fov;
-}
-
-void WindowGL::setFov(float fov) {
-	m_fov = fov; }
 
 void WindowGL::keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods) {
 	WindowGL* pWindow = static_cast<WindowGL*>(glfwGetWindowUserPointer(pGlfwWindow));

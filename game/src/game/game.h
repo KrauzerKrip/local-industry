@@ -25,6 +25,7 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_work.h"
 #include "lc_client/eng_graphics/gui/text_render.h"
 #include "game/gui/gui.h"
+#include "lc_client/eng_graphics/graphics_settings.h"
 
 
 class Game : public IGameLogic {
@@ -52,6 +53,7 @@ private:
 	ShaderWork* m_pShaderWorkScene = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
 	CubemapWork* m_pCubemapWork = nullptr;
+	GraphicsSettings* m_pGraphicsSettings = nullptr;
 
 	Gui* m_pGui = nullptr;
 

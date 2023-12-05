@@ -46,6 +46,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
 	m_pMap = new Map();
+	m_pGraphicsSettings = new GraphicsSettings(m_pTier0->getParameters());
 }
 
 Game::~Game() {
@@ -84,7 +85,7 @@ void Game::init() {
 	GuiDependenciesFabric* pGuiDependenciesFabric = new GuiDependenciesFabricGl(m_pTier0->getConsole(), pShaderWork); 
 	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric);
 
-	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork, m_pGui->getPresenter());
+	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork, m_pGui->getPresenter(), m_pGraphicsSettings);
 
 	m_pScene->loadScene("dev", "test");
 	m_pMap->loadMap("dev", "test");
@@ -190,10 +191,10 @@ void Game::input() {
 		}
 
 		if (m_pInput->isKeyPressed("B")) {
-			m_pWindow->setFov(10);
+			m_pTier0->getParameters()->setParameterValue<float>("gh_fov", 10);
 		}
 		else {
-			m_pWindow->setFov(45);
+			m_pTier0->getParameters()->setParameterValue<float>("gh_fov", 90);
 		}
 	}
 	catch (UnknownKeyCodeException& exception) {

@@ -17,12 +17,13 @@
 #include "lc_client/tier0/tier0.h"
 
 
-RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork, GuiPresenter* pGuiPresenter) {
+RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork, GuiPresenter* pGuiPresenter, GraphicsSettings* pGraphicsSettings) {
 	m_pWindow = pWindow; // mb remove it
 	m_pCamera = pCamera;
 	m_pShaderWork = pShaderWork;
 	m_pFramebuffer = new Framebuffer(pWindow->getSize()[0], pWindow->getSize()[1]);
 	m_pGuiPresenter = pGuiPresenter;
+	m_pGraphicsSettings = pGraphicsSettings;
 }
 
 RenderGL::~RenderGL() {}
@@ -55,7 +56,7 @@ void RenderGL::render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	float aspectRatio = (float)m_pWindow->getAspectRatio()[0] / (float)m_pWindow->getAspectRatio()[1];
-	glm::mat4 projection = glm::perspective(glm::radians(m_pWindow->getFov()), aspectRatio, 0.1f, 1000.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(m_pGraphicsSettings->getFov()), aspectRatio, 0.1f, 1000.0f);
 	glm::mat4 view = m_pCamera->getViewMatrix(); // glm::mat4(1.0f);
 
 	// auto test = m_pSceneRegistry->view<Properties, Transform>();

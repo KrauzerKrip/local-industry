@@ -51,7 +51,5 @@ public:
 	virtual GLFWwindow* getGlfwWindow() = 0;
 
 	virtual int* getAspectRatio() = 0;
-	virtual float getFov() = 0;
-	virtual void setFov(float fov) = 0;
 	virtual std::array<int, 2> getSize() = 0;
 };
