@@ -13,6 +13,7 @@ void VBox::updateChildWidgets() {
 		glm::vec2 position = glm::vec2(0);
 
 		position.y = cursorY;
+		position.x += widget->getPosition().x;
 
 		cursorY -= widget->getRectangle().m_size.y;
 
