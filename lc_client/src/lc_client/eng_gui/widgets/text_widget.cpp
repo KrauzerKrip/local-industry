@@ -25,6 +25,8 @@ void TextWidget::render() {
 	quad.vertices = m_rectangle.getVertices();
 	quad.zOffset = m_layer.getOffsetZ();
 	
-	m_pBackgroundRender->renderColor(quad);
+	if (m_background.getColor().a != 0) {
+		m_pBackgroundRender->renderColor(quad);
+	}
 	m_pTextRender->render(m_text, m_color, m_rectangle.m_absolutePosition, m_size, m_layer.getOffsetZ());
 }

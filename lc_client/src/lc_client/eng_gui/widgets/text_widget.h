@@ -14,7 +14,7 @@ public:
 	std::string getText();
 	void setColor(glm::vec4 color);
 	void setTextSize(unsigned int size);
-	void render();
+	virtual void render();
 
 private:
 	std::string m_text;

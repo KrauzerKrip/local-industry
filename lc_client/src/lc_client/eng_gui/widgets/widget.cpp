@@ -42,7 +42,9 @@ void Widget::setName(std::string name) { m_name = name; }
 
 void Widget::render() { 
 	if (m_isVisible) {
-		m_pBackgroundRender->renderColor(ColorQuad(m_background, m_rectangle.getVertices(), m_layer.getOffsetZ()));
+		if (m_background.getColor().a != 0) {
+			m_pBackgroundRender->renderColor(ColorQuad(m_background, m_rectangle.getVertices(), m_layer.getOffsetZ()));
+		}
 	}
 }
 
