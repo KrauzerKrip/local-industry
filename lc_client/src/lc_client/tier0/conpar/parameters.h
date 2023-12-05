@@ -29,7 +29,6 @@ public:
 	void addParameter(ConPar<int> parameter);
 	void addParameter(ConPar<float> parameter);
 
-private:
 	template <IsAppliableType T> ConPar<T>& getParameter(std::string name) {
 		static_assert("Don`t call me like that. I don`t appreciate the type you have given me.");
 	}
@@ -66,6 +65,8 @@ private:
 		}
 	};
 
+
+private:
 	std::unordered_map<std::string, ConPar<bool>> m_boolConpars;
 	std::unordered_map<std::string, ConPar<std::string>> m_stringConpars;
 	std::unordered_map<std::string, ConPar<int>> m_intConpars;
