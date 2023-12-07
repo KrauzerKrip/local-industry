@@ -107,7 +107,7 @@ void Game::init() {
 	dirLightComponent.color = glm::vec3(1, 1, 1);
 	dirLightComponent.direction = glm::vec3(-0.2f, -1.0f, -0.3f);
 
-	m_pInput->addMappedKeyCallback("GRAVE_ACCENT", [pConsoleGui = this->m_pConsoleGui, pWindow = this->m_pWindow]() {
+	m_pInput->addMappedKeyCallback(KeyCode::GRAVE_ACCENT, [pConsoleGui = this->m_pConsoleGui, pWindow = this->m_pWindow]() {
 		if (pConsoleGui->isOpened()) {
 			pConsoleGui->close();
 		}
@@ -132,7 +132,7 @@ void Game::input() {
 
 	m_pConsoleGui->update();
 
-	if (m_pInput->isKeyPressed("ESC")) {
+	if (m_pInput->isKeyPressed(KeyCode::ESC)) {
 		exit(0);
 	}
 
@@ -166,31 +166,31 @@ void Game::input() {
 	glm::vec3 cameraPos = m_pCamera->getPosition();
 
 	try {
-		if (m_pInput->isKeyPressed("LEFT_SHIFT")) {
+		if (m_pInput->isKeyPressed(KeyCode::LEFT_SHIFT)) {
 			cameraSpeed *= 2.0f;
 		}
 
-		if (m_pInput->isKeyPressed("W")) {
+		if (m_pInput->isKeyPressed(KeyCode::W)) {
 			cameraPos += cameraSpeed * m_pCamera->getCameraFront();
 		}
-		if (m_pInput->isKeyPressed("S")) {
+		if (m_pInput->isKeyPressed(KeyCode::S)) {
 			cameraPos += cameraSpeed * -m_pCamera->getCameraFront();
 		}
-		if (m_pInput->isKeyPressed("A")) {
+		if (m_pInput->isKeyPressed(KeyCode::A)) {
 			cameraPos += cameraSpeed * -m_pCamera->getCameraRight();
 		}
-		if (m_pInput->isKeyPressed("D")) {
+		if (m_pInput->isKeyPressed(KeyCode::D)) {
 			cameraPos += cameraSpeed * m_pCamera->getCameraRight();
 		}
 
-		if (m_pInput->isKeyPressed("SPACE")) {
+		if (m_pInput->isKeyPressed(KeyCode::SPACE)) {
 			cameraPos += cameraSpeed * glm::vec3(0, 1, 0);
 		}
-		if (m_pInput->isKeyPressed("LEFT_CTRL")) {
+		if (m_pInput->isKeyPressed(KeyCode::LEFT_CTRL)) {
 			cameraPos += cameraSpeed * glm::vec3(0, -1, 0);
 		}
 
-		if (m_pInput->isKeyPressed("B")) {
+		if (m_pInput->isKeyPressed(KeyCode::B)) {
 			m_pTier0->getParameters()->setParameterValue<float>("gh_fov", 10);
 		}
 		else {
