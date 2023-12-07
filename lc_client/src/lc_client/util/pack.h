@@ -41,6 +41,19 @@ public:
 		std::string m_fragmentShader;
 	};
 
+	class Skybox {
+	public:
+		Skybox(Pack& parent, std::string name);
+		~Skybox() = default;
+
+		std::string getPath();
+
+	private:
+		Pack& m_parent;
+
+		std::string m_path;
+	};
+
 	class Shader {
 	public:
 		Shader();

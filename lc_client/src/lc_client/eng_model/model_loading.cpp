@@ -4,7 +4,7 @@
 
 #include "lc_client/exceptions/io_exceptions.h"
 #include "lc_client/eng_graphics/entt/components.h"
-#include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
+#include "lc_client/tier1/openGL/gl_texture_manager.h"
 #include "lc_client/util/file_util.h"
 
 

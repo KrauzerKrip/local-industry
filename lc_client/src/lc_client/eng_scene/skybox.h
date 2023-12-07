@@ -2,11 +2,16 @@
 
 #include <glm/glm.hpp>
 
+#include <lc_client/eng_graphics/skybox_render.h>
+
 
 class Skybox {
 public:
-	Skybox() = default;
+	Skybox(SkyboxRender* pSkyboxRender);
 	~Skybox() = default;
+
+	void render(glm::mat4& projection, glm::mat4& view);
+	void bindTexture();
 
 	glm::vec3 getLightColor() const;
 	void setLightColor(glm::vec3 color);
@@ -17,6 +22,8 @@ public:
 	void setLightStrength(float strength);
 
 private:
+	SkyboxRender* m_pSkyboxRender;
+
 	glm::vec3 m_lightColor;
 	float m_lightStrength;
 };

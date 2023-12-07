@@ -79,6 +79,39 @@ std::string Pack::Model::getMaterialType() { return m_materialType; }
 std::string Pack::Model::getVertexShader() { return m_vertexShader; }
 std::string Pack::Model::getFragmentShader() { return m_fragmentShader; }
 
+Pack::Skybox::Skybox(Pack& parent, std::string name) : m_parent(parent){ 
+	auto& skyboxes = parent.m_descriptor.at("skyboxes");
+
+	bool isFound = false;
+
+	for (auto& skybox : skyboxes.items()) {
+
+		if (skybox.key() == name) {
+
+			if (isFound) {
+				std::cerr << "Pack::Skybox::Skybox: skybox with the name '" << name
+						  << "' occured more than one time in the pack '" << m_parent.m_name << "'." << std::endl;
+				break;
+			}
+
+			isFound = true;
+
+			m_path = skybox.value().at("path");
+		}
+	}
+
+	if (isFound) {
+		std::cout << "Skybox '" << name << "' has been found in the pack '" << parent.m_name << "'." << std::endl;
+	}
+	else {
+		throw ModelNotFoundException("Skybox '" + name + "' in the pack '" + parent.m_name + "' not found.");
+	}
+}
+
+std::string Pack::Skybox::getPath() {
+	return m_path;
+}
+
 
 Pack::Shader::Shader() = default;
 Pack::Shader::~Shader() = default;

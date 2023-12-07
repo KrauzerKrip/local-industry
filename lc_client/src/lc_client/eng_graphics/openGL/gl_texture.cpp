@@ -75,5 +75,6 @@ void TextureGL::bind() {
 
 
 void TextureGL::setTextureType(TextureType textureType) {
-	m_textureType = textureType;
-}
+	m_textureType = textureType; }
+
+int TextureGL::getId() { return m_textureGl; }

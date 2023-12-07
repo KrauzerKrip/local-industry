@@ -8,7 +8,7 @@
 #include <assimp/postprocess.h>
 
 #include "entt/components.h"
-#include "lc_client/eng_procedures/openGL/gl_texture_manager.h"
+#include "lc_client/tier1/openGL/gl_texture_manager.h"
 #include "lc_client/util/eng_resource.h"
 
 

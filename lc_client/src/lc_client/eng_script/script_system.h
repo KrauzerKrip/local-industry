@@ -1,6 +1,7 @@
 #pragma once
 
 #include <entt/entt.hpp>
+#include <string>
 
 #include "lc_client/eng_script/api/api.h"
 
@@ -11,6 +12,8 @@ public:
 
 	void update();
 	void frame();
+
+	//static std::string m_currentId;
 
 private:
 	entt::registry* m_pRegistry;

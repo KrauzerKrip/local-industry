@@ -11,10 +11,12 @@
 #include "lc_client/eng_graphics/entt/components.h"
 
 
-ModelManager::ModelManager(eng::IResource* pResource, TextureManager* pTextureManager, entt::registry& pUtilRegistry) {
+ModelManager::ModelManager(
+	eng::IResource* pResource, TextureManager* pTextureManager, entt::registry& pUtilRegistry, IConsole* pConsole) {
 	m_pResource = pResource;
 	m_pTextureManager = pTextureManager;
 	m_pUtilRegistry = &pUtilRegistry;
+	m_pConsole = pConsole;
 }
 
 Model* ModelManager::getModel(const std::string modelPath, const std::string texturesDirPath, const std::string materialType) {
@@ -67,9 +69,11 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 
 	if (success) {
 		std::cout << "Model '" << modelPath << "' loaded." << std::endl;
+		m_pConsole->devMessage("Model '" + modelPath + "' loaded.");
 	}
 	else {
 		std::cout << "Model '" << modelPath << "' wasn`t loaded successfully. Set default instead." << std::endl;
+		m_pConsole->warn("Model '" + modelPath + " wasn`t loaded successfully. Set default instead.");
 	}
 
 	return pModel;

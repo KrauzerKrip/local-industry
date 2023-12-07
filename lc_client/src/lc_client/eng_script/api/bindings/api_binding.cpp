@@ -20,9 +20,7 @@ void bindSceneApi(lua_State* L) {
 	getGlobalNamespace(L)
 		.beginNamespace("ldk")
 		.beginClass<SceneApi>("SceneApi")
-		.addFunction("requestModel", &SceneApi::requestModel)
-		.addFunction("addTransform", &SceneApi::addTranfsorm)
-		.addFunction("addPointLight", &SceneApi::addPointLight)
+		.addFunction("getRegistry", &SceneApi::getRegistry)
 		.endClass()
 		.endNamespace();
 }

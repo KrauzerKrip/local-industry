@@ -12,7 +12,9 @@ public:
 	void unload();
 	void bind();
 	void setTextureType(TextureType textureType);
+	int getId();
 
 private:
 	unsigned int m_textureGl;
+	std::shared_ptr<eng::Image> m_image;
 };

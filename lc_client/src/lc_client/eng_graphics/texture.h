@@ -8,13 +8,15 @@
 
 enum TextureType {
 	NONE = -1,
-	COLOR = 0,
+	FRAMEBUFFER = 0,
 	NORMAL = 1,
 	AO = 2,
 	METALLIC = 3,
 	DIFFUSE = 4,
 	GLOSSINESS = 5,
 	SPECULAR = 6,
+	SKYBOX = 7,
+	CUBEMAP = 8
 };
 
 class Texture {
@@ -41,6 +43,5 @@ public:
 
 protected:
 	std::string m_name;
-	std::shared_ptr<eng::Image> m_image;
 	TextureType m_textureType = TextureType::NONE;
 };

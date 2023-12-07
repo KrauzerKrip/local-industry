@@ -1,4 +1,8 @@
 #include "image.h"
+#include "image.h"
+#include "image.h"
+#include "image.h"
+#include "image.h"
 
 #include <limits>
 
@@ -9,19 +13,32 @@
 
 namespace eng{
 
-	Image::Image(std::vector<unsigned char>& buffer) {
+	Image::Image(const std::vector<unsigned char>& buffer) {
 		loadData(buffer);
 	}
 
-	Image::~Image() {
-		delete[] m_data;
+	Image::~Image() {}
+
+	Image::Image(const Image& image) { 
+		m_data = std::vector<unsigned char>(image.m_data);
+		m_width = image.m_width;
+		m_height = image.m_height;
+		m_nrChannels = image.m_nrChannels;
 	}
 
-	unsigned char* Image::getData() {
-		return m_data;
-	}
+	Image::Image(Image&& image) noexcept {
+		m_data = std::move(image.m_data);
+		m_width = image.m_width;
+		m_height = image.m_height;
+		m_nrChannels = image.m_nrChannels;
+	};
 
-	void Image::loadData(std::vector<unsigned char>& buffer) {
+	const unsigned char* Image::getData() const { 
+		return m_data.data(); }
+
+	std::vector<unsigned char>& Image::getDataVector() { return m_data;}
+
+	void Image::loadData(const std::vector<unsigned char>& buffer) {
 
 		if (buffer.size() > std::numeric_limits<int>::max()) {
 			throw FileTooLargeException("Image buffer is too large for stb_image! It`s size shouldn`t be larger than max value of int type.");
@@ -29,14 +46,17 @@ namespace eng{
 
 		int size = static_cast<int>(buffer.size());
 
-		stbi_set_flip_vertically_on_load(true);
+		//stbi_set_flip_vertically_on_load(true);
 		unsigned char* data = stbi_load_from_memory(buffer.data(), size, &m_width, &m_height, &m_nrChannels, 0);
 
 		if (data == NULL) {
 			throw ImageLoadFailureException(stbi_failure_reason());
 		}
 
-		m_data = data;
+		unsigned long long imageDataSize = m_width * m_height * m_nrChannels * sizeof(unsigned char);
+
+		m_data = std::vector<unsigned char>(size);
+		m_data.assign(data, data + imageDataSize);
 		/*m_data.assign(data, data + sizeof(data));*/
 		/*delete[] data;*/
 	}
@@ -46,6 +66,6 @@ namespace eng{
 	}
 
 	int Image::getHeight() {
-		return m_height;
-	}
+		return m_height; }
+	int eng::Image::getChannelsNumber() { return m_nrChannels; }
 }

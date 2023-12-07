@@ -5,7 +5,7 @@
 
 class Api {
 public:
-	Api();
+	Api(entt::registry* pSceneRegistry) : m_sceneApi(pSceneRegistry){};
 	~Api() = default;
 
 	SceneApi& getSceneApi();

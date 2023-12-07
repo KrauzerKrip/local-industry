@@ -1,15 +1,18 @@
 #include "component_creator.h"
 
 #include <lua.hpp>
+#include <glm/gtx/euler_angles.hpp>
 
 #include "lc_client/eng_script/lua/lua_script.h"
 
 
-Transform getTransform(pugi::xml_node node) {
 
-	const glm::vec3 position = makeVector3(node.child("position"));
-	const glm::vec3 rotation = makeVector3(node.child("rotation"));
-	const glm::vec3 scale = makeVector3(node.child("scale"));
+Transform getTransform(pugi::xml_node node) {
+	glm::vec3 position = makeVector3(node.child("position"));
+	glm::vec3 rotation = makeVector3(node.child("rotation"));
+	glm::vec3 scale = makeVector3(node.child("scale"));
+
+	rotation = glm::radians(rotation);
 
 	return Transform(position, rotation, scale);
 }

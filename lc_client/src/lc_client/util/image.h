@@ -7,17 +7,22 @@ namespace eng {
 	class Image {
 	public:
 		/*Image(std::string path);*/
-		Image(std::vector<unsigned char>& buffer);
+		Image(const std::vector<unsigned char>& buffer);
 		~Image();
+		Image(const Image& image);
+		Image(Image&& image) noexcept;
 
-		unsigned char* getData();
+
+		const unsigned char* getData() const;
+		std::vector<unsigned char>& getDataVector();
 		int getWidth();
 		int getHeight();
+		int getChannelsNumber();
 
 	private:
-		void loadData(std::vector<unsigned char>& buffer);
+		void loadData(const std::vector<unsigned char>& buffer);
 
-		unsigned char* m_data;
+		std::vector<unsigned char> m_data;
 		/*std::vector<unsigned char> m_data;*/
 		int m_width, m_height, m_nrChannels;
 	};

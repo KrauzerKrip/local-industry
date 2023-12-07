@@ -7,6 +7,11 @@
 
 #include "lc_client/eng_graphics/texture.h"
 
+
+struct Water {
+
+};
+
 struct ShaderRequest {
 	std::string packName;
 	std::string vertexShaderName;
@@ -36,7 +41,6 @@ struct ShaderGl {
 	ShaderGl(int shaderProgram) : shaderProgram(shaderProgram){};
 	ShaderGl(const ShaderGl&) = default;
 };
-
 
 struct Vertex {
 	glm::vec3 position;

@@ -4,6 +4,8 @@
 #include <entt/entt.hpp>
 
 #include "lc_client/eng_scene/scene.h" 
+#include "lc_client/eng_scene/skybox.h"
+#include "lc_client/eng_map/map.h"
 
 class IRender {
 public:
@@ -13,5 +15,5 @@ public:
 	virtual void render() = 0;
 	virtual void clear() = 0;
 	virtual void cleanUp() = 0;
-	virtual void setDependecies(Scene* m_pScene) = 0;
+	virtual void setDependecies(Map* pMap, Scene* m_pScene, Skybox* pSkybox) = 0;
 };

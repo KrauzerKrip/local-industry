@@ -11,10 +11,10 @@
 
 class SceneLoading {
 public:
-    SceneLoading(entt::registry& sceneRegistry, entt::registry& mapRegistry, eng::IResource* pResource);
+    SceneLoading(eng::IResource* pResource);
 	~SceneLoading();
 
-	void loadScene(std::string path);
+	void loadScene(std::string path, entt::registry& sceneRegistry);
 
 private:
 	void handleComponent(pugi::xml_node component, entt::entity entity);

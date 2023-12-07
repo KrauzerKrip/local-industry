@@ -3,12 +3,32 @@
 
   "shaders": {
     "vertex": {
-      "base": "dev/shaders/vert/base.vert"
+      "base": "dev/shaders/vert/base.vert",
+      "framebuffer": "dev/shaders/vert/framebuffer.vert",
+      "skybox": "dev/shaders/vert/skybox.vert",
+      "water": "dev/shaders/vert/water.vert",
+      "gui_text": "dev/shaders/vert/gui_text.vert",
+      "gui_quad": "dev/shaders/vert/gui_quad.vert",
+      "quad_instancing": "dev/shaders/vert/quad_instancing.vert"
     },
     "fragment": {
       "base": "dev/shaders/frag/base.frag",
       "camera_model": "dev/shaders/frag/base.frag",
-      "lighting":  "dev/shaders/frag/lighting.frag"
+      "lighting": "dev/shaders/frag/lighting.frag",
+      "framebuffer": "dev/shaders/frag/framebuffer.frag",
+      "skybox": "dev/shaders/frag/skybox.frag",
+      "water": "dev/shaders/frag/water.frag",
+      "gui_text": "dev/shaders/frag/gui_text.frag",
+      "gui_quad": "dev/shaders/frag/gui_quad.frag"
+    }
+  },
+
+  "skyboxes": {
+    "default": {
+      "path": "dev/skyboxes/default/"
+    },
+    "anime": {
+      "path": "dev/skyboxes/anime/"
     }
   },
 
@@ -55,6 +75,13 @@
       "vertex_shader": "base",
       "fragment_shader": "lighting"
     },
+    "test_cube_blend": {
+      "model_path": "dev/models/test_cube_blend/model.dae",
+      "textures_path": "dev/models/test_cube_blend/",
+      "material_type": "sg",
+      "vertex_shader": "base",
+      "fragment_shader": "lighting"
+    },
     "test_cube_white": {
       "model_path": "dev/models/test_cube_white/model.dae",
       "textures_path": "dev/models/test_cube_white/",
@@ -68,6 +95,13 @@
       "material_type": "sg",
       "vertex_shader": "base",
       "fragment_shader": "lighting"
+    },
+    "test_cube_water": {
+      "model_path": "dev/models/test_cube_water/model.dae",
+      "textures_path": "dev/models/test_cube_water/",
+      "material_type": "sg",
+      "vertex_shader": "water",
+      "fragment_shader": "water"
     }
   }
 }

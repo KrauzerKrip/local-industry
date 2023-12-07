@@ -6,6 +6,9 @@ in vec2 TexCoord;
 in vec3 Normal;
 in vec3 FragPos;
 
+uniform samplerCube skybox;
+uniform samplerCube cubemap;
+
 struct Material {
 	sampler2D diffuse;
 	sampler2D normal;
@@ -75,6 +78,10 @@ vec3 calculateSpotLight(SpotLight light, AmbientLight ambientLight, vec3 normal,
 void main()
 {	
 
+	if (texture(material.diffuse, TexCoord).a < 0.1) {
+		discard;
+	}
+
 	// properties
 	vec3 normal = normalize(Normal);
 	vec3 viewDir = normalize(viewPos - FragPos);
@@ -99,8 +106,23 @@ void main()
 	else {
 		result += ambientLight.color * ambientLight.strength * vec3(texture(material.diffuse, TexCoord));
 	}
-	
-	FragColor = vec4(result, 1.0);
+
+
+	float ratio = 1.00 / 1.52;
+
+	vec3 I = normalize(FragPos - viewPos);
+	vec3 R = reflect(I, normalize(Normal)); // reflection
+	//vec3 R = refract(I, normalize(Normal), ratio); // refraction
+	vec3 skyboxReflect = texture(skybox, R).rgb;
+	vec3 envReflect = texture(cubemap, R).rgb;
+
+	vec3 reflectColor = mix(skyboxReflect, envReflect, 0.0); 
+
+//	vec3 color = mix(result, reflectColor, 0.05);
+	vec3 color = mix(result, reflectColor, 0.05);
+
+
+	FragColor = vec4(color, texture(material.diffuse, TexCoord).a);
 }
 
 vec3 calculateDirectionalLight(DirectionalLight light, AmbientLight ambientLight, vec3 normal, vec3 viewDir) 

@@ -8,23 +8,27 @@
 using namespace luabridge;
 
 
-ScriptSystem::ScriptSystem(entt::registry* pRegistry) : m_api() {
+//std::string ScriptSystem::m_currentId;
+
+ScriptSystem::ScriptSystem(entt::registry* pRegistry) : m_api(pRegistry) {
 	m_pRegistry = pRegistry;
 }
 
 void ScriptSystem::update() {
-
-	auto uninitedEntities = m_pRegistry->view<Script, Init>();
+	auto uninitedEntities = m_pRegistry->view<Script, Init, Properties>();
 
 	for (auto entity : uninitedEntities) {
 		
-		Script script = uninitedEntities.get<Script>(entity);
+		Script& script = uninitedEntities.get<Script>(entity);
 		lua_State* L = script.luaState;
 
 		auto ent = entt::entt_traits<entt::entity>::to_integral(entity);
 
 		LuaRef init = getGlobal(L, "init");
 		LuaRef upd = getGlobal(L, "update");
+
+		//ScriptSystem::m_currentId = uninitedEntities.get<Properties>(entity).id;
+
 		try {
 			init(ent, &m_api);
 		}
@@ -35,16 +39,15 @@ void ScriptSystem::update() {
 		m_pRegistry->erase<Init>(entity);
 	}
 
-	auto entities = m_pRegistry->view<Script>();
+	auto entities = m_pRegistry->view<Script, Properties>();
 
 	for (auto entity : entities) {
-		Script script = entities.get<Script>(entity);
+		Script& script = entities.get<Script>(entity);
 		lua_State* L = script.luaState;
 
 		LuaRef update = getGlobal(L, "update");
 		update();
 	}
-
 }
 
 void ScriptSystem::frame() {
@@ -58,6 +61,4 @@ void ScriptSystem::frame() {
 		LuaRef frame = getGlobal(L, "frame");
 		frame();
 	}
-
-	
 }

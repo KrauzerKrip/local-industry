@@ -2,6 +2,15 @@
 #include "skybox.h"
 #include "skybox.h"
 #include "skybox.h"
+#include "skybox.h"
+#include "skybox.h"
+#include "skybox.h"
+
+Skybox::Skybox(SkyboxRender* pSkyboxRender) : m_lightColor(glm::vec3()), m_lightStrength(1.0f) { m_pSkyboxRender = pSkyboxRender; }
+
+void Skybox::render(glm::mat4& projection, glm::mat4& view) { m_pSkyboxRender->render(projection, view); }
+
+void Skybox::bindTexture() { m_pSkyboxRender->bindTexture(); }
 
 glm::vec3 Skybox::getLightColor() const { return m_lightColor; }
 
