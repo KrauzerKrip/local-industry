@@ -6,6 +6,8 @@ target_sources(lc_client
     PRIVATE
         "i_input.h"
 
-        "glfw_input.cpp"
         "glfw_input.h"
+        "glfw_input.cpp"
+
+        "entt/components.h"
 )

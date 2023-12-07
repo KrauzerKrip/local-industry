@@ -107,7 +107,7 @@ void Game::init() {
 	dirLightComponent.color = glm::vec3(1, 1, 1);
 	dirLightComponent.direction = glm::vec3(-0.2f, -1.0f, -0.3f);
 
-	m_pInput->addKeyCallback("GRAVE_ACCENT", [pConsoleGui = this->m_pConsoleGui, pWindow = this->m_pWindow]() {
+	m_pInput->addMappedKeyCallback("GRAVE_ACCENT", [pConsoleGui = this->m_pConsoleGui, pWindow = this->m_pWindow]() {
 		if (pConsoleGui->isOpened()) {
 			pConsoleGui->close();
 		}
@@ -137,16 +137,16 @@ void Game::input() {
 	}
 
 	if (m_pConsoleGui->isOpened()) {
-		m_lastMousePosX = m_pInput->getMousePosX();
-		m_lastMousePosY = m_pInput->getMousePosY();
+		m_lastMousePosX = m_pInput->getMousePosition().x;
+		m_lastMousePosY = m_pInput->getMousePosition().y;
 		return;
 	}
 
-	float offsetMouseX = (float) (m_pInput->getMousePosX() - m_lastMousePosX);
-	float offsetMouseY = (float) (m_lastMousePosY - m_pInput->getMousePosY());
+	float offsetMouseX = (float)(m_pInput->getMousePosition().x- m_lastMousePosX);
+	float offsetMouseY = (float)(m_lastMousePosY - m_pInput->getMousePosition().y);
 
-	m_lastMousePosX = m_pInput->getMousePosX();
-	m_lastMousePosY = m_pInput->getMousePosY();
+	m_lastMousePosX = m_pInput->getMousePosition().x;
+	m_lastMousePosY = m_pInput->getMousePosition().y;
 
 	glm::vec3 cameraRot = m_pCamera->getRotation();
 
