@@ -39,7 +39,9 @@ std::shared_ptr<Widget> createRow(std::string labelText, std::string dataText, W
 }
 
 
-DebugWidget::DebugWidget(Tier0* pTier0, WidgetDependecies dependencies, TextWidgetDependecies textDependencies) : Widget(dependencies) {
+DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, WidgetDependecies dependencies, TextWidgetDependecies textDependencies) : Widget(dependencies) {
+	m_pInput = pInput;
+	
 	this->setBackground(glm::vec4(0, 0, 0, 0.5));
 	this->setPosition(glm::vec2(1750, 870));
 	this->setSize(glm::vec2(160, 200));
@@ -58,9 +60,11 @@ DebugWidget::DebugWidget(Tier0* pTier0, WidgetDependecies dependencies, TextWidg
 	this->setLayout(vbox);
 
 	std::shared_ptr<Widget> rowFps = createRow("FPS", "", dependencies, textDependencies, &m_pFpsDataWidget);
+	std::shared_ptr<Widget> rowMousePos = createRow("FPS", "", dependencies, textDependencies, &m_pMousePositionWidget);
 
 	vbox->addChild(label);
 	vbox->addChild(rowFps);
+	vbox->addChild(rowMousePos);
 
 	pTier0->getParameters()->getParameter<bool>("cl_debug_mode").setCallback([this](bool value) {
 		if (value) {
@@ -82,6 +86,9 @@ void DebugWidget::render() {
 		int fps = 1.0f / deltaTime;
 		m_pFpsDataWidget->setText(std::to_string(fps));
 	}
+
+	m_pMousePositionWidget->setText(std::to_string((int)m_pInput->getMousePosition().x) + " " +
+									std::to_string((int)m_pInput->getMousePosition().y));
 
 	Widget::render();
 }

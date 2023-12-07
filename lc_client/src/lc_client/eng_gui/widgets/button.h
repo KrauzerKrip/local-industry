@@ -4,9 +4,9 @@
 #include "lc_client/eng_gui/input/input_receiver.h"
 
 
-class Button : public Widget, InputReceiver {
+class Button : public Widget, public InputReceiver {
 public:
-	Button();
+	Button(WidgetDependecies dependencies);
 
 	void mouseClick(MouseClickEvent event);
 	void keyPressed(KeyEvent event);
@@ -14,5 +14,4 @@ public:
 	virtual void click();
 
 private:
-	
 };

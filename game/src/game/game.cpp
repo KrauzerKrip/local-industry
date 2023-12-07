@@ -83,7 +83,7 @@ void Game::init() {
 	Skybox* pSkybox = new Skybox(pSkyboxRender);
 
 	GuiDependenciesFabric* pGuiDependenciesFabric = new GuiDependenciesFabricGl(m_pTier0->getConsole(), pShaderWork); 
-	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric);
+	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput);
 
 	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork, m_pGui->getPresenter(), m_pGraphicsSettings);
 
