@@ -25,6 +25,7 @@ public:
 	void showWithChildren();
 	void hide();
 	void hideWithChildren();
+	bool isVisible();
 	glm::vec2 getSize();
 	void setSize(glm::vec2 size);
 	glm::vec2 getPosition();

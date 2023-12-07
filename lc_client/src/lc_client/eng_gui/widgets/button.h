@@ -11,7 +11,7 @@ public:
 	void mouseClick(MouseClickEvent event);
 	void keyPressed(KeyEvent event);
 	void characterInput(std::string character);
-	void click();
+	virtual void click();
 
 private:
 	

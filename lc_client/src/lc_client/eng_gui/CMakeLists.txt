@@ -18,6 +18,8 @@ target_sources(lc_client
 
     "input/input_receiver.h"   
     "input/events.h"
+     "input/input_controller.h"
+     "input/input_controller.cpp"
      
     
      "paint_objects/background.h"

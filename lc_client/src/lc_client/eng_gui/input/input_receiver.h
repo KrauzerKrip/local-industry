@@ -2,7 +2,7 @@
 
 #include <string>
 #include "events.h"
-
+#include "lc_client/eng_gui/widgets/rectangle.h"
 
 class InputReceiver {
 public:

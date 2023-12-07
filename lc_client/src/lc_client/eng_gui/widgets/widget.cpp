@@ -46,6 +46,8 @@ void Widget::hideWithChildren() {
 	}
 }
 
+bool Widget::isVisible() { return m_isVisible; }
+
 glm::vec2 Widget::getSize() { return m_size; }
 
 void Widget::setSize(glm::vec2 size) { m_size = size; }
