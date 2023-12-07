@@ -6,6 +6,9 @@
 
 
 InputGlfw::InputGlfw() {
+	m_keyMap.emplace(KeyCode::MOUSE_BUTTON_LEFT, GLFW_MOUSE_BUTTON_LEFT);
+	m_keyMap.emplace(KeyCode::MOUSE_BUTTON_RIGHT, GLFW_MOUSE_BUTTON_RIGHT);
+
 	m_keyMap.emplace(KeyCode::W, GLFW_KEY_W);
 	m_keyMap.emplace(KeyCode::A, GLFW_KEY_A);
 	m_keyMap.emplace(KeyCode::S, GLFW_KEY_S);
@@ -76,9 +79,11 @@ void InputGlfw::invokeKeyCallbacks(int key, int action) {
 }
 
 void InputGlfw::invokeMouseCallbacks(glm::vec2 position) {
-	m_mousePosition = position;
+	glm::vec2 pos = glm::vec2(position.x, (1080 - position.y));
+
+	m_mousePosition = pos;
 
 	for (auto& callback : m_mouseCallbacks) {
-		callback(position);
+		callback(pos);
 	}
 }
