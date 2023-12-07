@@ -47,12 +47,6 @@ void Scene::loadScene(std::string pack, std::string scene) {
 			m_sceneRegistry.emplace<Water>(ent);
 		}
 	}
-
-	entt::entity textShader = m_sceneRegistry.create();
-	ShaderRequest request("dev", "text", "text");
-	m_sceneRegistry.emplace<ShaderRequest>(textShader, request);
-	Properties properties("text_shader", "");
-	m_sceneRegistry.emplace<Properties>(textShader, properties);
 }
 
 entt::registry& Scene::getMapRegistry() { return m_mapRegistry; }

@@ -141,16 +141,6 @@ void RenderGL::render() {
 		}
 	}
 
-	auto textView = m_pSceneRegistry->view<Properties, ShaderGl>();
-
-	unsigned int textShaderProgram;
-
-	for (auto& ent : textView) {
-		if (m_pSceneRegistry->get<Properties>(ent).id == "text_shader") {
-			textShaderProgram = m_pSceneRegistry->get<ShaderGl>(ent).shaderProgram;
-		}
-	}
-	
 	m_pGuiPresenter->render();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
