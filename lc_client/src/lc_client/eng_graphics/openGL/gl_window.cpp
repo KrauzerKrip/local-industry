@@ -70,10 +70,13 @@ void WindowGL::init() {
 	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
 	//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-	glfwSetWindowUserPointer(m_pGlfwWindow, this);
+	m_pInput = new InputGlfw();
 
+	glfwSetWindowUserPointer(m_pGlfwWindow, this);
 	glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
 	glfwSetKeyCallback(m_pGlfwWindow, keyCallback);
+	glfwSetMouseButtonCallback(m_pGlfwWindow, mouseButtonCallback);
+	glfwSetCursorPosCallback(m_pGlfwWindow, mouseCallback);
 
 	GLint flags;
 	glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
@@ -111,8 +114,6 @@ void WindowGL::init() {
 
 	std::cout << "Window init" << std::endl;
 
-	m_pInput = new InputGlfw(this);
-
 	m_debug = true;
 }
 
@@ -143,8 +144,9 @@ void WindowGL::terminate() {
 	glfwTerminate();
 }
 
-IInput* WindowGL::getInput() {
-	return m_pInput; }
+InputGlfw* WindowGL::getInput() {
+	return m_pInput;
+}
 
 void WindowGL::setMode(WindowMode mode) {
 	m_windowMode = mode;
@@ -162,12 +164,6 @@ void WindowGL::setResizeCallback(std::function<void(int, int)> callback) { m_res
 
 GLFWwindow* WindowGL::getGlfwWindow() {
 	return m_pGlfwWindow; }
-
-void WindowGL::addKeyCallback(int glfwKey, std::function<void()> callback) {
-	m_callbacks.insert_or_assign(glfwKey, callback);
-}
-
-std::unordered_map<int, std::function<void()>>& WindowGL::getCallbacks() { return m_callbacks; }
 
 std::function<void(int, int)>& WindowGL::getResizeCallback() { return m_resizeCallback; }
 
@@ -190,19 +186,20 @@ int* WindowGL::getAspectRatio() {
 
 void WindowGL::keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods) {
 	WindowGL* pWindow = static_cast<WindowGL*>(glfwGetWindowUserPointer(pGlfwWindow));
-	
-	auto& callbacks = pWindow->getCallbacks();
+	pWindow->getInput()->invokeKeyCallbacks(key, action);
+}
 
-	for (auto& [k, callback] : callbacks) {
-		if (k == key && action == GLFW_PRESS) {
-			callback();
-			break;
-		}
-	}
+void WindowGL::mouseButtonCallback(GLFWwindow* pGlfwWindow, int button, int action, int mods) {
+	WindowGL* pWindow = static_cast<WindowGL*>(glfwGetWindowUserPointer(pGlfwWindow));
+	pWindow->getInput()->invokeKeyCallbacks(button, action);
+}
+
+void WindowGL::mouseCallback(GLFWwindow* window, double x, double y) {
+	WindowGL* pWindow = (WindowGL*)glfwGetWindowUserPointer(window);
+	pWindow->getInput()->invokeMouseCallbacks(glm::vec2(x, y));
 }
 
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
-
 	WindowGL* pWindowGL = (WindowGL*)glfwGetWindowUserPointer(window);
 
 	bool debug = pWindowGL->m_debug;
@@ -218,12 +215,6 @@ static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 	resizeCallback(width, height);
 
 	pWindowGL->update();
-}
-
-static void mouseCallback(GLFWwindow* window, double x, double y) {
-
-	WindowGL* pWindowGL = (WindowGL*)glfwGetWindowUserPointer(window);
-	
 }
 
 void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,

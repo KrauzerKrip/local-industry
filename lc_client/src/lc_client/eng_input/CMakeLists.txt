@@ -4,13 +4,10 @@ project(eng_input)
 
 target_sources(lc_client 
     PRIVATE
-        "i_input_raw.h"
+        "i_input.h"
 
-        "glfw_input_raw.cpp"
-        "glfw_input_raw.h"
-
-        "input.h"
-        "input.cpp"
+        "glfw_input.h"
+        "glfw_input.cpp"
 
         "entt/components.h"
 )
