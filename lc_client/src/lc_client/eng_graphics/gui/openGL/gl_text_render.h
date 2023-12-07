@@ -29,6 +29,8 @@ public:
 	TextRenderGl(IConsole* pConsole, ShaderWorkGl* pShaderWork);
 
 	void render(std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, float zOffset);
+	void renderCentered(
+		std::string text, glm::vec4 color, glm::vec2 centerAbsolutePosition, unsigned int size, float zOffset);
 
 private:
 	std::map<char, Character> m_characters;

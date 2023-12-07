@@ -18,8 +18,11 @@ public:
 
 private:
 	std::string m_text;
-	unsigned int m_size;
+	unsigned int m_textSize;
 	glm::vec4 m_color;
+	Layer m_textLayer;
 
 	TextRender* m_pTextRender = nullptr;
+
+	TextWidgetDependecies m_textDependencies;
 };

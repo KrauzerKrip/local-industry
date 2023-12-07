@@ -17,10 +17,13 @@ Gui::Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInp
 	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
 	m_layoutController.setLayout(frame);
 
-	std::shared_ptr<Button> button = std::make_shared<Button>(pDependenciesFabric->getWidgetDependencies());
+	std::shared_ptr<Button> button = std::make_shared<Button>(pDependenciesFabric->getTextWidgetDependecies());
 	button->setSize(glm::vec2(200, 100));
 	button->setPosition(glm::vec2(500, 500));
-	button->setBackground(Background(glm::vec4(0, 0, 0, 1)));
+	button->setBackground(Background(glm::vec4(0, 0, 0, 0.5)));
+	button->setText("Test");
+	button->setTextSize(48);
+	button->setColor(glm::vec4(1, 1, 1, 1));
 	frame->addChild(button);
 	button->show();
 

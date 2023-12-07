@@ -9,6 +9,7 @@ public:
 
 	void setLayerNumber(unsigned int number);
 	float getOffsetZ();
+	unsigned int getLayerNumber();
 
 private:
 	ZOffsetCalculator* m_pZOffsetCalculator;

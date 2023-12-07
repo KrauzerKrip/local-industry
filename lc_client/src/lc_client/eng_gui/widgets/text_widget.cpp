@@ -1,13 +1,15 @@
 #include "text_widget.h"
 
 TextWidget::TextWidget(Background background, TextWidgetDependecies dependencies)
-	: Widget(background, WidgetDependecies(dependencies)) {
+	: Widget(background, WidgetDependecies(dependencies)), m_textDependencies(dependencies), m_textLayer(dependencies.pTextZOffsetCalculator) {
 	m_pTextRender = dependencies.pTextRender;
 	m_color = glm::vec4(0, 0, 0, 1);
 }
 
 TextWidget::TextWidget(TextWidgetDependecies dependencies)
-	: Widget(WidgetDependecies(dependencies)) {
+	: Widget(WidgetDependecies(dependencies)),
+	  m_textDependencies(dependencies),
+	  m_textLayer(dependencies.pTextZOffsetCalculator) {
 	m_pTextRender = dependencies.pTextRender;
 	m_color = glm::vec4(0, 0, 0, 1);
 }
@@ -18,7 +20,7 @@ std::string TextWidget::getText() { return m_text; }
 
 void TextWidget::setColor(glm::vec4 color) { m_color = color; }
 
-void TextWidget::setTextSize(unsigned int size) { m_size = size; }
+void TextWidget::setTextSize(unsigned int size) { m_textSize = size; }
 
 void TextWidget::render() { 
 	if (m_isVisible) {
@@ -26,9 +28,16 @@ void TextWidget::render() {
 		quad.vertices = m_rectangle.getVertices();
 		quad.zOffset = m_layer.getOffsetZ();
 
+		m_textLayer.setLayerNumber(m_layer.getLayerNumber());
+
 		if (m_background.getColor().a != 0) {
 			m_pBackgroundRender->renderColor(quad);
 		}
-		m_pTextRender->render(m_text, m_color, m_rectangle.m_absolutePosition, m_size, m_layer.getOffsetZ());
+
+		glm::vec2 textPos =  m_rectangle.m_absolutePosition;
+		textPos += (m_size / 2.0f);
+
+		m_pTextRender->renderCentered(
+			m_text, m_color, textPos, m_textSize, m_textLayer.getOffsetZ());
 	}
 }

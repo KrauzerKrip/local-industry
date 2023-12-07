@@ -115,11 +115,22 @@ void Game::init() {
 			pConsoleGui->open();
 		}
 	});
+
+	m_pInput->addMappedKeyCallback(
+		KeyCode::F3, [this]() {
+			if (m_pWindow->getMode() == WindowMode::GAME) {
+				m_pWindow->setMode(WindowMode::GUI);
+				m_guiMode = true;
+			}
+			else {
+				m_pWindow->setMode(WindowMode::GAME);
+				m_guiMode = false;
+			}
+		});
 }
 
 void Game::input() {
-
-	if (m_pConsoleGui->isOpened()) {
+	if (m_pConsoleGui->isOpened() || m_guiMode) {
 		if (m_pWindow->getMode() == WindowMode::GAME) {
 			m_pWindow->setMode(WindowMode::GUI);
 		}
@@ -136,14 +147,14 @@ void Game::input() {
 		exit(0);
 	}
 
-	if (m_pConsoleGui->isOpened()) {
+	if (m_pWindow->getMode() == WindowMode::GUI) {
 		m_lastMousePosX = m_pInput->getMousePosition().x;
 		m_lastMousePosY = m_pInput->getMousePosition().y;
 		return;
 	}
 
 	float offsetMouseX = (float)(m_pInput->getMousePosition().x- m_lastMousePosX);
-	float offsetMouseY = (float)(m_lastMousePosY - m_pInput->getMousePosition().y);
+	float offsetMouseY = (float)(m_pInput->getMousePosition().y-m_lastMousePosY);
 
 	m_lastMousePosX = m_pInput->getMousePosition().x;
 	m_lastMousePosY = m_pInput->getMousePosition().y;

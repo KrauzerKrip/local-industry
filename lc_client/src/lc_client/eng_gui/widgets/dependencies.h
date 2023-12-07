@@ -7,7 +7,8 @@
 struct TextWidgetDependecies {
 	BackgroundRender* pBackgroundRender;
 	TextRender* pTextRender;
-	ZOffsetCalculator* pZOffsetCalculator;
+	ZOffsetCalculator* pWidgetZOffsetCalculator;
+	ZOffsetCalculator* pTextZOffsetCalculator;
 };
 
 
@@ -17,7 +18,7 @@ struct WidgetDependecies {
 
 	WidgetDependecies(TextWidgetDependecies dependencies)
 		: pBackgroundRender(dependencies.pBackgroundRender),
-		  pZOffsetCalculator(dependencies.pZOffsetCalculator)
+		  pZOffsetCalculator(dependencies.pWidgetZOffsetCalculator)
 	{};
 
 	WidgetDependecies(){};

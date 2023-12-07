@@ -57,6 +57,7 @@ private:
 
 	Gui* m_pGui = nullptr;
 
+	bool m_guiMode = false;
 
 	Tier0* m_pTier0 = nullptr;
 	Tier1* m_pTier1 = nullptr;

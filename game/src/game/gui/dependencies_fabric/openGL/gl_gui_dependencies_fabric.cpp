@@ -17,7 +17,8 @@ GuiDependenciesFabricGl::GuiDependenciesFabricGl(IConsole* pConsole, ShaderWorkG
 
 	m_textWidgetDependencies.pBackgroundRender = pBackgroundRender;
 	m_textWidgetDependencies.pTextRender = pTextRender;
-	m_textWidgetDependencies.pZOffsetCalculator = pTextZOffsetCalculator;
+	m_textWidgetDependencies.pWidgetZOffsetCalculator = pWidgetZOffsetCalculator;
+	m_textWidgetDependencies.pTextZOffsetCalculator = pTextZOffsetCalculator;
 }
 
 WidgetDependecies GuiDependenciesFabricGl::getWidgetDependencies() { return m_widgetDependecies; }

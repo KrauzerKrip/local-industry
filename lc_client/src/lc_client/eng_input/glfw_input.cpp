@@ -22,6 +22,19 @@ InputGlfw::InputGlfw() {
 
 	m_keyMap.emplace(KeyCode::GRAVE_ACCENT, GLFW_KEY_GRAVE_ACCENT);
 
+	m_keyMap.emplace(KeyCode::F1, GLFW_KEY_F1);
+	m_keyMap.emplace(KeyCode::F2, GLFW_KEY_F2);
+	m_keyMap.emplace(KeyCode::F3, GLFW_KEY_F3);
+	m_keyMap.emplace(KeyCode::F4, GLFW_KEY_F4);
+	m_keyMap.emplace(KeyCode::F5, GLFW_KEY_F5);
+	m_keyMap.emplace(KeyCode::F6, GLFW_KEY_F6);
+	m_keyMap.emplace(KeyCode::F7, GLFW_KEY_F7);
+	m_keyMap.emplace(KeyCode::F8, GLFW_KEY_F8);
+	m_keyMap.emplace(KeyCode::F9, GLFW_KEY_F9);
+	m_keyMap.emplace(KeyCode::F10, GLFW_KEY_F10);
+	m_keyMap.emplace(KeyCode::F11, GLFW_KEY_F11);
+	m_keyMap.emplace(KeyCode::F12, GLFW_KEY_F12);
+
 	for (auto& [k, v] : m_keyMap) {
 		m_keyStates.emplace(k, false);
 	}
@@ -51,27 +64,27 @@ void InputGlfw::addMappedKeyCallback(KeyCode key, std::function<void()> callback
 void InputGlfw::addMouseClickCallback(std::function<void(glm::vec2)> callback) { m_mouseCallbacks.push_back(callback); }
 
 void InputGlfw::invokeKeyCallbacks(int key, int action) { 
-	KeyCode keyString;
+	KeyCode keyCode;
 
 	for (auto& [k, v] : m_keyMap) {
 		if (v == key) {
-			keyString = k;
+			keyCode = k;
 		}
 	}
 
 	if (action == GLFW_RELEASE) {
-		m_keyStates[keyString] = false;
+		m_keyStates[keyCode] = false;
 	}
 
 	if (action == GLFW_PRESS) {
-		m_keyStates[keyString] = true;
+		m_keyStates[keyCode] = true;
 
 		for (auto& callback : m_keyCallbacks) {
-			callback(keyString);
+			callback(keyCode);
 		}
 
 		for (auto& [key, callback] : m_mappedKeyCallbacks) {
-			if (key == keyString) {
+			if (key == keyCode) {
 				callback();
 			}
 		}

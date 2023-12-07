@@ -1,12 +1,12 @@
 #pragma once
 
-#include "widget.h"
+#include "text_widget.h"
 #include "lc_client/eng_gui/input/input_receiver.h"
 
 
-class Button : public Widget, public InputReceiver {
+class Button : public TextWidget, public InputReceiver {
 public:
-	Button(WidgetDependecies dependencies);
+	Button(TextWidgetDependecies dependencies);
 
 	void mouseClick(MouseClickEvent event);
 	void keyPressed(KeyEvent event);

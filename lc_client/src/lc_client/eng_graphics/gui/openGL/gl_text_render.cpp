@@ -111,3 +111,66 @@ void TextRenderGl::render(
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+void TextRenderGl::renderCentered(
+	std::string text, glm::vec4 color, glm::vec2 centerAbsolutePosition, unsigned int size, float zOffset) {
+	
+	std::string::const_iterator c;
+
+	float scale = float(size) / 48.0f;
+
+	float textWidth = 0;
+	float maxHeight = 0;
+
+	for (c = text.begin(); c != text.end(); c++) {
+		Character ch = m_characters[*c];
+		float xpos = ch.bearing.x * scale;
+		float ypos = (ch.size.y - ch.bearing.y) * scale;
+		float w = ch.size.x * scale;
+		float h = ch.size.y * scale;
+
+		maxHeight = std::max(maxHeight, h);
+
+		textWidth += w;
+	}
+
+	float x = centerAbsolutePosition.x - (textWidth / 2);
+	float y = centerAbsolutePosition.y - (maxHeight / 2);
+
+	// activate corresponding render state
+	glUseProgram(m_shader);
+	unsigned int projLoc = glGetUniformLocation(m_shader, "projection");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
+	glUniform3f(glGetUniformLocation(m_shader, "textColor"), color.x, color.y, color.z);
+	setUniform(m_shader, "textColor", color);
+	setUniform(m_shader, "zOffset", zOffset);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(m_vao);
+	// iterate through all characters
+	c = std::string::const_iterator();
+
+	for (c = text.begin(); c != text.end(); c++) {
+		Character ch = m_characters[*c];
+		float xpos = x + ch.bearing.x * scale;
+		float ypos = y - (ch.size.y - ch.bearing.y) * scale;
+		float w = ch.size.x * scale;
+		float h = ch.size.y * scale;
+		// update m_vbo for each char.acter
+		float vertices[6][4] = {{xpos, ypos + h, 0.0f, 0.0f}, {xpos, ypos, 0.0f, 1.0f}, {xpos + w, ypos, 1.0f, 1.0f},
+			{xpos, ypos + h, 0.0f, 0.0f}, {xpos + w, ypos, 1.0f, 1.0f}, {xpos + w, ypos + h, 1.0f, 0.0f}};
+		// render glyph texture over quad
+		glBindTexture(GL_TEXTURE_2D, ch.textureID);
+		// update content of m_vbo memory
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		// render quad
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		// advance cursors for next glyph (advance is 1/64 pixels)
+		x += (ch.advance >> 6) * scale; // bitshift by 6 (2^6 = 64)
+	}
+
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
