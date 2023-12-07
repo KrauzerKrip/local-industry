@@ -1,0 +1,15 @@
+#pragma once
+
+enum class KeyCode {
+	MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE, 
+	W,
+	D,
+	B,
+	A,
+	S,
+	ESC,
+	SPACE,
+	LEFT_SHIFT,
+	LEFT_CTRL,
+	GRAVE_ACCENT
+};

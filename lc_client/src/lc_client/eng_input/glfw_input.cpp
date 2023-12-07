@@ -6,18 +6,18 @@
 
 
 InputGlfw::InputGlfw() {
-	m_keyMap.emplace("W", GLFW_KEY_W);
-	m_keyMap.emplace("A", GLFW_KEY_A);
-	m_keyMap.emplace("S", GLFW_KEY_S);
-	m_keyMap.emplace("D", GLFW_KEY_D);
-	m_keyMap.emplace("B", GLFW_KEY_B);
+	m_keyMap.emplace(KeyCode::W, GLFW_KEY_W);
+	m_keyMap.emplace(KeyCode::A, GLFW_KEY_A);
+	m_keyMap.emplace(KeyCode::S, GLFW_KEY_S);
+	m_keyMap.emplace(KeyCode::D, GLFW_KEY_D);
+	m_keyMap.emplace(KeyCode::B, GLFW_KEY_B);
 
-	m_keyMap.emplace("ESC", GLFW_KEY_ESCAPE);
-	m_keyMap.emplace("SPACE", GLFW_KEY_SPACE);
-	m_keyMap.emplace("LEFT_SHIFT", GLFW_KEY_LEFT_SHIFT);
-	m_keyMap.emplace("LEFT_CTRL", GLFW_KEY_LEFT_CONTROL);
+	m_keyMap.emplace(KeyCode::ESC, GLFW_KEY_ESCAPE);
+	m_keyMap.emplace(KeyCode::SPACE, GLFW_KEY_SPACE);
+	m_keyMap.emplace(KeyCode::LEFT_SHIFT, GLFW_KEY_LEFT_SHIFT);
+	m_keyMap.emplace(KeyCode::LEFT_CTRL, GLFW_KEY_LEFT_CONTROL);
 
-	m_keyMap.emplace("GRAVE_ACCENT", GLFW_KEY_GRAVE_ACCENT);
+	m_keyMap.emplace(KeyCode::GRAVE_ACCENT, GLFW_KEY_GRAVE_ACCENT);
 
 	for (auto& [k, v] : m_keyMap) {
 		m_keyStates.emplace(k, false);
@@ -28,36 +28,27 @@ InputGlfw::InputGlfw() {
 
 InputGlfw::~InputGlfw() {};
 
-bool InputGlfw::isKeyPressed(std::string key) {
-	try {
-		if (m_keyStates.at(key) == true) {
-			return true;
-		}
-		else {
-			return false;
-		}
+bool InputGlfw::isKeyPressed(KeyCode key) {
+	if (m_keyStates.at(key) == true) {
+		return true;
 	}
-	catch (std::out_of_range&) {
-		throw UnknownKeyCodeException(key);
+	else {
+		return false;
 	}
 }
 
 glm::vec2 InputGlfw::getMousePosition() { return m_mousePosition; }
 
-void InputGlfw::addKeyCallback(std::function<void(std::string)> callback) { m_keyCallbacks.push_back(callback); }
+void InputGlfw::addKeyCallback(std::function<void(KeyCode)> callback) { m_keyCallbacks.push_back(callback); }
 
-void InputGlfw::addMappedKeyCallback(std::string key, std::function<void()> callback) {
-	if (m_keyMap.find(key) == m_keyMap.end()) {
-		throw UnknownKeyCodeException(key);
-	}
-
+void InputGlfw::addMappedKeyCallback(KeyCode key, std::function<void()> callback) {
 	m_mappedKeyCallbacks.emplace(key, callback);
 }
 
 void InputGlfw::addMouseClickCallback(std::function<void(glm::vec2)> callback) { m_mouseCallbacks.push_back(callback); }
 
 void InputGlfw::invokeKeyCallbacks(int key, int action) { 
-	std::string keyString;
+	KeyCode keyString;
 
 	for (auto& [k, v] : m_keyMap) {
 		if (v == key) {
