@@ -5,7 +5,7 @@ project(game)
 add_executable(game "src/game/main.cpp" "src/game/main.h" "src/game/game.cpp" "src/game/game.h")
 
 add_subdirectory("src/game/gui")
-#add_subdirectory("src/game/gui")
+add_subdirectory("src/game/loader_fabric")
 
 target_include_directories(game
     PUBLIC

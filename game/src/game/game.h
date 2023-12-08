@@ -26,6 +26,7 @@
 #include "lc_client/eng_graphics/gui/text_render.h"
 #include "game/gui/gui.h"
 #include "lc_client/eng_graphics/graphics_settings.h"
+#include "game/loader_fabric/loader_fabric.h"
 
 
 class Game : public IGameLogic {
@@ -40,27 +41,23 @@ public:
 	void cleanUp();
 
 private:
+	eng::IResource* m_pResource = nullptr;
+	Tier0* m_pTier0 = nullptr;
+	Tier1* m_pTier1 = nullptr;
+
 	IWindow* m_pWindow = nullptr;
 	IInput* m_pInput = nullptr;
 	Camera* m_pCamera = nullptr;
 	IRender* m_pRender = nullptr;
 	Scene* m_pScene = nullptr;
 	Map* m_pMap = nullptr;
-	eng::IResource* m_pResource = nullptr;
-	ModelManager* m_pModelManager = nullptr;
 	Systems* m_pSystems = nullptr;
-	MeshLoader* m_pMeshWork = nullptr;
-	ShaderLoader* m_pShaderWorkScene = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
-	CubemapLoader* m_pCubemapWork = nullptr;
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
 
 	Gui* m_pGui = nullptr;
 
 	bool m_guiMode = false;
-
-	Tier0* m_pTier0 = nullptr;
-	Tier1* m_pTier1 = nullptr;
 
 	double m_lastMousePosX = 0.0;
 	double m_lastMousePosY = 0.0;

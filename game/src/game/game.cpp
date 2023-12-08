@@ -37,6 +37,7 @@
 #include "game/gui/dependencies_fabric/gui_dependencies_fabric.h"
 #include "game/gui/dependencies_fabric/openGL/gl_gui_dependencies_fabric.h"
 #include "game/gui/gui.h"
+#include "game/loader_fabric/openGL/gl_loader_fabric.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -65,27 +66,27 @@ void Game::init() {
 
 	m_pTier1->getShaderManager()->loadShaders();
 	
+	LoaderFabricGl loaderFabricGl(m_pResource, m_pTier0->getConsole(), m_pTier1->getShaderManager());
+
 	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
 	m_pScene = new Scene(m_pResource, pSceneLoading);
 	SceneControlling::setScene(m_pScene);
-
-	m_pModelManager = new ModelManager(
-		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
-
-	m_pMeshWork = new MeshLoaderGl();
-	auto pShaderWork = new ShaderLoaderGl(m_pTier1->getShaderManager(), m_pTier0->getConsole());
-	m_pShaderWorkScene = pShaderWork;
+	
+	ModelManager* pModelManager =
+		new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
 
 	Pack pack = Pack::getPack("dev");
 	std::string skyboxPath = Pack::Skybox(pack, "anime").getPath();
 	std::unique_ptr<CubemapMaterial> skyboxMaterial = CubemapTextureLoader(skyboxPath, m_pResource).getMaterial();
-	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(skyboxMaterial.get(), pShaderWork);
+	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(skyboxMaterial.get(), loaderFabricGl.getShaderLoaderGl());
 	Skybox* pSkybox = new Skybox(pSkyboxRender);
 
-	GuiDependenciesFabric* pGuiDependenciesFabric = new GuiDependenciesFabricGl(m_pTier0->getConsole(), pShaderWork); 
+	GuiDependenciesFabric* pGuiDependenciesFabric =
+		new GuiDependenciesFabricGl(m_pTier0->getConsole(), loaderFabricGl.getShaderLoaderGl()); 
 	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput);
 
-	m_pRender = new RenderGL(m_pWindow, m_pCamera, pShaderWork, m_pGui->getPresenter(), m_pGraphicsSettings);
+	m_pRender = new RenderGL(
+		m_pWindow, m_pCamera, loaderFabricGl.getShaderLoaderGl(), m_pGui->getPresenter(), m_pGraphicsSettings);
 
 	m_pScene->loadScene("dev", "test");
 	m_pMap->loadMap("dev", "test");
@@ -94,9 +95,8 @@ void Game::init() {
 
 	m_pRender->init();
 
-	m_pCubemapWork = new CubemapLoaderGl(m_pResource);
-
-	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pCubemapWork, m_pScene, m_pMap, m_pModelManager);
+	m_pSystems = new Systems(m_pTier1, loaderFabricGl.getShaderLoaderGl(), loaderFabricGl.getMeshLoader(),
+		loaderFabricGl.getCubemapLoader(), m_pScene, m_pMap, pModelManager);
 
 	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
 	pSkybox->setLightStrength(0.4f);
@@ -269,43 +269,3 @@ void Game::render() {
 
 void Game::cleanUp() {}
 
-//void Game::setUpGui(ShaderWorkGl* pShaderWorkGl) { 
-//	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
-//
-//	Background background(glm::vec4(1, 1, 1, 0.8));
-//	Background background2(glm::vec4(0, 1, 1, 0.8));
-//
-//	TextWidgetDependecies textDependencies;
-//	textDependencies.pBackgroundRender = m_pBackgroundRender;
-//	textDependencies.pTextRender = m_pTextRender;
-//	textDependencies.pZOffsetCalculator = new TextZOffsetCalculatorGl;
-//
-//	WidgetDependecies widgetDependecies;
-//	widgetDependecies.pBackgroundRender = m_pBackgroundRender;
-//	widgetDependecies.pZOffsetCalculator = new WidgetZOffsetCalculatorGl;
-//
-//	std::shared_ptr<Widget> widget = std::make_shared<Widget>(background, widgetDependecies);
-//	widget->setPosition(glm::vec2(25, 25));
-//	widget->setSize(glm::vec2(400, 200));
-//	frame->addChild(widget);
-//	widget->show();
-//
-//	std::shared_ptr<Layout> layout2 = std::make_shared<Frame>();
-//	widget->setLayout(layout2);
-//	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(background2, widgetDependecies);
-//	widget2->setPosition(glm::vec2(50, 100));
-//	widget2->setSize(glm::vec2(50, 50));
-//	//layout2->addChild(widget2);
-//
-//	Background background3(glm::vec4(1, 1, 1, 0));
-//	TextRender* pTextRender = new TextRenderGl(m_pTier0->getConsole(), pShaderWorkGl);
-//	std::shared_ptr<TextWidget> textWidget = std::make_shared<TextWidget>(background3, textDependencies);
-//	textWidget->setPosition(glm::vec2(50, 100));
-//	textWidget->setTextSize(1);
-//	textWidget->setColor(glm::vec4(0, 0, 0, 1));
-//	textWidget->setText("test");
-//	textWidget->show();
-//	layout2->addChild(textWidget);
-//
-//	m_pLayoutController->setLayout(frame);
-//}
