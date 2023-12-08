@@ -20,6 +20,8 @@ public:
 private:
 	Camera* m_pCamera = nullptr;
 	IInput* m_pInput = nullptr;
+
+	glm::vec3 m_sphericalCoords;
 	
 	glm::vec2 m_lastMousePosition;
 };

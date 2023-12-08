@@ -180,18 +180,20 @@ void Game::input() {
 
 	float cameraSpeed = 0.5f;
 
+	glm::vec3 front = m_pCamera->getCameraFront();
+	glm::vec3 right = m_pCamera->getCameraRight();
+
 	if (m_pInput->isKeyPressed(KeyCode::W)) {
-		std::cout << "W" << std::endl;
-		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(1, 0, 0);
+		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(front.x, 0, front.z);
 	}
 	if (m_pInput->isKeyPressed(KeyCode::S)) {
-		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(-1, 0, 0);
+		m_pCameraController->m_originPosition += cameraSpeed * -glm::vec3(front.x, 0, front.z);
 	}
 	if (m_pInput->isKeyPressed(KeyCode::A)) {
-		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(0, 0, 1);
+		m_pCameraController->m_originPosition += cameraSpeed * -glm::vec3(right.x, 0, right.z);
 	}
 	if (m_pInput->isKeyPressed(KeyCode::D)) {
-		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(0, 0, -1);
+		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(right.x, 0, right.z);
 	}
 
 
