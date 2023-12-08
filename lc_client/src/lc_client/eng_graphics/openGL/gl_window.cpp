@@ -77,6 +77,7 @@ void WindowGL::init() {
 	glfwSetKeyCallback(m_pGlfwWindow, keyCallback);
 	glfwSetMouseButtonCallback(m_pGlfwWindow, mouseButtonCallback);
 	glfwSetCursorPosCallback(m_pGlfwWindow, mouseCallback);
+	glfwSetScrollCallback(m_pGlfwWindow, mouseWheelCallback);
 
 	GLint flags;
 	glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
@@ -194,9 +195,14 @@ void WindowGL::mouseButtonCallback(GLFWwindow* pGlfwWindow, int button, int acti
 	pWindow->getInput()->invokeKeyCallbacks(button, action);
 }
 
-void WindowGL::mouseCallback(GLFWwindow* window, double x, double y) {
-	WindowGL* pWindow = (WindowGL*)glfwGetWindowUserPointer(window);
+void WindowGL::mouseCallback(GLFWwindow* pGlfwWindow, double x, double y) {
+	WindowGL* pWindow = (WindowGL*)glfwGetWindowUserPointer(pGlfwWindow);
 	pWindow->getInput()->invokeMouseCallbacks(glm::vec2(x, y));
+}
+
+void WindowGL::mouseWheelCallback(GLFWwindow* pGlfwWindow, double xoffset, double yoffset) {
+	WindowGL* pWindow = (WindowGL*)glfwGetWindowUserPointer(pGlfwWindow);
+	pWindow->getInput()->invokeMouseWheelCallbacks(glm::vec2((float) xoffset, (float) yoffset));
 }
 
 static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {

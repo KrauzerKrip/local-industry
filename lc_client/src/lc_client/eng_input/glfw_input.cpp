@@ -55,6 +55,8 @@ bool InputGlfw::isKeyPressed(KeyCode key) {
 
 glm::vec2 InputGlfw::getMousePosition() { return m_mousePosition; }
 
+glm::vec2 InputGlfw::getMouseWheelOffset() { return m_mouseWheelOffset; }
+
 void InputGlfw::addKeyCallback(std::function<void(KeyCode)> callback) { m_keyCallbacks.push_back(callback); }
 
 void InputGlfw::addMappedKeyCallback(KeyCode key, std::function<void()> callback) {
@@ -62,6 +64,10 @@ void InputGlfw::addMappedKeyCallback(KeyCode key, std::function<void()> callback
 }
 
 void InputGlfw::addMouseCallback(std::function<void(glm::vec2)> callback) { m_mouseCallbacks.push_back(callback); }
+
+void InputGlfw::addMouseWheelCallback(std::function<void(glm::vec2)> callback) {
+	m_mouseWheelCallbacks.push_back(callback);
+}
 
 void InputGlfw::invokeKeyCallbacks(int key, int action) { 
 	KeyCode keyCode;
@@ -96,11 +102,15 @@ void InputGlfw::invokeMouseCallbacks(glm::vec2 position) {
 
 	m_mousePosition = pos;
 
-	if (m_mouseCallbacks.size() == 1) {
-		int i = 0;
-	}
-
 	for (auto& callback : m_mouseCallbacks) {
 		callback(pos);
+	}
+}
+
+void InputGlfw::invokeMouseWheelCallbacks(glm::vec2 offset) {
+	m_mouseWheelOffset = offset;
+
+	for (auto& callback : m_mouseWheelCallbacks) {
+		callback(offset);
 	}
 }
