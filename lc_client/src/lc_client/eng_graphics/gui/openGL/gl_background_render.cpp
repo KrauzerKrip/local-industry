@@ -8,7 +8,7 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
-BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderWorkGl* pShaderWork) : BackgroundRender(m_pConsole) {
+BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork) : BackgroundRender(m_pConsole) {
 	m_shader = pShaderWork->createShaderProgram("gui_quad", "gui_quad");
 
 	glEnable(GL_BLEND);

@@ -15,13 +15,13 @@
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
 #include "lc_client/tier1/openGL/gl_tier1.h"
-#include "lc_client/eng_graphics/openGL/gl_mesh_work.h"
-#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
+#include "lc_client/eng_graphics/openGL/gl_mesh_loader.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
 #include "lc_client/eng_gui/gui_console.h"
 #include "lc_client/eng_scene/skybox.h"
 #include "lc_client/eng_cubemaps/cubemap_loader.h"
 #include "lc_client/util/pack.h"
-#include "lc_client/eng_cubemaps/openGL/gl_cubemap_work.h"
+#include "lc_client/eng_cubemaps/openGL/gl_cubemap_loader.h"
 #include "lc_client/eng_gui/layout/layouts/frame.h"
 #include "lc_client/eng_gui/widgets/widget.h"
 #include "lc_client/eng_graphics/gui/openGL/gl_background_render.h"
@@ -72,13 +72,13 @@ void Game::init() {
 	m_pModelManager = new ModelManager(
 		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
 
-	m_pMeshWork = new MeshWorkGl();
-	auto pShaderWork = new ShaderWorkGl(m_pTier1->getShaderManager(), m_pTier0->getConsole());
+	m_pMeshWork = new MeshLoaderGl();
+	auto pShaderWork = new ShaderLoaderGl(m_pTier1->getShaderManager(), m_pTier0->getConsole());
 	m_pShaderWorkScene = pShaderWork;
 
 	Pack pack = Pack::getPack("dev");
 	std::string skyboxPath = Pack::Skybox(pack, "anime").getPath();
-	std::unique_ptr<CubemapMaterial> skyboxMaterial = CubemapLoader(skyboxPath, m_pResource).getMaterial();
+	std::unique_ptr<CubemapMaterial> skyboxMaterial = CubemapTextureLoader(skyboxPath, m_pResource).getMaterial();
 	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(skyboxMaterial.get(), pShaderWork);
 	Skybox* pSkybox = new Skybox(pSkyboxRender);
 
@@ -94,7 +94,7 @@ void Game::init() {
 
 	m_pRender->init();
 
-	m_pCubemapWork = new CubemapWorkGl(m_pResource);
+	m_pCubemapWork = new CubemapLoaderGl(m_pResource);
 
 	m_pSystems = new Systems(m_pTier1, m_pShaderWorkScene, m_pMeshWork, m_pCubemapWork, m_pScene, m_pMap, m_pModelManager);
 

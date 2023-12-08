@@ -1,9 +1,9 @@
-#include "gl_mesh_work.h"
+#include "gl_mesh_loader.h"
 
 #include <glad/glad.h>
 
 
-void MeshWorkGl::loadMesh(entt::registry* pUtilRegistry, entt::entity entity) {
+void MeshLoaderGl::loadMesh(entt::registry* pUtilRegistry, entt::entity entity) {
 	Mesh& mesh = pUtilRegistry->get<Mesh>(entity);
 
 	if (!pUtilRegistry->all_of<VaoGl>(entity)) { 
@@ -15,7 +15,7 @@ void MeshWorkGl::loadMesh(entt::registry* pUtilRegistry, entt::entity entity) {
 	}
 }
 
-unsigned int MeshWorkGl::createVao(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+unsigned int MeshLoaderGl::createVao(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
 	unsigned int vbo;
 	glGenBuffers(1, &vbo);
 

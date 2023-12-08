@@ -1,17 +1,17 @@
-#include "gl_shader_work.h"
+#include "gl_shader_loader.h"
 
 #include <iostream>
 
 #include <glad/glad.h>
 
 
-void ShaderWorkGl::loadShaders(entt::registry* pRegistry, entt::entity entity, const std::string vertexShaderName,
+void ShaderLoaderGl::loadShaders(entt::registry* pRegistry, entt::entity entity, const std::string vertexShaderName,
 							   const std::string fragmentShaderName) {
 
 	pRegistry->emplace_or_replace<ShaderGl>(entity, (int) createShaderProgram(vertexShaderName, fragmentShaderName));
 }
 
-unsigned int ShaderWorkGl::createShaderProgram(std::string vertexShaderName, std::string fragmentShaderName) {
+unsigned int ShaderLoaderGl::createShaderProgram(std::string vertexShaderName, std::string fragmentShaderName) {
 	unsigned int shaderProgram;
 	shaderProgram = glCreateProgram();
 
@@ -37,12 +37,12 @@ unsigned int ShaderWorkGl::createShaderProgram(std::string vertexShaderName, std
 	glGetProgramiv(shaderProgram, GL_COMPILE_STATUS, &success);
 
 	if (success) {
-		std::cout << "gl_shader_work: shader program linked successfully: " << shaderProgram << std::endl;
+		std::cout << "gl_shader_loader: shader program linked successfully: " << shaderProgram << std::endl;
 	}
 	else {
 		glGetProgramInfoLog(shaderProgram, 512, 0, infoLog);
-		std::cerr << "gl_shader_work: shader program link failure: \n" << infoLog << std::endl;
-		std::string msgText = "gl_shader_work: shader program link failure: " + (std::string) infoLog;
+		std::cerr << "gl_shader_loader: shader program link failure: \n" << infoLog << std::endl;
+		std::string msgText = "gl_shader_loader: shader program link failure: " + (std::string) infoLog;
 		m_pConsole->warn(msgText);
 	}
 

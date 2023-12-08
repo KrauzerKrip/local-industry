@@ -2,12 +2,12 @@
 
 #include <vector>
 
-#include "lc_client/eng_graphics/mesh_work.h"
+#include "lc_client/eng_graphics/mesh_loader.h"
 
 
-class MeshWorkGl : public MeshWork {
+class MeshLoaderGl : public MeshLoader {
 public:
-	MeshWorkGl() {};
+	MeshLoaderGl() {};
 	
 	void loadMesh(entt::registry* pUtilRegistry, entt::entity mesh);
 

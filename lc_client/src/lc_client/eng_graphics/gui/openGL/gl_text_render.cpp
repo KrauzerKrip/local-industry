@@ -6,7 +6,7 @@
 #include <iostream>
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
-TextRenderGl::TextRenderGl(IConsole* pConsole, ShaderWorkGl* pShaderWork) : TextRender(pConsole) {
+TextRenderGl::TextRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork) : TextRender(pConsole) {
 	m_shader = pShaderWork->createShaderProgram("gui_text", "gui_text");
 
 	FT_Library ft;

@@ -3,7 +3,7 @@
 #include "lc_client/eng_graphics/entt/components.h"
 
 
-ShaderSystem::ShaderSystem(ShaderWork* pShaderWork, entt::registry* pRegistry) {
+ShaderSystem::ShaderSystem(ShaderLoader* pShaderWork, entt::registry* pRegistry) {
 	m_pShaderWork = pShaderWork;
 	m_pRegistry = pRegistry;
 }

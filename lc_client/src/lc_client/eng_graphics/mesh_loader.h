@@ -5,9 +5,9 @@
 #include "entt/components.h"
 
 
-class MeshWork {
+class MeshLoader {
 public:
-	MeshWork() {};
+	MeshLoader() {};
 
 	virtual void loadMesh(entt::registry* pUtilRegistry, entt::entity mesh) = 0;
 

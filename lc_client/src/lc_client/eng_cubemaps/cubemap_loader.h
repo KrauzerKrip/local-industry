@@ -1,47 +1,17 @@
 #pragma once
 
-#include <string>
-#include <memory>
+#include <entt/entt.hpp>
 
-#include "lc_client/util/image.h"
-#include "lc_client/util/eng_resource.h"
+#include "cubemap_loader.h"
+#include "lc_client/util/i_eng_resource.h"
 
-
-struct CubemapMaterial {
-	eng::Image right;
-	eng::Image left;
-	eng::Image top;
-	eng::Image bottom;
-	eng::Image back;
-	eng::Image front;
-	
-	CubemapMaterial(eng::Image right, eng::Image left, eng::Image top, eng::Image bottom, eng::Image back, eng::Image front) 
-		: right(right),
-		  left(left),
-		  top(top),
-		  bottom(bottom),
-		  back(back),
-		  front(front) {}
-
-	CubemapMaterial(CubemapMaterial&& material) noexcept
-		: right(std::move(material.right)),
-		  left(std::move(material.left)),
-		  top(std::move(material.top)),
-		  bottom(std::move(material.bottom)),
-		  back(std::move(material.back)),
-		  front(std::move(material.front)) {}
-};
 
 class CubemapLoader {
 public:
-	CubemapLoader(std::string path, eng::IResource* pResource);
+	CubemapLoader(eng::IResource* pResource) : m_pResource(pResource) {};
 
-	std::unique_ptr<CubemapMaterial> getMaterial();
+	virtual void loadCubemap(entt::registry* pRegistry, entt::entity entity, std::string path) = 0;
 
-private:
-	CubemapMaterial* m_pMaterial;
-
-	void testLoadImages(eng::IResource* pResource, std::string path);
-
-	const static std::string FILE_FORMAT;
+protected: 
+	eng::IResource* m_pResource;
 };

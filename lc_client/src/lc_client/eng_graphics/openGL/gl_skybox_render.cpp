@@ -9,7 +9,7 @@
 #include "lc_client/eng_graphics/texture.h"
 
 
-SkyboxRenderGl::SkyboxRenderGl(CubemapMaterial* material, ShaderWorkGl* pShaderWork) {
+SkyboxRenderGl::SkyboxRenderGl(CubemapMaterial* material, ShaderLoaderGl* pShaderWork) {
 	glGenTextures(1, &m_texture);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture);
 

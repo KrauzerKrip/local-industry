@@ -1,6 +1,6 @@
 #include "systems.h"
 
-Systems::Systems(Tier1* pTier1, ShaderWork* pShaderWork, MeshWork* pMeshWork, CubemapWork* pCubemapWork, Scene* pScene,
+Systems::Systems(Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork, CubemapLoader* pCubemapWork, Scene* pScene,
 	Map* pMap, ModelManager* pModelManager) {
 	m_pTier1 = pTier1;
 	m_pShaderWork = pShaderWork;

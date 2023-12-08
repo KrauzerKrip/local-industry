@@ -17,7 +17,7 @@
 #include "lc_client/tier0/tier0.h"
 
 
-RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork, GuiPresenter* pGuiPresenter, GraphicsSettings* pGraphicsSettings) {
+RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork, GuiPresenter* pGuiPresenter, GraphicsSettings* pGraphicsSettings) {
 	m_pWindow = pWindow; // mb remove it
 	m_pCamera = pCamera;
 	m_pShaderWork = pShaderWork;

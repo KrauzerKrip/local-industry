@@ -8,14 +8,14 @@
 #include "lc_client/eng_graphics/gui/background_render.h"
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_gui/paint_objects/text.h"
-#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
 
 
-class ShaderWorkGl;
+class ShaderLoaderGl;
 
 class BackgroundRenderGl : public BackgroundRender {
 public:
-	BackgroundRenderGl(IConsole* pConsole, ShaderWorkGl* pShaderWork);
+	BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork);
 
 	void renderColor(ColorQuad colorQuad);
 	void renderImage(ImageQuad colorQuad);

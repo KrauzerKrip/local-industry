@@ -5,9 +5,9 @@
 #include "entt/components.h"
 
 
-class ShaderWork {
+class ShaderLoader {
 public:
-	ShaderWork(){};
+	ShaderLoader(){};
 
 	virtual void loadShaders(entt::registry* pRegistry, entt::entity entity, const std::string vertexShaderName, const std::string fragmentShaderName) = 0;
 

@@ -13,9 +13,9 @@
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_gui/paint_objects/text.h"
 #include "lc_client/eng_graphics/gui/queue_render.h"
-#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
 
-class ShaderWorkGl;
+class ShaderLoaderGl;
 
 struct Character {
 	unsigned int textureID; // ID handle of the glyph texture
@@ -26,7 +26,7 @@ struct Character {
 
 class TextRenderGl : public TextRender {
 public:
-	TextRenderGl(IConsole* pConsole, ShaderWorkGl* pShaderWork);
+	TextRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork);
 
 	void render(std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, float zOffset);
 	void renderCentered(

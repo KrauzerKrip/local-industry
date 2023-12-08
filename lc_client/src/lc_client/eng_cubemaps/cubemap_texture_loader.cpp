@@ -1,4 +1,4 @@
-#include "cubemap_loader.h"
+#include "cubemap_texture_loader.h"
 
 #include <iostream>
 #include <thread>
@@ -6,7 +6,7 @@
 #include <chrono>
 
 
-CubemapLoader::CubemapLoader(std::string path, eng::IResource* pResource) {
+CubemapTextureLoader::CubemapTextureLoader(std::string path, eng::IResource* pResource) {
 	std::vector<std::string> paths{path + "right" + FILE_FORMAT, path + "left" + FILE_FORMAT,
 		path + "top" + FILE_FORMAT, path + "bottom" + FILE_FORMAT, path + "back" + FILE_FORMAT,
 		path + "front" + FILE_FORMAT};
@@ -39,9 +39,11 @@ CubemapLoader::CubemapLoader(std::string path, eng::IResource* pResource) {
 
 }
 
-std::unique_ptr<CubemapMaterial> CubemapLoader::getMaterial() { return std::unique_ptr<CubemapMaterial>(m_pMaterial); }
+std::unique_ptr<CubemapMaterial> CubemapTextureLoader::getMaterial() {
+	return std::unique_ptr<CubemapMaterial>(m_pMaterial);
+}
 
-void CubemapLoader::testLoadImages(eng::IResource* pResource, std::string path) {
+void CubemapTextureLoader::testLoadImages(eng::IResource* pResource, std::string path) {
 	const std::vector<unsigned char>& bufferRight_ = pResource->getFileResource(path + "right" + FILE_FORMAT);
 	const std::vector<unsigned char>& bufferLeft_ = pResource->getFileResource(path + "left" + FILE_FORMAT);
 	const std::vector<unsigned char>& bufferTop_ = pResource->getFileResource(path + "top" + FILE_FORMAT);
@@ -50,4 +52,4 @@ void CubemapLoader::testLoadImages(eng::IResource* pResource, std::string path) 
 	const std::vector<unsigned char>& bufferFront_ = pResource->getFileResource(path + "front" + FILE_FORMAT);
 }
 
-const std::string CubemapLoader::FILE_FORMAT = ".png";
+const std::string CubemapTextureLoader::FILE_FORMAT = ".png";

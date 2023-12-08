@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lc_client/eng_graphics/shader_work.h"
+#include "lc_client/eng_graphics/shader_loader.h"
 
 #include <vector>
 
@@ -8,10 +8,10 @@
 #include "lc_client/tier0/console/i_console.h"
 
 
-class ShaderWorkGl : public ShaderWork {
+class ShaderLoaderGl : public ShaderLoader {
 public:
-	ShaderWorkGl(IShaderManager* pShaderManager, IConsole* pConsole)
-		: ShaderWork(),
+	ShaderLoaderGl(IShaderManager* pShaderManager, IConsole* pConsole)
+		: ShaderLoader(),
 		  m_pShaderManager(pShaderManager),
 		  m_pConsole(pConsole) {};
 

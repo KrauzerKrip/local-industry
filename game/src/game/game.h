@@ -14,15 +14,15 @@
 #include "lc_client/eng_model/model_manager.h"
 #include "lc_client/eng_script/script_system.h"
 #include "lc_client/systems.h"
-#include "lc_client/eng_graphics/mesh_work.h"
-#include "lc_client/eng_graphics/shader_work.h"
+#include "lc_client/eng_graphics/mesh_loader.h"
+#include "lc_client/eng_graphics/shader_loader.h"
 #include "lc_client/tier0/tier0.h"
 #include "lc_client/eng_gui/gui_console.h"
-#include "lc_client/eng_cubemaps/cubemap_work.h"
+#include "lc_client/eng_cubemaps/cubemap_loader.h"
 #include "lc_client/eng_map/map.h"
 #include "lc_client/eng_gui/layout/layout_controller.h"
 #include "lc_client/eng_gui/view/gui_presenter.h"
-#include "lc_client/eng_graphics/openGL/gl_shader_work.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
 #include "lc_client/eng_graphics/gui/text_render.h"
 #include "game/gui/gui.h"
 #include "lc_client/eng_graphics/graphics_settings.h"
@@ -49,10 +49,10 @@ private:
 	eng::IResource* m_pResource = nullptr;
 	ModelManager* m_pModelManager = nullptr;
 	Systems* m_pSystems = nullptr;
-	MeshWork* m_pMeshWork = nullptr;
-	ShaderWork* m_pShaderWorkScene = nullptr;
+	MeshLoader* m_pMeshWork = nullptr;
+	ShaderLoader* m_pShaderWorkScene = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
-	CubemapWork* m_pCubemapWork = nullptr;
+	CubemapLoader* m_pCubemapWork = nullptr;
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
 
 	Gui* m_pGui = nullptr;

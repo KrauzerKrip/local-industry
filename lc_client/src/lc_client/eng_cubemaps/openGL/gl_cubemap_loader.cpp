@@ -1,12 +1,12 @@
-#include "gl_cubemap_work.h"
+#include "gl_cubemap_loader.h"
 
 #include <glad/glad.h>
 
 #include "lc_client/eng_cubemaps/entt/components.h"
 
 
-void CubemapWorkGl::loadCubemap(entt::registry* pRegistry, entt::entity entity, std::string path) {
-	CubemapLoader cubemapLoader(path, m_pResource);
+void CubemapLoaderGl::loadCubemap(entt::registry* pRegistry, entt::entity entity, std::string path) {
+	CubemapTextureLoader cubemapLoader(path, m_pResource);
 	std::unique_ptr<CubemapMaterial> material = cubemapLoader.getMaterial();
 
 	unsigned int texture = getTexture(std::move(material));
@@ -14,7 +14,7 @@ void CubemapWorkGl::loadCubemap(entt::registry* pRegistry, entt::entity entity, 
 	pRegistry->emplace_or_replace<CubemapGl>(entity, texture);
 }
 
-unsigned int CubemapWorkGl::getTexture(std::unique_ptr<CubemapMaterial> material) { 
+unsigned int CubemapLoaderGl::getTexture(std::unique_ptr<CubemapMaterial> material) { 
 	unsigned int texture;
 
 	glGenTextures(1, &texture);

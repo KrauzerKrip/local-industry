@@ -9,7 +9,7 @@
 #include "lc_client/eng_graphics/camera/camera.h"
 #include "lc_client/eng_scene/scene.h"
 #include "lc_client/eng_scene/skybox.h"
-#include "gl_shader_work.h"
+#include "gl_shader_loader.h"
 #include "lc_client/eng_graphics/openGL/gl_framebuffer.h"
 #include "lc_client/eng_cubemaps/entt/components.h"
 #include "lc_client/eng_lighting/entt/components.h"
@@ -26,7 +26,7 @@ typedef decltype(entt::registry().view<CubemapGl, Transform>()) CubemapView;
 typedef decltype(entt::registry().view<Transform, PointLight>()) PointLightView;
 typedef decltype(entt::registry().view<Transform, SpotLight>()) SpotLightView;
 
-class ShaderWorkGl;
+class ShaderLoaderGl;
 
 class RenderMapGl;
 
@@ -35,7 +35,7 @@ class RenderGL : public IRender {
 friend class RenderMapGl;
 
 public:
-RenderGL(IWindow* pWindow, Camera* pCamera, ShaderWorkGl* pShaderWork, GuiPresenter* pGuiPresenter,
+RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork, GuiPresenter* pGuiPresenter,
 		 GraphicsSettings* pGraphicsSettings);
 	~RenderGL();
 
@@ -56,7 +56,7 @@ private:
 
 	IWindow* m_pWindow; //mb remove it
 	Camera* m_pCamera;
-	ShaderWorkGl* m_pShaderWork;
+	ShaderLoaderGl* m_pShaderWork;
 	RenderMapGl* m_pRenderMap;	
 	Scene* m_pScene = nullptr;
 	Skybox* m_pSkybox = nullptr;

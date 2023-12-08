@@ -6,7 +6,7 @@
 
 
 ModelSystem::ModelSystem(
-	ModelManager* pModelManager, MeshWork* pMeshWork, entt::registry* pSceneRegistry, entt::registry* pUtilRegistry) {
+	ModelManager* pModelManager, MeshLoader* pMeshWork, entt::registry* pSceneRegistry, entt::registry* pUtilRegistry) {
 	m_pModelManager = pModelManager;
 	m_pMeshWork = pMeshWork;
 	m_pSceneRegistry = pSceneRegistry;
