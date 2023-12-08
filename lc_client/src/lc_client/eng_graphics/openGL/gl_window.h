@@ -44,8 +44,9 @@ public:
 	int* getAspectRatio();
 
 	static void keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods);
-	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-	static void mouseCallback(GLFWwindow* window, double x, double y);
+	static void mouseButtonCallback(GLFWwindow* pGlfwWindow, int button, int action, int mods);
+	static void mouseCallback(GLFWwindow* pGlfwWindow, double x, double y);
+	static void mouseWheelCallback(GLFWwindow* pGlfwWindow, double xoffset, double yoffset);
 
 	// static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 	// static void mouseSizeCallback(GLFWwindow* window, double x, double y);
