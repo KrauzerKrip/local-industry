@@ -38,6 +38,7 @@
 #include "game/gui/dependencies_fabric/openGL/gl_gui_dependencies_fabric.h"
 #include "game/gui/gui.h"
 #include "game/loader_fabric/openGL/gl_loader_fabric.h"
+#include "game/camera/orbital_camera_controller.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -101,6 +102,7 @@ void Game::init() {
 	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
 	pSkybox->setLightStrength(0.4f);
 
+	m_pCameraController = new OrbitalCameraController(m_pCamera, m_pInput);
 
 	auto dirLight = m_pScene->getSceneRegistry().create(); // temp
 	auto dirLightComponent = m_pScene->getSceneRegistry().emplace<DirectionalLight>(dirLight);
@@ -127,6 +129,10 @@ void Game::init() {
 				m_guiMode = false;
 			}
 		});
+
+	glm::vec3 camPos(5, 0, 5);
+	m_pCamera->setPosition(camPos);
+	//m_pCamera->setRotation(glm::vec3(0, 90, 0));
 }
 
 void Game::input() {
@@ -159,20 +165,35 @@ void Game::input() {
 	m_lastMousePosX = m_pInput->getMousePosition().x;
 	m_lastMousePosY = m_pInput->getMousePosition().y;
 
-	glm::vec3 cameraRot = m_pCamera->getRotation();
+	//glm::vec3 cameraRot = m_pCamera->getRotation();
 
-	cameraRot.x += offsetMouseY * m_sensivity;
-	cameraRot.z += offsetMouseX * m_sensivity;
+	//cameraRot.x += offsetMouseY * m_sensivity;
+	//cameraRot.z += offsetMouseX * m_sensivity;
 
-	if (cameraRot.x > 89.0f)
-		cameraRot.x = 89.0f;
-	if (cameraRot.x < -89.0f)
-		cameraRot.x = -89.0f;
+	//if (cameraRot.x > 89.0f)
+	//	cameraRot.x = 89.0f;
+	//if (cameraRot.x < -89.0f)
+	//	cameraRot.x = -89.0f;
 
-	m_pCamera->setRotation(cameraRot);
+	//m_pCamera->setRotation(cameraRot);
 
 
-	float cameraSpeed = 0.05f;
+	float cameraSpeed = 0.5f;
+
+	if (m_pInput->isKeyPressed(KeyCode::W)) {
+		std::cout << "W" << std::endl;
+		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(1, 0, 0);
+	}
+	if (m_pInput->isKeyPressed(KeyCode::S)) {
+		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(-1, 0, 0);
+	}
+	if (m_pInput->isKeyPressed(KeyCode::A)) {
+		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(0, 0, 1);
+	}
+	if (m_pInput->isKeyPressed(KeyCode::D)) {
+		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(0, 0, -1);
+	}
+
 
 	glm::vec3 cameraPos = m_pCamera->getPosition();
 
@@ -212,7 +233,9 @@ void Game::input() {
 		std::cerr << exception.what() << std::endl;
 	}
 
-	m_pCamera->setPosition(cameraPos);
+
+	m_pCameraController->update();
+	//m_pCamera->setPosition(cameraPos);
 }
 
 void Game::update() {

@@ -27,6 +27,7 @@
 #include "game/gui/gui.h"
 #include "lc_client/eng_graphics/graphics_settings.h"
 #include "game/loader_fabric/loader_fabric.h"
+#include "game/camera/orbital_camera_controller.h"
 
 
 class Game : public IGameLogic {
@@ -54,6 +55,7 @@ private:
 	Systems* m_pSystems = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
+	OrbitalCameraController* m_pCameraController = nullptr;
 
 	Gui* m_pGui = nullptr;
 

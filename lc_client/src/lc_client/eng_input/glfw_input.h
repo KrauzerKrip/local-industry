@@ -18,7 +18,7 @@ public:
 	glm::vec2 getMousePosition();
 	void addKeyCallback(std::function<void(KeyCode key)> callback);
 	void addMappedKeyCallback(KeyCode key, std::function<void()> callback);
-	void addMouseClickCallback(std::function<void(glm::vec2)> callback);
+	void addMouseCallback(std::function<void(glm::vec2)> callback);
 	void invokeKeyCallbacks(int key, int action);
 	void invokeMouseCallbacks(glm::vec2 position);
 

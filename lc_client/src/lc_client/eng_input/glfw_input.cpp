@@ -61,7 +61,7 @@ void InputGlfw::addMappedKeyCallback(KeyCode key, std::function<void()> callback
 	m_mappedKeyCallbacks.emplace(key, callback);
 }
 
-void InputGlfw::addMouseClickCallback(std::function<void(glm::vec2)> callback) { m_mouseCallbacks.push_back(callback); }
+void InputGlfw::addMouseCallback(std::function<void(glm::vec2)> callback) { m_mouseCallbacks.push_back(callback); }
 
 void InputGlfw::invokeKeyCallbacks(int key, int action) { 
 	KeyCode keyCode;
@@ -95,6 +95,10 @@ void InputGlfw::invokeMouseCallbacks(glm::vec2 position) {
 	glm::vec2 pos = glm::vec2(position.x, (1080 - position.y));
 
 	m_mousePosition = pos;
+
+	if (m_mouseCallbacks.size() == 1) {
+		int i = 0;
+	}
 
 	for (auto& callback : m_mouseCallbacks) {
 		callback(pos);

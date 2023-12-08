@@ -19,9 +19,9 @@ Gui::Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInp
 
 	std::shared_ptr<Button> button = std::make_shared<Button>(pDependenciesFabric->getTextWidgetDependecies());
 	button->setSize(glm::vec2(200, 100));
-	button->setPosition(glm::vec2(500, 500));
+	button->setPosition(glm::vec2(20, 960));
 	button->setBackground(Background(glm::vec4(0, 0, 0, 0.5)));
-	button->setText("Test");
+	button->setText("Exit");
 	button->setTextSize(48);
 	button->setColor(glm::vec4(1, 1, 1, 1));
 	frame->addChild(button);

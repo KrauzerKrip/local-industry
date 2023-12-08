@@ -5,6 +5,7 @@
 #include "lc_client/eng_graphics/skybox_render.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
 #include "lc_client/eng_cubemaps/cubemap_loader.h"
+#include "lc_client/eng_cubemaps/cubemap_texture_loader.h"
 
 
 class ShaderLoaderGl;
