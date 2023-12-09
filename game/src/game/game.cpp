@@ -120,42 +120,25 @@ void Game::init() {
 
 	m_pInput->addMappedKeyCallback(
 		KeyCode::F3, [this]() {
-			if (m_pWindow->getMode() == WindowMode::GAME) {
-				m_pWindow->setMode(WindowMode::GUI);
+			if (m_pWindow->getMode() == WindowMode::CURSOR_DISABLED) {
+				m_pWindow->setMode(WindowMode::CURSOR_ENABLED);
 				m_guiMode = true;
 			}
 			else {
-				m_pWindow->setMode(WindowMode::GAME);
+				m_pWindow->setMode(WindowMode::CURSOR_DISABLED);
 				m_guiMode = false;
 			}
-		});
-
-	m_pInput->addMouseWheelCallback([this](glm::vec2 offset) {
-		float wheelOffset = offset.y;
-		float c = m_pCameraController->m_radius * 0.1; 
-		m_pCameraController->m_radius -= wheelOffset * c;
 		});
 }
 
 void Game::input() {
-	if (m_pConsoleGui->isOpened() || m_guiMode) {
-		if (m_pWindow->getMode() == WindowMode::GAME) {
-			m_pWindow->setMode(WindowMode::GUI);
-		}
-	}
-	else {
-		if (m_pWindow->getMode() == WindowMode::GUI) {
-			m_pWindow->setMode(WindowMode::GAME);
-		}
-	}
-
 	m_pConsoleGui->update();
 
 	if (m_pInput->isKeyPressed(KeyCode::ESC)) {
 		exit(0);
 	}
 
-	if (m_pWindow->getMode() == WindowMode::GUI) {
+	if (m_pWindow->getMode() == WindowMode::CURSOR_ENABLED) {
 		m_lastMousePosX = m_pInput->getMousePosition().x;
 		m_lastMousePosY = m_pInput->getMousePosition().y;
 		return;
@@ -166,78 +149,6 @@ void Game::input() {
 
 	m_lastMousePosX = m_pInput->getMousePosition().x;
 	m_lastMousePosY = m_pInput->getMousePosition().y;
-
-	//glm::vec3 cameraRot = m_pCamera->getRotation();
-
-	//cameraRot.x += offsetMouseY * m_sensivity;
-	//cameraRot.z += offsetMouseX * m_sensivity;
-
-	//if (cameraRot.x > 89.0f)
-	//	cameraRot.x = 89.0f;
-	//if (cameraRot.x < -89.0f)
-	//	cameraRot.x = -89.0f;
-
-	//m_pCamera->setRotation(cameraRot);
-
-	float cameraSpeed = 0.5f;
-
-	cameraSpeed *= m_pCameraController->m_radius * 0.05;
-
-	glm::vec3 front = m_pCamera->getCameraFront();
-	glm::vec3 right = m_pCamera->getCameraRight();
-
-	if (m_pInput->isKeyPressed(KeyCode::W)) {
-		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(front.x, 0, front.z);
-	}
-	if (m_pInput->isKeyPressed(KeyCode::S)) {
-		m_pCameraController->m_originPosition += cameraSpeed * -glm::vec3(front.x, 0, front.z);
-	}
-	if (m_pInput->isKeyPressed(KeyCode::A)) {
-		m_pCameraController->m_originPosition += cameraSpeed * -glm::vec3(right.x, 0, right.z);
-	}
-	if (m_pInput->isKeyPressed(KeyCode::D)) {
-		m_pCameraController->m_originPosition += cameraSpeed * glm::vec3(right.x, 0, right.z);
-	}
-
-
-	glm::vec3 cameraPos = m_pCamera->getPosition();
-
-	try {
-		if (m_pInput->isKeyPressed(KeyCode::LEFT_SHIFT)) {
-			cameraSpeed *= 2.0f;
-		}
-
-		if (m_pInput->isKeyPressed(KeyCode::W)) {
-			cameraPos += cameraSpeed * m_pCamera->getCameraFront();
-		}
-		if (m_pInput->isKeyPressed(KeyCode::S)) {
-			cameraPos += cameraSpeed * -m_pCamera->getCameraFront();
-		}
-		if (m_pInput->isKeyPressed(KeyCode::A)) {
-			cameraPos += cameraSpeed * -m_pCamera->getCameraRight();
-		}
-		if (m_pInput->isKeyPressed(KeyCode::D)) {
-			cameraPos += cameraSpeed * m_pCamera->getCameraRight();
-		}
-
-		if (m_pInput->isKeyPressed(KeyCode::SPACE)) {
-			cameraPos += cameraSpeed * glm::vec3(0, 1, 0);
-		}
-		if (m_pInput->isKeyPressed(KeyCode::LEFT_CTRL)) {
-			cameraPos += cameraSpeed * glm::vec3(0, -1, 0);
-		}
-
-		if (m_pInput->isKeyPressed(KeyCode::B)) {
-			m_pTier0->getParameters()->setParameterValue<float>("gh_fov", 10);
-		}
-		else {
-			m_pTier0->getParameters()->setParameterValue<float>("gh_fov", 90);
-		}
-	}
-	catch (UnknownKeyCodeException& exception) {
-		std::cerr << exception.what() << std::endl;
-	}
-
 
 	m_pCameraController->update();
 	//m_pCamera->setPosition(cameraPos);

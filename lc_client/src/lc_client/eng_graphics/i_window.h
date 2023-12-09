@@ -11,8 +11,8 @@
 
 
 enum class WindowMode {
-	GAME,
-	GUI
+	CURSOR_DISABLED,
+	CURSOR_ENABLED
 };
 
 

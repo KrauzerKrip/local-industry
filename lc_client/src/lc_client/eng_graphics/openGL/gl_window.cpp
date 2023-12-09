@@ -99,7 +99,7 @@ void WindowGL::init() {
 	}
 
 	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	m_windowMode = WindowMode::GAME;
+	m_windowMode = WindowMode::CURSOR_DISABLED;
 
 
 	ImGui_ImplGlfw_InitForOpenGL(m_pGlfwWindow, true);
@@ -151,10 +151,10 @@ InputGlfw* WindowGL::getInput() {
 
 void WindowGL::setMode(WindowMode mode) {
 	m_windowMode = mode;
-	if (mode == WindowMode::GAME) {
+	if (mode == WindowMode::CURSOR_DISABLED) {
 		glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
-	else if(mode == WindowMode::GUI) {
+	else if(mode == WindowMode::CURSOR_ENABLED) {
 		glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 }

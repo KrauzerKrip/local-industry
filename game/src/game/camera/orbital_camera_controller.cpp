@@ -33,10 +33,36 @@ OrbitalCameraController::OrbitalCameraController(Camera* pCamera, IInput* pInput
 
 		m_lastMousePosition = mousePosition;
 	});
+
+	
+	m_pInput->addMouseWheelCallback([this](glm::vec2 offset) {
+		float wheelOffset = offset.y;
+		float c = m_radius * 0.1;
+		m_radius -= wheelOffset * c;
+	});
 }
 
 void OrbitalCameraController::update() {
 	m_sphericalCoords.r = m_radius;
+
+	
+	float cameraSpeed = m_radius * 0.025;
+
+	glm::vec3 front = m_pCamera->getCameraFront();
+	glm::vec3 right = m_pCamera->getCameraRight();
+
+	if (m_pInput->isKeyPressed(KeyCode::W)) {
+		m_originPosition += cameraSpeed * glm::vec3(front.x, 0, front.z);
+	}
+	if (m_pInput->isKeyPressed(KeyCode::S)) {
+		m_originPosition += cameraSpeed * -glm::vec3(front.x, 0, front.z);
+	}
+	if (m_pInput->isKeyPressed(KeyCode::A)) {
+		m_originPosition += cameraSpeed * -glm::vec3(right.x, 0, right.z);
+	}
+	if (m_pInput->isKeyPressed(KeyCode::D)) {
+		m_originPosition += cameraSpeed * glm::vec3(right.x, 0, right.z);
+	}
 
 	float r = m_sphericalCoords.r;
 	float fita = glm::radians(m_sphericalCoords.p);

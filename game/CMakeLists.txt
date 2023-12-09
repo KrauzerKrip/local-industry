@@ -7,6 +7,7 @@ add_executable(game "src/game/main.cpp" "src/game/main.h" "src/game/game.cpp" "s
 add_subdirectory("src/game/gui")
 add_subdirectory("src/game/loader_fabric")
 add_subdirectory("src/game/camera")
+add_subdirectory("src/game/control")
 
 target_include_directories(game
     PUBLIC
