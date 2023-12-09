@@ -130,9 +130,11 @@ void Game::init() {
 			}
 		});
 
-	glm::vec3 camPos(5, 0, 5);
-	m_pCamera->setPosition(camPos);
-	//m_pCamera->setRotation(glm::vec3(0, 90, 0));
+	m_pInput->addMouseWheelCallback([this](glm::vec2 offset) {
+		float wheelOffset = offset.y;
+		float c = m_pCameraController->m_radius * 0.1; 
+		m_pCameraController->m_radius -= wheelOffset * c;
+		});
 }
 
 void Game::input() {
@@ -177,8 +179,9 @@ void Game::input() {
 
 	//m_pCamera->setRotation(cameraRot);
 
-
 	float cameraSpeed = 0.5f;
+
+	cameraSpeed *= m_pCameraController->m_radius * 0.05;
 
 	glm::vec3 front = m_pCamera->getCameraFront();
 	glm::vec3 right = m_pCamera->getCameraRight();

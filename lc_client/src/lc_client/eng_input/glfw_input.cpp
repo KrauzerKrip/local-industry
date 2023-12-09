@@ -8,6 +8,7 @@
 InputGlfw::InputGlfw() {
 	m_keyMap.emplace(KeyCode::MOUSE_BUTTON_LEFT, GLFW_MOUSE_BUTTON_LEFT);
 	m_keyMap.emplace(KeyCode::MOUSE_BUTTON_RIGHT, GLFW_MOUSE_BUTTON_RIGHT);
+	m_keyMap.emplace(KeyCode::MOUSE_BUTTON_MIDDLE, GLFW_MOUSE_BUTTON_MIDDLE);
 
 	m_keyMap.emplace(KeyCode::W, GLFW_KEY_W);
 	m_keyMap.emplace(KeyCode::A, GLFW_KEY_A);
@@ -40,6 +41,7 @@ InputGlfw::InputGlfw() {
 	}
 
 	m_mousePosition = glm::vec2(0);
+	m_mouseWheelOffset = glm::vec2(0);
 }
 
 InputGlfw::~InputGlfw() {};
