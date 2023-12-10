@@ -4,9 +4,10 @@
 #include "ldk_client/local_engine/time.h"
 
 
-OrbitalCameraController::OrbitalCameraController(Camera* pCamera, IInput* pInput) { 
+OrbitalCameraController::OrbitalCameraController(Camera* pCamera, IInput* pInput, ActionControl* pActionControl) { 
 	m_pCamera = pCamera;
 	m_pInput = pInput;
+	m_pActionControl = pActionControl;
 
 	m_originPosition = glm::vec3(10, 0, 0);
 	m_radius = 25;
@@ -90,16 +91,16 @@ void OrbitalCameraController::update() {
 	glm::vec3 front = m_pCamera->getCameraFront();
 	glm::vec3 right = m_pCamera->getCameraRight();
 
-	if (m_pInput->isKeyPressed(KeyCode::W)) {
+	if (m_pActionControl->isAction("kb_forward")) {
 		m_originPosition += cameraSpeed * glm::vec3(front.x, 0, front.z);
 	}
-	if (m_pInput->isKeyPressed(KeyCode::S)) {
+	if (m_pActionControl->isAction("kb_back")) {
 		m_originPosition += cameraSpeed * -glm::vec3(front.x, 0, front.z);
 	}
-	if (m_pInput->isKeyPressed(KeyCode::A)) {
+	if (m_pActionControl->isAction("kb_left")) {
 		m_originPosition += cameraSpeed * -glm::vec3(right.x, 0, right.z);
 	}
-	if (m_pInput->isKeyPressed(KeyCode::D)) {
+	if (m_pActionControl->isAction("kb_right")) {
 		m_originPosition += cameraSpeed * glm::vec3(right.x, 0, right.z);
 	}
 

@@ -54,8 +54,8 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
 	m_pMap = new Map();
 	m_pGraphicsSettings = new GraphicsSettings(m_pTier0->getParameters());
-	KeyCodeStrings keyCodeStrings;
-	m_pActionBind = new ActionBind(m_pTier0->getParameters(), &keyCodeStrings, actions);
+	m_pActionControl =
+		new ActionControl(pWindow->getInput(), m_pTier0->getParameters(), m_pTier0->getConsole(), actions);
 }
 
 Game::~Game() {
@@ -109,7 +109,7 @@ void Game::init() {
 	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
 	pSkybox->setLightStrength(0.4f);
 
-	m_pCameraController = new OrbitalCameraController(m_pCamera, m_pInput);
+	m_pCameraController = new OrbitalCameraController(m_pCamera, m_pInput, m_pActionControl);
 
 	auto dirLight = m_pScene->getSceneRegistry().create(); // temp
 	auto dirLightComponent = m_pScene->getSceneRegistry().emplace<DirectionalLight>(dirLight);
@@ -143,7 +143,7 @@ void Game::init() {
 void Game::input() {
 	m_pConsoleGui->update();
 
-	if (m_pInput->isKeyPressed(m_pActionBind->getActionKey("kb_menu"))) {
+	if (m_pActionControl->isAction("kb_menu")) {
 		exit(0);
 	}
 

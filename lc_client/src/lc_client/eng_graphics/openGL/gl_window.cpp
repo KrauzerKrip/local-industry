@@ -23,6 +23,8 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	m_pAspectRatio = aspectRatio;
 
 	m_resizeCallback = [](int width, int height) {};
+
+	m_pInput = new InputGlfw();
 }
 
 WindowGL::~WindowGL() {
@@ -69,8 +71,6 @@ void WindowGL::init() {
 	//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
 	//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
-	m_pInput = new InputGlfw();
 
 	glfwSetWindowUserPointer(m_pGlfwWindow, this);
 	glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);

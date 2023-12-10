@@ -6,6 +6,7 @@
 #include "lc_client/eng_input/key_code.h"
 #include "lc_client/tier0/conpar/parameters.h"
 #include "lc_client/eng_input/key_code_strings.h"
+#include "lc_client/tier0/console/i_console.h"
 
 
 class ActionNotFound : public std::runtime_error {
@@ -15,7 +16,7 @@ public:
 
 class ActionBind {
 public:
-	ActionBind(Parameters* pParameters, KeyCodeStrings* pKeyCodeString, std::vector<std::string>& actions);
+	ActionBind(Parameters* pParameters, IConsole* pConsole, KeyCodeStrings* pKeyCodeStrings, std::vector<std::string>& actions);
 
 	KeyCode getActionKey(std::string action);
 

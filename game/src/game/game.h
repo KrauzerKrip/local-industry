@@ -28,7 +28,7 @@
 #include "lc_client/eng_graphics/graphics_settings.h"
 #include "game/loader_fabric/loader_fabric.h"
 #include "game/camera/orbital_camera_controller.h"
-#include "game/control/action_bind.h"
+#include "game/control/action_control.h"
 
 
 
@@ -57,8 +57,8 @@ private:
 	Systems* m_pSystems = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
-	OrbitalCameraController* m_pCameraController = nullptr;
-	ActionBind* m_pActionBind = nullptr;
+	OrbitalCameraController* m_pCameraController = nullptr;	
+	ActionControl* m_pActionControl = nullptr;
 
 	Gui* m_pGui = nullptr;
 

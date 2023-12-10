@@ -9,6 +9,6 @@ target_sources(game PRIVATE
 	"action_bind.cpp"
 	"action_init.h"
 	"action_init.cpp"
-	"control.h"
-	"control.cpp"
+	"action_control.h"
+	"action_control.cpp"
 )

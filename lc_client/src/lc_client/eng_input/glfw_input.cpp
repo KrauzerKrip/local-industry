@@ -9,12 +9,33 @@ InputGlfw::InputGlfw() {
 	m_keyMap.emplace(KeyCode::MOUSE_BUTTON_LEFT, GLFW_MOUSE_BUTTON_LEFT);
 	m_keyMap.emplace(KeyCode::MOUSE_BUTTON_RIGHT, GLFW_MOUSE_BUTTON_RIGHT);
 	m_keyMap.emplace(KeyCode::MOUSE_BUTTON_MIDDLE, GLFW_MOUSE_BUTTON_MIDDLE);
-
-	m_keyMap.emplace(KeyCode::W, GLFW_KEY_W);
+	
 	m_keyMap.emplace(KeyCode::A, GLFW_KEY_A);
-	m_keyMap.emplace(KeyCode::S, GLFW_KEY_S);
-	m_keyMap.emplace(KeyCode::D, GLFW_KEY_D);
 	m_keyMap.emplace(KeyCode::B, GLFW_KEY_B);
+	m_keyMap.emplace(KeyCode::C, GLFW_KEY_C);
+	m_keyMap.emplace(KeyCode::D, GLFW_KEY_D);
+	m_keyMap.emplace(KeyCode::E, GLFW_KEY_E);
+	m_keyMap.emplace(KeyCode::F, GLFW_KEY_F);
+	m_keyMap.emplace(KeyCode::G, GLFW_KEY_G);
+	m_keyMap.emplace(KeyCode::H, GLFW_KEY_H);
+	m_keyMap.emplace(KeyCode::I, GLFW_KEY_I);
+	m_keyMap.emplace(KeyCode::J, GLFW_KEY_J);
+	m_keyMap.emplace(KeyCode::K, GLFW_KEY_K);
+	m_keyMap.emplace(KeyCode::L, GLFW_KEY_L);
+	m_keyMap.emplace(KeyCode::M, GLFW_KEY_M);
+	m_keyMap.emplace(KeyCode::N, GLFW_KEY_N);
+	m_keyMap.emplace(KeyCode::O, GLFW_KEY_O);
+	m_keyMap.emplace(KeyCode::P, GLFW_KEY_P);
+	m_keyMap.emplace(KeyCode::Q, GLFW_KEY_Q);
+	m_keyMap.emplace(KeyCode::R, GLFW_KEY_R);
+	m_keyMap.emplace(KeyCode::S, GLFW_KEY_S);
+	m_keyMap.emplace(KeyCode::T, GLFW_KEY_T);
+	m_keyMap.emplace(KeyCode::U, GLFW_KEY_U);
+	m_keyMap.emplace(KeyCode::V, GLFW_KEY_V);
+	m_keyMap.emplace(KeyCode::W, GLFW_KEY_W);
+	m_keyMap.emplace(KeyCode::X, GLFW_KEY_X);
+	m_keyMap.emplace(KeyCode::Y, GLFW_KEY_Y);
+	m_keyMap.emplace(KeyCode::Z, GLFW_KEY_Z);
 
 	m_keyMap.emplace(KeyCode::ESC, GLFW_KEY_ESCAPE);
 	m_keyMap.emplace(KeyCode::SPACE, GLFW_KEY_SPACE);
