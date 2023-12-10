@@ -26,6 +26,9 @@ void SkyboxRenderGl::load(CubemapMaterial* pMaterial) {
 	else {
 		imageFormat = GL_RGB;
 	}
+	
+	glGenTextures(1, &m_texture);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture);
 
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, imageFormat, pMaterial->right.getWidth(), pMaterial->right.getHeight(), 0,
 		imageFormat, GL_UNSIGNED_BYTE, pMaterial->right.getData());
@@ -73,9 +76,6 @@ void SkyboxRenderGl::load(CubemapMaterial* pMaterial) {
 	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-
-	glGenTextures(1, &m_texture);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture);
 }
 
 void SkyboxRenderGl::render(glm::mat4& projection, glm::mat4& view) {

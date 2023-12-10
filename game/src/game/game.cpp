@@ -71,13 +71,11 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pCameraController = new OrbitalCameraController(m_pCamera, m_pInput, m_pActionControl);
 
 	Pack pack = Pack::getPack("dev");
-	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(pLoaderFabric->getShaderLoaderGl());
-	Skybox* pSkybox = new Skybox(pSkyboxRender, m_pResource);
+	SkyboxRender* m_pSkyboxRender = new SkyboxRenderGl(pLoaderFabric->getShaderLoaderGl());
+	m_pSkybox = new Skybox(m_pSkyboxRender, m_pResource);
 
-	pSkybox->loadSkybox("anime");
-
-	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
-	pSkybox->setLightStrength(0.4f);
+	m_pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
+	m_pSkybox->setLightStrength(0.4f);
 
 	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
 	m_pScene = new Scene(m_pResource, pSceneLoading);
@@ -88,7 +86,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pRender = new RenderGL(
 		m_pWindow, m_pCamera, pLoaderFabric->getShaderLoaderGl(), m_pGui->getPresenter(), m_pGraphicsSettings);
 
-	m_pRender->setDependecies(m_pMap, m_pScene, pSkybox);
+	m_pRender->setDependecies(m_pMap, m_pScene, m_pSkybox);
 
 	m_pRender->init();
 
@@ -107,6 +105,9 @@ Game::~Game() {
 void Game::init() {
 	m_pScene->loadScene("dev", "test");
 	m_pMap->loadMap("dev", "test");
+
+	m_pSkybox->loadSkybox("anime");
+
 
 	auto dirLight = m_pScene->getSceneRegistry().create(); // temp
 	auto dirLightComponent = m_pScene->getSceneRegistry().emplace<DirectionalLight>(dirLight);

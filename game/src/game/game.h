@@ -51,13 +51,14 @@ private:
 	IInput* m_pInput = nullptr;
 	Camera* m_pCamera = nullptr;
 	IRender* m_pRender = nullptr;
+	ActionControl* m_pActionControl = nullptr;
 	Scene* m_pScene = nullptr;
 	Map* m_pMap = nullptr;
 	Systems* m_pSystems = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
 	OrbitalCameraController* m_pCameraController = nullptr;	
-	ActionControl* m_pActionControl = nullptr;
+	Skybox* m_pSkybox = nullptr;
 
 	Gui* m_pGui = nullptr;
 

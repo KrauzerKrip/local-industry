@@ -16,6 +16,7 @@ void Skybox::loadSkybox(std::string name) {
 	Pack pack = Pack::getPack("dev");
 	std::string skyboxPath = Pack::Skybox(pack, name).getPath();
 	std::unique_ptr<CubemapMaterial> skyboxMaterial = CubemapTextureLoader(skyboxPath, m_pResource).getMaterial();
+	m_pSkyboxRender->load(skyboxMaterial.get());
 }
 
 void Skybox::render(glm::mat4& projection, glm::mat4& view) { m_pSkyboxRender->render(projection, view); }
