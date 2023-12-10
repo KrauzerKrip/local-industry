@@ -28,7 +28,7 @@ void Parameters::setParameterValueConvert(std::string name, std::string value) {
 	}
 
 	try {
-		ConPar<std::string> conpar = m_stringConpars.at(name);
+		ConPar<std::string>& conpar = m_stringConpars.at(name);
 
 		if (conpar.checkFlag(ConparFlags::CHEATS) && !getParameterValue<bool>("sv_cheats")) {
 			throw ConsoleParameterCheatsException(name);
@@ -42,7 +42,7 @@ void Parameters::setParameterValueConvert(std::string name, std::string value) {
 	}
 
 	try {
-		ConPar<int> conpar = m_intConpars.at(name);
+		ConPar<int>& conpar = m_intConpars.at(name);
 
 		if (conpar.checkFlag(ConparFlags::CHEATS) && !getParameterValue<bool>("sv_cheats")) {
 			throw ConsoleParameterCheatsException(name);
@@ -56,7 +56,7 @@ void Parameters::setParameterValueConvert(std::string name, std::string value) {
 	}
 
 	try {
-		ConPar<float> conpar = m_floatConpars.at(name);
+		ConPar<float>& conpar = m_floatConpars.at(name);
 
 		if (conpar.checkFlag(ConparFlags::CHEATS) && !getParameterValue<bool>("sv_cheats")) {
 			throw ConsoleParameterCheatsException(name);
