@@ -18,7 +18,6 @@
 #include "lc_client/eng_graphics/shader_loader.h"
 #include "lc_client/tier0/tier0.h"
 #include "lc_client/eng_gui/gui_console.h"
-#include "lc_client/eng_cubemaps/cubemap_loader.h"
 #include "lc_client/eng_map/map.h"
 #include "lc_client/eng_gui/layout/layout_controller.h"
 #include "lc_client/eng_gui/view/gui_presenter.h"

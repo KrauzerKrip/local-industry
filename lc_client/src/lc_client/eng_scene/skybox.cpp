@@ -1,12 +1,22 @@
 #include "skybox.h"
-#include "skybox.h"
-#include "skybox.h"
-#include "skybox.h"
-#include "skybox.h"
-#include "skybox.h"
-#include "skybox.h"
 
-Skybox::Skybox(SkyboxRender* pSkyboxRender) : m_lightColor(glm::vec3()), m_lightStrength(1.0f) { m_pSkyboxRender = pSkyboxRender; }
+#include "lc_client/util/pack.h"
+#include "lc_client/eng_cubemaps/cubemap_texture_loader.h"
+#include "lc_client/util/i_eng_resource.h"
+
+
+Skybox::Skybox(SkyboxRender* pSkyboxRender, eng::IResource* pResource)
+	: m_lightColor(glm::vec3()),
+	  m_lightStrength(1.0f) {
+	m_pSkyboxRender = pSkyboxRender;
+	m_pResource = pResource;
+}
+
+void Skybox::loadSkybox(std::string name) {
+	Pack pack = Pack::getPack("dev");
+	std::string skyboxPath = Pack::Skybox(pack, name).getPath();
+	std::unique_ptr<CubemapMaterial> skyboxMaterial = CubemapTextureLoader(skyboxPath, m_pResource).getMaterial();
+}
 
 void Skybox::render(glm::mat4& projection, glm::mat4& view) { m_pSkyboxRender->render(projection, view); }
 

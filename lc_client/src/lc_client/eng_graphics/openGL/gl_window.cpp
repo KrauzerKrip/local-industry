@@ -25,16 +25,8 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	m_resizeCallback = [](int width, int height) {};
 
 	m_pInput = new InputGlfw();
-}
 
-WindowGL::~WindowGL() {
-	delete m_pInput;
-	delete[] m_pAspectRatio;
-};
-
-void WindowGL::init() {
-
-	int code = glfwGetError(NULL);
+		int code = glfwGetError(NULL);
 
 	if (code == GLFW_NO_ERROR) {
 		std::cout << "glfw all ok" << std::endl;
@@ -62,16 +54,22 @@ void WindowGL::init() {
 
 	glfwMakeContextCurrent(m_pGlfwWindow);
 
-	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
-	{
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		throw GladInitFailException();
 	}
 
 	glViewport(0, 0, m_width, m_height);
-	//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
-	//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	// glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+}
 
+WindowGL::~WindowGL() {
+	delete m_pInput;
+	delete[] m_pAspectRatio;
+};
+
+void WindowGL::init() {
 	glfwSetWindowUserPointer(m_pGlfwWindow, this);
 	glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
 	glfwSetKeyCallback(m_pGlfwWindow, keyCallback);

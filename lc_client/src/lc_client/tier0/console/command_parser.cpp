@@ -43,24 +43,24 @@ CommandParser::CommandParser(std::string text) {
 			throw IncorrectCommandException(text);
 		}
 	}
-	else if (tokens.at(0) == "+rot") {
-		auto view = SceneControlling::getScene()->getSceneRegistry().view<Transform, Properties>();
+	//else if (tokens.at(0) == "+rot") {
+	//	auto view = SceneControlling::getScene()->getSceneRegistry().view<Transform, Properties>();
 
-		for (auto& entity : view) {
-			if (tokens.at(1) == view.get<Properties>(entity).id) {
-				if (tokens.size() == 5) {
-					Transform& transform = view.get<Transform>(entity);
-					float x = std::stof(tokens.at(2));
-					float y = std::stof(tokens.at(3));
-					float z = std::stof(tokens.at(4));
+	//	for (auto& entity : view) {
+	//		if (tokens.at(1) == view.get<Properties>(entity).id) {
+	//			if (tokens.size() == 5) {
+	//				Transform& transform = view.get<Transform>(entity);
+	//				float x = std::stof(tokens.at(2));
+	//				float y = std::stof(tokens.at(3));
+	//				float z = std::stof(tokens.at(4));
 
-					transform.rotation *= glm::angleAxis(glm::radians(x), glm::vec3(1.f, 0.f, 0.f));
-					transform.rotation *= glm::angleAxis(glm::radians(y), glm::vec3(0.f, 1.f, 0.f));
-					transform.rotation *= glm::angleAxis(glm::radians(z), glm::vec3(0.f, 0.f, 1.f));
-				}
-			}
-		}
-	}
+	//				transform.rotation *= glm::angleAxis(glm::radians(x), glm::vec3(1.f, 0.f, 0.f));
+	//				transform.rotation *= glm::angleAxis(glm::radians(y), glm::vec3(0.f, 1.f, 0.f));
+	//				transform.rotation *= glm::angleAxis(glm::radians(z), glm::vec3(0.f, 0.f, 1.f));
+	//			}
+	//		}
+	//	}
+	//}
 	else if (tokens.at(0) == "get") {
 		m_type = CommandType::GET;
 

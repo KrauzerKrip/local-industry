@@ -12,7 +12,8 @@ class ShaderLoaderGl;
 
 class SkyboxRenderGl : public SkyboxRender {
 public:
-	SkyboxRenderGl(CubemapMaterial* material, ShaderLoaderGl* pShaderWork);
+	SkyboxRenderGl(ShaderLoaderGl* pShaderWork);
+	void load(CubemapMaterial* pMat);
 	void render(glm::mat4& projection, glm::mat4& view);
 	void bindTexture();
 

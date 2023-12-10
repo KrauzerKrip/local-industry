@@ -19,9 +19,7 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
 #include "lc_client/eng_gui/gui_console.h"
 #include "lc_client/eng_scene/skybox.h"
-#include "lc_client/eng_cubemaps/cubemap_loader.h"
 #include "lc_client/util/pack.h"
-#include "lc_client/eng_cubemaps/openGL/gl_cubemap_loader.h"
 #include "lc_client/eng_gui/layout/layouts/frame.h"
 #include "lc_client/eng_gui/widgets/widget.h"
 #include "lc_client/eng_graphics/gui/openGL/gl_background_render.h"
@@ -56,6 +54,46 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pGraphicsSettings = new GraphicsSettings(m_pTier0->getParameters());
 	m_pActionControl =
 		new ActionControl(pWindow->getInput(), m_pTier0->getParameters(), m_pTier0->getConsole(), actions);
+
+	m_pConsoleGui = new ConsoleGui(
+		m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier1->getTextureManager(), m_pTier0->getParameters());
+
+	m_pInput = m_pWindow->getInput();
+
+	m_pTier1->getShaderManager()->loadShaders();
+
+	LoaderFabricGl* pLoaderFabric =  new LoaderFabricGl(m_pResource, m_pTier0->getConsole(), m_pTier1->getShaderManager());
+
+	GuiDependenciesFabric* pGuiDependenciesFabric =
+		new GuiDependenciesFabricGl(m_pTier0->getConsole(), pLoaderFabric->getShaderLoaderGl());
+	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput);
+
+	m_pCameraController = new OrbitalCameraController(m_pCamera, m_pInput, m_pActionControl);
+
+	Pack pack = Pack::getPack("dev");
+	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(pLoaderFabric->getShaderLoaderGl());
+	Skybox* pSkybox = new Skybox(pSkyboxRender, m_pResource);
+
+	pSkybox->loadSkybox("anime");
+
+	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
+	pSkybox->setLightStrength(0.4f);
+
+	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
+	m_pScene = new Scene(m_pResource, pSceneLoading);
+
+	ModelManager* pModelManager = new ModelManager(
+		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
+
+	m_pRender = new RenderGL(
+		m_pWindow, m_pCamera, pLoaderFabric->getShaderLoaderGl(), m_pGui->getPresenter(), m_pGraphicsSettings);
+
+	m_pRender->setDependecies(m_pMap, m_pScene, pSkybox);
+
+	m_pRender->init();
+
+	m_pSystems = new Systems(m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(),
+		pLoaderFabric->getCubemapLoader(), m_pScene, m_pMap, pModelManager);
 }
 
 Game::~Game() {
@@ -67,49 +105,8 @@ Game::~Game() {
 };
 
 void Game::init() {
-	m_pConsoleGui = new ConsoleGui(
-		m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier1->getTextureManager(), m_pTier0->getParameters());
-
-	m_pInput = m_pWindow->getInput();
-
-	m_pTier1->getShaderManager()->loadShaders();
-	
-	LoaderFabricGl loaderFabricGl(m_pResource, m_pTier0->getConsole(), m_pTier1->getShaderManager());
-
-	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
-	m_pScene = new Scene(m_pResource, pSceneLoading);
-	SceneControlling::setScene(m_pScene);
-	
-	ModelManager* pModelManager =
-		new ModelManager(m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
-
-	Pack pack = Pack::getPack("dev");
-	std::string skyboxPath = Pack::Skybox(pack, "anime").getPath();
-	std::unique_ptr<CubemapMaterial> skyboxMaterial = CubemapTextureLoader(skyboxPath, m_pResource).getMaterial();
-	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(skyboxMaterial.get(), loaderFabricGl.getShaderLoaderGl());
-	Skybox* pSkybox = new Skybox(pSkyboxRender);
-
-	GuiDependenciesFabric* pGuiDependenciesFabric =
-		new GuiDependenciesFabricGl(m_pTier0->getConsole(), loaderFabricGl.getShaderLoaderGl()); 
-	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput);
-
-	m_pRender = new RenderGL(
-		m_pWindow, m_pCamera, loaderFabricGl.getShaderLoaderGl(), m_pGui->getPresenter(), m_pGraphicsSettings);
-
 	m_pScene->loadScene("dev", "test");
 	m_pMap->loadMap("dev", "test");
-
-	m_pRender->setDependecies(m_pMap, m_pScene, pSkybox);
-
-	m_pRender->init();
-
-	m_pSystems = new Systems(m_pTier1, loaderFabricGl.getShaderLoaderGl(), loaderFabricGl.getMeshLoader(),
-		loaderFabricGl.getCubemapLoader(), m_pScene, m_pMap, pModelManager);
-
-	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
-	pSkybox->setLightStrength(0.4f);
-
-	m_pCameraController = new OrbitalCameraController(m_pCamera, m_pInput, m_pActionControl);
 
 	auto dirLight = m_pScene->getSceneRegistry().create(); // temp
 	auto dirLightComponent = m_pScene->getSceneRegistry().emplace<DirectionalLight>(dirLight);

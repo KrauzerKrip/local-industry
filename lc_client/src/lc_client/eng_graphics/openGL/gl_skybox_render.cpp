@@ -9,34 +9,36 @@
 #include "lc_client/eng_graphics/texture.h"
 
 
-SkyboxRenderGl::SkyboxRenderGl(CubemapMaterial* material, ShaderLoaderGl* pShaderWork) {
-	glGenTextures(1, &m_texture);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture);
+SkyboxRenderGl::SkyboxRenderGl(ShaderLoaderGl* pShaderWork) {
+	m_shader = pShaderWork->createShaderProgram("skybox", "skybox");
+}
 
-	CubemapMaterial* pMat = material;
-
+void SkyboxRenderGl::load(CubemapMaterial* pMaterial) {
 	int imageFormat;
 
-	if (pMat->right.getChannelsNumber() > 3 || pMat->left.getChannelsNumber() > 3 || pMat->top.getChannelsNumber() > 3||
-		pMat->bottom.getChannelsNumber() > 3|| pMat->back.getChannelsNumber() > 3|| pMat->front.getChannelsNumber() > 3){
+	if (pMaterial->right.getChannelsNumber() > 3 || pMaterial->left.getChannelsNumber() > 3 ||
+		pMaterial->top.getChannelsNumber() > 3 || pMaterial->bottom.getChannelsNumber() > 3 ||
+		pMaterial->back.getChannelsNumber() > 3 || pMaterial->front.getChannelsNumber() > 3) {
 		imageFormat = GL_RGBA;
-		//throw TextureLoadException("There are more than 3 color channels. For a skybox texture the appropriate format is RGB.");
-	} else {
+		// throw TextureLoadException("There are more than 3 color channels. For a skybox texture the appropriate format
+		// is RGB.");
+	}
+	else {
 		imageFormat = GL_RGB;
 	}
 
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, imageFormat, pMat->right.getWidth(), pMat->right.getHeight(), 0, imageFormat,
-		GL_UNSIGNED_BYTE, pMat->right.getData());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, imageFormat, pMat->left.getWidth(), pMat->left.getHeight(), 0, imageFormat,
-		GL_UNSIGNED_BYTE, pMat->left.getData());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, imageFormat, pMat->top.getWidth(), pMat->top.getHeight(), 0, imageFormat,
-		GL_UNSIGNED_BYTE, pMat->top.getData());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, imageFormat, pMat->bottom.getWidth(), pMat->bottom.getHeight(), 0,
-		imageFormat, GL_UNSIGNED_BYTE, pMat->bottom.getData());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, imageFormat, pMat->back.getWidth(), pMat->back.getHeight(), 0, imageFormat,
-		GL_UNSIGNED_BYTE, pMat->back.getData());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, imageFormat, pMat->front.getWidth(), pMat->front.getHeight(), 0,
-		imageFormat, GL_UNSIGNED_BYTE, pMat->front.getData());
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, imageFormat, pMaterial->right.getWidth(), pMaterial->right.getHeight(), 0,
+		imageFormat, GL_UNSIGNED_BYTE, pMaterial->right.getData());
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, imageFormat, pMaterial->left.getWidth(), pMaterial->left.getHeight(), 0,
+		imageFormat, GL_UNSIGNED_BYTE, pMaterial->left.getData());
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, imageFormat, pMaterial->top.getWidth(), pMaterial->top.getHeight(), 0,
+		imageFormat, GL_UNSIGNED_BYTE, pMaterial->top.getData());
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, imageFormat, pMaterial->bottom.getWidth(), pMaterial->bottom.getHeight(), 0,
+		imageFormat, GL_UNSIGNED_BYTE, pMaterial->bottom.getData());
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, imageFormat, pMaterial->back.getWidth(), pMaterial->back.getHeight(), 0,
+		imageFormat, GL_UNSIGNED_BYTE, pMaterial->back.getData());
+	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, imageFormat, pMaterial->front.getWidth(), pMaterial->front.getHeight(), 0,
+		imageFormat, GL_UNSIGNED_BYTE, pMaterial->front.getData());
 
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -72,7 +74,8 @@ SkyboxRenderGl::SkyboxRenderGl(CubemapMaterial* material, ShaderLoaderGl* pShade
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
-	m_shader = pShaderWork->createShaderProgram("skybox", "skybox");
+	glGenTextures(1, &m_texture);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture);
 }
 
 void SkyboxRenderGl::render(glm::mat4& projection, glm::mat4& view) {

@@ -2,14 +2,17 @@
 
 #include <glm/glm.hpp>
 
-#include <lc_client/eng_graphics/skybox_render.h>
+#include "lc_client/eng_graphics/skybox_render.h"
+#include "lc_client/eng_cubemaps/cubemap_loader.h"
+#include "lc_client/util/i_eng_resource.h"
 
 
 class Skybox {
 public:
-	Skybox(SkyboxRender* pSkyboxRender);
+	Skybox(SkyboxRender* pSkyboxRender, eng::IResource* pResource);
 	~Skybox() = default;
 
+	void loadSkybox(std::string name);
 	void render(glm::mat4& projection, glm::mat4& view);
 	void bindTexture();
 
@@ -22,7 +25,8 @@ public:
 	void setLightStrength(float strength);
 
 private:
-	SkyboxRender* m_pSkyboxRender;
+	SkyboxRender* m_pSkyboxRender = nullptr;
+	eng::IResource* m_pResource = nullptr;
 
 	glm::vec3 m_lightColor;
 	float m_lightStrength;
