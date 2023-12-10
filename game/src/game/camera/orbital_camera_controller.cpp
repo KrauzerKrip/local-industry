@@ -1,6 +1,7 @@
 #include "orbital_camera_controller.h"
 
 #include <iostream>
+#include "ldk_client/local_engine/time.h"
 
 
 OrbitalCameraController::OrbitalCameraController(Camera* pCamera, IInput* pInput) { 
@@ -13,6 +14,10 @@ OrbitalCameraController::OrbitalCameraController(Camera* pCamera, IInput* pInput
 	m_lastMousePosition = glm::vec2(0);
 	m_sphericalCoords = glm::vec3(0);
 	m_sphericalCoords.r = m_radius;
+
+	m_radiusChangeSpeed = 20;
+	m_targetRadius = m_radius;
+	m_minimusRadius = 15;
 	//m_sphericalCoords.t - theta (zenith)
 	//m_sphericalCoords.p - fita (azimuth)
 	// 
@@ -37,14 +42,48 @@ OrbitalCameraController::OrbitalCameraController(Camera* pCamera, IInput* pInput
 	
 	m_pInput->addMouseWheelCallback([this](glm::vec2 offset) {
 		float wheelOffset = offset.y;
-		float c = m_radius * 0.1;
-		m_radius -= wheelOffset * c;
+		float c = 0.1 * m_radiusChangeSpeed;
+		m_targetRadius = m_radius - wheelOffset * c;
 	});
 }
 
 void OrbitalCameraController::update() {
 	m_sphericalCoords.r = m_radius;
 
+	m_radiusChangeSpeed = m_radius * 1.5;
+
+	float deltaTime = Time::getDeltaTime();
+	float deltaRadius = m_targetRadius - m_radius;
+
+	float timeToReach = abs(deltaRadius) / m_radiusChangeSpeed;
+
+	float lerpTime = deltaTime / timeToReach;
+
+	float lerp = 0;
+
+	if (abs(m_radius - m_targetRadius) > 0.1) {
+		lerp = std::lerp(0, abs(deltaRadius), lerpTime);
+	}
+
+	float radiusChangeSpeedFactor = 1;
+
+	if (abs(deltaRadius) < lerp) {
+		radiusChangeSpeedFactor = abs(deltaRadius) / lerp;
+	}
+
+	if (abs(m_radius - m_targetRadius) > 1) {
+		if (m_targetRadius > m_radius) {
+			m_radius += lerp * radiusChangeSpeedFactor;
+		}
+		else {
+			m_radius -= lerp * radiusChangeSpeedFactor;
+		}
+	}
+	
+	//std::cout << radiusChangeSpeedFactor << std::endl;
+	//std::cout << lerp << std::endl;
+	//std::cout << m_radius << std::endl;
+	//std::cout << m_targetRadius << std::endl << std::endl;
 	
 	float cameraSpeed = m_radius * 0.025;
 
@@ -99,7 +138,8 @@ void OrbitalCameraController::update() {
 
 	m_pCamera->setDirection(m_originPosition - m_pCamera->getPosition());
 
-	if (m_radius < 5) {
-		m_radius = 5;
+	if (m_radius < m_minimusRadius) {
+		m_radius = m_minimusRadius;
+		m_radiusChangeSpeed = m_minimusRadius;
 	}
 }

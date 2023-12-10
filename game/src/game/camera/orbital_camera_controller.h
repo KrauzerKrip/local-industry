@@ -22,6 +22,10 @@ private:
 	IInput* m_pInput = nullptr;
 
 	glm::vec3 m_sphericalCoords;
+
+	float m_radiusChangeSpeed;
+	float m_targetRadius;
+	float m_minimusRadius;
 	
 	glm::vec2 m_lastMousePosition;
 };
