@@ -39,16 +39,23 @@
 #include "game/gui/gui.h"
 #include "game/loader_fabric/openGL/gl_loader_fabric.h"
 #include "game/camera/orbital_camera_controller.h"
+#include "game/control/action_init.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
+	std::vector actions = std::vector<std::string>({"kb_forward", "kb_left", "kb_back", "kb_right", "kb_up", "kb_fast",
+		"kb_down", "kb_use", "kb_menu", "kb_select", "kb_rotate_camera"});
+
 	m_pWindow = pWindow;
 	m_pCamera = new Camera();
 	m_pResource = new eng::Resource("E:/Industry/industry/res/"); 
 	m_pTier0 = pTier0;
+	game::initActions(m_pTier0->getParameters(), actions);
 	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
 	m_pMap = new Map();
 	m_pGraphicsSettings = new GraphicsSettings(m_pTier0->getParameters());
+	KeyCodeStrings keyCodeStrings;
+	m_pActionBind = new ActionBind(m_pTier0->getParameters(), &keyCodeStrings, actions);
 }
 
 Game::~Game() {
@@ -129,20 +136,22 @@ void Game::init() {
 				m_guiMode = false;
 			}
 		});
+
+	m_pWindow->setMode(WindowMode::CURSOR_ENABLED);
 }
 
 void Game::input() {
 	m_pConsoleGui->update();
 
-	if (m_pInput->isKeyPressed(KeyCode::ESC)) {
+	if (m_pInput->isKeyPressed(m_pActionBind->getActionKey("kb_menu"))) {
 		exit(0);
 	}
 
-	if (m_pWindow->getMode() == WindowMode::CURSOR_ENABLED) {
-		m_lastMousePosX = m_pInput->getMousePosition().x;
-		m_lastMousePosY = m_pInput->getMousePosition().y;
-		return;
-	}
+	//if (m_pWindow->getMode() == WindowMode::CURSOR_ENABLED) {
+	//	m_lastMousePosX = m_pInput->getMousePosition().x;
+	//	m_lastMousePosY = m_pInput->getMousePosition().y;
+	//	return;
+	//}
 
 	float offsetMouseX = (float)(m_pInput->getMousePosition().x- m_lastMousePosX);
 	float offsetMouseY = (float)(m_pInput->getMousePosition().y-m_lastMousePosY);

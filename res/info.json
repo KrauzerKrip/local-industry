@@ -11,9 +11,10 @@
     "kb_right": "D",
     "kb_up": "SPACE",
     "kb_fast": "LEFT_SHIFT",
-    "kb_down": "CONTROL",
+    "kb_down": "LEFT_CTRL",
     "kb_use": "E",
     "kb_menu": "ESC",
-    "kb_select": "LEFT_CLICK"
+    "kb_select": "MOUSE_BUTTON_LEFT",
+    "kb_rotate_camera": "MOUSE_BUTTON_RIGHT"
   }
 }

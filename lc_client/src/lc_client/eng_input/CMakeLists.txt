@@ -12,4 +12,4 @@ target_sources(lc_client
         "glfw_input.cpp"
 
         "entt/components.h"
-)
+  "key_code_strings.h" "key_code_strings.cpp")

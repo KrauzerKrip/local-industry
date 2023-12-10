@@ -13,7 +13,7 @@
 
 
 void initParameters(Parameters& parameters) {
-	initKeybinds(parameters);
+	//initKeybinds(parameters);
 	initGraphicsParameters(parameters);
 	initUtilParameters(parameters);
 	initGuiParameters(parameters);
