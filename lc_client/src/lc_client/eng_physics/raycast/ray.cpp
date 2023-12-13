@@ -48,7 +48,7 @@ std::optional<glm::vec3> Ray::getIntersectionWithOBB(BoxCollider boxCollider, Tr
 
 	glm::vec3 localRayPos = m_origin - boxPosition;
 
-	Ray aabbRay(inverseTransform * localRayPos, inverseTransform * m_origin);
+	Ray aabbRay(inverseTransform * localRayPos, inverseTransform * m_direction);
 
 	std::optional<glm::vec3> result = aabbRay.getIntersectionWithAABB(boxCollider, glm::vec3(0));
 
