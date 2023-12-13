@@ -5,7 +5,6 @@
 #include<glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
-#include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
 BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork) : BackgroundRender(m_pConsole) {

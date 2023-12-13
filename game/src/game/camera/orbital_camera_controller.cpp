@@ -103,6 +103,12 @@ void OrbitalCameraController::update() {
 	if (m_pActionControl->isAction("kb_right")) {
 		m_originPosition += cameraSpeed * glm::vec3(right.x, 0, right.z);
 	}
+	if (m_pActionControl->isAction("kb_up")) {
+		m_originPosition += cameraSpeed * glm::vec3(0, 1, 0);
+	}
+	if (m_pActionControl->isAction("kb_down")) {
+		m_originPosition += cameraSpeed * glm::vec3(0, -1, 0);
+	}
 
 	float r = m_sphericalCoords.r;
 	float fita = glm::radians(m_sphericalCoords.p);

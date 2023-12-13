@@ -40,8 +40,8 @@ target_sources(lc_client
         "openGL/renders/gl_render_map.cpp"
         "openGL/renders/gl_lighting.h"
         "openGL/renders/gl_lighting.cpp"
-        "openGL/renders/gl_physics_render.h"
-        "openGL/renders/gl_physics_render.cpp"
+        "openGL/renders/gl_primitive_render.h"
+        "openGL/renders/gl_primitive_render.cpp"
 
         "gui/text_render.h"
         "gui/background_render.h"

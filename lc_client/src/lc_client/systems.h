@@ -1,5 +1,6 @@
 #pragma once
 
+#include "tier0/tier0.h"
 #include "tier1/tier1.h"
 #include "eng_graphics/shader_loader.h"
 #include "eng_graphics/mesh_loader.h"
@@ -13,11 +14,12 @@
 #include "eng_model/model_system.h"
 #include "eng_script/script_system.h"
 #include "eng_cubemaps/cubemap_system.h"
+#include "eng_physics/physics_system.h"
 
 
 class Systems {
 public:
-	Systems(Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork, CubemapLoader* pCubemapWork, Scene* pScene, Map* pMap, ModelManager* pModelManager);
+	Systems(Tier0* pTier0, Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork, CubemapLoader* pCubemapWork, Scene* pScene, Map* pMap, ModelManager* pModelManager);
 
 	void update();
 	void frame();
@@ -38,5 +40,6 @@ private:
 	ModelSystem* m_pModelSystemMap = nullptr;
 	ScriptSystem* m_pScriptSystem = nullptr;
 	CubemapSystem* m_pCubemapSystem = nullptr;
+	PhysicsSystem* m_pPhysicsSystem = nullptr;
 
 };

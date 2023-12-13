@@ -4,11 +4,13 @@
 #include <glm/glm.hpp>
 #include "lc_client/eng_scene/entt/components.h"
 #include "raycast/ray.h"
+#include "lc_client/tier0/conpar/parameters.h"
+#include "physics_visualizer.h"
 
 
 class PhysicsSystem {
 public:
-	PhysicsSystem(entt::registry* pSceneRegistry, entt::registry* pMapRegistry);
+	PhysicsSystem(Parameters* pParameters, entt::registry* pSceneRegistry, entt::registry* pMapRegistry);
 
 	void update();
 
@@ -16,6 +18,8 @@ private:
 	void updateVertices();
 	void updateRaycast();
 	void transformVertices(std::vector<glm::vec3>& vertices, Transform& transform);
+
+	PhysicsVisualizer m_physicsVisualizer;
 
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pMapRegistry = nullptr;

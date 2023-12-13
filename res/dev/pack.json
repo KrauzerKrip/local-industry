@@ -9,7 +9,8 @@
       "water": "dev/shaders/vert/water.vert",
       "gui_text": "dev/shaders/vert/gui_text.vert",
       "gui_quad": "dev/shaders/vert/gui_quad.vert",
-      "quad_instancing": "dev/shaders/vert/quad_instancing.vert"
+      "quad_instancing": "dev/shaders/vert/quad_instancing.vert",
+      "primitive": "dev/shaders/vert/primitive.vert"
     },
     "fragment": {
       "base": "dev/shaders/frag/base.frag",
@@ -19,7 +20,8 @@
       "skybox": "dev/shaders/frag/skybox.frag",
       "water": "dev/shaders/frag/water.frag",
       "gui_text": "dev/shaders/frag/gui_text.frag",
-      "gui_quad": "dev/shaders/frag/gui_quad.frag"
+      "gui_quad": "dev/shaders/frag/gui_quad.frag",
+      "primitive":  "dev/shaders/frag/primitive.frag"
     }
   },
 

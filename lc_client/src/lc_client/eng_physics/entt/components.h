@@ -9,10 +9,10 @@
 
 struct BoxCollider {
 	float length;
-	float width;
 	float height;
+	float width;
 
-	BoxCollider(float length, float width, float height) : length(length), width(width), height(height){};
+	BoxCollider(float length, float height, float width) : length(length), width(width), height(height){};
 }; 
 
                              

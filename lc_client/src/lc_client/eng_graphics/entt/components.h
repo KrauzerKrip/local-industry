@@ -12,6 +12,22 @@ struct Water {
 
 };
 
+struct PrimitiveLine {
+	glm::vec3 startPoint;
+	glm::vec3 endPoint;
+	glm::vec3 color;
+
+	PrimitiveLine(glm::vec3 startPoint, glm::vec3 endPoint, glm::vec3 color)
+		: startPoint(startPoint),
+		  endPoint(endPoint), color(color) {}
+};
+
+struct PrimitiveCube {
+	glm::vec3 color;
+
+	PrimitiveCube(glm::vec3 color) : color(color){}
+};
+
 struct ShaderRequest {
 	std::string packName;
 	std::string vertexShaderName;

@@ -6,9 +6,16 @@
 #include "raycast/plane.h"
 
 
+PhysicsSystem::PhysicsSystem(Parameters* pParameters, entt::registry* pSceneRegistry, entt::registry* pMapRegistry) : m_physicsVisualizer(pParameters, pSceneRegistry, pMapRegistry) {
+	m_pSceneRegistry = pSceneRegistry;
+	m_pMapRegistry = pMapRegistry;
+}
+
 void PhysicsSystem::update() { 
 	updateVertices();
 	updateRaycast();
+
+	m_physicsVisualizer.update();
 }
 
 void PhysicsSystem::updateVertices() {
@@ -40,7 +47,7 @@ void PhysicsSystem::updateVertices() {
 }
 
 void PhysicsSystem::updateRaycast() {
-	auto raycastQueries = m_pSceneRegistry->view<RaycastQuery>();
+	auto raycastQueries = m_pSceneRegistry->view<RaycastQuery>(entt::exclude<RaycastResult>);
 
 	for (auto&& [raycastEntity, query] : raycastQueries.each()) {
 		auto boxColliders = m_pSceneRegistry->view<BoxCollider, Transform>();

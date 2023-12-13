@@ -20,6 +20,7 @@
 #include "lc_client/eng_gui/view/gui_presenter.h"
 #include "lc_client/eng_graphics/gui/text_render.h"
 #include "lc_client/eng_graphics/graphics_settings.h"
+#include "renders/gl_primitive_render.h"
 
 
 typedef decltype(entt::registry().view<CubemapGl, Transform>()) CubemapView;
@@ -63,6 +64,7 @@ private:
 	LightingGl* m_pLighting = nullptr;
 	GuiPresenter* m_pGuiPresenter = nullptr;
 	TextRender* m_pRenderText = nullptr;
+	PrimitiveRender* m_pPrimitiveRender = nullptr;
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
 
 

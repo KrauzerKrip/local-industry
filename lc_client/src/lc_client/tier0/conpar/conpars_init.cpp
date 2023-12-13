@@ -17,6 +17,7 @@ void initParameters(Parameters& parameters) {
 	initGraphicsParameters(parameters);
 	initUtilParameters(parameters);
 	initGuiParameters(parameters);
+	initPhysicsParameters(parameters);
 }
 
 static void initKeybinds(Parameters& parameters) {
@@ -36,6 +37,10 @@ void initGraphicsParameters(Parameters& parameters) {
 	ADD_PARAMETER_BOOL_F("gh_triggers_display", false, ConparFlags::CHEATS);
 	ADD_PARAMETER_FLOAT("gh_fov", 90.0f);
 	ADD_PARAMETER_BOOL("gh_vsync", false);
+}
+
+void initPhysicsParameters(Parameters& parameters) {
+	ADD_PARAMETER_BOOL("ph_debug_mode", true);
 }
 
 void initUtilParameters(Parameters& parameters) {

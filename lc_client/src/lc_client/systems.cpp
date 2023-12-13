@@ -1,6 +1,7 @@
 #include "systems.h"
 
-Systems::Systems(Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork, CubemapLoader* pCubemapWork, Scene* pScene,
+Systems::Systems(Tier0* pTier0, Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork,
+	CubemapLoader* pCubemapWork, Scene* pScene,
 	Map* pMap, ModelManager* pModelManager) {
 	m_pTier1 = pTier1;
 	m_pShaderWork = pShaderWork;
@@ -17,10 +18,12 @@ Systems::Systems(Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork
 	m_pModelSystemMap = new ModelSystem(pModelManager, pMeshWork, &pMap->getRegistry(), &pMap->getUtilRegistry());
 	m_pScriptSystem = new ScriptSystem(&pScene->getSceneRegistry());
 	m_pCubemapSystem = new CubemapSystem(&pMap->getRegistry(), pCubemapWork);
+	m_pPhysicsSystem = new PhysicsSystem(pTier0->getParameters(), &pScene->getSceneRegistry(), &pScene->getMapRegistry());
 }
 
 void Systems::update() {
 	m_pScriptSystem->update();
+	m_pPhysicsSystem->update();
 	m_pModelSystem->update();
 	m_pCubemapSystem->update();
 	m_pModelSystemMap->update();

@@ -7,6 +7,8 @@ target_sources(lc_client
         "entt/components.h"
         "physics_system.h"
         "physics_system.cpp"
+        "physics_visualizer.h"
+        "physics_visualizer.cpp"
         "raycast/plane.h"
         "raycast/plane.cpp"
         "raycast/ray.h"

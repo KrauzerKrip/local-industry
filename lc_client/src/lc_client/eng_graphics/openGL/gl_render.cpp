@@ -141,6 +141,8 @@ void RenderGL::render() {
 		}
 	}
 
+	m_pPrimitiveRender->render(projection, view);
+
 	m_pGuiPresenter->render();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
@@ -171,6 +173,7 @@ void RenderGL::setDependecies(Map* pMap, Scene* pScene, Skybox* pSkybox) {
 	m_pLighting = new LightingGl(m_pMapRegistry, m_pSceneRegistry, m_pCamera, m_pSkybox);
 
 	m_pRenderMap = new RenderMapGl(m_pLighting, this, m_pCamera, m_pSkybox, &pMap->getRegistry(), &pMap->getUtilRegistry());
+	m_pPrimitiveRender = new PrimitiveRender(m_pShaderWork, m_pSceneRegistry, m_pMapRegistry);
 }
 
 void RenderGL::transform(glm::mat4& model, Transform& transform) {

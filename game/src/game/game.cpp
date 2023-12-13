@@ -90,7 +90,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	m_pRender->init();
 
-	m_pSystems = new Systems(m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(),
+	m_pSystems = new Systems(m_pTier0, m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(),
 		pLoaderFabric->getCubemapLoader(), m_pScene, m_pMap, pModelManager);
 }
 
@@ -123,6 +123,20 @@ void Game::init() {
 		}
 	});
 
+	m_pInput->addMappedKeyCallback(KeyCode::B, [this]() { 
+		entt::registry* registry = &m_pScene->getSceneRegistry();
+		entt::entity entity = registry->create();
+
+		std::cout << "ray sent" << std::endl;
+
+		glm::vec3 position = m_pCamera->getPosition();
+		glm::vec3 direction = m_pCamera->getCameraFront();
+
+		RaycastQuery raycastQuery(position, direction);
+
+		registry->emplace<RaycastQuery>(entity, raycastQuery);
+		});
+
 	m_pInput->addMappedKeyCallback(
 		KeyCode::F3, [this]() {
 			if (m_pWindow->getMode() == WindowMode::CURSOR_DISABLED) {
@@ -135,7 +149,27 @@ void Game::init() {
 			}
 		});
 
+	m_pInput->addMappedKeyCallback(KeyCode::F3, [this]() {
+		if (m_pWindow->getMode() == WindowMode::CURSOR_DISABLED) {
+			m_pWindow->setMode(WindowMode::CURSOR_ENABLED);
+			m_guiMode = true;
+		}
+		else {
+			m_pWindow->setMode(WindowMode::CURSOR_DISABLED);
+			m_guiMode = false;
+		}
+	});
+
 	m_pWindow->setMode(WindowMode::CURSOR_ENABLED);
+
+	auto pRegistry = &m_pScene->getSceneRegistry();
+	auto view = pRegistry->view<Properties>();
+
+	for (auto&& [entity, properties] : view.each()) {
+		if (properties.id == "cube") {
+			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
+		}
+	}
 }
 
 void Game::input() {
