@@ -123,20 +123,6 @@ void Game::init() {
 		}
 	});
 
-	m_pInput->addMappedKeyCallback(KeyCode::B, [this]() { 
-		entt::registry* registry = &m_pScene->getSceneRegistry();
-		entt::entity entity = registry->create();
-
-		std::cout << "ray sent" << std::endl;
-
-		glm::vec3 position = m_pCamera->getPosition();
-		glm::vec3 direction = m_pCamera->getCameraFront();
-
-		RaycastQuery raycastQuery(position, direction);
-
-		registry->emplace<RaycastQuery>(entity, raycastQuery);
-		});
-
 	m_pInput->addMappedKeyCallback(
 		KeyCode::F3, [this]() {
 			if (m_pWindow->getMode() == WindowMode::CURSOR_DISABLED) {
