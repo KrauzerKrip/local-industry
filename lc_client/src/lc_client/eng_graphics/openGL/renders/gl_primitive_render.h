@@ -14,10 +14,12 @@ public:
 
 private:
 	void renderLines(glm::mat4 projection, glm::mat4 view);
+	void renderCubes(glm::mat4 projection, glm::mat4 view);
 	
 	unsigned int m_shader;
-	unsigned int m_vao;
-	unsigned int m_vbo;
+	unsigned int m_lineVao;
+	unsigned int m_lineVbo;
+	unsigned int m_cubeVao;
 
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pMapRegistry = nullptr;

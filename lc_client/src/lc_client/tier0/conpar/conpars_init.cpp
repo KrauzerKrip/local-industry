@@ -40,7 +40,7 @@ void initGraphicsParameters(Parameters& parameters) {
 }
 
 void initPhysicsParameters(Parameters& parameters) {
-	ADD_PARAMETER_BOOL("ph_debug_mode", true);
+	ADD_PARAMETER_BOOL("ph_debug_mode", false);
 }
 
 void initUtilParameters(Parameters& parameters) {
