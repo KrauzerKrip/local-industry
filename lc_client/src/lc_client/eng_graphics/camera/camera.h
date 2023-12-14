@@ -8,6 +8,7 @@ public:
 	~Camera();
 	
 	glm::mat4 getViewMatrix();
+	/*glm::mat4 getModelMatrix();*/
 	glm::vec3 getPosition();
 	void setPosition(glm::vec3 position);
 	//glm::vec3 getRotation();

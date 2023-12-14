@@ -40,6 +40,11 @@ glm::mat4 Camera::getViewMatrix() {
 	return view;
 }
 
+//glm::mat4 Camera::getModelMatrix() {
+//	glm::mat4 model(1.0f);
+//	model *= glm::inverse(getViewMatrix());
+//}
+
 glm::vec3 Camera::getPosition() {
 
 	return m_position;
@@ -57,7 +62,9 @@ void Camera::setPosition(glm::vec3 position) {
 //	m_rotation = rotation; }
 
 
-void Camera::setDirection(glm::vec3 direction) { m_direction = direction; }
+void Camera::setDirection(glm::vec3 direction) { 
+	m_direction = direction;
+}
 
 glm::vec3 Camera::getCameraFront() {
 	return m_cameraFront;
