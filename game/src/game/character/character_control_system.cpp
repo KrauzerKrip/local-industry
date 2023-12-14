@@ -26,6 +26,8 @@ CharacterControlSystem::CharacterControlSystem(GraphicsSettings* pSettings, IInp
 	m_pActionControl->addActionCallback("kb_select", [this]() { 
 		onSelect(m_pInput->getMousePosition());
 	});
+
+	//m_pActionControl->addActionCallback("kb_unselect", [this]() { onUnselect(m_pInput->getMousePosition()); });
 }
 
 void CharacterControlSystem::input() { 
@@ -36,9 +38,25 @@ void CharacterControlSystem::input() {
 			entt::entity intersectedEntity = raycastResult.entityIntersectedWith.value();
 
 			if (m_pSceneRegistry->all_of<GameCharacter>(intersectedEntity)) {
-				m_pSceneRegistry->emplace_or_replace<SelectedCharacter>(intersectedEntity);
-				
-				std::cout << "object selected" << std::endl;
+				if (m_pSceneRegistry->all_of<SelectedCharacter>(intersectedEntity)) {
+					m_pSceneRegistry->remove<SelectedCharacter>(intersectedEntity);
+					std::cout << "object unselected" << std::endl;
+				}
+				else {
+					m_pSceneRegistry->emplace_or_replace<SelectedCharacter>(intersectedEntity);
+
+					auto selectedCharacters = m_pSceneRegistry->view<GameCharacter, SelectedCharacter>();
+					for (auto&& [entity] : selectedCharacters.each()) {
+						if (entity != intersectedEntity) {
+							m_pSceneRegistry->remove<SelectedCharacter>(entity);
+						}
+					}
+
+					std::cout << "object selected" << std::endl;
+				}
+			}
+			else {
+
 			}
 		}
 
@@ -59,4 +77,14 @@ void CharacterControlSystem::onSelect(glm::vec2 position) {
 	
 	m_pSceneRegistry->emplace<RaycastQuery>(entity, raycastQuery);
 	m_pSceneRegistry->emplace<MouseRaycast>(entity, MouseRaycast());
+}
+
+void CharacterControlSystem::onUnselect(glm::vec2 position) {
+	auto selectedCharacters = m_pSceneRegistry->view<GameCharacter, SelectedCharacter>();
+
+	for (auto&& [entity] : selectedCharacters.each()) {
+		m_pSceneRegistry->remove<SelectedCharacter>(entity);
+	}
+
+	std::cout << "object unselected" << std::endl;
 }

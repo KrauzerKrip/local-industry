@@ -27,7 +27,7 @@ OrbitalCameraController::OrbitalCameraController(Camera* pCamera, IInput* pInput
 			//union { T z, b, p; };
 
 	m_pInput->addMouseCallback([this](glm::vec2 mousePosition) {
-		if (m_pInput->isKeyPressed(KeyCode::MOUSE_BUTTON_RIGHT)) {
+		if (m_pActionControl->isAction("kb_rotate_camera")) {
 			glm::vec2 mouseOffset = mousePosition - m_lastMousePosition;
 
 			float c = (360.0f / (1080.0f));

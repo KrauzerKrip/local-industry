@@ -14,7 +14,8 @@
     "kb_down": "LEFT_CTRL",
     "kb_use": "E",
     "kb_menu": "ESC",
-    "kb_select": "MOUSE_BUTTON_MIDDLE",
-    "kb_rotate_camera": "MOUSE_BUTTON_RIGHT"
+    "kb_select": "MOUSE_BUTTON_LEFT",
+    "kb_unselect": "MOUSE_BUTTON_RIGHT",
+    "kb_rotate_camera": "MOUSE_BUTTON_MIDDLE"
   }
 }

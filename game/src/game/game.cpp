@@ -43,7 +43,7 @@
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	std::vector actions = std::vector<std::string>({"kb_forward", "kb_left", "kb_back", "kb_right", "kb_up", "kb_fast",
-		"kb_down", "kb_use", "kb_menu", "kb_select", "kb_rotate_camera"});
+		"kb_down", "kb_use", "kb_menu", "kb_unselect", "kb_select", "kb_rotate_camera"});
 
 	m_pWindow = pWindow;
 	m_pCamera = new Camera();

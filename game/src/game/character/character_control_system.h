@@ -17,6 +17,7 @@ public:
 
 private:
 	void onSelect(glm::vec2 position);
+	void onUnselect(glm::vec2 position);
 
 	IInput* m_pInput = nullptr;
 	ActionControl* m_pActionControl = nullptr;
