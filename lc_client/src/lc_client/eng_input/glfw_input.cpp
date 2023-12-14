@@ -83,7 +83,11 @@ glm::vec2 InputGlfw::getMouseWheelOffset() { return m_mouseWheelOffset; }
 void InputGlfw::addKeyCallback(std::function<void(KeyCode)> callback) { m_keyCallbacks.push_back(callback); }
 
 void InputGlfw::addMappedKeyCallback(KeyCode key, std::function<void()> callback) {
-	m_mappedKeyCallbacks.emplace(key, callback);
+	if (m_mappedKeyCallbacks.find(key) == m_mappedKeyCallbacks.end()) {
+		m_mappedKeyCallbacks.emplace(key, std::vector<std::function<void()>>());
+	}
+	
+	m_mappedKeyCallbacks.at(key).push_back(callback);
 }
 
 void InputGlfw::addMouseCallback(std::function<void(glm::vec2)> callback) { m_mouseCallbacks.push_back(callback); }
@@ -112,8 +116,9 @@ void InputGlfw::invokeKeyCallbacks(int key, int action) {
 			callback(keyCode);
 		}
 
-		for (auto& [key, callback] : m_mappedKeyCallbacks) {
+		for (auto& [key, callbacks] : m_mappedKeyCallbacks) {
 			if (key == keyCode) {
+				for (auto& callback : callbacks)
 				callback();
 			}
 		}
