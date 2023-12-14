@@ -39,9 +39,12 @@ struct RaycastQuery {
 struct RaycastResult {
 	std::optional<entt::entity> entityIntersectedWith;
 	std::optional<glm::vec3> intersectionPoint;
+	std::optional<float> intersectionDistance;
 
-	RaycastResult(std::optional<entt::entity> entityIntersectedWith, std::optional<glm::vec3> intersectionPoint)
+	RaycastResult(std::optional<entt::entity> entityIntersectedWith, std::optional<glm::vec3> intersectionPoint,
+		std::optional<float> intersectionDistance)
 		: entityIntersectedWith(entityIntersectedWith),
-		  intersectionPoint(intersectionPoint){};
+		  intersectionPoint(intersectionPoint),
+		  intersectionDistance(intersectionDistance){};
 };
 

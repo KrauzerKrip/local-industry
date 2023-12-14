@@ -4,7 +4,7 @@
 Ray::Ray(glm::vec3 origin, glm::vec3 direction) : m_origin(origin), m_direction(direction) {}
 
 
-std::optional<glm::vec3> Ray::getIntersectionWithAABB(BoxCollider boxCollider, glm::vec3 boxPosition) {
+std::optional<RaycastIntersection> Ray::getIntersectionWithAABB(BoxCollider boxCollider, glm::vec3 boxPosition) {
 	glm::vec3 size = glm::vec3(boxCollider.length, boxCollider.height, boxCollider.width) * 0.5f;
 
 	glm::vec3 boxMin = boxPosition - size;
@@ -27,18 +27,18 @@ std::optional<glm::vec3> Ray::getIntersectionWithAABB(BoxCollider boxCollider, g
 		return std::nullopt;
 	}
 
-	glm::vec3 intersection = m_origin + (m_direction * maxT);
+	glm::vec3 intersectionPoint = m_origin + (m_direction * maxT);
 
 	for (int i = 0; i < 3; i++) {
-		if ((intersection[i] + m_epsilon < boxMin[i]) || (intersection[i] - m_epsilon > boxMax[i])) {
+		if ((intersectionPoint[i] + m_epsilon < boxMin[i]) || (intersectionPoint[i] - m_epsilon > boxMax[i])) {
 			return std::nullopt;
 		}
 	}
 
-	return std::make_optional<glm::vec3>(intersection);
+	return std::make_optional<RaycastIntersection>(RaycastIntersection(intersectionPoint, maxT));
 }
 
-std::optional<glm::vec3> Ray::getIntersectionWithOBB(BoxCollider boxCollider, Transform transform) {
+std::optional<RaycastIntersection> Ray::getIntersectionWithOBB(BoxCollider boxCollider, Transform transform) {
 	glm::qua boxOrientation = transform.rotation;
 	glm::vec3 boxPosition = transform.position;
 
@@ -50,11 +50,11 @@ std::optional<glm::vec3> Ray::getIntersectionWithOBB(BoxCollider boxCollider, Tr
 
 	Ray aabbRay(inverseTransform * localRayPos, inverseTransform * m_direction);
 
-	std::optional<glm::vec3> result = aabbRay.getIntersectionWithAABB(boxCollider, glm::vec3(0));
+	std::optional<RaycastIntersection> result = aabbRay.getIntersectionWithAABB(boxCollider, glm::vec3(0));
 
 	if (result.has_value()) {
-		glm::vec3 collisionPosition = transformMatrix * result.value() + boxPosition;
-		return collisionPosition;
+		glm::vec3 intersectionPoint = transformMatrix * result.value().point + boxPosition;
+		return std::make_optional<RaycastIntersection>(RaycastIntersection(intersectionPoint, result.value().distance));
 	}
 	else {
 		return std::nullopt;

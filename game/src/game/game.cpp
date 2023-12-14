@@ -123,6 +123,20 @@ void Game::init() {
 		}
 	});
 
+	m_pInput->addMappedKeyCallback(KeyCode::B, [this]() {
+		entt::registry* registry = &m_pScene->getSceneRegistry();
+		entt::entity entity = registry->create();
+
+		std::cout << "ray sent" << std::endl;
+
+		glm::vec3 position = m_pCamera->getPosition();
+		glm::vec3 direction = m_pCamera->getCameraFront();
+
+		RaycastQuery raycastQuery(position, direction);
+
+		registry->emplace<RaycastQuery>(entity, raycastQuery);
+	});
+
 	m_pInput->addMappedKeyCallback(
 		KeyCode::F3, [this]() {
 			if (m_pWindow->getMode() == WindowMode::CURSOR_DISABLED) {
@@ -153,6 +167,9 @@ void Game::init() {
 
 	for (auto&& [entity, properties] : view.each()) {
 		if (properties.id == "cube") {
+			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
+		}
+		if (properties.id == "cube_2") {
 			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
 		}
 	}

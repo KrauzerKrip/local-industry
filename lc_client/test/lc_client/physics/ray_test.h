@@ -22,7 +22,7 @@ TEST_F(RayTest, ray_test) {
 
 	Ray ray(glm::vec3(0, 0, 0), glm::vec3(1, 0, 0));
 
-	std::optional<glm::vec3> result = ray.getIntersectionWithAABB(boxCollider, boxPosition);
+	std::optional<RaycastIntersection> result = ray.getIntersectionWithAABB(boxCollider, boxPosition);
 
 	EXPECT_EQ(result.has_value(), true);
 };
