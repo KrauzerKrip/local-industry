@@ -50,21 +50,24 @@ void PhysicsSystem::updateRaycast() {
 	auto raycastQueries = m_pSceneRegistry->view<RaycastQuery>(entt::exclude<RaycastResult>);
 
 	for (auto&& [raycastEntity, query] : raycastQueries.each()) {
-		auto boxColliders = m_pSceneRegistry->view<BoxCollider, Transform>();
+		std::unordered_map<entt::entity, RaycastIntersection> intersections = getIntersections(query);
 
-		for (auto&& [ent,  boxCollider, transform] : boxColliders.each()) {
-			Ray ray(query.position, query.direction);
-			std::optional<glm::vec3> raycastResult = ray.getIntersectionWithOBB(boxCollider, transform);
+		if (intersections.size() > 0) {
+			auto intersection = getMinimumDistanceIntersection(intersections);
 
-			if (raycastResult.has_value()) {
-				std::optional<entt::entity> optionalEnt = std::make_optional<entt::entity>(ent);
-				std::optional<glm::vec3> optionaPos = std::make_optional<glm::vec3>(raycastResult.value());
-				m_pSceneRegistry->emplace<RaycastResult>(raycastEntity, optionalEnt, optionaPos);
-			}
+			auto optionalEntity = std::make_optional<entt::entity>(intersection.first);
+			auto optionalPoint = std::make_optional<glm::vec3>(intersection.second.point);
+			auto optionalDistance = std::make_optional<float>(intersection.second.distance);
+
+			m_pSceneRegistry->emplace<RaycastResult>(
+				raycastEntity, RaycastResult(optionalEntity, optionalPoint, optionalDistance));
+		}
+		else {
+			m_pSceneRegistry->emplace<RaycastResult>(
+				raycastEntity, RaycastResult(std::nullopt, std::nullopt, std::nullopt));
 		}
 	}
 }
-
 
 void PhysicsSystem::transformVertices(std::vector<glm::vec3>& vertices, Transform& transform) {
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
@@ -78,4 +81,39 @@ void PhysicsSystem::transformVertices(std::vector<glm::vec3>& vertices, Transfor
 		vertex.y = vert4.y;
 		vertex.z = vert4.z;
 	}
+}
+
+std::unordered_map<entt::entity, RaycastIntersection> PhysicsSystem::getIntersections(RaycastQuery query) {
+	auto boxColliders = m_pSceneRegistry->view<BoxCollider, Transform>();
+
+	std::unordered_map<entt::entity, RaycastIntersection> intersections;
+
+	for (auto&& [ent, boxCollider, transform] : boxColliders.each()) {
+		Ray ray(query.position, query.direction);
+		std::optional<RaycastIntersection> raycastResult = ray.getIntersectionWithOBB(boxCollider, transform);
+
+		if (raycastResult.has_value()) {
+			intersections.emplace(ent, raycastResult.value());
+		}
+	}
+
+	return intersections;
+}
+
+std::pair<entt::entity, RaycastIntersection> PhysicsSystem::getMinimumDistanceIntersection(
+	std::unordered_map<entt::entity, RaycastIntersection>& intersections) {
+
+	auto firstElement = *intersections.begin();
+
+	entt::entity minDistanceEntity = firstElement.first;
+	RaycastIntersection minRaycastIntersection(firstElement.second.point, firstElement.second.distance);
+
+	for (auto& [ent, raycastIntersection] : intersections) {
+		if (raycastIntersection.distance < minRaycastIntersection.distance) {
+			minDistanceEntity = ent;
+			minRaycastIntersection = raycastIntersection;
+		}
+	}
+
+	return std::pair<entt::entity, RaycastIntersection>(minDistanceEntity, minRaycastIntersection);
 }

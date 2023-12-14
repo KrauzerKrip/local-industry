@@ -19,6 +19,10 @@ private:
 	void updateRaycast();
 	void transformVertices(std::vector<glm::vec3>& vertices, Transform& transform);
 
+	std::unordered_map<entt::entity, RaycastIntersection> getIntersections(RaycastQuery query);
+	std::pair<entt::entity, RaycastIntersection> getMinimumDistanceIntersection(
+		std::unordered_map<entt::entity, RaycastIntersection>& intersections);
+
 	PhysicsVisualizer m_physicsVisualizer;
 
 	entt::registry* m_pSceneRegistry = nullptr;
