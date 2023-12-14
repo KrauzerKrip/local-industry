@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 
-struct Character {
+struct GameCharacter {
 
 };
 

@@ -38,6 +38,7 @@
 #include "game/loader_fabric/openGL/gl_loader_fabric.h"
 #include "game/camera/orbital_camera_controller.h"
 #include "game/control/action_init.h"
+#include "game/character/components.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -92,6 +93,9 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	m_pSystems = new Systems(m_pTier0, m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(),
 		pLoaderFabric->getCubemapLoader(), m_pScene, m_pMap, pModelManager);
+
+	m_pCharacterControlSystem = new CharacterControlSystem(
+		m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl, &m_pScene->getSceneRegistry(), &m_pMap->getRegistry());
 }
 
 Game::~Game() {
@@ -123,19 +127,19 @@ void Game::init() {
 		}
 	});
 
-	m_pInput->addMappedKeyCallback(KeyCode::B, [this]() {
-		entt::registry* registry = &m_pScene->getSceneRegistry();
-		entt::entity entity = registry->create();
+	//m_pInput->addMappedKeyCallback(KeyCode::B, [this]() {
+	//	entt::registry* registry = &m_pScene->getSceneRegistry();
+	//	entt::entity entity = registry->create();
 
-		std::cout << "ray sent" << std::endl;
+	//	std::cout << "ray sent" << std::endl;
 
-		glm::vec3 position = m_pCamera->getPosition();
-		glm::vec3 direction = m_pCamera->getCameraFront();
+	//	glm::vec3 position = m_pCamera->getPosition();
+	//	glm::vec3 direction = m_pCamera->getCameraFront();
 
-		RaycastQuery raycastQuery(position, direction);
+	//	RaycastQuery raycastQuery(position, direction);
 
-		registry->emplace<RaycastQuery>(entity, raycastQuery);
-	});
+	//	registry->emplace<RaycastQuery>(entity, raycastQuery);
+	//});
 
 	m_pInput->addMappedKeyCallback(
 		KeyCode::F3, [this]() {
@@ -168,6 +172,7 @@ void Game::init() {
 	for (auto&& [entity, properties] : view.each()) {
 		if (properties.id == "cube") {
 			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
+			pRegistry->emplace<GameCharacter>(entity);
 		}
 		if (properties.id == "cube_2") {
 			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
@@ -213,6 +218,7 @@ void Game::update() {
 	}
 
 	m_pSystems->update();
+	m_pCharacterControlSystem->input();
 
 	if (pMapRegistry->view<Mesh>().size() == 0) {
 		m_pSystems->update();
