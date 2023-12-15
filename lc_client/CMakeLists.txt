@@ -36,8 +36,8 @@ target_sources(lc_client
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lc_client/loop.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lc_client/loop.h"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/lc_client/systems.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/lc_client/systems.h"
+        
+        
 )
 
 add_subdirectory("include/ldk_client/local_engine")
@@ -57,6 +57,7 @@ add_subdirectory("src/lc_client/eng_cubemaps")
 add_subdirectory("src/lc_client/eng_map")
 add_subdirectory("src/lc_client/eng_debug")
 add_subdirectory("src/lc_client/eng_physics")
+add_subdirectory("src/lc_client/eng_systems")
 add_subdirectory("src/lc_client/tier0")
 add_subdirectory("src/lc_client/tier1")
 add_subdirectory("src/lc_client/exceptions")

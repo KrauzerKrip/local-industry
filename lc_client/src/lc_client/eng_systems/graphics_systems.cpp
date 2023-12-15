@@ -1,29 +1,18 @@
-#include "systems.h"
+#include "graphics_systems.h"
 
-Systems::Systems(Tier0* pTier0, Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork,
-	CubemapLoader* pCubemapWork, Scene* pScene,
-	Map* pMap, ModelManager* pModelManager) {
-	m_pTier1 = pTier1;
-	m_pShaderWork = pShaderWork;
-	m_pMeshWork = pMeshWork;
-	m_pCubemapWork = pCubemapWork;
-	m_pScene = pScene;
-	m_pModelManager = pModelManager;
-
-	m_pShaderSystem = new ShaderSystem(pShaderWork, &pScene->getSceneRegistry());
+GraphicsSystems::GraphicsSystems(Tier0* pTier0, Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork,
+	CubemapLoader* pCubemapWork, Scene* pScene, Map* pMap, ModelManager* pModelManager) {
+	
+		m_pShaderSystem = new ShaderSystem(pShaderWork, &pScene->getSceneRegistry());
 	m_pShaderSystemMap = new ShaderSystem(pShaderWork, &pMap->getRegistry());
 	m_pMaterialSystem = new MaterialSystem(&pScene->getUtilRegistry());
 	m_pMaterialSystemMap = new MaterialSystem(&pMap->getUtilRegistry());
 	m_pModelSystem = new ModelSystem(pModelManager, pMeshWork, &pScene->getSceneRegistry(), &pScene->getUtilRegistry());
 	m_pModelSystemMap = new ModelSystem(pModelManager, pMeshWork, &pMap->getRegistry(), &pMap->getUtilRegistry());
-	m_pScriptSystem = new ScriptSystem(&pScene->getSceneRegistry());
 	m_pCubemapSystem = new CubemapSystem(&pMap->getRegistry(), pCubemapWork);
-	m_pPhysicsSystem = new PhysicsSystem(pTier0->getParameters(), &pScene->getSceneRegistry(), &pScene->getMapRegistry());
 }
 
-void Systems::update() {
-	m_pScriptSystem->update();
-	m_pPhysicsSystem->update();
+void GraphicsSystems::update() {
 	m_pModelSystem->update();
 	m_pCubemapSystem->update();
 	m_pModelSystemMap->update();
@@ -36,4 +25,4 @@ void Systems::update() {
 	m_pShaderSystemMap->update();
 }
 
-void Systems::frame() { m_pScriptSystem->frame(); }
+void GraphicsSystems::frame() {}

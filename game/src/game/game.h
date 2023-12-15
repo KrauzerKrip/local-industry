@@ -13,7 +13,6 @@
 #include "lc_client/eng_graphics/camera/camera.h"
 #include "lc_client/eng_model/model_manager.h"
 #include "lc_client/eng_script/script_system.h"
-#include "lc_client/systems.h"
 #include "lc_client/eng_graphics/mesh_loader.h"
 #include "lc_client/eng_graphics/shader_loader.h"
 #include "lc_client/tier0/tier0.h"
@@ -28,6 +27,8 @@
 #include "game/loader_fabric/loader_fabric.h"
 #include "game/camera/orbital_camera_controller.h"
 #include "game/control/action_control.h"
+#include "lc_client/eng_systems/graphics_systems.h"
+#include "game/control/control_system.h"
 
 #include "game/character/character_control_system.h"
 #include "game/control/mouse_raycast_system.h"
@@ -57,13 +58,15 @@ private:
 	ActionControl* m_pActionControl = nullptr;
 	Scene* m_pScene = nullptr;
 	Map* m_pMap = nullptr;
-	Systems* m_pSystems = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
 	OrbitalCameraController* m_pCameraController = nullptr;	
 	Skybox* m_pSkybox = nullptr;
 
-	MouseRaycastSystem* m_pMouseRaycastSystem = nullptr;
+	GraphicsSystems* m_pGraphicsSystems = nullptr;
+	PhysicsSystem* m_pPhysicsSystem = nullptr;
+	ScriptSystem* m_pScriptSystem = nullptr;
+	ControlSystem* m_pControlSystem = nullptr;
 
 	Gui* m_pGui = nullptr;
 

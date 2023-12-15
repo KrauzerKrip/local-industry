@@ -39,8 +39,8 @@
 #include "game/camera/orbital_camera_controller.h"
 #include "game/control/action_init.h"
 #include "game/character/components.h"
+#include "game/control/control_system.h"
 
-#include "game/control/selection_system.h"
 #include "game/control/components.h"
 
 
@@ -94,14 +94,15 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	m_pRender->init();
 
-	m_pSystems = new Systems(m_pTier0, m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(),
+	m_pGraphicsSystems = new GraphicsSystems(m_pTier0, m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(),
 		pLoaderFabric->getCubemapLoader(), m_pScene, m_pMap, pModelManager);
 
-	m_pMouseRaycastSystem = new MouseRaycastSystem(
-		m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl, &m_pScene->getSceneRegistry(), &m_pMap->getRegistry());
+	m_pScriptSystem = new ScriptSystem(&m_pScene->getSceneRegistry());
+	m_pPhysicsSystem =
+		new PhysicsSystem(pTier0->getParameters(), &m_pScene->getSceneRegistry(), &m_pScene->getMapRegistry());
 
-	SelectionSystem* pSelectionSystem = new SelectionSystem(&m_pScene->getSceneRegistry(), &m_pMap->getRegistry());
-	m_pMouseRaycastSystem->addObserver(pSelectionSystem);
+	m_pControlSystem = new ControlSystem(m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl,
+		&m_pScene->getSceneRegistry(), &m_pMap->getRegistry());
 }
 
 Game::~Game() {
@@ -189,6 +190,7 @@ void Game::init() {
 
 void Game::input() {
 	m_pConsoleGui->update();
+	m_pControlSystem->input();
 
 	if (m_pActionControl->isAction("kb_menu")) {
 		exit(0);
@@ -224,11 +226,13 @@ void Game::update() {
 		pSceneRegistry->emplace<ModelRequest>(surfaceScene, "dev", "test_surface");
 	}
 
-	m_pSystems->update();
-	m_pMouseRaycastSystem->input();
+	m_pGraphicsSystems->update();
+	m_pPhysicsSystem->update();
+	m_pScriptSystem->update();
+	m_pControlSystem->update();
 
 	if (pMapRegistry->view<Mesh>().size() == 0) {
-		m_pSystems->update();
+		m_pGraphicsSystems->update();
 		Model* model = &pSceneRegistry->get<Model>(surfaceScene);
 		auto meshEnt = model->meshes.at(0);
 		entt::registry* pUtilReg = &m_pScene->getUtilRegistry();
@@ -259,7 +263,8 @@ void Game::update() {
 }
 
 void Game::render() {
-	m_pSystems->frame();
+	m_pScriptSystem->frame();
+	m_pGraphicsSystems->frame();
 	m_pRender->render();
 }
 
