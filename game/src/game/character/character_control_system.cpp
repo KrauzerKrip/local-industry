@@ -31,60 +31,11 @@ CharacterControlSystem::CharacterControlSystem(GraphicsSettings* pSettings, IInp
 }
 
 void CharacterControlSystem::input() { 
-	auto raycastResults = m_pSceneRegistry->view<MouseRaycast, RaycastResult>();
-
-	for (auto&& [entity, raycastResult] : raycastResults.each()) {
-		if (raycastResult.entityIntersectedWith.has_value()) {
-			entt::entity intersectedEntity = raycastResult.entityIntersectedWith.value();
-
-			if (m_pSceneRegistry->all_of<GameCharacter>(intersectedEntity)) {
-				if (m_pSceneRegistry->all_of<SelectedCharacter>(intersectedEntity)) {
-					m_pSceneRegistry->remove<SelectedCharacter>(intersectedEntity);
-					std::cout << "object unselected" << std::endl;
-				}
-				else {
-					m_pSceneRegistry->emplace_or_replace<SelectedCharacter>(intersectedEntity);
-
-					auto selectedCharacters = m_pSceneRegistry->view<GameCharacter, SelectedCharacter>();
-					for (auto&& [entity] : selectedCharacters.each()) {
-						if (entity != intersectedEntity) {
-							m_pSceneRegistry->remove<SelectedCharacter>(entity);
-						}
-					}
-
-					std::cout << "object selected" << std::endl;
-				}
-			}
-			else {
-
-			}
-		}
-
-		m_pSceneRegistry->destroy(entity);
-	}
+	
 }
 
 void CharacterControlSystem::onSelect(glm::vec2 position) { 
-	glm::mat4 projection = glm::perspective(glm::radians(m_fov), m_aspectRatio, 0.1f, 1000.0f);
-
-	glm::vec3 mouseWorld = glm::unProject(glm::vec3(position, 0.0f), m_pCamera->getViewMatrix(), projection, glm::vec4(0, 0, m_windowSize.x, m_windowSize.y));
-
-	glm::vec3 rayDir = glm::normalize(mouseWorld - m_pCamera->getPosition());
-	
-	RaycastQuery raycastQuery(mouseWorld, rayDir);
-
-	entt::entity entity = m_pSceneRegistry->create();
-	
-	m_pSceneRegistry->emplace<RaycastQuery>(entity, raycastQuery);
-	m_pSceneRegistry->emplace<MouseRaycast>(entity, MouseRaycast());
 }
 
 void CharacterControlSystem::onUnselect(glm::vec2 position) {
-	auto selectedCharacters = m_pSceneRegistry->view<GameCharacter, SelectedCharacter>();
-
-	for (auto&& [entity] : selectedCharacters.each()) {
-		m_pSceneRegistry->remove<SelectedCharacter>(entity);
-	}
-
-	std::cout << "object unselected" << std::endl;
 }

@@ -40,6 +40,9 @@
 #include "game/control/action_init.h"
 #include "game/character/components.h"
 
+#include "game/control/selection_system.h"
+#include "game/control/components.h"
+
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	std::vector actions = std::vector<std::string>({"kb_forward", "kb_left", "kb_back", "kb_right", "kb_up", "kb_fast",
@@ -94,8 +97,11 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pSystems = new Systems(m_pTier0, m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(),
 		pLoaderFabric->getCubemapLoader(), m_pScene, m_pMap, pModelManager);
 
-	m_pCharacterControlSystem = new CharacterControlSystem(
+	m_pMouseRaycastSystem = new MouseRaycastSystem(
 		m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl, &m_pScene->getSceneRegistry(), &m_pMap->getRegistry());
+
+	SelectionSystem* pSelectionSystem = new SelectionSystem(&m_pScene->getSceneRegistry(), &m_pMap->getRegistry());
+	m_pMouseRaycastSystem->addObserver(pSelectionSystem);
 }
 
 Game::~Game() {
@@ -173,6 +179,7 @@ void Game::init() {
 		if (properties.id == "cube") {
 			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
 			pRegistry->emplace<GameCharacter>(entity);
+			pRegistry->emplace<Selectable>(entity);
 		}
 		if (properties.id == "cube_2") {
 			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
@@ -218,7 +225,7 @@ void Game::update() {
 	}
 
 	m_pSystems->update();
-	m_pCharacterControlSystem->input();
+	m_pMouseRaycastSystem->input();
 
 	if (pMapRegistry->view<Mesh>().size() == 0) {
 		m_pSystems->update();

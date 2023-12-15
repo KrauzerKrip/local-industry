@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<entities>
+  <mesh>
+    <components>
+      <transform>
+        <position x="-4" y="0.1" z="-4"></position>
+        <rotation x="0" y="0" z="0"></rotation>
+        <scale x="0.1" y="0.1" z="0.1"></scale>
+      </transform>
+      <model_data>
+        <pack>dev</pack>
+        <model>test_cube</model>
+      </model_data>
+    </components>
+  </mesh>
+</entities>
