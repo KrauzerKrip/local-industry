@@ -1,8 +1,12 @@
 cmake_minimum_required (VERSION 3.13)
 
-project(local_engine)
+project(eng_world)
 
 target_sources(lc_client 
     PRIVATE
-        "time.cpp"
+    
+    "world.h"
+    "world.cpp"
+    
+    
 )

@@ -2,9 +2,11 @@
 #include <glm/vec3.hpp>
 #include <entt/entt.hpp>
 
-struct MapMesh {
+struct MapEntity {
 
-}
+};
+
+struct MapMesh {};
 
 struct MapObject {
 

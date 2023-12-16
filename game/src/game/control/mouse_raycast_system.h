@@ -13,7 +13,7 @@
 class MouseRaycastSystem {
 public: 
 	MouseRaycastSystem(GraphicsSettings* pSettings, IInput* pInput, Camera* pCamera, ActionControl* pActionControl,
-		entt::registry* pSceneRegistry, entt::registry* pMapRegistry);
+		entt::registry* pRegistry);
 
 	void input();
 	void addObserver(MouseRaycastObserver* pObserver);
@@ -35,6 +35,5 @@ private:
 	glm::vec2 m_windowSize;
 	float m_aspectRatio;
 
-	entt::registry* m_pSceneRegistry = nullptr;
-	entt::registry* m_pMapRegistry = nullptr;
+	entt::registry* m_pRegistry = nullptr;
 };

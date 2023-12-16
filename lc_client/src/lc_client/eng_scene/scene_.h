@@ -24,7 +24,6 @@ public:
 	~Scene();
 
 	void loadScene(std::string pack, std::string scene);
-	entt::registry& getMapRegistry();
 	entt::registry& getSceneRegistry();
 	entt::registry& getUtilRegistry();
 

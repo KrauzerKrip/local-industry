@@ -10,13 +10,12 @@
 
 
 MouseRaycastSystem::MouseRaycastSystem(GraphicsSettings* pSettings, IInput* pInput, Camera* pCamera,
-	ActionControl* pActionControl, entt::registry* pSceneRegistry, entt::registry* pMapRegistry)
+	ActionControl* pActionControl, entt::registry* pRegistry)
 	: m_lastRaycastResult(RaycastResult(std::nullopt, std::nullopt, std::nullopt))
 {
 	m_pInput = pInput;
 	m_pActionControl = pActionControl;
-	m_pSceneRegistry = pSceneRegistry;
-	m_pMapRegistry = pMapRegistry;
+	m_pRegistry = pRegistry;
 	m_pCamera = pCamera;
 
 	m_windowSize = glm::vec2(1920, 1080);
@@ -30,7 +29,7 @@ void MouseRaycastSystem::input() {
 	doMouseRaycast(m_pInput->getMousePosition());
 
 	//result will be acquired in the after the update
-	auto raycastResults = m_pSceneRegistry->view<MouseRaycast, RaycastResult>();
+	auto raycastResults = m_pRegistry->view<MouseRaycast, RaycastResult>();
 
 	for (auto&& [entity, raycastResult] : raycastResults.each()) {
 		m_lastRaycastResult = raycastResult;
@@ -42,7 +41,7 @@ void MouseRaycastSystem::input() {
 			}
 		}
 
-		m_pSceneRegistry->destroy(entity);
+		m_pRegistry->destroy(entity);
 	}
 }
 
@@ -66,10 +65,10 @@ void MouseRaycastSystem::doMouseRaycast(glm::vec2 position) {
 
 	RaycastQuery raycastQuery(mouseWorld, rayDir);
 
-	entt::entity entity = m_pSceneRegistry->create();
+	entt::entity entity = m_pRegistry->create();
 
-	m_pSceneRegistry->emplace<RaycastQuery>(entity, raycastQuery);
-	m_pSceneRegistry->emplace<MouseRaycast>(entity, MouseRaycast());
+	m_pRegistry->emplace<RaycastQuery>(entity, raycastQuery);
+	m_pRegistry->emplace<MouseRaycast>(entity, MouseRaycast());
 }
 
 void MouseRaycastSystem::onSelect() {

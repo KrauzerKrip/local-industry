@@ -10,7 +10,6 @@
 
 #include "ldk_client/local_engine/time.h"
 #include "lc_client/eng_graphics/openGL/gl_render.h"
-#include "ldk_client/local_engine/scene_controlling.h"
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
@@ -54,10 +53,11 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pTier0 = pTier0;
 	game::initActions(m_pTier0->getParameters(), actions);
 	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
-	m_pMap = new Map();
 	m_pGraphicsSettings = new GraphicsSettings(m_pTier0->getParameters());
 	m_pActionControl =
 		new ActionControl(pWindow->getInput(), m_pTier0->getParameters(), m_pTier0->getConsole(), actions);
+
+
 
 	m_pConsoleGui = new ConsoleGui(
 		m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier1->getTextureManager(), m_pTier0->getParameters());
@@ -75,34 +75,34 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pCameraController = new OrbitalCameraController(m_pCamera, m_pInput, m_pActionControl);
 
 	Pack pack = Pack::getPack("dev");
-	SkyboxRender* m_pSkyboxRender = new SkyboxRenderGl(pLoaderFabric->getShaderLoaderGl());
-	m_pSkybox = new Skybox(m_pSkyboxRender, m_pResource);
+	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(pLoaderFabric->getShaderLoaderGl());
 
-	m_pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
-	m_pSkybox->setLightStrength(0.4f);
 
 	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
-	m_pScene = new Scene(m_pResource, pSceneLoading);
+	m_pWorld = new World(m_pResource, pSceneLoading, pSkyboxRender);
+
+	Skybox* pSkybox = m_pWorld->getSkybox();
+	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
+	pSkybox->setLightStrength(0.4f);
 
 	ModelManager* pModelManager = new ModelManager(
-		m_pResource, m_pTier1->getTextureManager(), m_pScene->getUtilRegistry(), m_pTier0->getConsole());
+		m_pResource, m_pTier1->getTextureManager(), m_pWorld->getUtilRegistry(), m_pTier0->getConsole());
 
 	m_pRender = new RenderGL(
 		m_pWindow, m_pCamera, pLoaderFabric->getShaderLoaderGl(), m_pGui->getPresenter(), m_pGraphicsSettings);
 
-	m_pRender->setDependecies(m_pMap, m_pScene, m_pSkybox);
+	m_pRender->setDependecies(m_pWorld);
 
 	m_pRender->init();
 
 	m_pGraphicsSystems = new GraphicsSystems(m_pTier0, m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(),
-		pLoaderFabric->getCubemapLoader(), m_pScene, m_pMap, pModelManager);
+		pLoaderFabric->getCubemapLoader(), m_pWorld, pModelManager);
 
-	m_pScriptSystem = new ScriptSystem(&m_pScene->getSceneRegistry());
-	m_pPhysicsSystem =
-		new PhysicsSystem(pTier0->getParameters(), &m_pScene->getSceneRegistry(), &m_pScene->getMapRegistry());
+	m_pScriptSystem = new ScriptSystem(&m_pWorld->getRegistry());
+	m_pPhysicsSystem = new PhysicsSystem(pTier0->getParameters(), &m_pWorld->getRegistry());
 
 	m_pControlSystem = new ControlSystem(m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl,
-		&m_pScene->getSceneRegistry(), &m_pMap->getRegistry());
+		&m_pWorld->getRegistry());
 }
 
 Game::~Game() {
@@ -114,14 +114,14 @@ Game::~Game() {
 };
 
 void Game::init() {
-	m_pScene->loadScene("dev", "test");
-	m_pMap->loadMap("dev", "test");
+	m_pWorld->loadMap("dev", "test");
+	m_pWorld->loadScene("dev", "test");
 
-	m_pSkybox->loadSkybox("anime");
+	m_pWorld->getSkybox()->loadSkybox("anime");
 
 
-	auto dirLight = m_pScene->getSceneRegistry().create(); // temp
-	auto dirLightComponent = m_pScene->getSceneRegistry().emplace<DirectionalLight>(dirLight);
+	auto dirLight = m_pWorld->getRegistry().create(); // temp
+	auto dirLightComponent = m_pWorld->getRegistry().emplace<DirectionalLight>(dirLight);
 	dirLightComponent.color = glm::vec3(1, 1, 1);
 	dirLightComponent.direction = glm::vec3(-0.2f, -1.0f, -0.3f);
 
@@ -173,7 +173,7 @@ void Game::init() {
 
 	m_pWindow->setMode(WindowMode::CURSOR_ENABLED);
 
-	auto pRegistry = &m_pScene->getSceneRegistry();
+	auto pRegistry = &m_pWorld->getRegistry();
 	auto view = pRegistry->view<Properties>();
 
 	for (auto&& [entity, properties] : view.each()) {
@@ -213,43 +213,42 @@ void Game::input() {
 }
 
 void Game::update() {
-	entt::registry* pMapRegistry = &m_pMap->getRegistry();
-	entt::registry* pSceneRegistry = &m_pScene->getSceneRegistry();
+	entt::registry* pRegistry = &m_pWorld->getRegistry();
 
 	entt::entity surface;
 	entt::entity surfaceScene;
 
-	if (pMapRegistry->view<Mesh>().size() == 0) {
-		surface = pMapRegistry->create();
-		surfaceScene = pSceneRegistry->create();
+	//if (pMapRegistry->view<Mesh>().size() == 0) {
+	//	surface = pMapRegistry->create();
+	//	surfaceScene = pRegistry->create();
 
-		pSceneRegistry->emplace<ModelRequest>(surfaceScene, "dev", "test_surface");
-	}
+	//	pRegistry->emplace<ModelRequest>(surfaceScene, "dev", "test_surface");
+	//}
 
 	m_pGraphicsSystems->update();
 	m_pPhysicsSystem->update();
 	m_pScriptSystem->update();
 	m_pControlSystem->update();
 
-	if (pMapRegistry->view<Mesh>().size() == 0) {
-		m_pGraphicsSystems->update();
-		Model* model = &pSceneRegistry->get<Model>(surfaceScene);
-		auto meshEnt = model->meshes.at(0);
-		entt::registry* pUtilReg = &m_pScene->getUtilRegistry();
-		Mesh* pMesh = &pUtilReg->get<Mesh>(meshEnt);
-		pMapRegistry->emplace<Mesh>(surface, *pMesh);
-		VaoGl* pVao = &pUtilReg->get<VaoGl>(meshEnt);
-		pMapRegistry->emplace<VaoGl>(surface, *pVao);
-		MaterialSG* pMaterial = &pUtilReg->get<MaterialSG>(meshEnt);
-		pMapRegistry->emplace<MaterialSG>(surface, *pMaterial);
+	//if (pMapRegistry->view<Mesh>().size() == 0) {
+	//	m_pGraphicsSystems->update();
+	//	Model* model = &pRegistry->get<Model>(surfaceScene);
+	//	auto meshEnt = model->meshes.at(0);
+	//	entt::registry* pUtilReg = &m_pScene->getUtilRegistry();
+	//	Mesh* pMesh = &pUtilReg->get<Mesh>(meshEnt);
+	//	pMapRegistry->emplace<Mesh>(surface, *pMesh);
+	//	VaoGl* pVao = &pUtilReg->get<VaoGl>(meshEnt);
+	//	pMapRegistry->emplace<VaoGl>(surface, *pVao);
+	//	MaterialSG* pMaterial = &pUtilReg->get<MaterialSG>(meshEnt);
+	//	pMapRegistry->emplace<MaterialSG>(surface, *pMaterial);
 
-		ShaderGl shader = pSceneRegistry->get<ShaderGl>(surfaceScene);
-		pMapRegistry->emplace<ShaderGl>(surface, shader);
+	//	ShaderGl shader = pRegistry->get<ShaderGl>(surfaceScene);
+	//	pMapRegistry->emplace<ShaderGl>(surface, shader);
 
-		pMapRegistry->emplace<Transform>(surface, glm::vec3(0, -1, 0), glm::vec3(0, 0, 0), glm::vec3(100, 0.1, 100));
-	}
+	//	pMapRegistry->emplace<Transform>(surface, glm::vec3(0, -1, 0), glm::vec3(0, 0, 0), glm::vec3(100, 0.1, 100));
+	//}
 
-	auto view = pSceneRegistry->view<Transform, Properties>();
+	auto view = pRegistry->view<Transform, Properties>();
 
 	//for (auto& entity : view) {
 	//	if (view.get<Properties>(entity).id == "cube") {

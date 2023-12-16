@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <cctype>
 
-#include "ldk_client/local_engine/scene_controlling.h"
 #include "lc_client/eng_scene/entt/components.h"
 
 #include "lc_client/exceptions/command_exceptions.h"

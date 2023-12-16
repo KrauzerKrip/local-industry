@@ -3,9 +3,9 @@
 #include "lc_client/i_game_logic.h"
 
 #include "lc_client/eng_graphics/i_window.h"
-#include "lc_client/eng_graphics/i_render.h"
+#include "lc_client/eng_graphics/openGl/gl_render.h"
 #include "lc_client/eng_input/i_input.h"
-#include "lc_client/eng_scene/scene.h"
+#include "lc_client/eng_world/world.h"
 #include "lc_client/tier1/i_shaders.h"
 #include "lc_client/tier1/tier1.h"
 #include "lc_client/util/i_eng_resource.h"
@@ -17,7 +17,6 @@
 #include "lc_client/eng_graphics/shader_loader.h"
 #include "lc_client/tier0/tier0.h"
 #include "lc_client/eng_gui/gui_console.h"
-#include "lc_client/eng_map/map.h"
 #include "lc_client/eng_gui/layout/layout_controller.h"
 #include "lc_client/eng_gui/view/gui_presenter.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
@@ -54,14 +53,12 @@ private:
 	IWindow* m_pWindow = nullptr;
 	IInput* m_pInput = nullptr;
 	Camera* m_pCamera = nullptr;
-	IRender* m_pRender = nullptr;
+	RenderGL* m_pRender = nullptr;
 	ActionControl* m_pActionControl = nullptr;
-	Scene* m_pScene = nullptr;
-	Map* m_pMap = nullptr;
+	World* m_pWorld = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
 	OrbitalCameraController* m_pCameraController = nullptr;	
-	Skybox* m_pSkybox = nullptr;
 
 	GraphicsSystems* m_pGraphicsSystems = nullptr;
 	PhysicsSystem* m_pPhysicsSystem = nullptr;

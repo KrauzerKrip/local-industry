@@ -7,14 +7,13 @@
 #include "lc_client/eng_graphics/i_window.h"
 #include "lc_client/eng_scene/entt/components.h"
 #include "lc_client/eng_graphics/camera/camera.h"
-#include "lc_client/eng_scene/scene.h"
+#include "lc_client/eng_world/world.h"
 #include "lc_client/eng_scene/skybox.h"
 #include "gl_shader_loader.h"
 #include "lc_client/eng_graphics/openGL/gl_framebuffer.h"
 #include "lc_client/eng_cubemaps/entt/components.h"
 #include "lc_client/eng_lighting/entt/components.h"
 #include "renders/gl_render_map.h"
-#include "lc_client/eng_map/map.h"
 #include "lc_client/eng_graphics/openGL/renders/gl_lighting.h"
 #include "lc_client/eng_graphics/gui/openGL/gl_text_render.h"
 #include "lc_client/eng_gui/view/gui_presenter.h"
@@ -44,7 +43,7 @@ RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork, GuiPres
 	void render();
 	void clear();
 	void cleanUp();
-	void setDependecies(Map* pMap, Scene* pScene, Skybox* pSkybox);
+	void setDependecies(World* pWorld);
 
 private:
 	void transform(glm::mat4& transformation, Transform& transform);
@@ -59,7 +58,6 @@ private:
 	Camera* m_pCamera;
 	ShaderLoaderGl* m_pShaderWork;
 	RenderMapGl* m_pRenderMap;	
-	Scene* m_pScene = nullptr;
 	Skybox* m_pSkybox = nullptr;
 	LightingGl* m_pLighting = nullptr;
 	GuiPresenter* m_pGuiPresenter = nullptr;
@@ -68,8 +66,7 @@ private:
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
 
 
-	entt::registry* m_pSceneRegistry = nullptr;
-	entt::registry* m_pMapRegistry = nullptr;
+	entt::registry* m_pRegistry = nullptr;
 	entt::registry* m_pUtilRegistry = nullptr;
 
 	Framebuffer* m_pFramebuffer = nullptr;

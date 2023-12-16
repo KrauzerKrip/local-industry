@@ -6,9 +6,8 @@
 #include "raycast/plane.h"
 
 
-PhysicsSystem::PhysicsSystem(Parameters* pParameters, entt::registry* pSceneRegistry, entt::registry* pMapRegistry) : m_physicsVisualizer(pParameters, pSceneRegistry, pMapRegistry) {
-	m_pSceneRegistry = pSceneRegistry;
-	m_pMapRegistry = pMapRegistry;
+PhysicsSystem::PhysicsSystem(Parameters* pParameters, entt::registry* pRegistry) : m_physicsVisualizer(pParameters, pRegistry) {
+	m_pRegistry = pRegistry;
 }
 
 void PhysicsSystem::update() { 
@@ -19,7 +18,7 @@ void PhysicsSystem::update() {
 }
 
 void PhysicsSystem::updateVertices() {
-	auto boxColliders = m_pSceneRegistry->view<BoxCollider, Transform>(entt::exclude<BoxColliderVertices>);
+	auto boxColliders = m_pRegistry->view<BoxCollider, Transform>(entt::exclude<BoxColliderVertices>);
 
 	for (auto&& [entity, box, transform] : boxColliders.each()) {
 		BoxColliderVertices vertices;
@@ -42,12 +41,12 @@ void PhysicsSystem::updateVertices() {
 
 		transformVertices(vertices.vertices, transform);
 
-		m_pSceneRegistry->emplace<BoxColliderVertices>(entity, vertices);
+		m_pRegistry->emplace<BoxColliderVertices>(entity, vertices);
 	}
 }
 
 void PhysicsSystem::updateRaycast() {
-	auto raycastQueries = m_pSceneRegistry->view<RaycastQuery>(entt::exclude<RaycastResult>);
+	auto raycastQueries = m_pRegistry->view<RaycastQuery>(entt::exclude<RaycastResult>);
 
 	for (auto&& [raycastEntity, query] : raycastQueries.each()) {
 		std::unordered_map<entt::entity, RaycastIntersection> intersections = getIntersections(query);
@@ -59,11 +58,11 @@ void PhysicsSystem::updateRaycast() {
 			auto optionalPoint = std::make_optional<glm::vec3>(intersection.second.point);
 			auto optionalDistance = std::make_optional<float>(intersection.second.distance);
 
-			m_pSceneRegistry->emplace<RaycastResult>(
+			m_pRegistry->emplace<RaycastResult>(
 				raycastEntity, RaycastResult(optionalEntity, optionalPoint, optionalDistance));
 		}
 		else {
-			m_pSceneRegistry->emplace<RaycastResult>(
+			m_pRegistry->emplace<RaycastResult>(
 				raycastEntity, RaycastResult(std::nullopt, std::nullopt, std::nullopt));
 		}
 	}
@@ -84,7 +83,7 @@ void PhysicsSystem::transformVertices(std::vector<glm::vec3>& vertices, Transfor
 }
 
 std::unordered_map<entt::entity, RaycastIntersection> PhysicsSystem::getIntersections(RaycastQuery query) {
-	auto boxColliders = m_pSceneRegistry->view<BoxCollider, Transform>();
+	auto boxColliders = m_pRegistry->view<BoxCollider, Transform>();
 
 	std::unordered_map<entt::entity, RaycastIntersection> intersections;
 

@@ -70,7 +70,7 @@
       </model_data>
     </components>
   </entity>
-  <!--<entity id="surface" uuid="">
+  <entity id="surface" uuid="">
     <components>
       <transform>
         <position x="0.0" y="-1" z="0.0"></position>
@@ -82,7 +82,7 @@
         <model>test_surface</model>
       </model_data>
     </components>
-  </entity>-->
+  </entity>
   <!--<entity id="cube_2" uuid="">
     <components>
       <transform>

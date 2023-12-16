@@ -1,15 +1,15 @@
 #include "graphics_systems.h"
 
 GraphicsSystems::GraphicsSystems(Tier0* pTier0, Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork,
-	CubemapLoader* pCubemapWork, Scene* pScene, Map* pMap, ModelManager* pModelManager) {
+	CubemapLoader* pCubemapWork, World* pWorld, ModelManager* pModelManager) {
 	
-		m_pShaderSystem = new ShaderSystem(pShaderWork, &pScene->getSceneRegistry());
-	m_pShaderSystemMap = new ShaderSystem(pShaderWork, &pMap->getRegistry());
-	m_pMaterialSystem = new MaterialSystem(&pScene->getUtilRegistry());
-	m_pMaterialSystemMap = new MaterialSystem(&pMap->getUtilRegistry());
-	m_pModelSystem = new ModelSystem(pModelManager, pMeshWork, &pScene->getSceneRegistry(), &pScene->getUtilRegistry());
-	m_pModelSystemMap = new ModelSystem(pModelManager, pMeshWork, &pMap->getRegistry(), &pMap->getUtilRegistry());
-	m_pCubemapSystem = new CubemapSystem(&pMap->getRegistry(), pCubemapWork);
+		m_pShaderSystem = new ShaderSystem(pShaderWork, &pWorld->getRegistry());
+	m_pShaderSystemMap = new ShaderSystem(pShaderWork, &pWorld->getRegistry());
+	m_pMaterialSystem = new MaterialSystem(&pWorld->getUtilRegistry());
+	m_pMaterialSystemMap = new MaterialSystem(&pWorld->getUtilRegistry());
+	m_pModelSystem = new ModelSystem(pModelManager, pMeshWork, &pWorld->getRegistry(), &pWorld->getUtilRegistry());
+	m_pModelSystemMap = new ModelSystem(pModelManager, pMeshWork, &pWorld->getRegistry(), &pWorld->getUtilRegistry());
+	m_pCubemapSystem = new CubemapSystem(&pWorld->getRegistry(), pCubemapWork);
 }
 
 void GraphicsSystems::update() {

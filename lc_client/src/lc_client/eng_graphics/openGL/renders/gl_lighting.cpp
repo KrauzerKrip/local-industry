@@ -2,9 +2,8 @@
 
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
-LightingGl::LightingGl(entt::registry* pMapRegistry, entt::registry* pSceneRegistry, Camera* pCamera, Skybox* pSkybox) {
-	m_pMapRegistry = pMapRegistry;
-	m_pSceneRegistry = pSceneRegistry;
+LightingGl::LightingGl(entt::registry* pRegistry, Camera* pCamera, Skybox* pSkybox) {
+	m_pRegistry = pRegistry;
 	m_pCamera = pCamera;
 	m_pSkybox = pSkybox;
 }
@@ -23,7 +22,7 @@ void LightingGl::setLighting(unsigned int shaderProgram) {
 	setUniform(shaderProgram, "spotLight.linear", 0.09f);
 	setUniform(shaderProgram, "spotLight.quadratic", 0.032f);
 
-	auto pointLights = m_pSceneRegistry->view<Transform, PointLight>();
+	auto pointLights = m_pRegistry->view<Transform, PointLight>();
 
 	int i = 0;
 	for (entt::entity entity : pointLights) {

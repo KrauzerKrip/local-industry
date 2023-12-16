@@ -9,14 +9,13 @@
 
 class LightingGl {
 public:
-	LightingGl(entt::registry* pMapRegistry, entt::registry* pSceneRegistry, Camera* pCamera, Skybox* pSkybox);
+	LightingGl(entt::registry* pRegistry, Camera* pCamera, Skybox* pSkybox);
 
 	void setLighting(unsigned int shaderProgram);
 	void setPointLight(unsigned int shaderProgram, int number, PointLight& pointLight, Transform& transform);
 
 private:
-	entt::registry* m_pMapRegistry;
-	entt::registry* m_pSceneRegistry;
+	entt::registry* m_pRegistry;
 	Camera* m_pCamera;
 	Skybox* m_pSkybox;
 };

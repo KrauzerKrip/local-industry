@@ -15,7 +15,7 @@
 class ControlSystem {
 public:
 	ControlSystem(GraphicsSettings* pSettings, IInput* pInput, Camera* pCamera, ActionControl* pActionControl,
-		entt::registry* pSceneRegistry, entt::registry* pMapRegistry);
+		entt::registry* pRegistry);
 	~ControlSystem();
 
 	void input();

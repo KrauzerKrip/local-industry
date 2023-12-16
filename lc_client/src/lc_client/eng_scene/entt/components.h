@@ -46,3 +46,7 @@ struct Transform {
 struct Parent {
 	entt::entity parent;
 };
+
+struct SceneEntity {
+
+};

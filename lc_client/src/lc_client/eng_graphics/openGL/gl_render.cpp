@@ -70,12 +70,12 @@ void RenderGL::render() {
 
 
 	entt::view<entt::get_t<CubemapGl, Transform>, entt::exclude_t<>> cubemapEntities =
-		m_pMapRegistry->view<CubemapGl, Transform>();
+		m_pRegistry->view<CubemapGl, Transform>();
 
-	auto pointLights = m_pSceneRegistry->view<Transform, PointLight>();
+	auto pointLights = m_pRegistry->view<Transform, PointLight>();
 
 	auto materialEntitiesGroup =
-		m_pSceneRegistry->group<Model, Transform, ShaderGl, Properties>(entt::exclude<Water>); // TODO
+		m_pRegistry->view<Model, Transform, ShaderGl, Properties>(entt::exclude<Water>); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
 		Model& model = materialEntitiesGroup.get<Model>(entity);
@@ -109,7 +109,7 @@ void RenderGL::render() {
 	m_pSkybox->render(projection, view);
 	glDepthFunc(GL_LESS);
 
-	auto waterEntitiesGroup = m_pSceneRegistry->view<Water, Model, Transform, ShaderGl>();
+	auto waterEntitiesGroup = m_pRegistry->view<Water, Model, Transform, ShaderGl>();
 
 	for (entt::entity entity : waterEntitiesGroup) {
 		Model& model = waterEntitiesGroup.get<Model>(entity);
@@ -161,19 +161,16 @@ void RenderGL::clear() {}
 
 void RenderGL::cleanUp() {}
 
-void RenderGL::setDependecies(Map* pMap, Scene* pScene, Skybox* pSkybox) {
-	m_pScene = pScene;
+void RenderGL::setDependecies(World* pWorld) {
+	m_pRegistry = &pWorld->getRegistry();
+	m_pUtilRegistry = &pWorld->getUtilRegistry();
 
-	m_pMapRegistry = &pScene->getMapRegistry();
-	m_pSceneRegistry = &pScene->getSceneRegistry();
-	m_pUtilRegistry = &pScene->getUtilRegistry();
-
-	m_pSkybox = pSkybox;
+	m_pSkybox = pWorld->getSkybox();
 	
-	m_pLighting = new LightingGl(m_pMapRegistry, m_pSceneRegistry, m_pCamera, m_pSkybox);
+	m_pLighting = new LightingGl(m_pRegistry, m_pCamera, m_pSkybox);
 
-	m_pRenderMap = new RenderMapGl(m_pLighting, this, m_pCamera, m_pSkybox, &pMap->getRegistry(), &pMap->getUtilRegistry());
-	m_pPrimitiveRender = new PrimitiveRender(m_pShaderWork, m_pSceneRegistry, m_pMapRegistry);
+	m_pRenderMap = new RenderMapGl(m_pLighting, this, m_pCamera, m_pSkybox, m_pRegistry, m_pUtilRegistry);
+	m_pPrimitiveRender = new PrimitiveRender(m_pShaderWork, m_pRegistry, m_pRegistry);
 }
 
 void RenderGL::transform(glm::mat4& model, Transform& transform) {

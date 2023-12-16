@@ -10,7 +10,7 @@
 
 class PhysicsSystem {
 public:
-	PhysicsSystem(Parameters* pParameters, entt::registry* pSceneRegistry, entt::registry* pMapRegistry);
+	PhysicsSystem(Parameters* pParameters, entt::registry* pRegistry);
 
 	void update();
 
@@ -25,6 +25,5 @@ private:
 
 	PhysicsVisualizer m_physicsVisualizer;
 
-	entt::registry* m_pSceneRegistry = nullptr;
-	entt::registry* m_pMapRegistry = nullptr;
+	entt::registry* m_pRegistry = nullptr;
 };

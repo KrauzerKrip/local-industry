@@ -49,8 +49,6 @@ void Scene::loadScene(std::string pack, std::string scene) {
 	}
 }
 
-entt::registry& Scene::getMapRegistry() { return m_mapRegistry; }
-
 entt::registry& Scene::getSceneRegistry() { return m_sceneRegistry; }
 
 entt::registry& Scene::getUtilRegistry() { return m_utilRegistry; }

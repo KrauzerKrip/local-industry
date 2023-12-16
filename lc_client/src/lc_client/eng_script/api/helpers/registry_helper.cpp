@@ -1,7 +1,5 @@
 #include "registry_helper.h"
 #include "registry_helper.h"
-
-#include "ldk_client/local_engine/scene_controlling.h"
 #include "lc_client/eng_model/entt/components.h"
 #include "lc_client/eng_script/script_system.h"
 

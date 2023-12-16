@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lc_client/eng_scene/scene.h"
+#include "lc_client/eng_world/world.h"
 #include "lc_client/tier1/i_shaders.h"
  
 class SceneControlling {

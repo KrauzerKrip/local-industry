@@ -38,7 +38,7 @@ target_sources(lc_client
 
         
         
-)
+ )
 
 add_subdirectory("include/ldk_client/local_engine")
 
@@ -58,6 +58,7 @@ add_subdirectory("src/lc_client/eng_map")
 add_subdirectory("src/lc_client/eng_debug")
 add_subdirectory("src/lc_client/eng_physics")
 add_subdirectory("src/lc_client/eng_systems")
+add_subdirectory("src/lc_client/eng_world")
 add_subdirectory("src/lc_client/tier0")
 add_subdirectory("src/lc_client/tier1")
 add_subdirectory("src/lc_client/exceptions")

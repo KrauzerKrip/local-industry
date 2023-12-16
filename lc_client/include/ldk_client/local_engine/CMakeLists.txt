@@ -4,6 +4,5 @@ project(local_engine)
 
 target_sources(lc_client 
     PRIVATE
-       "scene_controlling.h"
        "time.h"
 )

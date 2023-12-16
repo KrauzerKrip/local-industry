@@ -7,8 +7,8 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 RenderMapGl::RenderMapGl(LightingGl* pLighting, RenderGL* pRenderGL, Camera* pCamera,
-	Skybox* pSkybox, entt::registry* pMapRegistry, entt::registry* pUtilRegistry) { 
-	m_pMapRegistry = pMapRegistry;
+	Skybox* pSkybox, entt::registry* pRegistry, entt::registry* pUtilRegistry) { 
+	m_pRegistry = pRegistry;
 	m_pUtilRegistry = pUtilRegistry;
 	m_pRenderGl = pRenderGL;
 	m_pLighting = pLighting;
@@ -17,10 +17,10 @@ RenderMapGl::RenderMapGl(LightingGl* pLighting, RenderGL* pRenderGL, Camera* pCa
 }
 
 void RenderMapGl::render(glm::mat4 view, glm::mat4 projection) {
-	auto meshesGroup = m_pMapRegistry->group<Mesh, Transform, ShaderGl>();
+	auto meshesGroup = m_pRegistry->group<Mesh, Transform, ShaderGl>();
 
 	entt::view<entt::get_t<CubemapGl, Transform>, entt::exclude_t<>> cubemapEntities =
-		m_pMapRegistry->view<CubemapGl, Transform>();
+		m_pRegistry->view<CubemapGl, Transform>();
 
 	for (entt::entity entity : meshesGroup) {
 		Mesh& mesh = meshesGroup.get<Mesh>(entity);
@@ -43,8 +43,8 @@ void RenderMapGl::render(glm::mat4 view, glm::mat4 projection) {
 		m_pRenderGl->transform(modelMatrix, transform);
 		m_pRenderGl->setMatrices(shaderProgram, modelMatrix, view, projection);
 
-		int vao = m_pMapRegistry->get<VaoGl>(entity).vaoId;
-		MaterialSG& materialSG = m_pMapRegistry->get<MaterialSG>(entity);
+		int vao = m_pRegistry->get<VaoGl>(entity).vaoId;
+		MaterialSG& materialSG = m_pRegistry->get<MaterialSG>(entity);
 		Texture* aoTexture = materialSG.aoTexture;
 		Texture* diffuseTexture = materialSG.diffuseTexture;
 		Texture* normalMap = materialSG.normalMap;
