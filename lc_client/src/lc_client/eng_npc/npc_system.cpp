@@ -36,7 +36,7 @@ void NpcSystem::update() {
 		npc::GraphPath graphPath = path.graphPath;
 
 		if (graphPath.vertices.size() == path.pointer) {
-			if (glm::distance(path.endPoint, transform.position) < 0.1f) {
+			if (glm::distance(path.endPoint, transform.position) > 0.01f) {
 				glm::vec3 direction = glm::normalize(path.endPoint - transform.position);
 				transform.position = transform.position + speed * direction;
 			} else {
