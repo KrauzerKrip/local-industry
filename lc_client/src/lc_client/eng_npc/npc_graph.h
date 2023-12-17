@@ -17,7 +17,7 @@ namespace npc {
 	};
 
 	struct Path {
-		std::vector<unsigned int> path;
+		std::vector<unsigned int> vertices;
 		float distance;
 	};
 }
@@ -31,7 +31,6 @@ public:
 	Path getShortestPath(unsigned int source, unsigned int destination);
 	//Path getShortestPathQueue(unsigned int source, unsigned int destination);
 	unsigned int getClosestVertice(glm::vec3 position) const;
-	unsigned int getVertice(Node& node) const;
 	const Node& getNode(unsigned int vertice) const;
 
 private:

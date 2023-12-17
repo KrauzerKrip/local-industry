@@ -67,34 +67,39 @@ Path NpcGraph::getShortestPath(unsigned int source, unsigned int destination) {
 		}
 	}
 
-	std::vector<unsigned int> path;
+	std::vector<unsigned int> pathVertices;
 	float distance = distances[destination];
 
 	if (distance != INFINITY) {
 		unsigned int current = destination;
 		while (current != source) {
-			path.push_back(current);
+			pathVertices.push_back(current);
 			current = previous[current];
 		}
-		path.push_back(source);
-		std::reverse(path.begin(), path.end());
+		pathVertices.push_back(source);
+		std::reverse(pathVertices.begin(), pathVertices.end());
 	}
 
-	return Path(path, distance);
+	return Path(pathVertices, distance);
 }
 
 
 unsigned int NpcGraph::getClosestVertice(glm::vec3 position) const {
-	//Node minNode;
+	Node minNode;
+	unsigned int minNodeVertice = 0;
 
-	//for (unsigned int ){
+	for (unsigned int i = 0; i < m_nodes.size(); i++) {
+		float distanceNode = glm::distance(m_nodes.at(i).position, position);
+		float distanceMinNode = glm::distance(minNode.position, position);
 
-	//}
+		if (distanceNode < distanceMinNode) {
+			minNode = m_nodes.at(i);
+			minNodeVertice = i;
+		}
+	}
 
-	return 0;
+	return minNodeVertice;
 }
-
-unsigned int NpcGraph::getVertice(Node& node) const { return 0; } 
 
 const Node& NpcGraph::getNode(unsigned int vertice) const { return m_nodes.at(vertice); }
 
