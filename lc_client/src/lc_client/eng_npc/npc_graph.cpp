@@ -13,7 +13,7 @@ NpcGraph::NpcGraph(std::vector<npc::GraphVertex> vertices, std::vector<npc::Grap
 	}
 }
 
-Path NpcGraph::getShortestPath(unsigned int source, unsigned int destination) {
+GraphPath NpcGraph::getShortestPath(unsigned int source, unsigned int destination) {
 	std::vector<unsigned int> vertices;
 	std::vector<float> distances(m_vertices.size());
 	std::vector<unsigned int> previous(m_vertices.size());
@@ -80,7 +80,7 @@ Path NpcGraph::getShortestPath(unsigned int source, unsigned int destination) {
 		std::reverse(pathVertices.begin(), pathVertices.end());
 	}
 
-	return Path(pathVertices, distance);
+	return GraphPath(pathVertices, distance);
 }
 
 

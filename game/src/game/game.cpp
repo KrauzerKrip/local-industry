@@ -44,6 +44,7 @@
 
 #include "lc_client/eng_npc/npc_graph.h"
 #include "lc_client/eng_npc/npc_graph_loader/npc_graph_loader.h"
+#include "lc_client/eng_npc/components.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -186,6 +187,7 @@ void Game::init() {
 		if (properties.id == "cube") {
 			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
 			pRegistry->emplace<GameCharacter>(entity);
+			pRegistry->emplace<Npc>(entity, 1.0f);
 			pRegistry->emplace<Selectable>(entity);
 		}
 		if (properties.id == "cube_2") {

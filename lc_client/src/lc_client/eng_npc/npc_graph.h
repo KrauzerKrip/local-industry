@@ -5,9 +5,7 @@
 #include <list>
 #include <vector>
 
-
 namespace npc {
-
 	struct GraphNode {
 		glm::vec3 position;
 	};
@@ -16,10 +14,15 @@ namespace npc {
 		std::list<unsigned int> adjacentVertices;
 	};
 
-	struct Path {
+	struct GraphPath {
 		std::vector<unsigned int> vertices;
 		float distance;
+
+		GraphPath(std::vector<unsigned int> vertices, float distance)
+			: vertices(vertices),
+			  distance(distance) {}
 	};
+
 }
 
 using namespace npc;
@@ -28,7 +31,7 @@ class NpcGraph {
 public:
 	NpcGraph(std::vector<npc::GraphVertex> vertices, std::vector<GraphNode> nodes);
 	
-	Path getShortestPath(unsigned int source, unsigned int destination);
+	GraphPath getShortestPath(unsigned int source, unsigned int destination);
 	//Path getShortestPathQueue(unsigned int source, unsigned int destination);
 	unsigned int getClosestVertice(glm::vec3 position) const;
 	const GraphNode& getNode(unsigned int vertice) const;
