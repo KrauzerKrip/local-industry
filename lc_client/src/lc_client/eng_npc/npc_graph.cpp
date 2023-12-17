@@ -49,6 +49,10 @@ Path NpcGraph::getShortestPath(unsigned int source, unsigned int destination) {
 		}
 
 		for (unsigned int adjVertex : m_vertices[minDistVertex].adjacentVertices) {
+			if (adjVertex == 3) {
+				int i = 0;
+			}
+
 			if (vertices[adjVertex] != UINT_MAX) {
 				alt = distances[minDistVertex] + getDistance(minDistVertex, adjVertex);
 

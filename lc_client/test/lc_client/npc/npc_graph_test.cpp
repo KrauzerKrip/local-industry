@@ -14,6 +14,7 @@ void NpcGraphTest::SetUp() {
 
 	vert0.adjacentVertices.push_back(1);
 	vert0.adjacentVertices.push_back(2);
+	vert0.adjacentVertices.push_back(4);
 
 	vert1.adjacentVertices.push_back(0);
 	vert1.adjacentVertices.push_back(3);
@@ -23,6 +24,7 @@ void NpcGraphTest::SetUp() {
 
 	vert3.adjacentVertices.push_back(1);
 	vert3.adjacentVertices.push_back(2);
+	vert3.adjacentVertices.push_back(4);
 
 	vert4.adjacentVertices.push_back(0);
 	vert4.adjacentVertices.push_back(3);
