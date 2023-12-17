@@ -29,6 +29,7 @@
 #include "lc_client/eng_systems/graphics_systems.h"
 #include "game/control/control_system.h"
 #include "game/character/character_system.h"
+#include "lc_client/eng_npc/npc_system.h"
 
 
 class Game : public IGameLogic {
@@ -60,6 +61,7 @@ private:
 	GraphicsSystems* m_pGraphicsSystems = nullptr;
 	PhysicsSystem* m_pPhysicsSystem = nullptr;
 	ScriptSystem* m_pScriptSystem = nullptr;
+	NpcSystem* m_pNpcSystem = nullptr;
 	ControlSystem* m_pControlSystem = nullptr;
 	CharacterSystem* m_pCharacterSystem = nullptr;
 

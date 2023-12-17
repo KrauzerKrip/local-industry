@@ -103,6 +103,8 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pScriptSystem = new ScriptSystem(&m_pWorld->getRegistry());
 	m_pPhysicsSystem = new PhysicsSystem(pTier0->getParameters(), &m_pWorld->getRegistry());
 
+	m_pNpcSystem = new NpcSystem(m_pTier0->getParameters(), &m_pWorld->getRegistry());
+
 	m_pControlSystem = new ControlSystem(m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl,
 		&m_pWorld->getRegistry());
 	m_pCharacterSystem = new CharacterSystem(&m_pWorld->getRegistry());
@@ -190,6 +192,59 @@ void Game::init() {
 			pRegistry->emplace<Walkable>(entity);
 		}
 	}
+
+	std::vector<npc::GraphVertex> vertices;
+	std::vector<GraphNode> nodes;
+
+	npc::GraphVertex vert0;
+	npc::GraphVertex vert1;
+	npc::GraphVertex vert2;
+	npc::GraphVertex vert3;
+	npc::GraphVertex vert4;
+
+	vert0.adjacentVertices.push_back(1);
+	vert0.adjacentVertices.push_back(2);
+	vert0.adjacentVertices.push_back(4);
+
+	vert1.adjacentVertices.push_back(0);
+	vert1.adjacentVertices.push_back(3);
+
+	vert2.adjacentVertices.push_back(0);
+	vert2.adjacentVertices.push_back(3);
+
+	vert3.adjacentVertices.push_back(1);
+	vert3.adjacentVertices.push_back(2);
+	vert3.adjacentVertices.push_back(4);
+
+	vert4.adjacentVertices.push_back(0);
+	vert4.adjacentVertices.push_back(3);
+
+	vertices.push_back(vert0);
+	vertices.push_back(vert1);
+	vertices.push_back(vert2);
+	vertices.push_back(vert3);
+	vertices.push_back(vert4);
+
+	GraphNode node0;
+	GraphNode node1;
+	GraphNode node2;
+	GraphNode node3;
+	GraphNode node4;
+
+	node0.position = glm::vec3(0, 0, 0);
+	node1.position = glm::vec3(5, 0, 5);
+	node2.position = glm::vec3(5, 0, 0);
+	node3.position = glm::vec3(10, 0, 0);
+	node4.position = glm::vec3(-10, 0, -10);
+
+	nodes.push_back(node0);
+	nodes.push_back(node1);
+	nodes.push_back(node2);
+	nodes.push_back(node3);
+	nodes.push_back(node4);
+
+	NpcGraph* pNpcGraph = new NpcGraph(vertices, nodes);
+	m_pNpcSystem->setNpcGraph(pNpcGraph);
 }
 
 void Game::input() {

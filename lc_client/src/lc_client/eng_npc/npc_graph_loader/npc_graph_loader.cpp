@@ -10,8 +10,8 @@ using json = nlohmann::json;
 NpcGraphLoader::NpcGraphLoader(eng::IResource* pResource) { m_pResource = pResource; }
 
 NpcGraph NpcGraphLoader::getGraph(std::string descriptorPath) { 
-	std::vector<npc::Vertice> vertices;
-	std::vector<npc::Node> nodes; 
+	std::vector<npc::GraphVertex> vertices;
+	std::vector<npc::GraphNode> nodes; 
 
 	std::vector<unsigned char> buffer;
 
@@ -21,7 +21,7 @@ NpcGraph NpcGraphLoader::getGraph(std::string descriptorPath) {
 
 	auto& verticesJson = descriptor.at("vertices");
 	for (auto& verticeJson : verticesJson.items()) {
-		npc::Vertice vertice;
+		npc::GraphVertex vertice;
 		auto& adjacentVerticesJson = verticeJson.value();
 		for (auto& adjacentVerticeJson : adjacentVerticesJson.items()) {
 			unsigned int adjacentVertice = adjacentVerticeJson.value().get<unsigned int>();
@@ -32,7 +32,7 @@ NpcGraph NpcGraphLoader::getGraph(std::string descriptorPath) {
 
 	auto nodesJson = descriptor.at("nodes");
 	for (auto& nodeJson : nodesJson.items()) {
-		npc::Node node;
+		npc::GraphNode node;
 	}
 
 	return NpcGraph(vertices, nodes);

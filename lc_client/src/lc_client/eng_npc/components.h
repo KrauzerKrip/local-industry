@@ -14,3 +14,8 @@ struct Waypoint {
 
 	Waypoint(glm::vec3 position) : position(position) {}
 };
+
+struct NpcGraphVisualizerNode {
+};
+
+struct NpcGraphVisualizerEdge {};

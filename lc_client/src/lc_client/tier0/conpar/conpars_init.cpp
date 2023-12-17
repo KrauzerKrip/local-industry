@@ -18,6 +18,7 @@ void initParameters(Parameters& parameters) {
 	initUtilParameters(parameters);
 	initGuiParameters(parameters);
 	initPhysicsParameters(parameters);
+	initNpcParameters(parameters);
 }
 
 static void initKeybinds(Parameters& parameters) {
@@ -51,4 +52,8 @@ void initUtilParameters(Parameters& parameters) {
 
 void initGuiParameters(Parameters& parameters) {
 	ADD_PARAMETER_BOOL("gui_imgui_debug", false);
+}
+
+void initNpcParameters(Parameters& parameters) { 
+	ADD_PARAMETER_BOOL("npc_show_graph", false);
 }

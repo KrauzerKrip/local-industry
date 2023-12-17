@@ -3,14 +3,14 @@
 using namespace npc;
 
 void NpcGraphTest::SetUp() { 
-	std::vector<Vertice> vertices;
-	std::vector<Node> nodes;
+	std::vector<GraphVertex> vertices;
+	std::vector<GraphNode> nodes;
 
-	Vertice vert0;
-	Vertice vert1; 
-	Vertice vert2;
-	Vertice vert3;
-	Vertice vert4;
+	GraphVertex vert0;
+	GraphVertex vert1; 
+	GraphVertex vert2;
+	GraphVertex vert3;
+	GraphVertex vert4;
 
 	vert0.adjacentVertices.push_back(1);
 	vert0.adjacentVertices.push_back(2);
@@ -35,11 +35,11 @@ void NpcGraphTest::SetUp() {
 	vertices.push_back(vert3);
 	vertices.push_back(vert4);
 
-	Node node0;
-	Node node1;
-	Node node2;
-	Node node3;
-	Node node4;
+	GraphNode node0;
+	GraphNode node1;
+	GraphNode node2;
+	GraphNode node3;
+	GraphNode node4;
 
 	node0.position = glm::vec3(0, 0, 0);
 	node1.position = glm::vec3(5, 0, 5);

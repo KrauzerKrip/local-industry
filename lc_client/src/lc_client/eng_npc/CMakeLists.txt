@@ -11,4 +11,6 @@ target_sources(lc_client
     "npc_graph.cpp"
     "npc_graph_loader/npc_graph_loader.h"
     "npc_graph_loader/npc_graph_loader.cpp"
+    "npc_graph_visualizer.h"
+    "npc_graph_visualizer.cpp"
 )

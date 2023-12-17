@@ -4,7 +4,7 @@
 #include "lc_client/exceptions/npc_exceptions.h"
 
 
-NpcGraph::NpcGraph(std::vector<npc::Vertice> vertices, std::vector<npc::Node> nodes) : m_vertices(vertices), m_nodes(nodes) {
+NpcGraph::NpcGraph(std::vector<npc::GraphVertex> vertices, std::vector<npc::GraphNode> nodes) : m_vertices(vertices), m_nodes(nodes) {
 	_ASSERT_EXPR(m_vertices.size() < UINT_MAX, "NpcGraph: too much vertices.");
 	_ASSERT_EXPR(m_nodes.size() < UINT_MAX, "NpcGraph: too much nodes.");
 
@@ -85,7 +85,7 @@ Path NpcGraph::getShortestPath(unsigned int source, unsigned int destination) {
 
 
 unsigned int NpcGraph::getClosestVertice(glm::vec3 position) const {
-	Node minNode;
+	GraphNode minNode;
 	unsigned int minNodeVertice = 0;
 
 	for (unsigned int i = 0; i < m_nodes.size(); i++) {
@@ -101,14 +101,17 @@ unsigned int NpcGraph::getClosestVertice(glm::vec3 position) const {
 	return minNodeVertice;
 }
 
-const Node& NpcGraph::getNode(unsigned int vertice) const { return m_nodes.at(vertice); }
+const GraphNode& NpcGraph::getNode(unsigned int vertice) const { return m_nodes.at(vertice); }
 
 float NpcGraph::getDistance(unsigned int source, unsigned int destination) { 
-	Node node1 = getNode(source);
-	Node node2 = getNode(destination);
+	GraphNode node1 = getNode(source);
+	GraphNode node2 = getNode(destination);
 
 	return glm::distance(node1.position, node2.position);
 }
+
+const std::vector<GraphNode>& NpcGraph::getNodes() { return m_nodes; }
+const std::vector<GraphVertex>& NpcGraph::getVertices() { return m_vertices; }
 
 //void NpcGraph::addEdge(unsigned int source, unsigned int destination) {
 //	m_vertices.at(source).adjacentVertices.push_back(destination);
@@ -118,3 +121,4 @@ float NpcGraph::getDistance(unsigned int source, unsigned int destination) {
 //void NpcGraph::addNode(unsigned int vertice, npc::Node node) { 
 //	m_nodes[vertice] = node;
 //}
+
