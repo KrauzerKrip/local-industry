@@ -29,10 +29,10 @@ public:
 	NpcGraph(std::vector<Vertice> vertices, std::vector<Node> nodes);
 	
 	Path getShortestPath(unsigned int source, unsigned int destination);
-	Path getShortestPathQueue(unsigned int source, unsigned int destination);
-	const Node& getClosestNode(glm::vec3 position);
-	unsigned int getVertice(Node& node);
-	const Node& getNode(unsigned int vertice);
+	//Path getShortestPathQueue(unsigned int source, unsigned int destination);
+	unsigned int getClosestVertice(glm::vec3 position) const;
+	unsigned int getVertice(Node& node) const;
+	const Node& getNode(unsigned int vertice) const;
 
 private:
 	float getDistance(unsigned int source, unsigned int destination);

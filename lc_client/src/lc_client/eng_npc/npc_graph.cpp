@@ -1,19 +1,22 @@
 #include "npc_graph.h"
 
 #include <queue>
+#include "lc_client/exceptions/npc_exceptions.h"
 
 
 NpcGraph::NpcGraph(std::vector<npc::Vertice> vertices, std::vector<npc::Node> nodes) : m_vertices(vertices), m_nodes(nodes) {
-	
+	_ASSERT_EXPR(m_vertices.size() < UINT_MAX, "NpcGraph: too much vertices.");
+	_ASSERT_EXPR(m_nodes.size() < UINT_MAX, "NpcGraph: too much nodes.");
+
+	if (m_nodes.size() != m_nodes.size()) {
+		throw NpcGraphException("NpcGraph: the size of vertices vector isn`t equal to the size of nodes vector.");
+	}
 }
 
 Path NpcGraph::getShortestPath(unsigned int source, unsigned int destination) {
-	assert(m_vertices.size() < UINT_MAX, "NpcGraph: too much vertices.");
-
 	std::vector<unsigned int> vertices;
 	std::vector<float> distances(m_vertices.size());
 	std::vector<unsigned int> previous(m_vertices.size());
-
 
 	for (unsigned int i = 0; i < m_vertices.size(); i++) {
 		distances[i] = INFINITY;
@@ -81,11 +84,19 @@ Path NpcGraph::getShortestPath(unsigned int source, unsigned int destination) {
 }
 
 
-const Node& NpcGraph::getClosestNode(glm::vec3 position) { return Node(); }
+unsigned int NpcGraph::getClosestVertice(glm::vec3 position) const {
+	//Node minNode;
 
-unsigned int NpcGraph::getVertice(Node& node) { return 0; }
+	//for (unsigned int ){
 
-const Node& NpcGraph::getNode(unsigned int vertice) { return m_nodes.at(vertice); }
+	//}
+
+	return 0;
+}
+
+unsigned int NpcGraph::getVertice(Node& node) const { return 0; } 
+
+const Node& NpcGraph::getNode(unsigned int vertice) const { return m_nodes.at(vertice); }
 
 float NpcGraph::getDistance(unsigned int source, unsigned int destination) { 
 	Node node1 = getNode(source);
