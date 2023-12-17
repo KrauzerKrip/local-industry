@@ -9,7 +9,7 @@
 #include "lc_client/eng_graphics/i_window.h"
 #include "lc_client/eng_graphics/graphics_settings.h"
 #include "lc_client/eng_graphics/camera/camera.h"
-
+#include "character_control_system.h"
 
 
 class ControlSystem {
@@ -24,4 +24,5 @@ public:
 private:
 	MouseRaycastSystem* m_pMouseRaycastSystem = nullptr;
 	SelectionSystem* m_pSelectionSystem = nullptr;
+	CharacterControlSystem* m_pCharacterControlSystem = nullptr;
 };

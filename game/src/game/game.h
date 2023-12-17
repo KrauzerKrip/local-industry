@@ -28,10 +28,7 @@
 #include "game/control/action_control.h"
 #include "lc_client/eng_systems/graphics_systems.h"
 #include "game/control/control_system.h"
-
-#include "game/character/character_control_system.h"
-#include "game/control/mouse_raycast_system.h"
-#include "game/control/selection_system.h"
+#include "game/character/character_system.h"
 
 
 class Game : public IGameLogic {
@@ -64,6 +61,7 @@ private:
 	PhysicsSystem* m_pPhysicsSystem = nullptr;
 	ScriptSystem* m_pScriptSystem = nullptr;
 	ControlSystem* m_pControlSystem = nullptr;
+	CharacterSystem* m_pCharacterSystem = nullptr;
 
 	Gui* m_pGui = nullptr;
 

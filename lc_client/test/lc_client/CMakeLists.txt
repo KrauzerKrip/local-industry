@@ -4,3 +4,4 @@ project(lc_client_test)
 
 add_subdirectory("gui")
 add_subdirectory("physics")
+add_subdirectory("npc")

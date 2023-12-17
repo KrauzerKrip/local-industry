@@ -6,6 +6,6 @@ target_sources(game PRIVATE
 	"components.h"
 	"character_system.h"
 	"character_system.cpp"
-	"character_control_system.h"
-	"character_control_system.cpp"
+	"../control/character_control_system.h"
+	"../control/character_control_system.cpp"
 )

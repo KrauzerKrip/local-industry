@@ -1,10 +1,15 @@
 #pragma once
 
+#include <entt/entt.hpp>
+
 
 class CharacterSystem {
 public:
-	CharacterSystem();
+	CharacterSystem(entt::registry* pRegistry);
+	~CharacterSystem();
 
 	void input();
 	void update();
+
+private:
 };

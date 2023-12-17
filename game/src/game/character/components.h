@@ -1,13 +1,14 @@
 #pragma once
 
+#include <string>
+
 #include <glm/glm.hpp>
 
 
 struct GameCharacter {
-
+	std::string name;
 };
 
-struct Waypoint {
-	glm::vec3 position;
-};
+struct Walkable {
 
+};

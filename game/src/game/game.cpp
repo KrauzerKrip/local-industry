@@ -42,6 +42,8 @@
 
 #include "game/control/components.h"
 
+#include "lc_client/eng_npc/npc_graph.h"
+
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	std::vector actions = std::vector<std::string>({"kb_forward", "kb_left", "kb_back", "kb_right", "kb_up", "kb_fast",
@@ -103,6 +105,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	m_pControlSystem = new ControlSystem(m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl,
 		&m_pWorld->getRegistry());
+	m_pCharacterSystem = new CharacterSystem(&m_pWorld->getRegistry());
 }
 
 Game::~Game() {
@@ -184,8 +187,52 @@ void Game::init() {
 		}
 		if (properties.id == "cube_2") {
 			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
+			pRegistry->emplace<Walkable>(entity);
 		}
 	}
+
+		std::vector<Vertice> vertices;
+	std::vector<Node> nodes;
+
+	Vertice vert0;
+	Vertice vert1;
+	Vertice vert2;
+	Vertice vert3;
+
+	vert0.adjacentVertices.push_back(1);
+	vert0.adjacentVertices.push_back(2);
+
+	vert1.adjacentVertices.push_back(0);
+	vert1.adjacentVertices.push_back(3);
+
+	vert2.adjacentVertices.push_back(0);
+	vert2.adjacentVertices.push_back(3);
+
+	vert3.adjacentVertices.push_back(1);
+	vert3.adjacentVertices.push_back(2);
+
+	vertices.push_back(vert0);
+	vertices.push_back(vert1);
+	vertices.push_back(vert2);
+	vertices.push_back(vert3);
+
+	Node node0;
+	Node node1;
+	Node node2;
+	Node node3;
+
+	node0.position = glm::vec3(0, 0, 0);
+	node1.position = glm::vec3(5, 0, 5);
+	node2.position = glm::vec3(5, 0, 0);
+	node3.position = glm::vec3(10, 0, 0);
+
+	nodes.push_back(node0);
+	nodes.push_back(node1);
+	nodes.push_back(node2);
+	nodes.push_back(node3);
+
+	NpcGraph npcGraph(vertices, nodes);
+	Path path = npcGraph.getShortestPath(0, 2);
 }
 
 void Game::input() {
