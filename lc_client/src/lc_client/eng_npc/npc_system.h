@@ -6,19 +6,20 @@
 
 #include "npc_graph_visualizer.h"
 #include "lc_client/tier0/conpar/parameters.h"
+#include "lc_client/eng_world/world.h"
 
 
 class NpcSystem {
 public:
-	NpcSystem(Parameters* pParameters, entt::registry* pRegistry);
+	NpcSystem(Parameters* pParameters, World* pWorld);
 
 	void update();
-	void setNpcGraph(NpcGraph* pNpcGraph);
 
 private:
 	Parameters* m_pParameters = nullptr;
+	World* m_pWorld = nullptr;
 	entt::registry* m_pRegistry = nullptr;
 	
-	std::unique_ptr<NpcGraph> m_npcGraph;
+	NpcGraph* m_pNpcGraph;
 	std::unique_ptr<NpcGraphVisualizer> m_npcGraphVisualizer;
 };

@@ -31,6 +31,9 @@ void World::loadScene(std::string pack, std::string scene) {
 void World::loadMap(std::string pack, std::string map) {
 	m_registry.clear();
 	m_utilRegistry.clear();
+	NpcGraphLoader npcGraphLoader(m_pResource);
+	NpcGraph* pNpcGraph = npcGraphLoader.getGraph(pack + "/maps/" + map + "/npc_graph.json");
+	m_npcGraph = std::make_unique<NpcGraph>(*pNpcGraph);
 }
 
 entt::registry& World::getRegistry() { return m_registry; }
@@ -38,3 +41,5 @@ entt::registry& World::getRegistry() { return m_registry; }
 entt::registry& World::getUtilRegistry() { return m_utilRegistry; }
 
 Skybox* World::getSkybox() { return m_pSkybox; }
+
+NpcGraph* World::getNpcGraph() { return m_npcGraph.get(); }

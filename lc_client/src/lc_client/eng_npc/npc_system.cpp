@@ -6,11 +6,19 @@
 #include "lc_client/eng_scene/entt/components.h"
 
 
-NpcSystem::NpcSystem(Parameters* pParameters, entt::registry* pRegistry) { 
+NpcSystem::NpcSystem(Parameters* pParameters, World* pWorld) { 
 	m_pParameters = pParameters;
-	m_pRegistry = pRegistry; }
+	m_pWorld = pWorld;
+	m_pRegistry = &pWorld->getRegistry();
+	m_pNpcGraph = pWorld->getNpcGraph();
+}
 
-void NpcSystem::update() { 
+void NpcSystem::update() {
+	if (m_pWorld->getNpcGraph() != m_pNpcGraph) {
+		m_pNpcGraph = m_pWorld->getNpcGraph();
+		m_npcGraphVisualizer = std::make_unique<NpcGraphVisualizer>(m_pNpcGraph, m_pParameters, m_pRegistry);		
+	}
+
 	auto waypointNpcEntities = m_pRegistry->view<Npc, Waypoint, Transform>();
 
 	for (auto&& [entity, npc, waypoint, transform] : waypointNpcEntities.each()) {
@@ -18,7 +26,3 @@ void NpcSystem::update() {
 	}
 }
 
-void NpcSystem::setNpcGraph(NpcGraph* pNpcGraph) { 
-	m_npcGraph = std::make_unique<NpcGraph>(*pNpcGraph);
-	m_npcGraphVisualizer = std::make_unique<NpcGraphVisualizer>(m_npcGraph.get(), m_pParameters, m_pRegistry);
-}
