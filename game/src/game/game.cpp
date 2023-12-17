@@ -43,6 +43,7 @@
 #include "game/control/components.h"
 
 #include "lc_client/eng_npc/npc_graph.h"
+#include "lc_client/eng_npc/npc_graph_loader/npc_graph_loader.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -243,7 +244,9 @@ void Game::init() {
 	nodes.push_back(node3);
 	nodes.push_back(node4);
 
-	NpcGraph* pNpcGraph = new NpcGraph(vertices, nodes);
+	NpcGraphLoader npcGraphLoader(m_pResource);
+
+	NpcGraph* pNpcGraph = npcGraphLoader.getGraph("dev/maps/test/npc_graph.json"); // new NpcGraph(vertices, nodes);
 	m_pNpcSystem->setNpcGraph(pNpcGraph);
 }
 

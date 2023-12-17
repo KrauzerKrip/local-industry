@@ -9,7 +9,7 @@ class NpcGraphLoader {
 public:
 	NpcGraphLoader(eng::IResource* pResource);
 
-	NpcGraph getGraph(std::string descriptorPath);
+	NpcGraph* getGraph(std::string descriptorPath);
 
 private:
 	eng::IResource* m_pResource = nullptr;
