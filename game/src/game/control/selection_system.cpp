@@ -29,11 +29,8 @@ void SelectionSystem::selectEntity(entt::entity entity) {
 			unselectEntity(ent);
 		}
 	}
-
-	std::cout << "object selected" << std::endl;
 }
 
 void SelectionSystem::unselectEntity(entt::entity entity) {
 	m_pRegistry->remove<Selected>(entity);
-	std::cout << "object unselected" << std::endl;
 }

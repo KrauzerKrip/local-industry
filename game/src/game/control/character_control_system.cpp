@@ -33,7 +33,6 @@ void CharacterControlSystem::onSelect(entt::entity entity, glm::vec3 position, f
 
 		for (auto&& [entity, character] : selectedCharacters.each()) {
 			m_pRegistry->emplace_or_replace<Waypoint>(entity, Waypoint(position));
-			std::cout << "waypoint set" << std::endl;
 		}
 	}
 }

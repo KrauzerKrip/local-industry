@@ -12,4 +12,5 @@ public:
 	void update();
 
 private:
+	entt::registry* m_pRegistry;
 };

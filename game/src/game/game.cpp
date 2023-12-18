@@ -223,6 +223,8 @@ void Game::input() {
 		m_pControlSystem->input();
 	}
 	//m_pCamera->setPosition(cameraPos);
+
+	m_pCharacterSystem->input();
 }
 
 void Game::update() {
