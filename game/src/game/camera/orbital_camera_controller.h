@@ -12,7 +12,7 @@ class OrbitalCameraController : public CameraController {
 public:
 	OrbitalCameraController(Camera* pCamera, IInput* pInput, ActionControl* pActionControl);
 
-	void update();
+	void input();
 
 	glm::vec3 m_originPosition;
 	float m_radius;

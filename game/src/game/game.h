@@ -24,7 +24,6 @@
 #include "game/gui/gui.h"
 #include "lc_client/eng_graphics/graphics_settings.h"
 #include "game/loader_fabric/loader_fabric.h"
-#include "game/camera/orbital_camera_controller.h"
 #include "game/control/action_control.h"
 #include "lc_client/eng_systems/graphics_systems.h"
 #include "game/control/control_system.h"
@@ -56,8 +55,6 @@ private:
 	World* m_pWorld = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
-	OrbitalCameraController* m_pCameraController = nullptr;	
-
 	GraphicsSystems* m_pGraphicsSystems = nullptr;
 	PhysicsSystem* m_pPhysicsSystem = nullptr;
 	ScriptSystem* m_pScriptSystem = nullptr;

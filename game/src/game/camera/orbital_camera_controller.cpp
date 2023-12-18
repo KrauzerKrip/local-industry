@@ -48,7 +48,7 @@ OrbitalCameraController::OrbitalCameraController(Camera* pCamera, IInput* pInput
 	});
 }
 
-void OrbitalCameraController::update() {
+void OrbitalCameraController::input() {
 	m_sphericalCoords.r = m_radius;
 
 	m_radiusChangeSpeed = m_radius * 1.5;

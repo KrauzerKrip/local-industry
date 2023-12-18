@@ -3,5 +3,5 @@
 
 class CameraController {
 public:
-	virtual void update() = 0;
+	virtual void input() = 0;
 };

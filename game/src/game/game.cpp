@@ -76,8 +76,6 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 		new GuiDependenciesFabricGl(m_pTier0->getConsole(), pLoaderFabric->getShaderLoaderGl());
 	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput);
 
-	m_pCameraController = new OrbitalCameraController(m_pCamera, m_pInput, m_pActionControl);
-
 	Pack pack = Pack::getPack("dev");
 	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(pLoaderFabric->getShaderLoaderGl());
 
@@ -199,7 +197,11 @@ void Game::init() {
 
 void Game::input() {
 	m_pConsoleGui->update();
-	m_pControlSystem->input();
+
+	if (!m_pConsoleGui->isOpened()) { 
+		m_pControlSystem->input();
+	}
+
 
 	if (m_pActionControl->isAction("kb_menu")) {
 		exit(0);
@@ -217,7 +219,9 @@ void Game::input() {
 	m_lastMousePosX = m_pInput->getMousePosition().x;
 	m_lastMousePosY = m_pInput->getMousePosition().y;
 
-	m_pCameraController->update();
+	if (!m_pConsoleGui->isOpened()) {
+		m_pControlSystem->input();
+	}
 	//m_pCamera->setPosition(cameraPos);
 }
 
