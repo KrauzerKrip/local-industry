@@ -8,6 +8,14 @@
 #include "lc_client/eng_graphics/texture.h"
 
 
+
+struct Outline {
+	glm::vec3 color;
+	float width;
+
+	Outline(glm::vec3 color, float width) : color(color), width(width) {}
+};
+
 struct Water {
 
 };

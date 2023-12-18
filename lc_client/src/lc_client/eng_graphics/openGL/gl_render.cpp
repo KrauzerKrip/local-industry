@@ -30,6 +30,10 @@ RenderGL::~RenderGL() {}
 
 void RenderGL::init() {
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_STENCIL_TEST);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_CULL_FACE);
@@ -41,19 +45,21 @@ void RenderGL::init() {
 	createFramebufferVao();
 
 	m_framebufferShader = m_pShaderWork->createShaderProgram("framebuffer", "framebuffer");
+	m_outlineShader = m_pShaderWork->createShaderProgram("base", "primitive");
 
 	m_pWindow->setResizeCallback([this](int width, int height) {
 		delete m_pFramebuffer;
 		m_pFramebuffer = new Framebuffer(width, height);
 	});
+
 }
 
 void RenderGL::render() {
 	m_pFramebuffer->bind();
 
-	glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glStencilMask(0x00);
 
 	float aspectRatio = (float)m_pWindow->getAspectRatio()[0] / (float)m_pWindow->getAspectRatio()[1];
 	glm::mat4 projection = glm::perspective(glm::radians(m_pGraphicsSettings->getFov()), aspectRatio, 0.1f, 1000.0f);
@@ -68,14 +74,13 @@ void RenderGL::render() {
 
 	m_pRenderMap->render(view, projection);
 
-
 	entt::view<entt::get_t<CubemapGl, Transform>, entt::exclude_t<>> cubemapEntities =
 		m_pRegistry->view<CubemapGl, Transform>();
 
 	auto pointLights = m_pRegistry->view<Transform, PointLight>();
 
 	auto materialEntitiesGroup =
-		m_pRegistry->view<Model, Transform, ShaderGl, Properties>(entt::exclude<Water>); // TODO
+		m_pRegistry->view<Model, Transform, ShaderGl, Properties>(entt::exclude<Water, Outline>); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
 		Model& model = materialEntitiesGroup.get<Model>(entity);
@@ -104,6 +109,55 @@ void RenderGL::render() {
 		}
 	}
 
+	auto materialOutlineEntitiesGroup =
+	m_pRegistry->view<Model, Transform, ShaderGl, Properties, Outline>(entt::exclude<Water>); // TODO
+
+	for (entt::entity entity : materialOutlineEntitiesGroup) {
+		Model& model = materialOutlineEntitiesGroup.get<Model>(entity);
+		std::vector<entt::entity>& meshes = model.meshes;
+		unsigned int shaderProgram = materialOutlineEntitiesGroup.get<ShaderGl>(entity).shaderProgram;
+		glUseProgram(shaderProgram);
+		m_pSkybox->bindTexture();
+		Transform& transform = materialOutlineEntitiesGroup.get<Transform>(entity);
+		unsigned int nearestCubemapId = getNearestCubemap(transform.position, cubemapEntities);
+		if (nearestCubemapId != 0) {
+			glActiveTexture(GL_TEXTURE0 + TextureType::CUBEMAP);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, nearestCubemapId);
+		}
+
+		setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
+		setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
+		setMaterialSg(shaderProgram);
+		m_pLighting->setLighting(shaderProgram);
+		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
+		glm::mat4 modelMatrix = glm::mat4(1.0f);
+		RenderGL::transform(modelMatrix, transform);
+		setMatrices(shaderProgram, modelMatrix, view, projection);
+
+		Outline& outline = materialOutlineEntitiesGroup.get<Outline>(entity);
+		glm::mat4 outlineModelMatrix = glm::mat4(1.0f);
+		Transform transformOutline(transform);
+		transformOutline.scale = transform.scale + outline.width;
+		RenderGL::transform(outlineModelMatrix, transformOutline);
+
+		glStencilFunc(GL_ALWAYS, 1, 0xFF);
+		glStencilMask(0xFF);
+		for (entt::entity& meshEntity : meshes) {
+			renderMesh(meshEntity, m_pUtilRegistry);
+		}
+
+		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+		glStencilMask(0x00);
+		glUseProgram(m_outlineShader);
+		setMatrices(m_outlineShader, outlineModelMatrix, view, projection);
+		setUniform(m_outlineShader, "color", outline.color);
+		for (entt::entity& meshEntity : meshes) {
+			renderMesh(meshEntity, m_pUtilRegistry);
+		}
+		glStencilMask(0xFF);
+		glStencilFunc(GL_ALWAYS, 0, 0xFF);
+		glEnable(GL_DEPTH_TEST);
+	}
 
 	glDepthFunc(GL_LEQUAL);
 	m_pSkybox->render(projection, view);
@@ -155,6 +209,8 @@ void RenderGL::render() {
 
 	glBindVertexArray(m_framebufferVao);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glEnable(GL_DEPTH_TEST);
 }
 
 void RenderGL::clear() {}

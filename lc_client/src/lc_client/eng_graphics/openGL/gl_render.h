@@ -73,4 +73,6 @@ private:
 	unsigned int m_framebufferTexture = 0;
 	unsigned int m_framebufferVao = 0;
 	unsigned int m_framebufferShader = 0;
+
+	unsigned int m_outlineShader = 0;
 };
