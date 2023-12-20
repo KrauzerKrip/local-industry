@@ -9,4 +9,7 @@ target_sources(lc_client
  "layouts/layout.h" "widget_data.h" "layout_data.h"
  "layouts/vbox.h"
  "layouts/vbox.cpp"
- "layouts/layout.cpp")
+ "layouts/layout.cpp"
+ "layouts/grid.h"
+ "layouts/grid.cpp"
+)
