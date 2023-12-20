@@ -32,6 +32,7 @@ public:
 	void setPosition(glm::vec2 position);
 	std::shared_ptr<Layout> getLayout();
 	void setLayout(std::shared_ptr<Layout> layout);
+	void setLayout(Layout* pLayout);
 	void setBackground(Background background);
 	Background getBackground();
 	void setName(std::string);

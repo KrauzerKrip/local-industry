@@ -59,6 +59,7 @@ void Widget::setPosition(glm::vec2 position) { m_position = position; }
 std::shared_ptr<Layout> Widget::getLayout() { return m_layout; }
 
 void Widget::setLayout(std::shared_ptr<Layout> layout) { m_layout = layout; }
+void Widget::setLayout(Layout* pLayout) { m_layout = std::shared_ptr<Layout>(pLayout); }
 
 void Widget::setBackground(Background background) { m_background = background; }
 

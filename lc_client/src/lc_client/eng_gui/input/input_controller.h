@@ -13,6 +13,7 @@ public:
 
 	void update();
 	void addReceiver(std::shared_ptr<InputReceiver> receiver);
+	void addReceiver(InputReceiver* pReceiver);
 
 private:
 	std::vector<std::shared_ptr<InputReceiver>> m_receivers;

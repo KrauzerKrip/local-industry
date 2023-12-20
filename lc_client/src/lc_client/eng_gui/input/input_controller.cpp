@@ -22,3 +22,6 @@ void InputController::update() {
 }
 
 void InputController::addReceiver(std::shared_ptr<InputReceiver> receiver) { m_receivers.push_back(receiver); }
+
+void InputController::addReceiver(InputReceiver* pReceiver) { addReceiver(std::shared_ptr<InputReceiver>(pReceiver));
+ }

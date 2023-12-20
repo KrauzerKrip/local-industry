@@ -13,6 +13,7 @@ public:
 
 	virtual std::vector<std::shared_ptr<Widget>> getChildrenWidgets();
 	virtual void addChild(std::shared_ptr<Widget> widget);
+	virtual void addChild(Widget* pWidget);
 	virtual void updateChildWidgets() = 0;
 
 	glm::vec2 m_position;
