@@ -1,6 +1,19 @@
 {
   "pack": "game",
-  "shaders": {},
+  "skyboxes": {},
+  "shaders": {
+    "vertex": {
+    },
+    "fragment": {
+    }
+  },
   "models": {
+    "heater": {
+      "model_path": "game/models/heater/model.dae",
+      "textures_path": "game/models/heater/",
+      "material_type": "sg",
+      "vertex_shader": "base",
+      "fragment_shader": "lighting"
+    }
   }
-}
+  }

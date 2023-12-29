@@ -83,6 +83,10 @@ void RenderGL::render() {
 		m_pRegistry->view<Model, Transform, ShaderGl, Properties>(entt::exclude<Water, Outline>); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
+		if (m_pRegistry->get<Properties>(entity).id == "heater") {
+			int i = 0;
+		}
+
 		Model& model = materialEntitiesGroup.get<Model>(entity);
 		std::vector<entt::entity>& meshes = model.meshes;
 		unsigned int shaderProgram = materialEntitiesGroup.get<ShaderGl>(entity).shaderProgram;

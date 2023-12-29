@@ -2,7 +2,8 @@
   "project": "INDUSTRY",
   "version": "0.0.1-alpha",
   "packs": {
-    "dev": "dev/pack.json"
+    "dev": "dev/pack.json",
+    "game": "game/pack.json"
   },
   "config": {
     "kb_forward": "W",
@@ -16,6 +17,7 @@
     "kb_menu": "ESC",
     "kb_select": "MOUSE_BUTTON_LEFT",
     "kb_unselect": "MOUSE_BUTTON_RIGHT",
-    "kb_rotate_camera": "MOUSE_BUTTON_MIDDLE"
+    "kb_rotate_camera": "MOUSE_BUTTON_MIDDLE",
+    "kb_machine_menu": "Q"
   }
 }

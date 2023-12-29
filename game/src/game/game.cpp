@@ -49,7 +49,7 @@
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	std::vector actions = std::vector<std::string>({"kb_forward", "kb_left", "kb_back", "kb_right", "kb_up", "kb_fast",
-		"kb_down", "kb_use", "kb_menu", "kb_unselect", "kb_select", "kb_rotate_camera"});
+		"kb_down", "kb_use", "kb_menu", "kb_unselect", "kb_select", "kb_rotate_camera", "kb_machine_menu"});
 
 	m_pWindow = pWindow;
 	m_pCamera = new Camera();
@@ -72,16 +72,16 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	LoaderFabricGl* pLoaderFabric =  new LoaderFabricGl(m_pResource, m_pTier0->getConsole(), m_pTier1->getShaderManager());
 
-	GuiDependenciesFabric* pGuiDependenciesFabric =
-		new GuiDependenciesFabricGl(m_pTier0->getConsole(), pLoaderFabric->getShaderLoaderGl());
-	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput);
-
 	Pack pack = Pack::getPack("dev");
 	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(pLoaderFabric->getShaderLoaderGl());
 
 
 	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
 	m_pWorld = new World(m_pResource, pSceneLoading, pSkyboxRender);
+
+	GuiDependenciesFabric* pGuiDependenciesFabric =
+		new GuiDependenciesFabricGl(m_pTier0->getConsole(), pLoaderFabric->getShaderLoaderGl());
+	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput, m_pActionControl, &m_pWorld->getRegistry());
 
 	Skybox* pSkybox = m_pWorld->getSkybox();
 	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
@@ -108,6 +108,8 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pControlSystem = new ControlSystem(m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl,
 		&m_pWorld->getRegistry());
 	m_pCharacterSystem = new CharacterSystem(&m_pWorld->getRegistry());
+
+	m_pMachineSystem = new MachineSystem(m_pResource, &m_pWorld->getRegistry());
 }
 
 Game::~Game() {
@@ -245,6 +247,8 @@ void Game::update() {
 	m_pScriptSystem->update();
 	m_pNpcSystem->update();
 	m_pControlSystem->update();
+	m_pMachineSystem->update();
+	m_pMachineSystem->machineUpdate();
 
 	//if (pMapRegistry->view<Mesh>().size() == 0) {
 	//	m_pGraphicsSystems->update();
