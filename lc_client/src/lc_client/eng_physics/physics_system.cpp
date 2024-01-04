@@ -17,6 +17,26 @@ void PhysicsSystem::update() {
 	m_physicsVisualizer.update();
 }
 
+template <typename... Components, typename... Exclude>
+RaycastResult PhysicsSystem::raycast(RaycastQuery query, entt::exclude_t<Exclude...> exclude) {
+	auto boxColliders = m_pRegistry->view<BoxCollider, Transform, Components...>(exclude);
+
+	std::unordered_map<entt::entity, RaycastIntersection> intersections = getIntersections<Components...>(query, exclude);
+
+	if (intersections.size() > 0) {
+		auto intersection = getMinimumDistanceIntersection(intersections);
+
+		auto optionalEntity = std::make_optional<entt::entity>(intersection.first);
+		auto optionalPoint = std::make_optional<glm::vec3>(intersection.second.point);
+		auto optionalDistance = std::make_optional<float>(intersection.second.distance);
+
+		return RaycastResult(optionalEntity, optionalPoint, optionalDistance);
+	}
+	else {
+		return RaycastResult(std::nullopt, std::nullopt, std::nullopt);
+	}
+}
+
 void PhysicsSystem::updateVertices() {
 	auto boxColliders = m_pRegistry->view<BoxCollider, Transform>(entt::exclude<BoxColliderVertices>);
 
@@ -50,21 +70,8 @@ void PhysicsSystem::updateRaycast() {
 
 	for (auto&& [raycastEntity, query] : raycastQueries.each()) {
 		std::unordered_map<entt::entity, RaycastIntersection> intersections = getIntersections(query);
-
-		if (intersections.size() > 0) {
-			auto intersection = getMinimumDistanceIntersection(intersections);
-
-			auto optionalEntity = std::make_optional<entt::entity>(intersection.first);
-			auto optionalPoint = std::make_optional<glm::vec3>(intersection.second.point);
-			auto optionalDistance = std::make_optional<float>(intersection.second.distance);
-
-			m_pRegistry->emplace<RaycastResult>(
-				raycastEntity, RaycastResult(optionalEntity, optionalPoint, optionalDistance));
-		}
-		else {
-			m_pRegistry->emplace<RaycastResult>(
-				raycastEntity, RaycastResult(std::nullopt, std::nullopt, std::nullopt));
-		}
+		RaycastResult result = raycast(query);
+		m_pRegistry->emplace<RaycastResult>(raycastEntity, result);
 	}
 }
 
@@ -82,8 +89,10 @@ void PhysicsSystem::transformVertices(std::vector<glm::vec3>& vertices, Transfor
 	}
 }
 
-std::unordered_map<entt::entity, RaycastIntersection> PhysicsSystem::getIntersections(RaycastQuery query) {
-	auto boxColliders = m_pRegistry->view<BoxCollider, Transform>();
+template <typename... Components, typename... Exclude>
+std::unordered_map<entt::entity, RaycastIntersection> PhysicsSystem::getIntersections(
+	RaycastQuery query, entt::exclude_t<Exclude...> exclude) {
+	auto boxColliders = m_pRegistry->view<BoxCollider, Transform, Components...>(exclude);
 
 	std::unordered_map<entt::entity, RaycastIntersection> intersections;
 
