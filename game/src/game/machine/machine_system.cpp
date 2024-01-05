@@ -1,6 +1,8 @@
 #include "machine_system.h"
 
 #include "components.h"
+#include "game/control/action_control.h"
+
 
 
 MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistry) : m_machineLoadingSystem(pResource, pRegistry) {

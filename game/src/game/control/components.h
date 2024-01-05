@@ -9,6 +9,4 @@ struct Selected {
 
 };
 
-struct MouseRaycast {};
-
 struct MouseMoveRaycast {};

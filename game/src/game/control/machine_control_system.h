@@ -4,7 +4,7 @@
 
 #include "game/control/mouse_raycast_observer.h"
 #include "game/control/action_control.h"
-
+#include "mouse_raycast.h"
 
 
 /**
@@ -12,7 +12,7 @@
  */
 class MachineControlSystem : public MouseRaycastObserver {
 public:
-	MachineControlSystem(ActionControl* pActionControl, entt::registry* pRegistry);
+	MachineControlSystem(MouseRaycast* pMouseRaycast, ActionControl* pActionControl, entt::registry* pRegistry);
 
 	void input();
 	void update();
@@ -20,6 +20,7 @@ public:
 	void onMouseMove(entt::entity entity, glm::vec3 position, float distance);
 
 private:
+	MouseRaycast* m_pMouseRaycast = nullptr;
 	ActionControl* m_pActionControl = nullptr;
 
 	entt::registry* m_pRegistry = nullptr;

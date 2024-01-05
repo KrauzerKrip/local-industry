@@ -4,26 +4,27 @@
 
 
 ControlSystem::ControlSystem(GraphicsSettings* pSettings, IInput* pInput, Camera* pCamera,
-	ActionControl* pActionControl, entt::registry* pRegistry) {
-	m_pMouseRaycastSystem = new MouseRaycastSystem(pSettings, pInput, pCamera, pActionControl, pRegistry);
-	m_pSelectionSystem = new SelectionSystem(pRegistry);
-	m_pCharacterControlSystem = new CharacterControlSystem(pRegistry);
+	ActionControl* pActionControl, Physics* pPhysics, entt::registry* pRegistry)
+	: m_mouseRaycast(pPhysics, pSettings, pInput, pCamera, pActionControl, pRegistry),
+	m_selectionSystem(pRegistry),
+	  m_characterControlSystem(pRegistry),
+	  m_machineControlSystem(&m_mouseRaycast, pActionControl, pRegistry), m_mouseRaycastSystem(&m_mouseRaycast) {
+
 	m_pCameraController = new OrbitalCameraController(pCamera, pInput, pActionControl);
 
-	m_pMouseRaycastSystem->addObserver(m_pSelectionSystem);
-	m_pMouseRaycastSystem->addObserver(m_pCharacterControlSystem);
+	m_mouseRaycastSystem.addObserver(&m_selectionSystem);
+	m_mouseRaycastSystem.addObserver(&m_characterControlSystem);
+	m_mouseRaycastSystem.addObserver(&m_machineControlSystem);
 }
 
 ControlSystem::~ControlSystem() {
-	delete m_pMouseRaycastSystem;
-	delete m_pSelectionSystem;
-	delete m_pCharacterControlSystem;
 	delete m_pCameraController;
 }
 
 void ControlSystem::input() { 
 	m_pCameraController->input();
-	m_pMouseRaycastSystem->input();
+	m_mouseRaycastSystem.input();
+	m_machineControlSystem.input();
 }
 
 void ControlSystem::update() {}

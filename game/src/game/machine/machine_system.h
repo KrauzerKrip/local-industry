@@ -4,6 +4,7 @@
 #include <lc_client/util/i_eng_resource.h>
 
 #include "machine_loading_system.h"
+#include "game/control/machine_control_system.h"
 
 
 class MachineSystem {

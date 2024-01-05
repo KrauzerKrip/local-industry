@@ -11,11 +11,15 @@
 #include "lc_client/eng_graphics/camera/camera.h"
 #include "character_control_system.h"
 #include "game/camera/camera_controller.h"
+#include "machine_control_system.h"
+#include "lc_client/eng_physics/physics.h"
+#include "mouse_raycast.h"
 
 
 class ControlSystem {
 public:
 	ControlSystem(GraphicsSettings* pSettings, IInput* pInput, Camera* pCamera, ActionControl* pActionControl,
+		Physics* pPhysics, 
 		entt::registry* pRegistry);
 	~ControlSystem();
 
@@ -23,8 +27,11 @@ public:
 	void update();
 
 private:
-	MouseRaycastSystem* m_pMouseRaycastSystem = nullptr;
-	SelectionSystem* m_pSelectionSystem = nullptr;
-	CharacterControlSystem* m_pCharacterControlSystem = nullptr;
+	MouseRaycast m_mouseRaycast;
+	SelectionSystem m_selectionSystem;
+	CharacterControlSystem m_characterControlSystem;
+	MachineControlSystem m_machineControlSystem;
+	MouseRaycastSystem m_mouseRaycastSystem;
+
 	CameraController* m_pCameraController = nullptr;
 };

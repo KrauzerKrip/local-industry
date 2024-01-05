@@ -13,4 +13,6 @@ target_sources(lc_client
         "raycast/plane.cpp"
         "raycast/ray.h"
         "raycast/ray.cpp"
+        "physics.h"
+        "physics.cpp"
 )

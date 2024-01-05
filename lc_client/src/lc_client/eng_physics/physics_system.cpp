@@ -6,7 +6,9 @@
 #include "raycast/plane.h"
 
 
-PhysicsSystem::PhysicsSystem(Parameters* pParameters, entt::registry* pRegistry) : m_physicsVisualizer(pParameters, pRegistry) {
+PhysicsSystem::PhysicsSystem(Physics* pPhysics, Parameters* pParameters, entt::registry* pRegistry)
+	: m_physicsVisualizer(pParameters, pRegistry) {
+	m_pPhysics = pPhysics;
 	m_pRegistry = pRegistry;
 }
 
@@ -15,26 +17,6 @@ void PhysicsSystem::update() {
 	updateRaycast();
 
 	m_physicsVisualizer.update();
-}
-
-template <typename... Components, typename... Exclude>
-RaycastResult PhysicsSystem::raycast(RaycastQuery query, entt::exclude_t<Exclude...> exclude) {
-	auto boxColliders = m_pRegistry->view<BoxCollider, Transform, Components...>(exclude);
-
-	std::unordered_map<entt::entity, RaycastIntersection> intersections = getIntersections<Components...>(query, exclude);
-
-	if (intersections.size() > 0) {
-		auto intersection = getMinimumDistanceIntersection(intersections);
-
-		auto optionalEntity = std::make_optional<entt::entity>(intersection.first);
-		auto optionalPoint = std::make_optional<glm::vec3>(intersection.second.point);
-		auto optionalDistance = std::make_optional<float>(intersection.second.distance);
-
-		return RaycastResult(optionalEntity, optionalPoint, optionalDistance);
-	}
-	else {
-		return RaycastResult(std::nullopt, std::nullopt, std::nullopt);
-	}
 }
 
 void PhysicsSystem::updateVertices() {
@@ -69,8 +51,7 @@ void PhysicsSystem::updateRaycast() {
 	auto raycastQueries = m_pRegistry->view<RaycastQuery>(entt::exclude<RaycastResult>);
 
 	for (auto&& [raycastEntity, query] : raycastQueries.each()) {
-		std::unordered_map<entt::entity, RaycastIntersection> intersections = getIntersections(query);
-		RaycastResult result = raycast(query);
+		RaycastResult result = m_pPhysics->raycast(query);
 		m_pRegistry->emplace<RaycastResult>(raycastEntity, result);
 	}
 }
@@ -89,39 +70,3 @@ void PhysicsSystem::transformVertices(std::vector<glm::vec3>& vertices, Transfor
 	}
 }
 
-template <typename... Components, typename... Exclude>
-std::unordered_map<entt::entity, RaycastIntersection> PhysicsSystem::getIntersections(
-	RaycastQuery query, entt::exclude_t<Exclude...> exclude) {
-	auto boxColliders = m_pRegistry->view<BoxCollider, Transform, Components...>(exclude);
-
-	std::unordered_map<entt::entity, RaycastIntersection> intersections;
-
-	for (auto&& [ent, boxCollider, transform] : boxColliders.each()) {
-		Ray ray(query.position, query.direction);
-		std::optional<RaycastIntersection> raycastResult = ray.getIntersectionWithOBB(boxCollider, transform);
-
-		if (raycastResult.has_value()) {
-			intersections.emplace(ent, raycastResult.value());
-		}
-	}
-
-	return intersections;
-}
-
-std::pair<entt::entity, RaycastIntersection> PhysicsSystem::getMinimumDistanceIntersection(
-	std::unordered_map<entt::entity, RaycastIntersection>& intersections) {
-
-	auto firstElement = *intersections.begin();
-
-	entt::entity minDistanceEntity = firstElement.first;
-	RaycastIntersection minRaycastIntersection(firstElement.second.point, firstElement.second.distance);
-
-	for (auto& [ent, raycastIntersection] : intersections) {
-		if (raycastIntersection.distance < minRaycastIntersection.distance) {
-			minDistanceEntity = ent;
-			minRaycastIntersection = raycastIntersection;
-		}
-	}
-
-	return std::pair<entt::entity, RaycastIntersection>(minDistanceEntity, minRaycastIntersection);
-}

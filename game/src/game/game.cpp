@@ -45,6 +45,7 @@
 #include "lc_client/eng_npc/npc_graph.h"
 #include "lc_client/eng_npc/npc_graph_loader/npc_graph_loader.h"
 #include "lc_client/eng_npc/components.h"
+#include "lc_client/eng_physics/physics.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -60,7 +61,6 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pGraphicsSettings = new GraphicsSettings(m_pTier0->getParameters());
 	m_pActionControl =
 		new ActionControl(pWindow->getInput(), m_pTier0->getParameters(), m_pTier0->getConsole(), actions);
-
 
 
 	m_pConsoleGui = new ConsoleGui(
@@ -101,11 +101,13 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 		pLoaderFabric->getCubemapLoader(), m_pWorld, pModelManager);
 
 	m_pScriptSystem = new ScriptSystem(&m_pWorld->getRegistry());
-	m_pPhysicsSystem = new PhysicsSystem(pTier0->getParameters(), &m_pWorld->getRegistry());
+	Physics* pPhysics = new Physics(&m_pWorld->getRegistry());
+	m_pPhysicsSystem = new PhysicsSystem(pPhysics, pTier0->getParameters(), &m_pWorld->getRegistry());
 
 	m_pNpcSystem = new NpcSystem(m_pTier0->getParameters(), m_pWorld);
 
-	m_pControlSystem = new ControlSystem(m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl,
+	m_pControlSystem = new ControlSystem(
+		m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl, pPhysics,
 		&m_pWorld->getRegistry());
 	m_pCharacterSystem = new CharacterSystem(&m_pWorld->getRegistry());
 
@@ -193,6 +195,9 @@ void Game::init() {
 		if (properties.id == "cube_2") {
 			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
 			pRegistry->emplace<Walkable>(entity);
+		}
+		if (properties.id == "surface") {
+			pRegistry->emplace<BoxCollider>(entity, 200.f, 2.0f, 200.0f);
 		}
 	}
 }

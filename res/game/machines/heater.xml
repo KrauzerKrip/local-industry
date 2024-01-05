@@ -5,7 +5,7 @@
     <transform>
       <position x="0" y="3" z="0"></position>
       <rotation x="270" y="0" z="0"></rotation>
-      <scale x="1" y="1" z="1"></scale>
+      <scale x="0.5" y="0.5" z="0.5"></scale>
     </transform>
     <model_data>      
        <pack>game</pack>
