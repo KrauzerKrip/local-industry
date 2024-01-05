@@ -32,13 +32,13 @@ MachineControlSystem::MachineControlSystem(
 }
 
 void MachineControlSystem::input() {
-	auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform>();
+	auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform, RelativeTransform>();
 
 	if (selectedBlueprints.begin() != selectedBlueprints.end()) {
 		RaycastResult result = m_pMouseRaycast->doMouseRaycast(entt::exclude<Blueprint>);
 		if (result.intersectionPoint.has_value()) {
-			for (auto&& [ent, transform] : selectedBlueprints.each()) {
-				transform.position = result.intersectionPoint.value();
+			for (auto&& [ent, transform,  relativeTransform] : selectedBlueprints.each()) {
+				transform.position = relativeTransform.transform.position + result.intersectionPoint.value();
 				transform.position.x = (int)transform.position.x;
 				transform.position.y = (int)transform.position.y;
 				transform.position.z = (int)transform.position.z;

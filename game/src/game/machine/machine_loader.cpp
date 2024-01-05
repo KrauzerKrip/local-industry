@@ -3,6 +3,7 @@
 #include "lc_client/exceptions/io_exceptions.h"
 
 #include "lc_client/eng_scene/component_creator.h"
+#include "components.h"
 
 
 MachineLoader::MachineLoader(eng::IResource* pResource, entt::registry* pRegistry) { 
@@ -38,7 +39,12 @@ void MachineLoader::handleComponent(pugi::xml_node componentXml, entt::entity en
 	std::string componentName = componentXml.name();
 
 	if (componentName == "transform") {
-		m_pRegistry->emplace<Transform>(entity, getTransform(componentXml));
+		Transform relativeTransform = getTransform(componentXml);
+		m_pRegistry->emplace<RelativeTransform>(entity, relativeTransform);
+		Transform transform;
+		transform.rotation = relativeTransform.rotation;
+		transform.scale = relativeTransform.scale;
+		m_pRegistry->emplace<Transform>(entity, transform);
 	}
 	else if (componentName == "model_data") {
 		m_pRegistry->emplace<ModelRequest>(entity, getModelData(componentXml));

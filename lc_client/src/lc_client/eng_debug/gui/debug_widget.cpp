@@ -60,7 +60,7 @@ DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, WidgetDependecies depend
 	this->setLayout(vbox);
 
 	std::shared_ptr<Widget> rowFps = createRow("FPS", "", dependencies, textDependencies, &m_pFpsDataWidget);
-	std::shared_ptr<Widget> rowMousePos = createRow("FPS", "", dependencies, textDependencies, &m_pMousePositionWidget);
+	std::shared_ptr<Widget> rowMousePos = createRow("MP", "", dependencies, textDependencies, &m_pMousePositionWidget);
 
 	vbox->addChild(label);
 	vbox->addChild(rowFps);

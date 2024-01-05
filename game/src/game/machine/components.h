@@ -3,7 +3,9 @@
 #include <entt/entt.hpp>
 #include <glm/glm.hpp>
 
+#include "lc_client/eng_scene/entt/components.h"
 #include "machine_type.h"
+
 
 struct Machine {
 
@@ -18,6 +20,13 @@ struct MachineRequest {
 
 struct Blueprint {
 
+};
+
+struct RelativeTransform {
+	Transform transform;
+
+	RelativeTransform() : transform(Transform()){};
+	RelativeTransform(Transform transform) : transform(transform){};
 };
 
 struct HeatIn {
