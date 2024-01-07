@@ -84,5 +84,13 @@ void MachineControlSystem::addSelectionCallback() {
 				m_pRegistry->remove<Outline>(entity);
 			}
 		}
+
+		auto initBlueprints = m_pRegistry->view<Blueprint, BlueprintInit>();
+
+		for (auto&& [entity] : initBlueprints.each()) {
+			m_pRegistry->emplace_or_replace<Selected>(entity);
+			m_pRegistry->emplace_or_replace<Outline>(entity, outline);
+			m_pRegistry->remove<BlueprintInit>(entity);
+		}
 	});
 }

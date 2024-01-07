@@ -22,6 +22,13 @@ struct Blueprint {
 
 };
 
+/**
+ * @brief Workaround for selection of blueprint just after creation.
+*/
+struct BlueprintInit {
+
+};
+
 struct RelativeTransform {
 	Transform transform;
 
