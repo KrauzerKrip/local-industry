@@ -20,6 +20,8 @@ public:
 	void onMouseMove(entt::entity entity, glm::vec3 position, float distance);
 
 private:
+	void addSelectionCallback();
+
 	MouseRaycast* m_pMouseRaycast = nullptr;
 	ActionControl* m_pActionControl = nullptr;
 

@@ -5,6 +5,8 @@
 #include "lc_client/eng_scene/entt/components.h"
 #include "lc_client/eng_graphics/entt/components.h"
 
+#include <iostream>
+
 
 MachineControlSystem::MachineControlSystem(
 	MouseRaycast* pMouseRaycast, ActionControl* pActionControl, entt::registry* pRegistry) {
@@ -12,23 +14,7 @@ MachineControlSystem::MachineControlSystem(
 	m_pActionControl = pActionControl;
 	m_pRegistry = pRegistry;
 
-	m_pActionControl->addActionCallback(
-		"kb_select", [this]() { 
-			RaycastResult result = m_pMouseRaycast->doMouseRaycast();
-			if (result.entityIntersectedWith.has_value()) {
-				entt::entity entity = result.entityIntersectedWith.value();
-				if (m_pRegistry->all_of<Blueprint>(entity)) {
-					if (m_pRegistry->all_of<Selected>(entity)) {
-						m_pRegistry->remove<Selected>(entity);
-						m_pRegistry->remove<Outline>(entity);
-					}
-					else {
-						m_pRegistry->emplace<Selected>(entity);
-						m_pRegistry->emplace_or_replace<Outline>(entity, Outline(glm::vec3(1, 1, 1), 0.05));
-					}
-				}
-			}
-	});
+	addSelectionCallback();
 }
 
 void MachineControlSystem::input() {
@@ -55,4 +41,48 @@ void MachineControlSystem::onSelect(entt::entity entity, glm::vec3 position, flo
 
 void MachineControlSystem::onMouseMove(entt::entity entity, glm::vec3 position, float distance) {
 
+}
+
+void MachineControlSystem::addSelectionCallback() {
+	m_pActionControl->addActionCallback("kb_select", [this]() {
+		RaycastResult result = m_pMouseRaycast->doMouseRaycast();
+
+		auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected>();
+
+		Outline outline(glm::vec3(1, 1, 1), 0.05);
+
+		if (selectedBlueprints.begin() == selectedBlueprints.end()) {
+			if (result.entityIntersectedWith.has_value()) {
+				entt::entity entIntersect = result.entityIntersectedWith.value();
+				if (m_pRegistry->all_of<Blueprint>(entIntersect)) {
+					m_pRegistry->emplace_or_replace<Selected>(entIntersect);
+					m_pRegistry->emplace_or_replace<Outline>(entIntersect, outline);
+				}
+			}
+
+			return;
+		}
+
+		for (auto&& [entity] : selectedBlueprints.each()) {
+			if (result.entityIntersectedWith.has_value()) {
+				entt::entity entIntersect = result.entityIntersectedWith.value();
+				if (entity == entIntersect) {
+					m_pRegistry->remove<Selected>(entity);
+					m_pRegistry->remove<Outline>(entity);
+				}
+				else {
+					m_pRegistry->remove<Selected>(entity);
+					m_pRegistry->remove<Outline>(entity);
+					if (m_pRegistry->all_of<Blueprint>(entIntersect)) {
+						m_pRegistry->emplace_or_replace<Selected>(entIntersect);
+						m_pRegistry->emplace_or_replace<Outline>(entIntersect, outline);
+					}
+				}
+			}
+			else {
+				m_pRegistry->remove<Selected>(entity);
+				m_pRegistry->remove<Outline>(entity);
+			}
+		}
+	});
 }
