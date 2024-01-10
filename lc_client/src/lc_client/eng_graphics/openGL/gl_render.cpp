@@ -13,6 +13,7 @@
 #include "lc_client/eng_lighting/entt/components.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 #include "lc_client/eng_cubemaps/entt/components.h"
+#include "renders/gl_mesh_render.h"
 
 #include "lc_client/tier0/tier0.h"
 
@@ -80,7 +81,7 @@ void RenderGL::render() {
 	auto pointLights = m_pRegistry->view<Transform, PointLight>();
 
 	auto materialEntitiesGroup =
-		m_pRegistry->view<Model, Transform, ShaderGl, Properties>(entt::exclude<Water, Outline>); // TODO
+		m_pRegistry->view<Model, Transform, ShaderGl, Properties>(entt::exclude<Transparent, Outline>); // TODO
 
 	for (entt::entity entity : materialEntitiesGroup) {
 		if (m_pRegistry->get<Properties>(entity).id == "heater") {
@@ -101,15 +102,15 @@ void RenderGL::render() {
 
 		setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
 		setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
-		setMaterialSg(shaderProgram);
+		eng::setMaterialSg(shaderProgram);
 		m_pLighting->setLighting(shaderProgram);
 		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		RenderGL::transform(modelMatrix, transform);
-		setMatrices(shaderProgram, modelMatrix, view, projection);
+		eng::transform(modelMatrix, transform);
+		eng::setMatrices(shaderProgram, modelMatrix, view, projection);
 
 		for (entt::entity& meshEntity : meshes) {
-			renderMesh(meshEntity, m_pUtilRegistry);
+			eng::renderMesh(meshEntity, m_pUtilRegistry);
 		}
 	}
 
@@ -131,32 +132,32 @@ void RenderGL::render() {
 
 		setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
 		setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
-		setMaterialSg(shaderProgram);
+		eng::setMaterialSg(shaderProgram);
 		m_pLighting->setLighting(shaderProgram);
 		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		RenderGL::transform(modelMatrix, transform);
-		setMatrices(shaderProgram, modelMatrix, view, projection);
+		eng::transform(modelMatrix, transform);
+		eng::setMatrices(shaderProgram, modelMatrix, view, projection);
 
 		Outline& outline = materialOutlineEntitiesGroup.get<Outline>(entity);
 		glm::mat4 outlineModelMatrix = glm::mat4(1.0f);
 		Transform transformOutline(transform);
 		transformOutline.scale = transform.scale + outline.width;
-		RenderGL::transform(outlineModelMatrix, transformOutline);
+		eng::transform(outlineModelMatrix, transformOutline);
 
 		glStencilFunc(GL_ALWAYS, 1, 0xFF);
 		glStencilMask(0xFF);
 		for (entt::entity& meshEntity : meshes) {
-			renderMesh(meshEntity, m_pUtilRegistry);
+			eng::renderMesh(meshEntity, m_pUtilRegistry);
 		}
 
 		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 		glStencilMask(0x00);
 		glUseProgram(m_outlineShader);
-		setMatrices(m_outlineShader, outlineModelMatrix, view, projection);
+		eng::setMatrices(m_outlineShader, outlineModelMatrix, view, projection);
 		setUniform(m_outlineShader, "color", outline.color);
 		for (entt::entity& meshEntity : meshes) {
-			renderMesh(meshEntity, m_pUtilRegistry);
+			eng::renderMesh(meshEntity, m_pUtilRegistry);
 		}
 		glStencilMask(0xFF);
 		glStencilFunc(GL_ALWAYS, 0, 0xFF);
@@ -167,40 +168,8 @@ void RenderGL::render() {
 	m_pSkybox->render(projection, view);
 	glDepthFunc(GL_LESS);
 
-	auto waterEntitiesGroup = m_pRegistry->view<Water, Model, Transform, ShaderGl>();
-
-	for (entt::entity entity : waterEntitiesGroup) {
-		Model& model = waterEntitiesGroup.get<Model>(entity);
-		std::vector<entt::entity>& meshes = model.meshes;
-		unsigned int shaderProgram = waterEntitiesGroup.get<ShaderGl>(entity).shaderProgram;
-		glUseProgram(shaderProgram);
-		m_pSkybox->bindTexture();
-		Transform& transform = waterEntitiesGroup.get<Transform>(entity);
-		unsigned int nearestCubemapId = getNearestCubemap(transform.position, cubemapEntities);
-		if (nearestCubemapId != 0) {
-			glActiveTexture(GL_TEXTURE0 + TextureType::CUBEMAP);
-			glBindTexture(GL_TEXTURE_CUBE_MAP, nearestCubemapId);
-		}
-
-		m_pFramebuffer->bindTexture();
-		setUniform(shaderProgram, "framebuffer", TextureType::FRAMEBUFFER);
-
-		setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
-		setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
-		setMaterialSg(shaderProgram);
-		m_pLighting->setLighting(shaderProgram);
-		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
-		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		RenderGL::transform(modelMatrix, transform);
-		setMatrices(shaderProgram, modelMatrix, view, projection);
-
-		for (entt::entity& meshEntity : meshes) {
-			renderMesh(meshEntity, m_pUtilRegistry);
-		}
-	}
-
+	m_pTransparentRender->render(projection, view);
 	m_pPrimitiveRender->render(projection, view);
-
 	m_pGuiPresenter->render();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
@@ -231,12 +200,7 @@ void RenderGL::setDependecies(World* pWorld) {
 
 	m_pRenderMap = new RenderMapGl(m_pLighting, this, m_pCamera, m_pSkybox, m_pRegistry, m_pUtilRegistry);
 	m_pPrimitiveRender = new PrimitiveRender(m_pShaderWork, m_pRegistry, m_pRegistry);
-}
-
-void RenderGL::transform(glm::mat4& model, Transform& transform) {
-	model = glm::translate(model, transform.position);
-	model *= glm::mat4_cast(transform.rotation);
-	model = glm::scale(model, transform.scale);
+	m_pTransparentRender = new TransparentRenderGl(m_pCamera, m_pRegistry, m_pUtilRegistry);
 }
 
 void RenderGL::createFramebufferVao() {
@@ -254,29 +218,6 @@ void RenderGL::createFramebufferVao() {
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-}
-
-void RenderGL::renderMesh(entt::entity meshEntity, entt::registry* pUtilRegistry) {
-	Mesh& mesh = pUtilRegistry->get<Mesh>(meshEntity);
-	int vao = pUtilRegistry->get<VaoGl>(meshEntity).vaoId;
-	MaterialSG& materialSG = pUtilRegistry->get<MaterialSG>(meshEntity);
-	Texture* aoTexture = materialSG.aoTexture; 
-	Texture* diffuseTexture = materialSG.diffuseTexture;
-	Texture* normalMap = materialSG.normalMap;
-	Texture* specularMap = materialSG.specularTexture;
-	aoTexture->bind();
-	diffuseTexture->bind();
-	normalMap->bind();
-	specularMap->bind();
-	glBindVertexArray(vao);
-	glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, 0);
-}
-
-void RenderGL::setMaterialSg(unsigned int shaderProgram) {
-	setUniform(shaderProgram, "material.diffuse", TextureType::DIFFUSE);
-	setUniform(shaderProgram, "material.normal", TextureType::NORMAL);
-	setUniform(shaderProgram, "material.specular", TextureType::SPECULAR);
-	setUniform(shaderProgram, "material.shininess", 32.0f);
 }
 
 unsigned int RenderGL::getNearestCubemap(glm::vec3& entityPosition, CubemapView& cubemapEntities) {
@@ -307,22 +248,4 @@ unsigned int RenderGL::getNearestCubemap(glm::vec3& entityPosition, CubemapView&
 	}
 
 	return nearestCubemapId;
-}
-
-void RenderGL::setMatrices(unsigned int shaderProgram, glm::mat4& model, glm::mat4& view, glm::mat4 projection) {
-	glm::mat4 normal = model;
-	glm::inverse(normal);
-	glm::transpose(normal);
-
-	// glm::mat4 modelView = view * model;
-
-	unsigned int modelLoc = glGetUniformLocation(shaderProgram, "model");
-	unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
-	unsigned int projLoc = glGetUniformLocation(shaderProgram, "projection");
-	unsigned int normalMatrixLoc = glGetUniformLocation(shaderProgram, "normalMatrix");
-
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-	glUniformMatrix4fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normal));
 }

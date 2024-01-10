@@ -49,7 +49,7 @@ void MachineControlSystem::addSelectionCallback() {
 
 		auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected>();
 
-		Outline outline(glm::vec3(1, 1, 1), 0.05);
+		Outline outline(glm::vec3(255 / 255., 255 / 255., 255 / 255.), 0.025);
 
 		if (selectedBlueprints.begin() == selectedBlueprints.end()) {
 			if (result.entityIntersectedWith.has_value()) {

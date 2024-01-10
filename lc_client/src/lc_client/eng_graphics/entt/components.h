@@ -20,6 +20,10 @@ struct Water {
 
 };
 
+struct Transparent {
+
+};
+
 struct PrimitiveLine {
 	glm::vec3 startPoint;
 	glm::vec3 endPoint;
@@ -42,10 +46,12 @@ struct ShaderRequest {
 	std::string fragmentShaderName;
 
 
-	ShaderRequest(std::string packName, std::string vertexShaderName, std::string fragmentShaderName)
+	ShaderRequest(
+		std::string packName, std::string vertexShaderName, std::string fragmentShaderName)
 		: packName(packName),
 		  vertexShaderName(vertexShaderName),
-		  fragmentShaderName(fragmentShaderName) {}
+		  fragmentShaderName(fragmentShaderName)
+	{}
 	ShaderRequest(const ShaderRequest&) = default;
 };
 

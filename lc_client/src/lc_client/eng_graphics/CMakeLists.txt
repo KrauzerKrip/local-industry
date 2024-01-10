@@ -42,6 +42,10 @@ target_sources(lc_client
         "openGL/renders/gl_lighting.cpp"
         "openGL/renders/gl_primitive_render.h"
         "openGL/renders/gl_primitive_render.cpp"
+        "openGL/renders/gl_transparent_render.h"
+        "openGL/renders/gl_transparent_render.cpp"
+        "openGL/renders/gl_mesh_render.h"
+        "openGL/renders/gl_mesh_render.cpp"
 
         "gui/text_render.h"
         "gui/background_render.h"

@@ -283,7 +283,6 @@ void Game::update() {
 	//}
 
 	m_pGui->update();
-
 }
 
 void Game::render() {

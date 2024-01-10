@@ -47,6 +47,8 @@ void MachineLoader::handleComponent(pugi::xml_node componentXml, entt::entity en
 		m_pRegistry->emplace<Transform>(entity, transform);
 	}
 	else if (componentName == "model_data") {
-		m_pRegistry->emplace<ModelRequest>(entity, getModelData(componentXml));
+		ModelRequest modelRequest = getModelData(componentXml);
+		modelRequest.loadShaders = false;
+		m_pRegistry->emplace<ModelRequest>(entity, modelRequest);
 	}
 }

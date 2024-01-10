@@ -23,7 +23,7 @@ struct Blueprint {
 };
 
 /**
- * @brief Workaround for selection of blueprint just after creation.
+ * @brief Workaround for selection on creation of blueprint.
 */
 struct BlueprintInit {
 

@@ -5,6 +5,8 @@
 #include "lc_client/eng_scene/entt/components.h"
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
+#include "gl_mesh_render.h"
+
 
 RenderMapGl::RenderMapGl(LightingGl* pLighting, RenderGL* pRenderGL, Camera* pCamera,
 	Skybox* pSkybox, entt::registry* pRegistry, entt::registry* pUtilRegistry) { 
@@ -36,12 +38,12 @@ void RenderMapGl::render(glm::mat4 view, glm::mat4 projection) {
 
 		setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
 		setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
-		m_pRenderGl->setMaterialSg(shaderProgram);
+		eng::setMaterialSg(shaderProgram);
 		m_pLighting->setLighting(shaderProgram);
 		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		m_pRenderGl->transform(modelMatrix, transform);
-		m_pRenderGl->setMatrices(shaderProgram, modelMatrix, view, projection);
+		eng::transform(modelMatrix, transform);
+		eng::setMatrices(shaderProgram, modelMatrix, view, projection);
 
 		int vao = m_pRegistry->get<VaoGl>(entity).vaoId;
 		MaterialSG& materialSG = m_pRegistry->get<MaterialSG>(entity);

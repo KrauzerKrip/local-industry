@@ -5,6 +5,7 @@
     "vertex": {
     },
     "fragment": {
+      "blueprint" : "game/shaders/frag/blueprint.frag"
     }
   },
   "models": {

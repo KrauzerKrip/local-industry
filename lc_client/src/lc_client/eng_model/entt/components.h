@@ -20,9 +20,14 @@ struct Model {
 struct ModelRequest {
 	std::string packName;
 	std::string modelName;
+	bool loadShaders;
 
 	ModelRequest() = default;
-	ModelRequest(const std::string packName, const std::string modelName) : packName(packName), modelName(modelName){};
+	ModelRequest(const std::string packName, const std::string modelName, bool loadShaders = true)
+		: packName(packName),
+		  modelName(modelName),
+		loadShaders(loadShaders)
+	{};
 	ModelRequest(const ModelRequest&) = default;
 	bool operator==(const ModelRequest& other) const {
 		return ((packName == other.packName) && (modelName == other.modelName));

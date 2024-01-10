@@ -20,6 +20,7 @@
 #include "lc_client/eng_graphics/gui/text_render.h"
 #include "lc_client/eng_graphics/graphics_settings.h"
 #include "renders/gl_primitive_render.h"
+#include "lc_client/eng_graphics/openGL/renders/gl_transparent_render.h"
 
 
 typedef decltype(entt::registry().view<CubemapGl, Transform>()) CubemapView;
@@ -46,13 +47,9 @@ RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork, GuiPres
 	void setDependecies(World* pWorld);
 
 private:
-	void transform(glm::mat4& transformation, Transform& transform);
 	void createFramebufferVao();
-	void renderMesh(entt::entity meshEntity, entt::registry* pUtilRegistry);
 
-	void setMaterialSg(unsigned int shaderProgram);
 	unsigned int getNearestCubemap(glm::vec3& entityPosition, CubemapView& cubemapEntities);
-	void setMatrices(unsigned int shaderProgram, glm::mat4& model, glm::mat4& view, glm::mat4 projection);
 
 	IWindow* m_pWindow; //mb remove it
 	Camera* m_pCamera;
@@ -64,7 +61,7 @@ private:
 	TextRender* m_pRenderText = nullptr;
 	PrimitiveRender* m_pPrimitiveRender = nullptr;
 	GraphicsSettings* m_pGraphicsSettings = nullptr;
-
+	TransparentRenderGl* m_pTransparentRender = nullptr;
 
 	entt::registry* m_pRegistry = nullptr;
 	entt::registry* m_pUtilRegistry = nullptr;

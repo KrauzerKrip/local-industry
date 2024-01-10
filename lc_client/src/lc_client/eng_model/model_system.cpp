@@ -29,8 +29,10 @@ void ModelSystem::update() {
 		if (modelCashed != m_loadedModelMap.end()) {
 			pModel = modelCashed->second;
 			m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel);
-			m_pSceneRegistry->emplace<ShaderRequest>(
-				entity, modelRequest.packName, modelData.getVertexShader(), modelData.getFragmentShader());
+			if (modelRequest.loadShaders) {
+				m_pSceneRegistry->emplace<ShaderRequest>(
+					entity, modelRequest.packName, modelData.getVertexShader(), modelData.getFragmentShader());
+			}
 			m_pSceneRegistry->erase<ModelRequest>(entity);
 			
 			break;
@@ -39,9 +41,10 @@ void ModelSystem::update() {
 		try {
 			pModel = m_pModelManager->getModel(
 				modelData.getPath(), modelData.getTexturesPath(), modelData.getMaterialType());
-
-			m_pSceneRegistry->emplace<ShaderRequest>(
-				entity, modelRequest.packName, modelData.getVertexShader(), modelData.getFragmentShader());
+			if (modelRequest.loadShaders) {
+				m_pSceneRegistry->emplace<ShaderRequest>(
+					entity, modelRequest.packName, modelData.getVertexShader(), modelData.getFragmentShader());
+			}
 		}
 		catch (std::runtime_error& exception) {
 			std::cerr << exception.what() << std::endl;
