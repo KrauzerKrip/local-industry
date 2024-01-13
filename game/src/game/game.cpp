@@ -50,7 +50,7 @@
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	std::vector actions = std::vector<std::string>({"kb_forward", "kb_left", "kb_back", "kb_right", "kb_up", "kb_fast",
-		"kb_down", "kb_use", "kb_menu", "kb_unselect", "kb_select", "kb_rotate_camera", "kb_machine_menu"});
+		"kb_down", "kb_use", "kb_menu", "kb_build", "kb_select", "kb_rotate_camera", "kb_machine_menu"});
 
 	m_pWindow = pWindow;
 	m_pCamera = new Camera();
@@ -189,7 +189,7 @@ void Game::init() {
 		if (properties.id == "cube") {
 			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
 			pRegistry->emplace<GameCharacter>(entity);
-			pRegistry->emplace<Npc>(entity, 1.0f);
+			pRegistry->emplace<Npc>(entity, 2.0f);
 			pRegistry->emplace<Selectable>(entity);
 		}
 		if (properties.id == "cube_2") {
@@ -198,6 +198,7 @@ void Game::init() {
 		}
 		if (properties.id == "surface") {
 			pRegistry->emplace<BoxCollider>(entity, 200.f, 2.0f, 200.0f);
+			pRegistry->emplace<Walkable>(entity);
 		}
 	}
 }

@@ -35,7 +35,7 @@ void MachineControlSystem::input() {
 
 void MachineControlSystem::update() {}
 
-void MachineControlSystem::onSelect(entt::entity entity, glm::vec3 position, float distance) { 
+void MachineControlSystem::onAction(std::string action, entt::entity entity, glm::vec3 position, float distance) { 
 
 }
 

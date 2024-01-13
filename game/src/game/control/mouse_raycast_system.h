@@ -8,16 +8,17 @@
 
 class MouseRaycastSystem {
 public: 
-	MouseRaycastSystem(MouseRaycast* pMouseRaycast);
+	MouseRaycastSystem(MouseRaycast* pMouseRaycast, ActionControl* pActionControl);
 
 	void input();
-	void addObserver(MouseRaycastObserver* pObserver);
+	void addObserver(std::string action, MouseRaycastObserver* pObserver);
 	void removeObserver(MouseRaycastObserver* pObserver);
 
 private:
-	void onSelect();
+	void onAction(std::string action, MouseRaycastObserver* pObserver);
 
 	MouseRaycast* m_pMouseRaycast = nullptr;
+	ActionControl* m_pActionControl = nullptr;
 
 	std::vector<MouseRaycastObserver*> m_observers;
 };

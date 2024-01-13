@@ -1,7 +1,6 @@
 #include "gl_loader_fabric.h"
 
 
-
 LoaderFabricGl::LoaderFabricGl(eng::IResource* pResource, IConsole* pConsole, IShaderManager* pShaderManager) {
 	m_pMeshLoader = new MeshLoaderGl();
 	m_pShaderLoader = new ShaderLoaderGl(pShaderManager, pConsole);

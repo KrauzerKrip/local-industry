@@ -16,7 +16,7 @@ public:
 
 	void input();
 	void update();
-	void onSelect(entt::entity entity, glm::vec3 position, float distance);
+	void onAction(std::string action, entt::entity entity, glm::vec3 position, float distance) override;
 	void onMouseMove(entt::entity entity, glm::vec3 position, float distance);
 
 private:

@@ -8,13 +8,13 @@ ControlSystem::ControlSystem(GraphicsSettings* pSettings, IInput* pInput, Camera
 	: m_mouseRaycast(pPhysics, pSettings, pInput, pCamera, pActionControl, pRegistry),
 	m_selectionSystem(pRegistry),
 	  m_characterControlSystem(pRegistry),
-	  m_machineControlSystem(&m_mouseRaycast, pActionControl, pRegistry), m_mouseRaycastSystem(&m_mouseRaycast) {
+	  m_machineControlSystem(&m_mouseRaycast, pActionControl, pRegistry), m_mouseRaycastSystem(&m_mouseRaycast, pActionControl) {
 
 	m_pCameraController = new OrbitalCameraController(pCamera, pInput, pActionControl);
 
-	m_mouseRaycastSystem.addObserver(&m_selectionSystem);
-	m_mouseRaycastSystem.addObserver(&m_characterControlSystem);
-	m_mouseRaycastSystem.addObserver(&m_machineControlSystem);
+	m_mouseRaycastSystem.addObserver("kb_select", & m_selectionSystem);
+	m_mouseRaycastSystem.addObserver("kb_select", &m_characterControlSystem);
+	m_mouseRaycastSystem.addObserver("kb_select", & m_machineControlSystem);
 }
 
 ControlSystem::~ControlSystem() {

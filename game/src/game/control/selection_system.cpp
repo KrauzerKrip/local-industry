@@ -7,13 +7,15 @@
 
 SelectionSystem::SelectionSystem(entt::registry* pRegistry) { m_pRegistry = pRegistry; }
 
-void SelectionSystem::onSelect(entt::entity entity, glm::vec3 position, float distance) {
-	if (m_pRegistry->all_of<Selectable>(entity)) {
-		if (m_pRegistry->all_of<Selected>(entity)) {
-			unselectEntity(entity);
-		}
-		else {
-			selectEntity(entity);
+void SelectionSystem::onAction(std::string action, entt::entity entity, glm::vec3 position, float distance) {
+	if (action == "kb_select") {
+		if (m_pRegistry->all_of<Selectable>(entity)) {
+			if (m_pRegistry->all_of<Selected>(entity)) {
+				unselectEntity(entity);
+			}
+			else {
+				selectEntity(entity);
+			}
 		}
 	}
 }

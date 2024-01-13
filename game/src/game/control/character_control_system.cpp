@@ -23,16 +23,18 @@ void CharacterControlSystem::input() {
 void CharacterControlSystem::update() { 
 }
 
-void CharacterControlSystem::onSelect(entt::entity entity, glm::vec3 position, float distance) {
-	if (m_pRegistry->all_of<Selectable>(entity)) {
-		return;
-	}
+void CharacterControlSystem::onAction(std::string action, entt::entity entity, glm::vec3 position, float distance) {
+	if (action == "kb_select") {
+		if (m_pRegistry->all_of<Selectable>(entity)) {
+			return;
+		}
 
-	if (m_pRegistry->all_of<Walkable>(entity)) {
-		auto selectedCharacters = m_pRegistry->view<GameCharacter, Selected>();
+		if (m_pRegistry->all_of<Walkable>(entity)) {
+			auto selectedCharacters = m_pRegistry->view<GameCharacter, Selected>();
 
-		for (auto&& [entity, character] : selectedCharacters.each()) {
-			m_pRegistry->emplace_or_replace<Waypoint>(entity, Waypoint(position));
+			for (auto&& [entity, character] : selectedCharacters.each()) {
+				m_pRegistry->emplace_or_replace<Waypoint>(entity, Waypoint(position));
+			}
 		}
 	}
 }
