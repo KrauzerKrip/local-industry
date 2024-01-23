@@ -9,8 +9,9 @@
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_scene/entt/components.h"
 #include "components.h"
-#include "game/character/components.h"
 #include "lc_client/eng_npc/components.h"
+
+import character;
 
 
 
@@ -20,8 +21,7 @@ void CharacterControlSystem::input() {
 
 }
 
-void CharacterControlSystem::update() { 
-}
+void CharacterControlSystem::update() {}
 
 void CharacterControlSystem::onAction(std::string action, entt::entity entity, glm::vec3 position, float distance) {
 	if (action == "kb_select") {

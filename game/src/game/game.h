@@ -27,9 +27,10 @@
 #include "game/control/action_control.h"
 #include "lc_client/eng_systems/graphics_systems.h"
 #include "game/control/control_system.h"
-#include "game/character/character_system.h"
 #include "lc_client/eng_npc/npc_system.h"
 #include "machine/machine_system.h"
+
+import character;
 
 
 class Game : public IGameLogic {

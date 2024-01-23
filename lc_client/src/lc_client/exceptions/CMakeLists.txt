@@ -12,5 +12,5 @@ target_sources(lc_client
         "conpar_exceptions.h"
         "command_exceptions.h"
         "graphics_exceptions.h"
-        "npc_exceptions"
+        "npc_exceptions.h"
 )

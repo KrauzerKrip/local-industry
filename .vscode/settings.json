@@ -2,7 +2,7 @@
     "cmake.configureArgs": [
         "\"CMAKE_TOOLCHAIN_FILE\": \"E:/Industry/industry/vcpkg/scripts/buildsystems/vcpkg.cmake\"",
         "\"VCPKG_TARGET_TRIPLET\": \"x64-windows\"",
-        "\"DVCPKG_TARGET_TRIPLET\": x86-windows",
+        "\"DVCPKG_TARGET_TRIPLET\": x64-windows",
         "-DVCPKG_APPLOCAL_DEPS=ON",
         "-DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON",
         "-DVCPKG_TARGET_TRIPLET="

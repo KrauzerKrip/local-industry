@@ -29,6 +29,12 @@ struct BlueprintInit {
 
 };
 
+struct CharacterAssignedTo {
+	entt::entity entity;
+
+	CharacterAssignedTo(entt::entity entity) : entity(entity){};
+};
+
 struct RelativeTransform {
 	Transform transform;
 

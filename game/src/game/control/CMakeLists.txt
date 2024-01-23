@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.28)
 
 project(control)
 
@@ -20,4 +20,6 @@ target_sources(game PRIVATE
  "control_system.cpp"
  "mouse_raycast.h"
  "mouse_raycast.cpp"
+ "character_control_system.h"
+ "character_control_system.cpp"
 )

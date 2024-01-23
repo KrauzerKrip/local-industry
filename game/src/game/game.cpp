@@ -37,7 +37,6 @@
 #include "game/loader_fabric/openGL/gl_loader_fabric.h"
 #include "game/camera/orbital_camera_controller.h"
 #include "game/control/action_init.h"
-#include "game/character/components.h"
 #include "game/control/control_system.h"
 
 #include "game/control/components.h"
@@ -186,12 +185,6 @@ void Game::init() {
 	auto view = pRegistry->view<Properties>();
 
 	for (auto&& [entity, properties] : view.each()) {
-		if (properties.id == "cube") {
-			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
-			pRegistry->emplace<GameCharacter>(entity);
-			pRegistry->emplace<Npc>(entity, 2.0f);
-			pRegistry->emplace<Selectable>(entity);
-		}
 		if (properties.id == "cube_2") {
 			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
 			pRegistry->emplace<Walkable>(entity);
@@ -253,6 +246,7 @@ void Game::update() {
 	m_pScriptSystem->update();
 	m_pNpcSystem->update();
 	m_pControlSystem->update();
+	m_pCharacterSystem->update();
 	m_pMachineSystem->update();
 	m_pMachineSystem->machineUpdate();
 

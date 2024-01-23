@@ -1,11 +1,13 @@
 #include "machine_control_system.h"
 
-#include "game/machine/components.h"
-#include "game/control/components.h"
-#include "lc_client/eng_scene/entt/components.h"
-#include "lc_client/eng_graphics/entt/components.h"
-
 #include <iostream>
+
+#include "game/control/components.h"
+#include "game/machine/components.h"
+#include "lc_client/eng_graphics/entt/components.h"
+#include "lc_client/eng_scene/entt/components.h"
+
+import character;
 
 
 MachineControlSystem::MachineControlSystem(
@@ -33,10 +35,28 @@ void MachineControlSystem::input() {
 	}
 }
 
-void MachineControlSystem::update() {}
+void MachineControlSystem::update() {
+
+}
 
 void MachineControlSystem::onAction(std::string action, entt::entity entity, glm::vec3 position, float distance) { 
-
+	if (action == "kb_build") {
+		if (m_pRegistry->all_of<Blueprint>(entity)) {
+			if (m_pRegistry->all_of<Task>(entity)) {
+				m_pRegistry->remove<Task>(entity);
+				if (m_pRegistry->all_of<CharacterAssignedTo>(entity)) {
+					m_pRegistry->remove<CharacterAssignedTo>(entity);
+				}
+			}
+			else {
+				auto selectedCharacter = m_pRegistry->view<GameCharacter, Selected>();
+				for (auto&& [characterEntity, character] : selectedCharacter.each()) {
+					m_pRegistry->emplace<CharacterAssignedTo>(entity, characterEntity);
+				}
+				m_pRegistry->emplace<Task>(entity);
+			}
+		}
+	}
 }
 
 void MachineControlSystem::onMouseMove(entt::entity entity, glm::vec3 position, float distance) {

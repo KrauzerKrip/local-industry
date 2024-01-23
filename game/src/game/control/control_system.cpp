@@ -15,6 +15,7 @@ ControlSystem::ControlSystem(GraphicsSettings* pSettings, IInput* pInput, Camera
 	m_mouseRaycastSystem.addObserver("kb_select", & m_selectionSystem);
 	m_mouseRaycastSystem.addObserver("kb_select", &m_characterControlSystem);
 	m_mouseRaycastSystem.addObserver("kb_select", & m_machineControlSystem);
+	m_mouseRaycastSystem.addObserver("kb_build", &m_machineControlSystem);
 }
 
 ControlSystem::~ControlSystem() {

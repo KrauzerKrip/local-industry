@@ -1,0 +1,764 @@
+[
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\loop.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\loop.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\loop.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\loop.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\loop.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\local_engine\\time.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\local_engine\\time.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\local_engine\\time.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\local_engine\\time.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\local_engine\\time.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\skybox_render.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\skybox_render.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\skybox_render.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\skybox_render.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\skybox_render.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\shader_system.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\shader_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\shader_system.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\shader_system.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\shader_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\material_system.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\material_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\material_system.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\material_system.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\material_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\graphics_settings.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\graphics_settings.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\graphics_settings.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\graphics_settings.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\graphics_settings.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_render.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_render.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_render.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_render.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_render.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_window.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_window.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_window.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_window.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_window.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_texture.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_texture.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_texture.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_texture.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_texture.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_mesh_loader.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_mesh_loader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_mesh_loader.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_mesh_loader.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_mesh_loader.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_shader_loader.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_shader_loader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_shader_loader.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_shader_loader.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_shader_loader.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_framebuffer.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_framebuffer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_framebuffer.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_framebuffer.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_framebuffer.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_skybox_render.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_skybox_render.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_skybox_render.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_skybox_render.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_skybox_render.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_render_map.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_render_map.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_render_map.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_render_map.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_render_map.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_lighting.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_lighting.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_lighting.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_lighting.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_lighting.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_primitive_render.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_primitive_render.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_primitive_render.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_primitive_render.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_primitive_render.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_transparent_render.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_transparent_render.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_transparent_render.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_transparent_render.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_transparent_render.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_mesh_render.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_mesh_render.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_mesh_render.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_mesh_render.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\renders\\gl_mesh_render.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_text_render.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_text_render.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_text_render.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_text_render.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_text_render.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_background_render.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_background_render.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_background_render.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_background_render.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_background_render.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_widget_zoffset_calculator.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_widget_zoffset_calculator.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_widget_zoffset_calculator.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_widget_zoffset_calculator.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_widget_zoffset_calculator.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_text_zoffset_calculator.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_text_zoffset_calculator.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_text_zoffset_calculator.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_text_zoffset_calculator.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\gui\\openGL\\gl_text_zoffset_calculator.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\camera\\camera.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\camera\\camera.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\camera\\camera.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\camera\\camera.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\camera\\camera.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_shader_uniform.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_shader_uniform.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_shader_uniform.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_shader_uniform.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_graphics\\openGL\\gl_shader_uniform.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_input\\glfw_input.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_input\\glfw_input.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_input\\glfw_input.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_input\\glfw_input.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_input\\glfw_input.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_input\\key_code_strings.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_input\\key_code_strings.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_input\\key_code_strings.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_input\\key_code_strings.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_input\\key_code_strings.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_procedures\\graphics_entities_loading.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_procedures\\graphics_entities_loading.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_procedures\\graphics_entities_loading.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_procedures\\graphics_entities_loading.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_procedures\\graphics_entities_loading.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_model\\model_loading.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_model\\model_loading.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_model\\model_loading.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_model\\model_loading.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_model\\model_loading.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_model\\model_manager.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_model\\model_manager.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_model\\model_manager.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_model\\model_manager.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_model\\model_manager.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_model\\model_system.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_model\\model_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_model\\model_system.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_model\\model_system.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_model\\model_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_scene\\scene_loading.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_scene\\scene_loading.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_scene\\scene_loading.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_scene\\scene_loading.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_scene\\scene_loading.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_scene\\component_creator.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_scene\\component_creator.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_scene\\component_creator.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_scene\\component_creator.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_scene\\component_creator.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_scene\\skybox.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_scene\\skybox.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_scene\\skybox.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_scene\\skybox.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_scene\\skybox.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\lua\\lua_script.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\lua\\lua_script.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\lua\\lua_script.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\lua\\lua_script.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\lua\\lua_script.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\api_scene.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\api_scene.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\api_scene.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\api_scene.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\api_scene.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\api.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\api.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\api.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\api.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\api.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\api_component_binding.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\api_component_binding.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\api_component_binding.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\api_component_binding.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\api_component_binding.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\glm_binding.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\glm_binding.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\glm_binding.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\glm_binding.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\glm_binding.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\api_binding.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\api_binding.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\api_binding.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\api_binding.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\api_binding.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\registry_helper_binding.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\registry_helper_binding.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\registry_helper_binding.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\registry_helper_binding.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\bindings\\registry_helper_binding.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\helpers\\glm_helpers.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\helpers\\glm_helpers.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\helpers\\glm_helpers.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\helpers\\glm_helpers.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\helpers\\glm_helpers.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\helpers\\registry_helper.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\helpers\\registry_helper.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\helpers\\registry_helper.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\api\\helpers\\registry_helper.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\api\\helpers\\registry_helper.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\script_system.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\script_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\script_system.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_script\\script_system.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_script\\script_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layout_controller.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layout_controller.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\layout\\layout_controller.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\layout\\layout_controller.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layout_controller.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\frame.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\frame.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\frame.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\frame.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\frame.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\vbox.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\vbox.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\vbox.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\vbox.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\vbox.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\layout.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\layout.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\layout.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\layout.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\layout.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\grid.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\grid.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\grid.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\grid.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\layout\\layouts\\grid.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\widget.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\widget.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\widgets\\widget.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\widgets\\widget.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\widget.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\text_widget.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\text_widget.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\widgets\\text_widget.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\widgets\\text_widget.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\text_widget.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\button.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\button.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\widgets\\button.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\widgets\\button.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\button.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\rectangle.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\rectangle.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\widgets\\rectangle.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\widgets\\rectangle.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\rectangle.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\layer.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\layer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\widgets\\layer.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\widgets\\layer.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\widgets\\layer.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\gui_console.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\gui_console.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\gui_console.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\gui_console.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\gui_console.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\gui.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\gui.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\gui.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\gui.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\gui.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\view\\gui_presenter.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\view\\gui_presenter.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\view\\gui_presenter.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\view\\gui_presenter.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\view\\gui_presenter.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\input\\input_controller.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\input\\input_controller.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\input\\input_controller.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\input\\input_controller.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\input\\input_controller.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\paint_objects\\background.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\paint_objects\\background.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\paint_objects\\background.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\paint_objects\\background.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\paint_objects\\background.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\paint_objects\\image_background.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\paint_objects\\image_background.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\paint_objects\\image_background.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_gui\\paint_objects\\image_background.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_gui\\paint_objects\\image_background.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_cubemaps\\cubemap_texture_loader.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_cubemaps\\cubemap_texture_loader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_cubemaps\\cubemap_texture_loader.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_cubemaps\\cubemap_texture_loader.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_cubemaps\\cubemap_texture_loader.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_cubemaps\\cubemap_system.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_cubemaps\\cubemap_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_cubemaps\\cubemap_system.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_cubemaps\\cubemap_system.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_cubemaps\\cubemap_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_cubemaps\\openGL\\gl_cubemap_loader.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_cubemaps\\openGL\\gl_cubemap_loader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_cubemaps\\openGL\\gl_cubemap_loader.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_cubemaps\\openGL\\gl_cubemap_loader.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_cubemaps\\openGL\\gl_cubemap_loader.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_debug\\gui\\debug_widget.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_debug\\gui\\debug_widget.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_debug\\gui\\debug_widget.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_debug\\gui\\debug_widget.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_debug\\gui\\debug_widget.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\physics_system.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\physics_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_physics\\physics_system.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_physics\\physics_system.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\physics_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\physics_visualizer.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\physics_visualizer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_physics\\physics_visualizer.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_physics\\physics_visualizer.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\physics_visualizer.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\raycast\\plane.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\raycast\\plane.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_physics\\raycast\\plane.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_physics\\raycast\\plane.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\raycast\\plane.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\raycast\\ray.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\raycast\\ray.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_physics\\raycast\\ray.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_physics\\raycast\\ray.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\raycast\\ray.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\physics.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\physics.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_physics\\physics.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_physics\\physics.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_physics\\physics.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_systems\\graphics_systems.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_systems\\graphics_systems.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_systems\\graphics_systems.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_systems\\graphics_systems.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_systems\\graphics_systems.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_world\\world.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_world\\world.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_world\\world.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_world\\world.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_world\\world.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_system.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_npc\\npc_system.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_npc\\npc_system.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_graph.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_graph.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_npc\\npc_graph.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_npc\\npc_graph.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_graph.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_graph_loader\\npc_graph_loader.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_graph_loader\\npc_graph_loader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_npc\\npc_graph_loader\\npc_graph_loader.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_npc\\npc_graph_loader\\npc_graph_loader.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_graph_loader\\npc_graph_loader.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_graph_visualizer.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_graph_visualizer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_npc\\npc_graph_visualizer.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\eng_npc\\npc_graph_visualizer.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\eng_npc\\npc_graph_visualizer.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\conpar\\conpar.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\conpar\\conpar.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\conpar\\conpar.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\conpar\\conpar.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\conpar\\conpar.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\conpar\\parameters.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\conpar\\parameters.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\conpar\\parameters.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\conpar\\parameters.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\conpar\\parameters.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\conpar\\conpars_init.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\conpar\\conpars_init.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\conpar\\conpars_init.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\conpar\\conpars_init.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\conpar\\conpars_init.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\tier0.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\tier0.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\tier0.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\tier0.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\tier0.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\console\\console.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\console\\console.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\console\\console.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\console\\console.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\console\\console.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\console\\command_parser.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\console\\command_parser.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\console\\command_parser.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\console\\command_parser.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\console\\command_parser.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\console\\command.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\console\\command.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\console\\command.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier0\\console\\command.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier0\\console\\command.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\texture_manager.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\texture_manager.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\texture_manager.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\texture_manager.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\texture_manager.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_shaders.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_shaders.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_shaders.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_shaders.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_shaders.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_texture_manager.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_texture_manager.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_texture_manager.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_texture_manager.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_texture_manager.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_tier1.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_tier1.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_tier1.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_tier1.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\openGL\\gl_tier1.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\game_info.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\game_info.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\game_info.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\game_info.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\game_info.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\tier1.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\tier1.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\tier1.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\tier1.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\tier1.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\config.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\config.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\config.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\tier1\\config.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\tier1\\config.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\eng_resource.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\eng_resource.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\eng_resource.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\eng_resource.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\eng_resource.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\directories.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\directories.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\directories.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\directories.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\directories.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\file_util.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\file_util.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\file_util.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\file_util.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\file_util.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\image.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\image.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\image.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\image.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\image.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\pack.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\pack.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\pack.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\pack.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\pack.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DLUA_BUILD_AS_DLL -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -IE:\\Industry\\industry\\libs\\stb\\include -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\timer.cpp.obj.modmap /FoCMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\timer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\timer.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\src\\lc_client\\util\\timer.cpp",
+  "output": "CMakeFiles\\lc_client.dir\\lc_client\\src\\lc_client\\util\\timer.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DGTEST_LINKED_AS_SHARED_LIBRARY=1 -IE:\\Industry\\industry\\lc_client\\test\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @lc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\gui\\layout_controller_test.cpp.obj.modmap /Folc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\gui\\layout_controller_test.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\test\\lc_client\\gui\\layout_controller_test.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\test\\lc_client\\gui\\layout_controller_test.cpp",
+  "output": "lc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\gui\\layout_controller_test.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DGTEST_LINKED_AS_SHARED_LIBRARY=1 -IE:\\Industry\\industry\\lc_client\\test\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @lc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\gui\\vbox_test.cpp.obj.modmap /Folc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\gui\\vbox_test.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\test\\lc_client\\gui\\vbox_test.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\test\\lc_client\\gui\\vbox_test.cpp",
+  "output": "lc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\gui\\vbox_test.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DGTEST_LINKED_AS_SHARED_LIBRARY=1 -IE:\\Industry\\industry\\lc_client\\test\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @lc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\physics\\ray_test.cpp.obj.modmap /Folc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\physics\\ray_test.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\test\\lc_client\\physics\\ray_test.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\test\\lc_client\\physics\\ray_test.cpp",
+  "output": "lc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\physics\\ray_test.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -DGTEST_LINKED_AS_SHARED_LIBRARY=1 -IE:\\Industry\\industry\\lc_client\\test\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @lc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\npc\\npc_graph_test.cpp.obj.modmap /Folc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\npc\\npc_graph_test.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\lc_client\\test\\lc_client\\npc\\npc_graph_test.cpp",
+  "file": "E:\\Industry\\industry\\lc_client\\test\\lc_client\\npc\\npc_graph_test.cpp",
+  "output": "lc_client\\test\\CMakeFiles\\test_project.dir\\lc_client\\npc\\npc_graph_test.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\main.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\main.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\main.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\main.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\main.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\game.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\game.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\game.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\game.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\game.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\gui\\dependencies_fabric\\openGL\\gl_gui_dependencies_fabric.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\gui\\dependencies_fabric\\openGL\\gl_gui_dependencies_fabric.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\gui\\dependencies_fabric\\openGL\\gl_gui_dependencies_fabric.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\gui\\dependencies_fabric\\openGL\\gl_gui_dependencies_fabric.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\gui\\dependencies_fabric\\openGL\\gl_gui_dependencies_fabric.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\gui\\machine_menu\\machine_build_menu.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\gui\\machine_menu\\machine_build_menu.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\gui\\machine_menu\\machine_build_menu.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\gui\\machine_menu\\machine_build_menu.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\gui\\machine_menu\\machine_build_menu.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\gui\\machine_menu\\machine_slot.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\gui\\machine_menu\\machine_slot.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\gui\\machine_menu\\machine_slot.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\gui\\machine_menu\\machine_slot.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\gui\\machine_menu\\machine_slot.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\gui\\main_layout.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\gui\\main_layout.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\gui\\main_layout.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\gui\\main_layout.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\gui\\main_layout.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\gui\\gui.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\gui\\gui.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\gui\\gui.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\gui\\gui.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\gui\\gui.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\gui\\overlay\\overlay.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\gui\\overlay\\overlay.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\gui\\overlay\\overlay.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\gui\\overlay\\overlay.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\gui\\overlay\\overlay.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\loader_fabric\\openGL\\gl_loader_fabric.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\loader_fabric\\openGL\\gl_loader_fabric.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\loader_fabric\\openGL\\gl_loader_fabric.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\loader_fabric\\openGL\\gl_loader_fabric.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\loader_fabric\\openGL\\gl_loader_fabric.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\camera\\orbital_camera_controller.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\camera\\orbital_camera_controller.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\camera\\orbital_camera_controller.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\camera\\orbital_camera_controller.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\camera\\orbital_camera_controller.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\control\\action_bind.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\control\\action_bind.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\control\\action_bind.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\control\\action_bind.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\control\\action_bind.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\control\\action_init.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\control\\action_init.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\control\\action_init.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\control\\action_init.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\control\\action_init.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\control\\action_control.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\control\\action_control.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\control\\action_control.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\control\\action_control.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\control\\action_control.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\control\\mouse_raycast_system.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\control\\mouse_raycast_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\control\\mouse_raycast_system.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\control\\mouse_raycast_system.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\control\\mouse_raycast_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\control\\selection_system.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\control\\selection_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\control\\selection_system.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\control\\selection_system.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\control\\selection_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\control\\control_system.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\control\\control_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\control\\control_system.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\control\\control_system.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\control\\control_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\control\\mouse_raycast.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\control\\mouse_raycast.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\control\\mouse_raycast.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\control\\mouse_raycast.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\control\\mouse_raycast.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\control\\character_control_system.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\control\\character_control_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\control\\character_control_system.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\control\\character_control_system.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\control\\character_control_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\machine\\blueprint\\machine_blueprint_creator.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\machine\\blueprint\\machine_blueprint_creator.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\machine\\blueprint\\machine_blueprint_creator.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\machine\\blueprint\\machine_blueprint_creator.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\machine\\blueprint\\machine_blueprint_creator.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\machine\\machines\\heater\\heater_system.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\machine\\machines\\heater\\heater_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\machine\\machines\\heater\\heater_system.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\machine\\machines\\heater\\heater_system.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\machine\\machines\\heater\\heater_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\machine\\machine_system.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\machine\\machine_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\machine\\machine_system.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\machine\\machine_system.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\machine\\machine_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\control\\machine_control_system.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\control\\machine_control_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\control\\machine_control_system.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\control\\machine_control_system.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\control\\machine_control_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\machine\\machine_loader.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\machine\\machine_loader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\machine\\machine_loader.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\machine\\machine_loader.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\machine\\machine_loader.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\machine\\machine_loading_system.cpp.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\machine\\machine_loading_system.cpp.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\machine\\machine_loading_system.cpp",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\machine\\machine_loading_system.cpp",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\machine\\machine_loading_system.cpp.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\character\\character.ixx.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\character\\character.ixx.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\character\\character.ixx",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\character\\character.ixx",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\character\\character.ixx.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\character\\character_system.ixx.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\character\\character_system.ixx.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\character\\character_system.ixx",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\character\\character_system.ixx",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\character\\character_system.ixx.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\character\\components.ixx.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\character\\components.ixx.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\character\\components.ixx",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\character\\components.ixx",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\character\\components.ixx.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\character\\character_task_system.ixx.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\character\\character_task_system.ixx.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\character\\character_task_system.ixx",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\character\\character_task_system.ixx",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\character\\character_task_system.ixx.obj"
+},
+{
+  "directory": "E:/Industry/industry/out/build/x64-debug",
+  "command": "\"D:\\Visual Studio\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx86\\x64\\cl.exe\"  /nologo /TP -DGLFW_DLL -IE:\\Industry\\industry\\game\\src -IE:\\Industry\\industry\\lc_client -IE:\\Industry\\industry\\lc_client\\include -IE:\\Industry\\industry\\lc_client\\src -external:IE:\\Industry\\industry\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi @game\\CMakeFiles\\game.dir\\src\\game\\character\\task_queue.ixx.obj.modmap /Fogame\\CMakeFiles\\game.dir\\src\\game\\character\\task_queue.ixx.obj /FdTARGET_COMPILE_PDB /FS -c E:\\Industry\\industry\\game\\src\\game\\character\\task_queue.ixx",
+  "file": "E:\\Industry\\industry\\game\\src\\game\\character\\task_queue.ixx",
+  "output": "game\\CMakeFiles\\game.dir\\src\\game\\character\\task_queue.ixx.obj"
+}
+]
