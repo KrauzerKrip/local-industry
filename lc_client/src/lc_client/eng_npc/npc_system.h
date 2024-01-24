@@ -16,6 +16,8 @@ public:
 	void update();
 
 private:
+	void createPath(entt::registry& registry, entt::entity entity);
+
 	Parameters* m_pParameters = nullptr;
 	World* m_pWorld = nullptr;
 	entt::registry* m_pRegistry = nullptr;

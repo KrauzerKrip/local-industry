@@ -4,6 +4,7 @@
 
 #include "components.h"
 #include "lc_client/eng_scene/entt/components.h"
+#include <iostream>
 
 
 NpcSystem::NpcSystem(Parameters* pParameters, World* pWorld) { 
@@ -11,6 +12,8 @@ NpcSystem::NpcSystem(Parameters* pParameters, World* pWorld) {
 	m_pWorld = pWorld;
 	m_pRegistry = &pWorld->getRegistry();
 	m_pNpcGraph = pWorld->getNpcGraph();
+
+	m_pRegistry->on_update<Waypoint>().connect<&NpcSystem::createPath>(this);
 }
 
 void NpcSystem::update() {
@@ -19,18 +22,8 @@ void NpcSystem::update() {
 		m_npcGraphVisualizer = std::make_unique<NpcGraphVisualizer>(m_pNpcGraph, m_pParameters, m_pRegistry);
 	}
 
-	auto waypointNpcEntities = m_pRegistry->view<Npc, Waypoint, Transform>();
-	for (auto&& [entity, npc, waypoint, transform] : waypointNpcEntities.each()) {
-		unsigned int source = m_pNpcGraph->getClosestVertice(transform.position);
-		unsigned int destination = m_pNpcGraph->getClosestVertice(waypoint.position);
-
-		npc::GraphPath path = m_pNpcGraph->getShortestPath(source, destination);
-		m_pRegistry->emplace_or_replace<NpcPath>(entity, path, waypoint.position);
-		m_pRegistry->remove<Waypoint>(entity);
-	}
-
-	auto pathNpcEntities = m_pRegistry->view<Npc, NpcPath, Transform>();
-	for (auto&& [entity, npc, path, transform] : pathNpcEntities.each()) {
+	auto pathNpcEntities = m_pRegistry->view<Npc, NpcPath, Transform, Waypoint>();
+	for (auto&& [entity, npc, path, transform, waypoint] : pathNpcEntities.each()) {
 		float speed = npc.speed * (1.0f / 60.0f);
 
 		npc::GraphPath graphPath = path.graphPath;
@@ -54,6 +47,17 @@ void NpcSystem::update() {
 				path.pointer++;
 			}
 		}
+	}
+}
+
+void NpcSystem::createPath(entt::registry& registry, entt::entity entity) {
+	if (registry.all_of<Transform>(entity)) {
+		Transform& transform = registry.get<Transform>(entity);
+		Waypoint& waypoint = registry.get<Waypoint>(entity);
+		unsigned int source = m_pNpcGraph->getClosestVertice(transform.position);
+		unsigned int destination = m_pNpcGraph->getClosestVertice(waypoint.position);
+		npc::GraphPath path = m_pNpcGraph->getShortestPath(source, destination);
+		registry.emplace_or_replace<NpcPath>(entity, path, waypoint.position);
 	}
 }
 

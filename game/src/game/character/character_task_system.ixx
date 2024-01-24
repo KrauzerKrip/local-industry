@@ -17,8 +17,13 @@ public:
 	CharacterTaskSystem(entt::registry* pRegistry) { m_pRegistry = pRegistry; }
 
 	void update() { 
+		queueTasks();
+		processTasks();
+	}
+
+	void queueTasks() {
 		auto assignedTasks = m_pRegistry->view<Blueprint, Transform, Task, CharacterAssignedTo>();
-		
+
 		for (auto&& [entity, transform, task, characterAssignedTo] : assignedTasks.each()) {
 			TaskQueue& taskQueue = m_pRegistry->get<TaskQueue>(characterAssignedTo.entity);
 			if (task.progress == TaskProgress::PLANNED) {
@@ -26,8 +31,6 @@ public:
 				task.progress = TaskProgress::QUEUED;
 			}
 		}
-
-		processTasks();
 	}
 
 	void processTasks() {
@@ -59,8 +62,6 @@ public:
 			}
 		}
 	}
-
-
 
 
 private:
