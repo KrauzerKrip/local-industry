@@ -2,6 +2,9 @@
 
 #include "components.h"
 #include "game/control/action_control.h"
+#include "lc_client/eng_graphics/entt/components.h"
+
+import character;
 
 
 
@@ -10,6 +13,14 @@ MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistr
 
 void MachineSystem::update() { 
 	m_machineLoadingSystem.update();
+
+	auto tasks = m_pRegistry->view<Blueprint, Task>();
+	
+	for (auto&& [entity, task] : tasks.each()) {
+		if (task.progress == TaskProgress::COMPLETED) {
+			completeTask(entity);
+		}
+	}
 }
 
 void MachineSystem::machineUpdate() { 
@@ -20,4 +31,10 @@ void MachineSystem::machineUpdate() {
 		heatIn.heat += heatOut.heat;
 		heatOut.heat = 0;
 	}
+}
+
+void MachineSystem::completeTask(entt::entity entity) {
+	m_pRegistry->remove<Blueprint>(entity);
+	m_pRegistry->emplace<ShaderRequest>(entity, ShaderRequest("dev", "base", "lighting"));
+	m_pRegistry->remove<Transparent>(entity);
 }

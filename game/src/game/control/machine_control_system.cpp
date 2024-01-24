@@ -20,7 +20,7 @@ MachineControlSystem::MachineControlSystem(
 }
 
 void MachineControlSystem::input() {
-	auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform, RelativeTransform>();
+	auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform, RelativeTransform>(entt::exclude<Task>);
 
 	if (selectedBlueprints.begin() != selectedBlueprints.end()) {
 		RaycastResult result = m_pMouseRaycast->doMouseRaycast(entt::exclude<Blueprint>);

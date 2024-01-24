@@ -16,8 +16,17 @@ export struct GameCharacter {
 
 export struct Walkable {};
 
-export struct Task {
-	bool addedToQueue;
+export enum class TaskProgress {
+	PLANNED,
+    QUEUED,
+	WAYPOINT,
+	COMPLETED
+};
 
-	Task() : addedToQueue(false){};
+export struct Task {
+	TaskProgress progress;
+
+
+	Task() : progress(TaskProgress::PLANNED){
+	};
 };

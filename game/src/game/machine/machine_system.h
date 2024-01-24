@@ -15,6 +15,8 @@ public:
 	void machineUpdate();
 
 private:
+	void completeTask(entt::entity entity);
+
 	MachineLoadingSystem m_machineLoadingSystem;
 
 	entt::registry* m_pRegistry = nullptr;
