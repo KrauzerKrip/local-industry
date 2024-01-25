@@ -7,6 +7,7 @@ module;
 #include "game/machine/components.h"
 #include "lc_client/eng_npc/components.h"
 #include <lc_client/eng_model/entt/components.h>
+#include <lc_client/eng_physics/entt/components.h>
 
 export module character:character_task_system;
 import :components;
@@ -34,9 +35,9 @@ public:
 	}
 
 	void processTasks() {
-	    auto taskQueues = m_pRegistry->view<GameCharacter, TaskQueue, Transform>();
+	    auto taskQueues = m_pRegistry->view<GameCharacter, TaskQueue, Transform, BoxCollider>();
 
-		for (auto&& [entity, character, taskQueue, transform] : taskQueues.each()) {
+		for (auto&& [entity, character, taskQueue, transform, boxCollider] : taskQueues.each()) {
 			auto task = taskQueue.getFront();
 			if (task) {
 				if (!m_pRegistry->valid(*task)) {
@@ -55,12 +56,18 @@ public:
 					m_pRegistry->get<Task>(*task).progress = TaskProgress::WAYPOINT;
 				}
 
-				if (glm::distance(transform.position, taskTransform.position) < 2) {
+				if (glm::distance(transform.position, taskTransform.position) < getTaskAreaRadius(boxCollider)) {
 					m_pRegistry->remove<Waypoint>(entity);
 					m_pRegistry->get<Task>(*task).progress = TaskProgress::COMPLETED;
+					taskQueue.pop();
 				};
 			}
 		}
+	}
+
+	float getTaskAreaRadius(const BoxCollider& boxCollider) const {
+		glm::vec3 farPoint = glm::vec3(boxCollider.length, 0, boxCollider.width);
+		return glm::distance(glm::vec3(0), farPoint);
 	}
 
 
