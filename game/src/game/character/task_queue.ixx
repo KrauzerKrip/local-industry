@@ -62,21 +62,27 @@ public:
 private:
 	void shiftRight(unsigned int startPosition) { 
 		auto iter = m_tasks.begin();
+
 		std::advance(iter, startPosition);
-		for (iter; iter != m_tasks.end(); iter++) {
+		for (int i = 1; iter != m_tasks.end(); i++) {
 			auto nodeHandler = m_tasks.extract(iter);
-			nodeHandler.key() = iter->first + 1;
-			m_tasks.insert(std::move(nodeHandler)); 
+			nodeHandler.key() = nodeHandler.key() + 1;
+			m_tasks.insert(std::move(nodeHandler));
+			iter = m_tasks.begin();
+			std::advance(iter, startPosition + i);
 		}
 	}
 
 	void shiftLeft(unsigned int startPosition) {
 		auto iter = m_tasks.begin();
 		std::advance(iter, startPosition);
-		for (iter; iter != m_tasks.end(); iter++) {
+
+		for (int i = 1; iter != m_tasks.end(); i++) {
 			auto nodeHandler = m_tasks.extract(iter);
-			nodeHandler.key() = iter->first - 1;
+			nodeHandler.key() = nodeHandler.key() - 1;
 			m_tasks.insert(std::move(nodeHandler));
+			iter = m_tasks.begin();
+			std::advance(iter, startPosition + i);
 		}
 	}
  
