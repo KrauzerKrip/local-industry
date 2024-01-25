@@ -14,6 +14,7 @@ NpcSystem::NpcSystem(Parameters* pParameters, World* pWorld) {
 	m_pNpcGraph = pWorld->getNpcGraph();
 
 	m_pRegistry->on_update<Waypoint>().connect<&NpcSystem::createPath>(this);
+	m_pRegistry->on_construct<Waypoint>().connect<&NpcSystem::createPath>(this);
 }
 
 void NpcSystem::update() {
