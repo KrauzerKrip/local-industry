@@ -7,7 +7,7 @@
 
 class DebugWidget : public Widget {
 public:
-	DebugWidget(Tier0* pTier0, IInput* pInput, WidgetDependecies dependencies, TextWidgetDependecies textDependencies);
+	DebugWidget(Tier0* pTier0, IInput* pInput, GuiDependencies dependencies);
 	
 	void render();
 

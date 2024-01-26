@@ -1,17 +1,20 @@
 #include "machine_slot.h"
 
-MachineSlot::MachineSlot(MachineType type, std::string typeString, GuiDependencies pGuiDependencies,
+#include "lc_client/eng_gui/paint_objects/color_background.h"
+
+MachineSlot::MachineSlot(MachineType type, std::string typeString, GuiDependencies guiDependencies,
 	MachineBlueprintCreator* pMachineBlueprintCreator)
-	: Button(pGuiDependencies.textWidgetDependencies), m_type(type), m_typeString(typeString) {
+	: Button(guiDependencies), m_type(type), m_typeString(typeString) {
 	m_pMachineBlueprintCreator = pMachineBlueprintCreator;
 
-	pGuiDependencies.pInputController->addReceiver(this);
+	guiDependencies.pInputController->addReceiver(this);
 
 	this->setSize(glm::vec2(100, 100));
 	this->setText(typeString);
 	this->setColor(glm::vec4(1, 1, 1, 1));
 	this->setTextSize(24);
-	this->setBackground(Background(glm::vec4(0, 0, 0, 0.7)));
+	ColorBackground* colorBackground = new ColorBackground(glm::vec4(0, 0, 0, 0.7), guiDependencies);
+	this->setBackground(colorBackground);
 }
 
 void MachineSlot::click() { 

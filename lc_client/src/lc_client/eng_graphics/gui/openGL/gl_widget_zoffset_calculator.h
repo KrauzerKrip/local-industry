@@ -5,5 +5,5 @@
 
 class WidgetZOffsetCalculatorGl : public ZOffsetCalculator {
 public:
-	float calculateZOffset(unsigned int layerNumber);
+	float calculateZOffset(unsigned int layerNumber) const override;
 };

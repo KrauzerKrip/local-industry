@@ -3,5 +3,5 @@
 
 class ZOffsetCalculator {
 public:
-	virtual float calculateZOffset(unsigned int layerNumber) = 0;
+	virtual float calculateZOffset(unsigned int layerNumber) const = 0;
 };

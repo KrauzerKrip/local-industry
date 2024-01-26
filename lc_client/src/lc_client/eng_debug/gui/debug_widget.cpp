@@ -3,11 +3,12 @@
 #include <memory>
 #include "lc_client/eng_gui/layout/layouts/vbox.h"
 #include "lc_client/eng_gui/layout/layouts/frame.h"
+#include "lc_client/eng_gui/paint_objects/color_background.h"
 #include "lc_client/eng_gui/widgets/text_widget.h"
 #include "ldk_client/local_engine/time.h"
 
 
-std::shared_ptr<Widget> createRow(std::string labelText, std::string dataText, WidgetDependecies dependencies, TextWidgetDependecies textDependencies, TextWidget** pDataWidget) {
+std::shared_ptr<Widget> createRow(std::string labelText, std::string dataText, GuiDependencies dependencies, TextWidget** pDataWidget) {
 	std::shared_ptr<Widget> row = std::make_shared<Widget>(dependencies);
 	row->setSize(glm::vec2(200, 24));
 	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
@@ -15,7 +16,7 @@ std::shared_ptr<Widget> createRow(std::string labelText, std::string dataText, W
 	row->setName("row");
 	row->show();
 
-	std::shared_ptr<TextWidget> label = std::make_shared<TextWidget>(textDependencies);
+	std::shared_ptr<TextWidget> label = std::make_shared<TextWidget>(dependencies);
 	label->setTextSize(16);
 	label->setPosition(glm::vec2(10, 0));
 	label->setText(labelText);
@@ -24,7 +25,7 @@ std::shared_ptr<Widget> createRow(std::string labelText, std::string dataText, W
 	frame->addChild(label);
 	label->show();
 
-	std::shared_ptr<TextWidget> data = std::make_shared<TextWidget>(textDependencies);
+	std::shared_ptr<TextWidget> data = std::make_shared<TextWidget>(dependencies);
 	data->setTextSize(16);
 	data->setPosition(glm::vec2(120, 0));
 	data->setText(dataText);
@@ -39,15 +40,15 @@ std::shared_ptr<Widget> createRow(std::string labelText, std::string dataText, W
 }
 
 
-DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, WidgetDependecies dependencies, TextWidgetDependecies textDependencies) : Widget(dependencies) {
+DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, GuiDependencies dependencies) : Widget(dependencies) {
 	m_pInput = pInput;
 	
-	this->setBackground(glm::vec4(0, 0, 0, 0.5));
+	this->setBackground(new ColorBackground(glm::vec4(0, 0, 0, 0.5), dependencies));
 	this->setPosition(glm::vec2(1750, 870));
 	this->setSize(glm::vec2(160, 200));
 	this->setName("debugWidget");
 
-	std::shared_ptr<TextWidget> label = std::make_shared<TextWidget>(textDependencies);
+	std::shared_ptr<TextWidget> label = std::make_shared<TextWidget>(dependencies);
 	label->setTextSize(16);
 	label->setPosition(glm::vec2(10, -10));
 	label->setSize(glm::vec2(200, 36));
@@ -59,8 +60,8 @@ DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, WidgetDependecies depend
 	std::shared_ptr<VBox> vbox = std::make_shared<VBox>();
 	this->setLayout(vbox);
 
-	std::shared_ptr<Widget> rowFps = createRow("FPS", "", dependencies, textDependencies, &m_pFpsDataWidget);
-	std::shared_ptr<Widget> rowMousePos = createRow("MP", "", dependencies, textDependencies, &m_pMousePositionWidget);
+	std::shared_ptr<Widget> rowFps = createRow("FPS", "", dependencies, &m_pFpsDataWidget);
+	std::shared_ptr<Widget> rowMousePos = createRow("MP", "", dependencies, &m_pMousePositionWidget);
 
 	vbox->addChild(label);
 	vbox->addChild(rowFps);

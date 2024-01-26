@@ -9,8 +9,7 @@
 Gui::Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInput,
 	ActionControl* pActionControl, entt::registry* pRegistry)
 	: m_inputController(pInput) { 
-	GuiDependencies guiDependencies(pDependenciesFabric->getWidgetDependencies(),
-		pDependenciesFabric->getTextWidgetDependecies(), &m_inputController);
+	GuiDependencies guiDependencies = pDependenciesFabric->getDependencies();
 
 	std::vector<QueueRender*> queueRenders;
 

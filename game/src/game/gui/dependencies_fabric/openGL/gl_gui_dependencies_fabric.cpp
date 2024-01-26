@@ -6,21 +6,20 @@
 #include "lc_client/eng_graphics/gui/openGL/gl_widget_zoffset_calculator.h"
 
 
-GuiDependenciesFabricGl::GuiDependenciesFabricGl(IConsole* pConsole, ShaderLoaderGl* pShaderWorkGl) { 
+GuiDependenciesFabricGl::GuiDependenciesFabricGl(IConsole* pConsole, ShaderLoaderGl* pShaderWorkGl, IInput* pInput) { 
 	BackgroundRenderGl* pBackgroundRender = new BackgroundRenderGl(pConsole, pShaderWorkGl);
 	TextRenderGl* pTextRender = new TextRenderGl(pConsole, pShaderWorkGl);
 	WidgetZOffsetCalculatorGl* pWidgetZOffsetCalculator = new WidgetZOffsetCalculatorGl();
 	TextZOffsetCalculatorGl* pTextZOffsetCalculator = new TextZOffsetCalculatorGl();
+	InputController* pInputController = new InputController(pInput);
 
-	m_widgetDependecies.pBackgroundRender = pBackgroundRender;
-	m_widgetDependecies.pZOffsetCalculator = pWidgetZOffsetCalculator;
-
-	m_textWidgetDependencies.pBackgroundRender = pBackgroundRender;
-	m_textWidgetDependencies.pTextRender = pTextRender;
-	m_textWidgetDependencies.pWidgetZOffsetCalculator = pWidgetZOffsetCalculator;
-	m_textWidgetDependencies.pTextZOffsetCalculator = pTextZOffsetCalculator;
+	m_dependecies.pBackgroundRender = pBackgroundRender;
+	m_dependecies.pWidgetZOffsetCalculator = pWidgetZOffsetCalculator;
+	m_dependecies.pBackgroundRender = pBackgroundRender;
+	m_dependecies.pTextRender = pTextRender;
+	m_dependecies.pWidgetZOffsetCalculator = pWidgetZOffsetCalculator;
+	m_dependecies.pTextZOffsetCalculator = pTextZOffsetCalculator;
+	m_dependecies.pInputController = pInputController;
 }
 
-WidgetDependecies GuiDependenciesFabricGl::getWidgetDependencies() { return m_widgetDependecies; }
-
-TextWidgetDependecies GuiDependenciesFabricGl::getTextWidgetDependecies() { return m_textWidgetDependencies; }
+GuiDependencies GuiDependenciesFabricGl::getDependencies() { return m_dependecies; }

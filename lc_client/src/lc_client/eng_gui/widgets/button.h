@@ -6,7 +6,7 @@
 
 class Button : public TextWidget, public InputReceiver {
 public:
-	Button(TextWidgetDependecies dependencies);
+	Button(GuiDependencies dependencies);
 
 	void mouseClick(MouseClickEvent event);
 	void keyPressed(KeyEvent event);

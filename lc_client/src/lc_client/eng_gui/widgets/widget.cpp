@@ -1,19 +1,20 @@
 #include "widget.h"
 
-Widget::Widget(Background background, WidgetDependecies dependencies)
-	: m_background(background),
-	  m_layer(dependencies.pZOffsetCalculator) {
-	m_pBackgroundRender = dependencies.pBackgroundRender;
+#include "lc_client/eng_gui/paint_objects/color_background.h"
+
+Widget::Widget(Background* pBackground)
+	: m_background(pBackground) {
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
+	m_background = std::unique_ptr<Background>(pBackground);
 
 	m_rectangle = Rectangle();
 }
 
-Widget::Widget(WidgetDependecies dependencies) : m_layer(dependencies.pZOffsetCalculator), m_background(Background(glm::vec4(0))) {
-	m_pBackgroundRender = dependencies.pBackgroundRender;
+Widget::Widget(GuiDependencies dependencies) {
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
+	m_background = std::make_unique<ColorBackground>(glm::vec4(0, 0, 0, 0), dependencies);
 
 	m_rectangle = Rectangle();
 }
@@ -61,17 +62,15 @@ std::shared_ptr<Layout> Widget::getLayout() { return m_layout; }
 void Widget::setLayout(std::shared_ptr<Layout> layout) { m_layout = layout; }
 void Widget::setLayout(Layout* pLayout) { m_layout = std::shared_ptr<Layout>(pLayout); }
 
-void Widget::setBackground(Background background) { m_background = background; }
+void Widget::setBackground(Background* background) { m_background = std::unique_ptr<Background>(background); }
 
-Background Widget::getBackground() { return m_background; }
+Background* Widget::getBackground() { return m_background.get(); }
 
 void Widget::setName(std::string name) { m_name = name; }
 
 void Widget::render() { 
 	if (m_isVisible) {
-		if (m_background.getColor().a != 0) {
-			m_pBackgroundRender->renderColor(ColorQuad(m_background, m_rectangle.getVertices(), m_layer.getOffsetZ()));
-		}
+		m_background->render(m_rectangle, m_layer);
 	}
 }
 

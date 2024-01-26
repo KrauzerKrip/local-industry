@@ -9,16 +9,20 @@
 
 
 struct ColorQuad {
-	Background background;
+	glm::vec4 color;
 	RectangleVertices vertices;
 	float zOffset;
 
-	ColorQuad(Background background) : background(background){};
-	ColorQuad(Background background, RectangleVertices vertices, float zOffset) : background(background), vertices(vertices), zOffset(zOffset) {};
+	ColorQuad(glm::vec4 color)
+		: color(color) {}
+	ColorQuad(glm::vec4 color, RectangleVertices vertices, float zOffset)
+		: color(color),
+		  vertices(vertices),
+		  zOffset(zOffset){};
 };
 
 struct ImageQuad {
-	ImageBackground background;
+	std::shared_ptr<eng::Image> image;
 	RectangleVertices vertices;
 	Layer layer;
 };

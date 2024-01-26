@@ -33,7 +33,7 @@ void LayoutController::updateLayout(LayoutData layoutData, std::vector<std::shar
 	for (std::shared_ptr<Widget>& widget : layoutWidgets) {
 		widget->getRectangle().m_absolutePosition += layoutData.position;
 
-		widget->getLayer().setLayerNumber(layoutData.layer);
+		widget->getLayer().number = layoutData.layer;
 
 		LayoutData childLayoutData(widget->getLayout());
 		childLayoutData.position = widget->getRectangle().m_absolutePosition;

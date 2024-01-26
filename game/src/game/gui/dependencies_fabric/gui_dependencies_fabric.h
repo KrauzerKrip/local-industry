@@ -7,6 +7,5 @@ class GuiDependenciesFabric {
 public:
 	virtual ~GuiDependenciesFabric(){};
 
-	virtual WidgetDependecies getWidgetDependencies() = 0;
-	virtual TextWidgetDependecies getTextWidgetDependecies() = 0;
+	virtual GuiDependencies getDependencies() = 0;
 };

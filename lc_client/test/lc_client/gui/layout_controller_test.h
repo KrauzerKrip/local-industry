@@ -17,21 +17,16 @@ protected:
 TEST_F(LayoutControllerTest, layout_controller_test) { 
 	std::shared_ptr<Frame> layout = std::make_shared<Frame>();
 
-	Background background(glm::vec4(1, 1, 1, 0.8));
-	Background background2(glm::vec4(0, 1, 1, 0.8));
+    GuiDependencies widgetDependecies;
 
-	WidgetDependecies widgetDependecies;
-	widgetDependecies.pBackgroundRender = nullptr;
-	widgetDependecies.pZOffsetCalculator = nullptr;
-
-	std::shared_ptr<Widget> widget = std::make_shared<Widget>(background, widgetDependecies);
+	std::shared_ptr<Widget> widget = std::make_shared<Widget>(widgetDependecies);
 	widget->setPosition(glm::vec2(100, 100));
 	widget->setSize(glm::vec2(400, 400));
 	layout->addChild(widget);
 
 	std::shared_ptr<Layout> layout2 = std::make_shared<Frame>();
 	widget->setLayout(layout2);
-	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(background, widgetDependecies);
+	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(widgetDependecies);
 	widget2->setPosition(glm::vec2(400, 400));
 	widget2->setSize(glm::vec2(100, 50));
 	layout2->addChild(widget2);

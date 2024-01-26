@@ -47,7 +47,7 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 		{topRight.x, topRight.y, 1.0f, 1.0f}};
 
 	setUniform(m_shader, "zOffset", colorQuad.zOffset);
-	setUniform(m_shader, "quadColor", colorQuad.background.getColor());
+	setUniform(m_shader, "quadColor", colorQuad.color);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
@@ -59,4 +59,33 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void BackgroundRenderGl::renderImage(ImageQuad colorQuad) {}
+void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
+	glUseProgram(m_shader);
+	unsigned int projLoc = glGetUniformLocation(m_shader, "projection");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
+	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(m_vao);
+
+	glm::vec2 bottomLeft = imageQuad.vertices.bottomLeft;
+	glm::vec2 topLeft = imageQuad.vertices.topLeft;
+	glm::vec2 topRight = imageQuad.vertices.topRight;
+	glm::vec2 bottomRight = imageQuad.vertices.bottomRight;
+
+	float vertices[6][4] = {{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomLeft.x, bottomLeft.y, 0.0f, 0.0f},
+		{bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+
+		{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+		{topRight.x, topRight.y, 1.0f, 1.0f}};
+
+	//setUniform(m_shader, "zOffset", imageQuad.zOffset);
+	//setUniform(m_shader, "quadColor", imageQuad.color);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	// render quad
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}

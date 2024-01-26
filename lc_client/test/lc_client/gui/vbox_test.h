@@ -15,14 +15,12 @@ protected:
 TEST_F(VBoxTest, vbox_test) { 
 	VBox vbox;
 
-	WidgetDependecies widgetDependecies;
-	widgetDependecies.pBackgroundRender = nullptr;
-	widgetDependecies.pZOffsetCalculator = nullptr;
+	GuiDependencies guiDependencies;
 
-	std::shared_ptr<Widget> widget1 = std::make_shared<Widget>(widgetDependecies);
+	std::shared_ptr<Widget> widget1 = std::make_shared<Widget>(guiDependencies);
 	widget1->setSize(glm::vec2(100, 200));
 
-	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(widgetDependecies);
+	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(guiDependencies);
 	widget2->setSize(glm::vec2(100, 200));
 
 	vbox.addChild(widget1);

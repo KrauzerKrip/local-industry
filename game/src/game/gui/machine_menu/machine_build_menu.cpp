@@ -5,10 +5,11 @@
 #include "lc_client/eng_gui/widgets/text_widget.h"
 #include "lc_client/eng_gui/widgets/button.h"
 #include "game/machine/machine_type.h"
+#include "lc_client/eng_gui/paint_objects/color_background.h"
 
 
 MachineBuildMenu::MachineBuildMenu(ActionControl* pActionControl, GuiDependencies guiDependecies, entt::registry* pRegistry)
-	: Widget(guiDependecies.widgetDependencies),
+	: Widget(guiDependecies),
 	  m_guiDependencies(guiDependecies) {
 
 	m_pMachineBlueprintCreator = new MachineBlueprintCreator(pRegistry);
@@ -25,7 +26,8 @@ MachineBuildMenu::MachineBuildMenu(ActionControl* pActionControl, GuiDependencie
 		}
 	});
 
-	this->setBackground(Background(glm::vec4(0, 0, 0, 0.5)));
+	ColorBackground* colorBackground = new ColorBackground(glm::vec4(0, 0, 0, 0.5), m_guiDependencies);
+	this->setBackground(colorBackground);
 
 
 	Grid* pGrid = new Grid(9, 25, 100);

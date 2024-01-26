@@ -1,6 +1,6 @@
 #include "button.h"
 
-Button::Button(TextWidgetDependecies dependencies) : TextWidget(dependencies){};
+Button::Button(GuiDependencies dependencies) : TextWidget(dependencies){};
 
 void Button::mouseClick(MouseClickEvent event) {
 	if (m_rectangle.isPointIntersecting(event.position)) {

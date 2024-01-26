@@ -13,6 +13,6 @@ target_sources(lc_client
     "rectangle.h"
     "rectangle.cpp"
     "layer.h"
-    "layer.cpp"
+    
     "dependencies.h"
    )

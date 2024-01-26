@@ -17,8 +17,8 @@ class BackgroundRenderGl : public BackgroundRender {
 public:
 	BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork);
 
-	void renderColor(ColorQuad colorQuad);
-	void renderImage(ImageQuad colorQuad);
+	void renderColor(ColorQuad colorQuad) override;
+	void renderImage(ImageQuad imageQuad) override;
 
 private:
 	std::queue<ColorQuad> m_colorQuads;

@@ -6,10 +6,10 @@
 
 
 Overlay::Overlay(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInput) {
-	WidgetDependecies widgetDependencies = pDependenciesFabric->getWidgetDependencies();
-	TextWidgetDependecies textWidgetDependecies = pDependenciesFabric->getTextWidgetDependecies();
+	GuiDependencies widgetDependencies = pDependenciesFabric->getDependencies();
 
-	std::shared_ptr<DebugWidget> debugWidget = std::make_shared<DebugWidget>(pTier0, pInput, widgetDependencies, textWidgetDependecies);
+	std::shared_ptr<DebugWidget> debugWidget =
+		std::make_shared<DebugWidget>(pTier0, pInput, widgetDependencies);
 	this->addChild(debugWidget);
 
 	debugWidget->show();

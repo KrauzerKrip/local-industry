@@ -2,12 +2,13 @@
 
 #include <memory>
 #include "lc_client/util/image.h"
+#include "background.h"
 
-class ImageBackground {
+class ImageBackground : public Background {
 public:
 	ImageBackground(std::shared_ptr<eng::Image> image);
 
-	std::shared_ptr<eng::Image> getImage();
+	void render(const Rectangle& rectangle, const Layer& layer) override;
 
 private:
 	std::shared_ptr<eng::Image> m_image;

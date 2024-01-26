@@ -6,8 +6,8 @@
 
 class TextWidget : public Widget {
 public:
-	TextWidget(Background background, TextWidgetDependecies dependencies);
-	TextWidget(TextWidgetDependecies dependencies);
+	TextWidget(Background* background, GuiDependencies dependencies);
+	TextWidget(GuiDependencies dependencies);
 	~TextWidget(){};
 	
 	void setText(std::string text);
@@ -24,5 +24,5 @@ private:
 
 	TextRender* m_pTextRender = nullptr;
 
-	TextWidgetDependecies m_textDependencies;
+	GuiDependencies m_textDependencies;
 };

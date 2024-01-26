@@ -1,15 +1,11 @@
 #pragma once
 
-#include <memory>
-#include <glm/glm.hpp>
-#include "lc_client/util/image.h"
+#include "lc_client/eng_gui/widgets/layer.h"
+#include "lc_client/eng_gui/widgets/rectangle.h"
 
 class Background {
 public:
-	Background(glm::vec4 color);
+	virtual ~Background() = default;
 
-	glm::vec4 getColor();
-	
-private:
-	glm::vec4 m_color;
+	virtual void render(const Rectangle& rectangle, const Layer& layer) = 0;
 };

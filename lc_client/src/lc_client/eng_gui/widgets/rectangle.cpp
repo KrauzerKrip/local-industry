@@ -5,7 +5,7 @@ Rectangle::Rectangle() {
 	m_size = glm::vec2(0);
 }
 
-bool Rectangle::isPointIntersecting(glm::vec2 point) { 
+bool Rectangle::isPointIntersecting(glm::vec2 point) const { 
 	if (point.x > m_absolutePosition.x && point.x < m_absolutePosition.x + m_size.x) {
 		if (point.y > m_absolutePosition.y && point.y < m_absolutePosition.y + m_size.y) {
 			return true;
@@ -15,7 +15,7 @@ bool Rectangle::isPointIntersecting(glm::vec2 point) {
 	return false; 
 }
 
-RectangleVertices Rectangle::getVertices() { 
+RectangleVertices Rectangle::getVertices() const { 
 	RectangleVertices vertices;
 
 	vertices.bottomLeft = m_absolutePosition;

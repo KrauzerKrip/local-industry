@@ -14,8 +14,8 @@ class Rectangle {
 public:
 	Rectangle();
 
-	bool isPointIntersecting(glm::vec2 point);
-	RectangleVertices getVertices(); 
+	bool isPointIntersecting(glm::vec2 point) const;
+	RectangleVertices getVertices() const; 
 	
 	glm::vec2 m_absolutePosition;
 	glm::vec2 m_size;
