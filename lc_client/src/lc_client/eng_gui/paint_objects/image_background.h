@@ -1,15 +1,21 @@
 #pragma once
 
-#include <memory>
-#include "lc_client/util/image.h"
+#include <string>
+
 #include "background.h"
+#include "lc_client/eng_graphics/texture.h"
+#include "lc_client/eng_gui/widgets/dependencies.h"
+
 
 class ImageBackground : public Background {
 public:
-	ImageBackground(std::shared_ptr<eng::Image> image);
+	ImageBackground(std::string path, GuiDependencies dependencies);
 
 	void render(const Rectangle& rectangle, const Layer& layer) override;
 
 private:
-	std::shared_ptr<eng::Image> m_image;
+	GuiDependencies m_dependencies;
+
+	Texture* m_pTexture = nullptr;
+	BackgroundRender* m_pBackgroundRender = nullptr;
 };

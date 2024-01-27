@@ -7,8 +7,11 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
-BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork) : BackgroundRender(m_pConsole) {
-	m_shader = pShaderWork->createShaderProgram("gui_quad", "gui_quad");
+BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork, TextureManager* pTextureManager) : BackgroundRender(m_pConsole) {
+	m_pTextureManager = pTextureManager;
+
+	m_colorShader = pShaderWork->createShaderProgram("gui_quad", "gui_quad");
+	m_imageShader = pShaderWork->createShaderProgram("gui_quad", "gui_image_quad");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -29,8 +32,8 @@ BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShad
 }
 
 void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
-	glUseProgram(m_shader);
-	unsigned int projLoc = glGetUniformLocation(m_shader, "projection");
+	glUseProgram(m_colorShader);
+	unsigned int projLoc = glGetUniformLocation(m_colorShader, "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(m_vao);
@@ -46,8 +49,8 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 		{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomRight.x, bottomRight.y, 1.0f, 0.0f},
 		{topRight.x, topRight.y, 1.0f, 1.0f}};
 
-	setUniform(m_shader, "zOffset", colorQuad.zOffset);
-	setUniform(m_shader, "quadColor", colorQuad.color);
+	setUniform(m_colorShader, "zOffset", colorQuad.zOffset);
+	setUniform(m_colorShader, "quadColor", colorQuad.color);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
@@ -60,8 +63,8 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 }
 
 void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
-	glUseProgram(m_shader);
-	unsigned int projLoc = glGetUniformLocation(m_shader, "projection");
+	glUseProgram(m_imageShader);
+	unsigned int projLoc = glGetUniformLocation(m_imageShader, "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(m_vao);
@@ -71,14 +74,33 @@ void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
 	glm::vec2 topRight = imageQuad.vertices.topRight;
 	glm::vec2 bottomRight = imageQuad.vertices.bottomRight;
 
-	float vertices[6][4] = {{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomLeft.x, bottomLeft.y, 0.0f, 0.0f},
-		{bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+	//float vertices[6][4] = {
+	//    {topLeft.x, topLeft.y, 0.0f, 1.0f},
+	//    {bottomLeft.x, bottomLeft.y, 0.0f, 0.0f},
+	//	{bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+	//	{topLeft.x, topLeft.y, 0.0f, 1.0f},
+	//    {bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+	//	{topRight.x, topRight.y, 1.0f, 1.0f}};
 
-		{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomRight.x, bottomRight.y, 1.0f, 0.0f},
-		{topRight.x, topRight.y, 1.0f, 1.0f}};
+  //  float vertices[6][4] = {
+  //      {topLeft.x, topLeft.y, 1.0f, 0.0f},
+	 //   {bottomLeft.x, bottomLeft.y, 1.0f, 1.0f},
+		//{bottomRight.x, bottomRight.y, 0.0f, 1.0f},
+		//{topLeft.x, topLeft.y, 1.0f, 0.0f},
+		//{bottomRight.x, bottomRight.y, 0.0f, 1.0f},
+		//{topRight.x, topRight.y, 0.0f, 0.0f}};
 
-	//setUniform(m_shader, "zOffset", imageQuad.zOffset);
-	//setUniform(m_shader, "quadColor", imageQuad.color);
+    float vertices[6][4] = {
+        {topLeft.x, topLeft.y, 0.0f, 0.0f},
+	    {bottomLeft.x, bottomLeft.y, 0.0f, 1.0f},
+		{bottomRight.x, bottomRight.y, 1.0f, 1.0f},
+		{topLeft.x, topLeft.y, 0.0f, 0.0f},
+		{bottomRight.x, bottomRight.y, 1.0f, 1.0f},
+		{topRight.x, topRight.y, 1.0f, 0.0f}};
+
+	setUniform(m_imageShader, "zOffset", imageQuad.zOffset);
+	setUniform(m_imageShader, "image", TextureType::NORMAL);
+	imageQuad.pTexture->bind();
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
@@ -89,3 +111,5 @@ void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+Texture* BackgroundRenderGl::getTexture(std::string path) { return m_pTextureManager->getTexture(path); }

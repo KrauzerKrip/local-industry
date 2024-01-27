@@ -4,11 +4,12 @@
 #include "lc_client/eng_input/i_input.h"
 #include "lc_client/tier0/console/i_console.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
+#include "lc_client/tier1/texture_manager.h"
 
 
 class GuiDependenciesFabricGl : public GuiDependenciesFabric {
 public:
-	GuiDependenciesFabricGl(IConsole* pConsole, ShaderLoaderGl* pShaderWorkGl, IInput* pInput);
+	GuiDependenciesFabricGl(IConsole* pConsole, ShaderLoaderGl* pShaderWorkGl, IInput* pInput, TextureManager* pTextureManager);
 
 	GuiDependencies getDependencies();
 

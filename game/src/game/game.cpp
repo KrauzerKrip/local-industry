@@ -79,7 +79,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pWorld = new World(m_pResource, pSceneLoading, pSkyboxRender);
 
 	GuiDependenciesFabric* pGuiDependenciesFabric =
-		new GuiDependenciesFabricGl(m_pTier0->getConsole(), pLoaderFabric->getShaderLoaderGl(), m_pInput);
+		new GuiDependenciesFabricGl(m_pTier0->getConsole(), pLoaderFabric->getShaderLoaderGl(), m_pInput, m_pTier1->getTextureManager());
 	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput, m_pActionControl, &m_pWorld->getRegistry());
 
 	Skybox* pSkybox = m_pWorld->getSkybox();

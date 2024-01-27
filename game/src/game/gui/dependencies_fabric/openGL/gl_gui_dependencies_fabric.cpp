@@ -6,8 +6,9 @@
 #include "lc_client/eng_graphics/gui/openGL/gl_widget_zoffset_calculator.h"
 
 
-GuiDependenciesFabricGl::GuiDependenciesFabricGl(IConsole* pConsole, ShaderLoaderGl* pShaderWorkGl, IInput* pInput) { 
-	BackgroundRenderGl* pBackgroundRender = new BackgroundRenderGl(pConsole, pShaderWorkGl);
+GuiDependenciesFabricGl::GuiDependenciesFabricGl(
+	IConsole* pConsole, ShaderLoaderGl* pShaderWorkGl, IInput* pInput, TextureManager* pTextureManager) { 
+	BackgroundRenderGl* pBackgroundRender = new BackgroundRenderGl(pConsole, pShaderWorkGl, pTextureManager);
 	TextRenderGl* pTextRender = new TextRenderGl(pConsole, pShaderWorkGl);
 	WidgetZOffsetCalculatorGl* pWidgetZOffsetCalculator = new WidgetZOffsetCalculatorGl();
 	TextZOffsetCalculatorGl* pTextZOffsetCalculator = new TextZOffsetCalculatorGl();

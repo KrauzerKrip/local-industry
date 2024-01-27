@@ -17,7 +17,7 @@ class Layout;
 
 class Widget {
 public:
-	Widget(Background* background);
+	Widget(Background* pBackground);
 	Widget(GuiDependencies dependencies);
 	//virtual ~Widget() = 0;
 	

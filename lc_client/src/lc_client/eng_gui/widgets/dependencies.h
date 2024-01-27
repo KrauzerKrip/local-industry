@@ -13,3 +13,4 @@ struct GuiDependencies {
 	ZOffsetCalculator* pTextZOffsetCalculator;
 	InputController* pInputController;
 };
+

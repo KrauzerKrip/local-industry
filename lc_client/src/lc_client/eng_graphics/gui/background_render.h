@@ -2,10 +2,10 @@
 
 #include "lc_client/tier0/console/i_console.h"
 #include "lc_client/eng_gui/paint_objects/background.h"
-#include "lc_client/eng_gui/paint_objects/image_background.h"
 #include "lc_client/eng_graphics/gui/queue_render.h"
 #include "lc_client/eng_gui/widgets/rectangle.h"
 #include "lc_client/eng_gui/widgets/layer.h"
+#include "lc_client/eng_graphics/texture.h"
 
 
 struct ColorQuad {
@@ -22,19 +22,20 @@ struct ColorQuad {
 };
 
 struct ImageQuad {
-	std::shared_ptr<eng::Image> image;
+	Texture* pTexture;
 	RectangleVertices vertices;
-	Layer layer;
+	float zOffset;
 };
 
 
 class BackgroundRender {
 public:
 	BackgroundRender(IConsole* pConsole) : m_pConsole(pConsole){};
-	virtual ~BackgroundRender(){};
+	virtual ~BackgroundRender() = default;
 
 	virtual void renderColor(ColorQuad colorQuad) = 0;
 	virtual void renderImage(ImageQuad colorQuad) = 0;
+	virtual Texture* getTexture(std::string path) = 0;
 
 protected:
 	IConsole* m_pConsole = nullptr;

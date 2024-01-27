@@ -1,12 +1,12 @@
 #include "widget.h"
 
 #include "lc_client/eng_gui/paint_objects/color_background.h"
+#include <iostream>
 
 Widget::Widget(Background* pBackground)
 	: m_background(pBackground) {
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
-	m_background = std::unique_ptr<Background>(pBackground);
 
 	m_rectangle = Rectangle();
 }

@@ -1,5 +1,7 @@
 #include "gui_presenter.h"
 
+#include <iostream>
+
 #include "lc_client/eng_gui/layout/widget_data.h"
 
 
