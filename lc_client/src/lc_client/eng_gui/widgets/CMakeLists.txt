@@ -4,6 +4,8 @@ project(eng_gui_widgets)
 
 target_sources(lc_client 
     PRIVATE
+    "widgets.h"
+
     "widget.h"
     "widget.cpp"
     "text_widget.h"

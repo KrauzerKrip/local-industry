@@ -7,6 +7,8 @@ add_subdirectory("widgets")
 
 target_sources(lc_client 
     PRIVATE
+    "includes.h"
+
     "gui_console.h"
     "gui_console.cpp"
 

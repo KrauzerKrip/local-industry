@@ -1,17 +1,18 @@
 #pragma once
 
 #include <vector>
+#include <utility>
 #include "layout.h"
 #include "lc_client/eng_gui/layout/modes.h"
 
 
-class VBox : public Layout {
+class HBox : public Layout {
 public:
-	VBox();
+	HBox();
 	void setPadding(unsigned int x, unsigned int y);
 	void setPadding(glm::vec2 padding);
 	void updateChildWidgets();
-	void setMode(BoxMode mode);
+	void setBoxMode(BoxMode mode);
 
 private:
 	glm::vec2 m_padding;

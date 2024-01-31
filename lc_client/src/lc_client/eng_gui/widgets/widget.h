@@ -19,17 +19,22 @@ class Widget {
 public:
 	Widget(Background* pBackground);
 	Widget(GuiDependencies dependencies);
+	Widget();
 	//virtual ~Widget() = 0;
 	
 	void show();
 	void showWithChildren();
 	void hide();
 	void hideWithChildren();
+	void toggle();
+	void toggleWithChildren();
 	bool isVisible();
 	glm::vec2 getSize();
 	void setSize(glm::vec2 size);
+	void setSize(unsigned int width, unsigned height);
 	glm::vec2 getPosition();
 	void setPosition(glm::vec2 position);
+	void setPosition(unsigned int x, unsigned int y);
 	std::shared_ptr<Layout> getLayout();
 	void setLayout(std::shared_ptr<Layout> layout);
 	void setLayout(Layout* pLayout);

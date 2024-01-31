@@ -14,7 +14,6 @@ std::shared_ptr<Widget> createRow(std::string labelText, std::string dataText, G
 	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
 	row->setLayout(frame);
 	row->setName("row");
-	row->show();
 
 	std::shared_ptr<TextWidget> label = std::make_shared<TextWidget>(dependencies);
 	label->setTextSize(16);
@@ -23,7 +22,6 @@ std::shared_ptr<Widget> createRow(std::string labelText, std::string dataText, G
 	label->setName("label_" + labelText);
 	label->setColor(glm::vec4(1, 1, 1, 1));
 	frame->addChild(label);
-	label->show();
 
 	std::shared_ptr<TextWidget> data = std::make_shared<TextWidget>(dependencies);
 	data->setTextSize(16);
@@ -32,7 +30,6 @@ std::shared_ptr<Widget> createRow(std::string labelText, std::string dataText, G
 	data->setName("data");
 	data->setColor(glm::vec4(1, 1, 1, 1));
 	frame->addChild(data);
-	data->show();
 
 	*pDataWidget = data.get();
 
@@ -55,7 +52,6 @@ DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, GuiDependencies dependen
 	label->setText("Local` V0.0.1");
 	label->setName("label_local");
 	label->setColor(glm::vec4(1, 1, 1, 1));
-	label->show();
 
 	std::shared_ptr<VBox> vbox = std::make_shared<VBox>();
 	this->setLayout(vbox);
