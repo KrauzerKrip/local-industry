@@ -12,14 +12,15 @@ public:
 	
 	void setText(std::string text);
 	std::string getText();
-	void setColor(glm::vec4 color);
+	void setTextColor(glm::vec4 color);
+	void setTextColor(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 	void setTextSize(unsigned int size);
 	virtual void render();
 
 private:
 	std::string m_text;
 	unsigned int m_textSize;
-	glm::vec4 m_color;
+	glm::vec4 m_textColor;
 	Layer m_textLayer;
 
 	TextRender* m_pTextRender = nullptr;
