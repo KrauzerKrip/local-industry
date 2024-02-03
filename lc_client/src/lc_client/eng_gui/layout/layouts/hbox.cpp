@@ -28,7 +28,7 @@ void HBox::updateChildWidgets() {
 			widget->getRectangle().m_absolutePosition += position;
 		}
 	}
-	else if (m_mode == BoxMode::STRETCH_PADDING) {
+	else if (m_mode == BoxMode::STRETCH_SPACING) {
 		float usableSpace = m_size.x - 2 * m_padding.x;
 		float widgetSizeXSum = 0;
 		for (std::shared_ptr<Widget>& widget : m_widgets) {
