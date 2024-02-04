@@ -53,7 +53,6 @@ int main() {
 		pLoop->startLoop();
 
 		pLoop->cleanUp();
-		pWindow->terminate(); // mb in loop
 	}
 	catch (std::runtime_error& exception) {
 		printException(exception);
