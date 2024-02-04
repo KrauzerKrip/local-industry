@@ -34,11 +34,7 @@ void Widget::showWithChildren() {
 	show();
 
 	if (m_layout.get() != nullptr) {
-		std::vector<Widget*> widgets =  m_layout->getChildrenWidgets();
-
-		for (Widget* pWidget : widgets) {
-			pWidget->showWithChildren();
-		}
+		m_layout->show();
 	}
 }
 
@@ -48,11 +44,7 @@ void Widget::hideWithChildren() {
 	hide();
 
 	if (m_layout.get() != nullptr) {
-		std::vector<Widget*> widgets = m_layout->getChildrenWidgets();
-
-		for (Widget* pWidget : widgets) {
-			pWidget->hideWithChildren();
-		}
+		m_layout->hide();
 	}
 }
 

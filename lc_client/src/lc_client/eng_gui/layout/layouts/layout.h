@@ -14,6 +14,8 @@ public:
 	virtual std::vector<Widget*>& getChildrenWidgets();
 	virtual void addChild(Widget* pWidget);
 	virtual void updateChildWidgets() = 0;
+	virtual void show();
+	virtual void hide();
 
 	glm::vec2 m_position;
 	glm::vec2 m_size;

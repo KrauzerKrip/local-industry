@@ -20,7 +20,7 @@ public:
 	Widget(Background* pBackground);
 	Widget(GuiDependencies dependencies);
 	Widget();
-	//virtual ~Widget() = 0;
+	virtual ~Widget() = default;
 	
 	void show();
 	void showWithChildren();
