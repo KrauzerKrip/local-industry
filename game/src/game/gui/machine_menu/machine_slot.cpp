@@ -7,11 +7,9 @@ MachineSlot::MachineSlot(MachineType type, std::string typeString, GuiDependenci
 	: Button(guiDependencies), m_type(type), m_typeString(typeString) {
 	m_pMachineBlueprintCreator = pMachineBlueprintCreator;
 
-	guiDependencies.pInputController->addReceiver(this);
-
 	this->setSize(glm::vec2(100, 100));
 	this->setText(typeString);
-	this->setColor(glm::vec4(1, 1, 1, 1));
+	this->setTextColor(glm::vec4(1, 1, 1, 1));
 	this->setTextSize(24);
 	ColorBackground* colorBackground = new ColorBackground(glm::vec4(0, 0, 0, 0.7), guiDependencies);
 	this->setBackground(colorBackground);

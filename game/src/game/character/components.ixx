@@ -25,8 +25,9 @@ export enum class TaskProgress {
 
 export struct Task {
 	TaskProgress progress;
+	std::string name;
 
 
-	Task() : progress(TaskProgress::PLANNED){
+	Task() : progress(TaskProgress::PLANNED), name("Unnamed task") {
 	};
 };

@@ -28,8 +28,9 @@ public:
 		for (auto&& [entity, transform, task, characterAssignedTo] : assignedTasks.each()) {
 			TaskQueue& taskQueue = m_pRegistry->get<TaskQueue>(characterAssignedTo.entity);
 			if (task.progress == TaskProgress::PLANNED) {
-				taskQueue.push(entity);
-				task.progress = TaskProgress::QUEUED;
+				if (taskQueue.push(entity)) {
+					task.progress = TaskProgress::QUEUED;
+				}
 			}
 		}
 	}

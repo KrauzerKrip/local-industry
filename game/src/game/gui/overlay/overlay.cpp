@@ -12,7 +12,5 @@ Overlay::Overlay(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInp
 	std::shared_ptr<DebugWidget> debugWidget =
 		std::make_shared<DebugWidget>(pTier0, pInput, widgetDependencies);
 	this->addChild(debugWidget);
-
-	debugWidget->show();
 }
  

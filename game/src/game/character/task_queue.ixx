@@ -3,12 +3,16 @@ module;
 #include <map>
 #include <stdexcept>
 #include <optional>
+#include <ranges>
 
 #include <entt/entt.hpp>
 
 export module character:task_queue;
 
 import :components;
+
+template <typename F>
+concept IsFunction = requires(const F& function) { function(entt::entity()); };
 
 class MaxTaskPositionException : public std::runtime_error {
 public:
@@ -21,15 +25,29 @@ public:
 	//TaskQueue(TaskQueue& taskQueue) : m_tasks(taskQueue.m_tasks) {}
 	//TaskQueue(TaskQueue&& taskQueue) : m_tasks(std::move(taskQueue.m_tasks)) {}
 
-	void push(entt::entity task) {
+	[[nodiscard]] 
+	bool push(entt::entity task) {
+		if (m_tasks.size() >= MAX_TASKS) {
+			return false;
+		}
+
 		if (m_tasks.empty()) {
 			m_tasks.emplace(0, task);
 		}
 		else {
 			m_tasks.emplace(m_tasks.rbegin()->first + 1, task);
 		}
+
+		return true;
 	}
 
+
+	template <IsFunction F>
+    void forEach(F&& function) {
+		for (auto& v : m_tasks | std::views::values) {
+			function(v);   
+		}
+	}
 
 	std::optional<entt::entity> getFront() {
 		if (m_tasks.empty()) {
@@ -86,7 +104,7 @@ private:
 		}
 	}
  
-	static const int MAX_TASKS = 20;
+	static const int MAX_TASKS = 5;
 
 	std::map<unsigned int, entt::entity> m_tasks;
 };
