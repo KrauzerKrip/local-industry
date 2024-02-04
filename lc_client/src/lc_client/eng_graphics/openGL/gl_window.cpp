@@ -136,10 +136,11 @@ bool WindowGL::windowShouldClose() {
 }
 
 void WindowGL::terminate() {
-	ImGui_ImplGlfw_Shutdown();
 	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 
+	glfwDestroyWindow(m_pGlfwWindow);
 	glfwTerminate();
 }
 
