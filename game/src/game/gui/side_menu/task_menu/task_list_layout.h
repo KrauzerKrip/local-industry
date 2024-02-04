@@ -13,8 +13,11 @@ public:
 	void setTasks(const std::vector<TaskData>& tasksData);
 
 private:
+	void processTasks();
+
 	unsigned int m_taskSlots;
 
 	std::vector<TaskView*> m_activeTaskViews;
 	std::vector<TaskView*> m_taskViews;
+	std::vector<TaskData> m_tasksData;
 };

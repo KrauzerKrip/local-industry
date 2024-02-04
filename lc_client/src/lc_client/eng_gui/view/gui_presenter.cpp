@@ -13,10 +13,10 @@ GuiPresenter::GuiPresenter(LayoutController* pOverlayLayoutController,
 }
 
 void GuiPresenter::render() { 
-	std::vector<std::shared_ptr<Widget>> overlayWidgets = m_pOverlayLayoutController->getWidgets();
+	std::vector<Widget*> overlayWidgets = m_pOverlayLayoutController->getWidgets();
 
-	for (std::shared_ptr<Widget>& widget : overlayWidgets) {
-		widget->render();
+	for (Widget* pWidget : overlayWidgets) {
+		pWidget->render();
 	}
 
 	for (QueueRender* pQueueRender : m_queueRenders) {
@@ -24,10 +24,10 @@ void GuiPresenter::render() {
 	}
 
 
-	std::vector<std::shared_ptr<Widget>> widgets = m_pLayoutController->getWidgets();
+	std::vector<Widget*> widgets = m_pLayoutController->getWidgets();
 
-	for (std::shared_ptr<Widget>& widget : widgets) {
-		widget->render();
+	for (Widget* pWidget : widgets) {
+		pWidget->render();
 	} 
 
 	for (QueueRender* pQueueRender : m_queueRenders) {

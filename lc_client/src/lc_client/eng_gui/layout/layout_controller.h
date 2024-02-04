@@ -11,14 +11,14 @@
 class LayoutController {
 public:
 	void update();
-	std::vector<std::shared_ptr<Widget>>& getWidgets();
+	std::vector<Widget*>& getWidgets();
 	void show();
 	void hide();
 	void setLayout(std::shared_ptr<Layout> layout);
 
 private:
-	void updateLayout(LayoutData layoutData, std::vector<std::shared_ptr<Widget>>& widgets);
+	void updateLayout(LayoutData layoutData, std::vector<Widget*>& widgets);
 
 	std::shared_ptr<Layout> m_layout;
-	std::vector<std::shared_ptr<Widget>> m_widgets;
+	std::vector<Widget*> m_widgets;
 };

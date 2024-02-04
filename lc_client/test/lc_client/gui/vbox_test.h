@@ -17,14 +17,14 @@ TEST_F(VBoxTest, vbox_test) {
 
 	GuiDependencies guiDependencies;
 
-	std::shared_ptr<Widget> widget1 = std::make_shared<Widget>(guiDependencies);
-	widget1->setSize(glm::vec2(100, 200));
+	Widget* pWidget1 = new Widget(guiDependencies);
+	pWidget1->setSize(glm::vec2(100, 200));
 
-	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(guiDependencies);
-	widget2->setSize(glm::vec2(100, 200));
+	Widget* pWidget2 = new Widget(guiDependencies);
+	pWidget2->setSize(glm::vec2(100, 200));
 
-	vbox.addChild(widget1);
-	vbox.addChild(widget2);
+	vbox.addChild(pWidget1);
+	vbox.addChild(pWidget2);
 
 	vbox.m_size = glm::vec2(100, 400);
 	vbox.m_position = glm::vec2(50, 0);

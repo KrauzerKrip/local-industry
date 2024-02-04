@@ -8,32 +8,32 @@
 #include "ldk_client/local_engine/time.h"
 
 
-std::shared_ptr<Widget> createRow(std::string labelText, std::string dataText, GuiDependencies dependencies, TextWidget** pDataWidget) {
-	std::shared_ptr<Widget> row = std::make_shared<Widget>(dependencies);
-	row->setSize(glm::vec2(200, 24));
+Widget* createRow(std::string labelText, std::string dataText, GuiDependencies dependencies, TextWidget** pDataWidget) {
+	Widget* pRow = new Widget(dependencies);
+	pRow->setSize(glm::vec2(200, 24));
 	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
-	row->setLayout(frame);
-	row->setName("row");
+	pRow->setLayout(frame);
+	pRow->setName("row");
 
-	std::shared_ptr<TextWidget> label = std::make_shared<TextWidget>(dependencies);
-	label->setTextSize(16);
-	label->setPosition(glm::vec2(10, 0));
-	label->setText(labelText);
-	label->setName("label_" + labelText);
-	label->setTextColor(glm::vec4(1, 1, 1, 1));
-	frame->addChild(label);
+	TextWidget* pLabel = new TextWidget(dependencies);
+	pLabel->setTextSize(16);
+	pLabel->setPosition(glm::vec2(10, 0));
+	pLabel->setText(labelText);
+	pLabel->setName("label_" + labelText);
+	pLabel->setTextColor(glm::vec4(1, 1, 1, 1));
+	frame->addChild(pLabel);
 
-	std::shared_ptr<TextWidget> data = std::make_shared<TextWidget>(dependencies);
-	data->setTextSize(16);
-	data->setPosition(glm::vec2(120, 0));
-	data->setText(dataText);
-	data->setName("data");
-	data->setTextColor(glm::vec4(1, 1, 1, 1));
-	frame->addChild(data);
+	TextWidget* pData = new TextWidget(dependencies);
+	pData->setTextSize(16);
+	pData->setPosition(glm::vec2(120, 0));
+	pData->setText(dataText);
+	pData->setName("data");
+	pData->setTextColor(glm::vec4(1, 1, 1, 1));
+	frame->addChild(pData);
 
-	*pDataWidget = data.get();
+	*pDataWidget = pData;
 
-	return row;
+	return pRow;
 }
 
 
@@ -45,21 +45,21 @@ DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, GuiDependencies dependen
 	this->setSize(glm::vec2(160, 200));
 	this->setName("debugWidget");
 
-	std::shared_ptr<TextWidget> label = std::make_shared<TextWidget>(dependencies);
-	label->setTextSize(16);
-	label->setPosition(glm::vec2(10, -10));
-	label->setSize(glm::vec2(200, 36));
-	label->setText("Local` V0.0.1");
-	label->setName("label_local");
-	label->setTextColor(glm::vec4(1, 1, 1, 1));
+	TextWidget* pLabel = new TextWidget(dependencies);
+	pLabel->setTextSize(16);
+	pLabel->setPosition(glm::vec2(10, -10));
+	pLabel->setSize(glm::vec2(200, 36));
+	pLabel->setText("Local` V0.0.1");
+	pLabel->setName("label_local");
+	pLabel->setTextColor(glm::vec4(1, 1, 1, 1));
 
 	std::shared_ptr<VBox> vbox = std::make_shared<VBox>();
 	this->setLayout(vbox);
 
-	std::shared_ptr<Widget> rowFps = createRow("FPS", "", dependencies, &m_pFpsDataWidget);
-	std::shared_ptr<Widget> rowMousePos = createRow("MP", "", dependencies, &m_pMousePositionWidget);
+    Widget* rowFps = createRow("FPS", "", dependencies, &m_pFpsDataWidget);
+	Widget* rowMousePos = createRow("MP", "", dependencies, &m_pMousePositionWidget);
 
-	vbox->addChild(label);
+	vbox->addChild(pLabel);
 	vbox->addChild(rowFps);
 	vbox->addChild(rowMousePos);
 

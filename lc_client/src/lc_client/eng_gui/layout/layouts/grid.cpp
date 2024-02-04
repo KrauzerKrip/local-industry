@@ -7,7 +7,7 @@ void Grid::updateChildWidgets() {
 	float cursorY = m_size.y - m_rowHeight - m_margin;
 
 	unsigned int columnNumber = 0;
-	for (std::shared_ptr<Widget>& widget : m_widgets) {
+	for (Widget* widget : m_widgets) {
 		columnNumber++;
 
 		widget->getRectangle().m_size = widget->getSize();

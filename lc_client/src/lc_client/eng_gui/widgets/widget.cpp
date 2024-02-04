@@ -34,10 +34,10 @@ void Widget::showWithChildren() {
 	show();
 
 	if (m_layout.get() != nullptr) {
-		std::vector<std::shared_ptr<Widget>> widgets =  m_layout->getChildrenWidgets();
+		std::vector<Widget*> widgets =  m_layout->getChildrenWidgets();
 
-		for (std::shared_ptr<Widget> widget : widgets) {
-			widget->showWithChildren();
+		for (Widget* pWidget : widgets) {
+			pWidget->showWithChildren();
 		}
 	}
 }
@@ -48,10 +48,10 @@ void Widget::hideWithChildren() {
 	hide();
 
 	if (m_layout.get() != nullptr) {
-		std::vector<std::shared_ptr<Widget>> widgets = m_layout->getChildrenWidgets();
+		std::vector<Widget*> widgets = m_layout->getChildrenWidgets();
 
-		for (std::shared_ptr<Widget> widget : widgets) {
-			widget->hideWithChildren();
+		for (Widget* pWidget : widgets) {
+			pWidget->hideWithChildren();
 		}
 	}
 }

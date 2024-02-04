@@ -19,24 +19,24 @@ TEST_F(LayoutControllerTest, layout_controller_test) {
 
     GuiDependencies widgetDependecies;
 
-	std::shared_ptr<Widget> widget = std::make_shared<Widget>(widgetDependecies);
-	widget->setPosition(glm::vec2(100, 100));
-	widget->setSize(glm::vec2(400, 400));
-	layout->addChild(widget);
+	Widget* pWidget = new Widget(widgetDependecies);
+	pWidget->setPosition(glm::vec2(100, 100));
+	pWidget->setSize(glm::vec2(400, 400));
+	layout->addChild(pWidget);
 
 	std::shared_ptr<Layout> layout2 = std::make_shared<Frame>();
-	widget->setLayout(layout2);
-	std::shared_ptr<Widget> widget2 = std::make_shared<Widget>(widgetDependecies);
-	widget2->setPosition(glm::vec2(400, 400));
-	widget2->setSize(glm::vec2(100, 50));
-	layout2->addChild(widget2);
+	pWidget->setLayout(layout2);
+	Widget* pWidget2 = new Widget(widgetDependecies);
+	pWidget2->setPosition(glm::vec2(400, 400));
+	pWidget2->setSize(glm::vec2(100, 50));
+	layout2->addChild(pWidget2);
 
 
 	m_pLayoutController->setLayout(layout);
 
 	m_pLayoutController->update();
 
-	std::vector<std::shared_ptr<Widget>> widgets = m_pLayoutController->getWidgets();
+	std::vector<Widget*> widgets = m_pLayoutController->getWidgets();
 
 	ASSERT_EQ(widgets.size(), 2);
 	EXPECT_EQ(widgets.at(0)->getRectangle().m_absolutePosition, glm::vec2(100, 100));

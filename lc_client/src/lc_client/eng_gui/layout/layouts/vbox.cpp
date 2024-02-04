@@ -17,7 +17,7 @@ void VBox::updateChildWidgets() {
 	bool isFirst = true;
 
 	if (m_mode == BoxMode::STRETCH_WIDGETS) {
-		for (std::shared_ptr<Widget>& widget : m_widgets) {
+		for (Widget* widget : m_widgets) {
 			float sizeY = (m_size.y - 2 * m_padding.y + m_spacing) / static_cast<float>(m_widgets.size()) - m_spacing;
 			widget->getRectangle().m_size.y = sizeY;
 			widget->getRectangle().m_size.x = m_size.x - m_padding.x * 2;
@@ -41,7 +41,7 @@ void VBox::updateChildWidgets() {
 	else if (m_mode == BoxMode::STRETCH_SPACING) {
 	    float usableSpace = m_size.y - 2 * m_padding.y;
 		float widgetSizeYSum = 0; 
-	    for (std::shared_ptr<Widget>& widget : m_widgets) {
+	    for (Widget* widget : m_widgets) {
 			widgetSizeYSum += widget->getRectangle().m_size.y;
 		}
 
@@ -51,7 +51,7 @@ void VBox::updateChildWidgets() {
             spacing = static_cast<unsigned int>(freeSpace / (m_widgets.size() - 1));
 		}
 
-	    for (std::shared_ptr<Widget>& widget : m_widgets) {
+	    for (Widget* widget : m_widgets) {
 			widget->getRectangle().m_size.y = widget->getSize().y;
 			widget->getRectangle().m_size.x = m_size.x - m_padding.x * 2.0f;
 

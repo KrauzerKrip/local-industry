@@ -13,7 +13,7 @@ void HBox::updateChildWidgets() {
 	float cursorX = m_padding.y;
 
 	if (m_mode == BoxMode::STRETCH_WIDGETS) {
-		for (std::shared_ptr<Widget>& widget : m_widgets) {
+		for (Widget* widget : m_widgets) {
 			float sizeX = m_size.x / static_cast<float>(m_widgets.size()) - 1.5 * m_padding.x;
 			widget->getRectangle().m_size.x = sizeX;
 			widget->getRectangle().m_size.y = m_size.y - m_padding.y * 2;
@@ -31,7 +31,7 @@ void HBox::updateChildWidgets() {
 	else if (m_mode == BoxMode::STRETCH_SPACING) {
 		float usableSpace = m_size.x - 2 * m_padding.x;
 		float widgetSizeXSum = 0;
-		for (std::shared_ptr<Widget>& widget : m_widgets) {
+		for (Widget* widget : m_widgets) {
 			widgetSizeXSum += widget->getRectangle().m_size.x;
 		}
 
@@ -41,7 +41,7 @@ void HBox::updateChildWidgets() {
 			innerPaddingX = static_cast<unsigned int>(freeSpace / m_widgets.size() - 1);
 		}
 
-		for (std::shared_ptr<Widget>& widget : m_widgets) {
+		for (Widget* widget : m_widgets) {
 			widget->getRectangle().m_size.x = widget->getSize().x;
 			widget->getRectangle().m_size.y = m_size.y - m_padding.y * 2.0f;
 
