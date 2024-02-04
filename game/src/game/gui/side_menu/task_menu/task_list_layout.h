@@ -11,10 +11,11 @@ public:
 	TaskListLayout(unsigned int taskSlots, GuiDependencies dependencies);
 	void updateChildWidgets() override;
 	void setTasks(const std::vector<TaskData>& tasksData);
+	void hide() override;
+	void show() override;
+	std::vector<Widget*>& getChildrenWidgets() override;
 
 private:
-	void processTasks();
-
 	unsigned int m_taskSlots;
 
 	std::vector<TaskView*> m_activeTaskViews;

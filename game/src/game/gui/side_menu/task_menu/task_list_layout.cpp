@@ -1,6 +1,7 @@
 #include "task_list_layout.h"
 
 #include <stdexcept>
+#include <iostream>
 
 
 TaskListLayout::TaskListLayout(unsigned int taskSlots, GuiDependencies dependencies) {
@@ -14,8 +15,6 @@ TaskListLayout::TaskListLayout(unsigned int taskSlots, GuiDependencies dependenc
 }
 
 void TaskListLayout::updateChildWidgets() {
-	processTasks();
-
 	glm::vec2 spacing(2.5, 5);
 	float cursorY = m_size.y;
 
@@ -32,20 +31,19 @@ void TaskListLayout::updateChildWidgets() {
 
 		pTaskView->getRectangle().m_absolutePosition += position;
 
-		m_widgets.push_back(pTaskView);
+        std::cout << "ABSOLUTE POS_Y: " << pTaskView->getRectangle().m_absolutePosition.y << std::endl;
 	}
 
 }
 
-void TaskListLayout::setTasks(const std::vector<TaskData>& tasksData) { m_tasksData = tasksData; }
-
-void TaskListLayout::processTasks() {
-	m_widgets.clear();
-	m_activeTaskViews.clear();
-
-	if (m_tasksData.size() > m_taskSlots) {
+void TaskListLayout::setTasks(const std::vector<TaskData>& tasksData) {
+	if (tasksData.size() > m_taskSlots) {
 		throw std::invalid_argument("tasksData.size() > m_taskSlots");
 	}
+
+    m_tasksData = tasksData;
+
+	m_activeTaskViews.clear();
 
 	for (unsigned int i = 0; i < m_tasksData.size(); i++) {
 		TaskData taskData = m_tasksData.at(i);
@@ -54,3 +52,24 @@ void TaskListLayout::processTasks() {
 		m_activeTaskViews.push_back(pTaskView);
 	}
 }
+
+void TaskListLayout::hide() {
+    for (Widget* pWidget : m_taskViews) {
+		pWidget->hideWithChildren();
+    }
+}
+
+void TaskListLayout::show() {
+	for (Widget* pWidget : m_taskViews) {
+		pWidget->showWithChildren();
+	}
+}
+
+std::vector<Widget*>& TaskListLayout::getChildrenWidgets() {
+	m_widgets.clear();
+	for (Widget* pWidget : m_activeTaskViews) {
+		m_widgets.push_back(pWidget);
+	}
+	return m_widgets;
+}
+
