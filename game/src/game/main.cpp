@@ -41,13 +41,13 @@ int main() {
 	Loop* pLoop = nullptr;
 
 	try {
-		Tier0* pTier0 = new Tier0();
+		pTier0 = new Tier0();
 
 
 
-		IWindow* pWindow = new WindowGL(title, width, height, new int[2]{16, 9});
-		IGameLogic* pGameLogic = new Game(pWindow, pTier0);
-		Loop* pLoop = Loop::createInstance(pWindow, pGameLogic, targetFPS, targetUPS);
+		pWindow = new WindowGL(title, width, height, new int[2]{16, 9});
+		pGameLogic = new Game(pWindow, pTier0);
+		pLoop = Loop::createInstance(pWindow, pGameLogic, targetFPS, targetUPS);
 
 		pLoop->init();
 		pLoop->startLoop();

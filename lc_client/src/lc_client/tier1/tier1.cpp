@@ -10,13 +10,12 @@
 #include "config.h"
 
 
-Tier1::Tier1(eng::IResource* pResource, Tier0* pTier0) {
+Tier1::Tier1(eng::IResource* pResource, Tier0* pTier0) : m_config(pTier0->getParameters()) {
 	m_pTier0 = pTier0;
 
 	GameInfo::parse(pResource);
 
-	Config config(pTier0->getParameters());
-	config.setParameters();
+	m_config.initEngineConfig();
 
 	loadPacks(pResource);
 }
@@ -28,6 +27,7 @@ Tier1::~Tier1() {
 
 TextureManager* Tier1::getTextureManager() { return m_pTextureManager; }
 IShaderManager* Tier1::getShaderManager() { return m_pShaderManager; }
+void Tier1::initGameConfig() { m_config.initGameConfig(); }
 
 void Tier1::loadPacks(eng::IResource* pResource) {
 	GameInfo gameInfo;

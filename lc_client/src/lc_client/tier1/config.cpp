@@ -9,15 +9,27 @@
 
 Config::Config(Parameters* pParameters) { m_pParameters = pParameters; }
 
-void Config::setParameters() { 
-	GameInfo gameInfo;
-	std::map<std::string, std::string> config = gameInfo.getConfig();
+void Config::initEngineConfig() { 
+	std::map<std::string, std::string> config = m_gameInfo.getEngineConfig();
 
 	for (auto& [name, value] : config) {
 		try {
 			m_pParameters->setParameterValueConvert(name, value);
 		}
-		catch (ConsoleParameterNotFoundException& exception) {
+		catch (ConsoleParameterNotFoundException&) {
+			std::throw_with_nested(ConfigException());
+		}
+	}
+}
+
+void Config::initGameConfig() {
+	std::map<std::string, std::string> config = m_gameInfo.getGameConfig();
+
+	for (auto& [name, value] : config) {
+		try {
+			m_pParameters->setParameterValueConvert(name, value);
+		}
+		catch (ConsoleParameterNotFoundException&) {
 			std::throw_with_nested(ConfigException());
 		}
 	}

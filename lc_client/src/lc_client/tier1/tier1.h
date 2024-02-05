@@ -6,6 +6,7 @@
 #include "lc_client/tier1/i_shaders.h"
 #include "lc_client/tier1/texture_manager.h"
 #include "lc_client/tier0/tier0.h"
+#include "config.h"
 
 
 /**
@@ -19,10 +20,12 @@ public:
 
 	TextureManager* getTextureManager();
 	IShaderManager* getShaderManager();
+	void initGameConfig();
 
 protected:
 	eng::IResource* m_pResource;
 	Tier0* m_pTier0;
+	Config m_config;
 
 	TextureManager* m_pTextureManager;
 	IShaderManager* m_pShaderManager;

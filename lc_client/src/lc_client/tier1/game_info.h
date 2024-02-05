@@ -19,7 +19,8 @@ public:
 	std::string getProject();
 	std::string getVersion();
 	std::map<std::string, std::string> getPacks();
-	std::map<std::string, std::string> getConfig();
+	std::map<std::string, std::string> getEngineConfig();
+	std::map<std::string, std::string> getGameConfig();
 
 private: 
 	static nlohmann::json m_json;

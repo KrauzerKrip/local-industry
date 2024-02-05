@@ -48,18 +48,14 @@
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
-	std::vector actions = std::vector<std::string>({"kb_forward", "kb_left", "kb_back", "kb_right", "kb_up", "kb_fast",
-		"kb_down", "kb_use", "kb_menu", "kb_build", "kb_select", "kb_rotate_camera", "kb_machine_menu"});
-
 	m_pWindow = pWindow;
 	m_pCamera = new Camera();
 	m_pResource = new eng::Resource("E:/Industry/industry/res/"); 
 	m_pTier0 = pTier0;
-	game::initActions(m_pTier0->getParameters(), actions);
 	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
 	m_pGraphicsSettings = new GraphicsSettings(m_pTier0->getParameters());
 	m_pActionControl =
-		new ActionControl(pWindow->getInput(), m_pTier0->getParameters(), m_pTier0->getConsole(), actions);
+		new ActionControl(pWindow->getInput(), m_pTier0->getParameters(), m_pTier0->getConsole());
 
 
 	m_pConsoleGui = new ConsoleGui(
@@ -73,7 +69,6 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	Pack pack = Pack::getPack("dev");
 	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(pLoaderFabric->getShaderLoaderGl());
-
 
 	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
 	m_pWorld = new World(m_pResource, pSceneLoading, pSkyboxRender);
@@ -111,6 +106,8 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pCharacterSystem = new CharacterSystem(&m_pWorld->getRegistry());
 
 	m_pMachineSystem = new MachineSystem(m_pResource, &m_pWorld->getRegistry());
+
+	m_pTier1->initGameConfig();
 }
 
 Game::~Game() {

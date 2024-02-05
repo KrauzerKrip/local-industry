@@ -7,7 +7,8 @@
 
 KeyCodeStrings::KeyCodeStrings() {
 	m_keyCodeStrings = std::unordered_map<std::string, KeyCode>({
-		{"MOUSE_BUTTON_LEFT", KeyCode::MOUSE_BUTTON_LEFT},
+		{"NONE", KeyCode::NONE},
+	    {"MOUSE_BUTTON_LEFT", KeyCode::MOUSE_BUTTON_LEFT},
 		{"MOUSE_BUTTON_RIGHT", KeyCode::MOUSE_BUTTON_RIGHT},
 		{"MOUSE_BUTTON_MIDDLE", KeyCode::MOUSE_BUTTON_MIDDLE},
 		{ "A", KeyCode::A },

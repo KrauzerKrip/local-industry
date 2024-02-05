@@ -13,25 +13,11 @@
 
 
 void initParameters(Parameters& parameters) {
-	//initKeybinds(parameters);
 	initGraphicsParameters(parameters);
 	initUtilParameters(parameters);
 	initGuiParameters(parameters);
 	initPhysicsParameters(parameters);
 	initNpcParameters(parameters);
-}
-
-static void initKeybinds(Parameters& parameters) {
-	ADD_PARAMETER_STRING("kb_forward", "W");
-	ADD_PARAMETER_STRING("kb_left", "A");
-	ADD_PARAMETER_STRING("kb_back", "S");
-	ADD_PARAMETER_STRING("kb_right", "D");
-	ADD_PARAMETER_STRING("kb_up", "SPACE");
-	ADD_PARAMETER_STRING("kb_fast", "LEFT_SHIFT");
-	ADD_PARAMETER_STRING("kb_down", "CONTROL");
-	ADD_PARAMETER_STRING("kb_use", "E");
-	ADD_PARAMETER_STRING("kb_menu", "ESC");
-	ADD_PARAMETER_STRING("kb_select", "LEFT_CLICK");
 }
 
 void initGraphicsParameters(Parameters& parameters) {

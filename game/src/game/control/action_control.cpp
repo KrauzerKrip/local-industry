@@ -1,12 +1,12 @@
 #include "action_control.h"
 
 ActionControl::ActionControl(
-	IInput* pInput, Parameters* pParameters, IConsole* pConsole, std::vector<std::string> actions) { 
+	IInput* pInput, Parameters* pParameters, IConsole* pConsole) { 
 	m_pInput = pInput;
 
 	m_pKeyCodeStrings = new KeyCodeStrings;
 
-	m_pActionBind = new ActionBind(pParameters, pConsole, m_pKeyCodeStrings, actions);
+	m_pActionBind = new ActionBind(pParameters, pConsole, m_pKeyCodeStrings);
 }
 
 ActionControl::~ActionControl() {

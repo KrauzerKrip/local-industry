@@ -5,7 +5,16 @@
     "dev": "dev/pack.json",
     "game": "game/pack.json"
   },
-  "config": {
+  "engine_config": {
+    "cl_debug_mode": "false",
+    "ph_debug_mode": "false",
+    "npc_show_graph": "false",
+    "gh_vsync": "true",
+    "gh_fov": "90.0",
+    "gui_imgui_debug": "false"
+
+  },
+  "game_config": {
     "kb_forward": "W",
     "kb_left": "A",
     "kb_back": "S",

@@ -1,6 +1,8 @@
 #pragma once
 
 enum class KeyCode {
+	NONE,
+
 	MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE, 
 	A,
 	B,

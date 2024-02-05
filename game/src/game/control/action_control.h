@@ -8,7 +8,7 @@
 
 class ActionControl {
 public:
-	ActionControl(IInput* pInput, Parameters* pParameters, IConsole* pConsole, std::vector<std::string> actions);
+	ActionControl(IInput* pInput, Parameters* pParameters, IConsole* pConsole);
 	~ActionControl();
 
 	bool isAction(std::string action);

@@ -18,7 +18,7 @@ void GameInfo::parse(eng::IResource* pResource) {
 }
 
 std::string GameInfo::getProject() { return m_json.at("project"); }
-
+ 
 std::string GameInfo::getVersion() { return m_json.at("version"); }
 
 std::map<std::string, std::string> GameInfo::getPacks() {
@@ -31,10 +31,20 @@ std::map<std::string, std::string> GameInfo::getPacks() {
 	return packs;
 }
 
-std::map<std::string, std::string> GameInfo::getConfig() { 
+std::map<std::string, std::string> GameInfo::getEngineConfig() { 
 	std::map<std::string, std::string> config;
 
-	for (auto& parameter : m_json.at("config").items()) {
+	for (auto& parameter : m_json.at("engine_config").items()) {
+		config.emplace(parameter.key(), parameter.value());
+	}
+
+	return config;
+}
+
+std::map<std::string, std::string> GameInfo::getGameConfig() {
+	std::map<std::string, std::string> config;
+
+	for (auto& parameter : m_json.at("game_config").items()) {
 		config.emplace(parameter.key(), parameter.value());
 	}
 

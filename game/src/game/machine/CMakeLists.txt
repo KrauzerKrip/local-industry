@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.13)
 project(machine)
 
 add_subdirectory("blueprint")
-
 add_subdirectory("machines")
+add_subdirectory("physics")
 
 target_sources(game PRIVATE
 	"components.h"

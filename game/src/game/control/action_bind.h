@@ -16,7 +16,7 @@ public:
 
 class ActionBind {
 public:
-	ActionBind(Parameters* pParameters, IConsole* pConsole, KeyCodeStrings* pKeyCodeStrings, std::vector<std::string>& actions);
+	ActionBind(Parameters* pParameters, IConsole* pConsole, KeyCodeStrings* pKeyCodeStrings);
 
 	KeyCode getActionKey(std::string action);
 
