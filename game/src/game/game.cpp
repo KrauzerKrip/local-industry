@@ -36,7 +36,6 @@
 #include "game/gui/gui.h"
 #include "game/loader_fabric/openGL/gl_loader_fabric.h"
 #include "game/camera/orbital_camera_controller.h"
-#include "game/control/action_init.h"
 #include "game/control/control_system.h"
 
 #include "game/control/components.h"
@@ -57,7 +56,6 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pActionControl =
 		new ActionControl(pWindow->getInput(), m_pTier0->getParameters(), m_pTier0->getConsole());
 
-
 	m_pConsoleGui = new ConsoleGui(
 		m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier1->getTextureManager(), m_pTier0->getParameters());
 
@@ -73,16 +71,18 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
 	m_pWorld = new World(m_pResource, pSceneLoading, pSkyboxRender);
 
-	GuiDependenciesFabric* pGuiDependenciesFabric =
-		new GuiDependenciesFabricGl(m_pTier0->getConsole(), pLoaderFabric->getShaderLoaderGl(), m_pInput, m_pTier1->getTextureManager());
-	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput, m_pActionControl, &m_pWorld->getRegistry());
-
 	Skybox* pSkybox = m_pWorld->getSkybox();
 	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
 	pSkybox->setLightStrength(0.4f);
 
 	ModelManager* pModelManager = new ModelManager(
 		m_pResource, m_pTier1->getTextureManager(), m_pWorld->getUtilRegistry(), m_pTier0->getConsole());
+
+    m_pTier1->initGameConfig();
+
+	GuiDependenciesFabric* pGuiDependenciesFabric = new GuiDependenciesFabricGl(
+		m_pTier0->getConsole(), pLoaderFabric->getShaderLoaderGl(), m_pInput, m_pTier1->getTextureManager());
+	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput, m_pActionControl, &m_pWorld->getRegistry());
 
 	m_pRender = new RenderGL(
 		m_pWindow, m_pCamera, pLoaderFabric->getShaderLoaderGl(), m_pGui->getPresenter(), m_pGraphicsSettings);
@@ -106,8 +106,6 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pCharacterSystem = new CharacterSystem(&m_pWorld->getRegistry());
 
 	m_pMachineSystem = new MachineSystem(m_pResource, &m_pWorld->getRegistry());
-
-	m_pTier1->initGameConfig();
 }
 
 Game::~Game() {

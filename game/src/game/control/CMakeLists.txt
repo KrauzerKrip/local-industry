@@ -5,8 +5,8 @@ project(control)
 target_sources(game PRIVATE
 	"action_bind.h"
 	"action_bind.cpp"
-	"action_init.h"
-	"action_init.cpp"
+	
+	
 	"action_control.h"
 	"action_control.cpp"
 	"components.h"

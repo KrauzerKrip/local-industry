@@ -102,6 +102,7 @@ void InputGlfw::invokeKeyCallbacks(int key, int action) {
 	for (auto& [k, v] : m_keyMap) {
 		if (v == key) {
 			keyCode = k;
+			break;
 		}
 	}
 
