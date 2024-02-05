@@ -2,8 +2,8 @@
 
 #include <entt/entt.hpp>
 
-#include "task_list_controller.h"
-#include "task_list.h"
+#include "../task_list_controller.h"
+#include "../task_list.h"
 
 
 class PlannedTaskListController : public TaskListController {

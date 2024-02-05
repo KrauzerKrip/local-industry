@@ -2,7 +2,7 @@
 
 #include <entt/entt.hpp>
 
-#include "task_view.h"
+#include "../task_view.h"
 
 
 CharacterTaskListController::CharacterTaskListController(TaskQueue* pTaskQueue, entt::registry* pRegistry, TaskList* pTaskList) {
@@ -17,7 +17,7 @@ void CharacterTaskListController::update() {
 	m_pTaskQueue->forEach([this, &taskViews](entt::entity entity) {
 	    if (m_pRegistry->all_of<Task>(entity)) {
 			Task& task = m_pRegistry->get<Task>(entity);
-			TaskData taskView({task.name, task.progress});
+			TaskData taskView({"Build " + task.name, task.progress});
 			taskViews.push_back(taskView);
 	    }
 	});

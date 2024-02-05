@@ -92,8 +92,8 @@ Background* Widget::getBackground() { return m_background.get(); }
 void Widget::setName(std::string name) { m_name = name; }
 
 void Widget::render() {
-	std::cout << m_name << " " << m_rectangle.m_absolutePosition.x << " " << m_rectangle.m_absolutePosition.y << " "
-			  << m_rectangle.m_size.x << " " << m_rectangle.m_size.y << std::endl;
+	//std::cout << m_name << " " << m_rectangle.m_absolutePosition.x << " " << m_rectangle.m_absolutePosition.y << " "
+	//		  << m_rectangle.m_size.x << " " << m_rectangle.m_size.y << std::endl;
 
 	if (m_isVisible && m_background) {
 		m_background->render(m_rectangle, m_layer);

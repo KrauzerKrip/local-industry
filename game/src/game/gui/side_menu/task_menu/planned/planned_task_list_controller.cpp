@@ -2,6 +2,8 @@
 
 #include "game/machine/components.h"
 
+import character;
+
 
 PlannedTaskListController::PlannedTaskListController(entt::registry* pRegistry, TaskList* pTaskList) {
     m_pRegistry = pRegistry;

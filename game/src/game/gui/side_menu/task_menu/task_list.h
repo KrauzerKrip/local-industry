@@ -1,24 +1,19 @@
 #pragma once
 
-#include <string>
-
-#include <entt/entt.hpp>
-
-#include "task_list_controller.h"
-#include "task_list_layout.h"
-#include "lc_client/eng_gui/widgets/dependencies.h"
 #include "lc_client/eng_gui/widgets/widget.h"
-#include "task_view.h"
+#include "task_list_layout.h"
 
 import character;
 
 
 class TaskList : public Widget {
 public:
-	TaskList(unsigned int taskSlots, std::string label, GuiDependencies dependencies);
+    void setTasks(const std::vector<TaskData>& tasksData) {
+		// std::cout << "TASKS DATA: " << tasksData.size() << std::endl;
+		m_pTaskListLayout->setTasks(tasksData);
+	}
 
-	void setTasks(const std::vector<TaskData>& tasksData);
 
-private:
+protected:
 	TaskListLayout* m_pTaskListLayout = nullptr;
 };
