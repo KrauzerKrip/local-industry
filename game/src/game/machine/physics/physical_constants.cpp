@@ -8,18 +8,20 @@
 
 PhysicalConstants::PhysicalConstants(Parameters* pParameters, IConsole* pConsole) {
 	m_constants = {
-    {"combustion_heat_diesel", 43400000.0}, {"combustion_heat_anthracite", 32500000.0}};
+        {"combustion_heat_diesel", 0},
+	    {"combustion_heat_anthracite", 0},
+		{"combustion_heat_wood", 0},
+	    {"heater_efficiency", 0},
+		{"heater_consumption_rate", 0}
+	};
 
     for (const auto& [k, v] : m_constants) {
-        
+		ConPar<float> conpar("game_" + k, v);
+		conpar.setCallback([this, k](float value) {
+		    m_constants[k] = value;
+		});
+		pParameters->addParameter(conpar);
     }
-
- //   		try {
-	//	pParameters->getParameterValue<float>("game_" + k);
-	//}
-	//catch (ConsoleParameterNotFoundException&) {
-	//	pConsole->message(std::format("Can't find parameter 'game_{}' to set the value of constant {}", k, k));
-	//}
 }
 
 float PhysicalConstants::getConstant(const std::string& name) { return m_constants.at(name); }
