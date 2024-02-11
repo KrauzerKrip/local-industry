@@ -16,20 +16,33 @@ MachineControlSystem::MachineControlSystem(
 	m_pActionControl = pActionControl;
 	m_pRegistry = pRegistry;
 
-	addSelectionCallback();
+	addSelectionCallback(); 
 }
 
 void MachineControlSystem::input() {
+	m_isConnection = false;
+
 	auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform, RelativeTransform>(entt::exclude<Task>);
 
 	if (selectedBlueprints.begin() != selectedBlueprints.end()) {
-		RaycastResult result = m_pMouseRaycast->doMouseRaycast(entt::exclude<Blueprint>);
+		RaycastResult result = m_pMouseRaycast->doMouseRaycast(entt::exclude<Selected>);
 		if (result.intersectionPoint.has_value()) {
 			for (auto&& [ent, transform,  relativeTransform] : selectedBlueprints.each()) {
 				transform.position = relativeTransform.transform.position + result.intersectionPoint.value();
 				transform.position.x = (int)transform.position.x;
 				transform.position.y = (int)transform.position.y;
 				transform.position.z = (int)transform.position.z;
+
+			    if (m_pRegistry->all_of<Blueprint>(*result.entityIntersectedWith)) {
+					if (isConnectable(ent, *result.entityIntersectedWith)) {
+						glm::vec3 pos = m_pRegistry->get<HeatOut>(*result.entityIntersectedWith).position +
+							m_pRegistry->get<Transform>(*result.entityIntersectedWith).position;
+						transform.position = pos;
+						m_isConnection = true;
+					}
+					else {
+					}
+				}
 			}
 		}
 	}
@@ -60,7 +73,20 @@ void MachineControlSystem::onAction(std::string action, entt::entity entity, glm
 }
 
 void MachineControlSystem::onMouseMove(entt::entity entity, glm::vec3 position, float distance) {
+}
 
+bool MachineControlSystem::isConnectable(entt::entity blueprint, entt::entity entityConnectTo) {
+	if (m_pRegistry->all_of<HeatIn>(blueprint) && m_pRegistry->all_of<HeatOut>(entityConnectTo)) {
+		if (m_pRegistry->get<HeatOut>(entityConnectTo).entity) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	else {
+		return false;
+	}
 }
 
 void MachineControlSystem::addSelectionCallback() {
@@ -93,7 +119,7 @@ void MachineControlSystem::addSelectionCallback() {
 				else {
 					m_pRegistry->remove<Selected>(entity);
 					m_pRegistry->remove<Outline>(entity);
-					if (m_pRegistry->all_of<Blueprint>(entIntersect)) {
+					if (m_pRegistry->all_of<Blueprint>(entIntersect) && !m_isConnection) {
 						m_pRegistry->emplace_or_replace<Selected>(entIntersect);
 						m_pRegistry->emplace_or_replace<Outline>(entIntersect, outline);
 					}
@@ -114,3 +140,4 @@ void MachineControlSystem::addSelectionCallback() {
 		}
 	});
 }
+

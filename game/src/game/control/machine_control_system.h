@@ -17,7 +17,8 @@ public:
 	void input();
 	void update();
 	void onAction(std::string action, entt::entity entity, glm::vec3 position, float distance) override;
-	void onMouseMove(entt::entity entity, glm::vec3 position, float distance);
+	void onMouseMove(entt::entity entity, glm::vec3 position, float distance) override;
+	[[nodiscard]] bool isConnectable(entt::entity blueprint, entt::entity entityConnectTo);
 
 private:
 	void addSelectionCallback();
@@ -26,4 +27,5 @@ private:
 	ActionControl* m_pActionControl = nullptr;
 
 	entt::registry* m_pRegistry = nullptr;
+	bool m_isConnection = false;
 };
