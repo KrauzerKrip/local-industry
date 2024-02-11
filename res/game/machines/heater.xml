@@ -7,9 +7,12 @@
       <rotation x="0" y="180" z="0"></rotation>
       <scale x="0.5" y="0.5" z="0.5"></scale>
     </transform>
-    <model_data>      
-       <pack>game</pack>
+    <model_data>
+      <pack>game</pack>
       <model>heater</model>
-   </model_data>
+    </model_data>
+    <heat_out>
+      <position x="2.5" y="0" z="-2"></position>
+    </heat_out>
   </components>    
 </machine>

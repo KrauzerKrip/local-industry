@@ -11,8 +11,8 @@ PhysicalConstants::PhysicalConstants(Parameters* pParameters, IConsole* pConsole
         {"combustion_heat_diesel", 0},
 	    {"combustion_heat_anthracite", 0},
 		{"combustion_heat_wood", 0},
-	    {"heater_efficiency", 0},
-		{"heater_consumption_rate", 0}
+	    {"burning_duration_wood", 0},
+		{"heater_efficiency", 0}
 	};
 
     for (const auto& [k, v] : m_constants) {

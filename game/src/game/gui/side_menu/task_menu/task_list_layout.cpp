@@ -31,7 +31,7 @@ void TaskListLayout::updateChildWidgets() {
 
 		pTaskView->getRectangle().m_absolutePosition += position;
 
-        std::cout << "ABSOLUTE POS_Y: " << pTaskView->getRectangle().m_absolutePosition.y << std::endl;
+        //std::cout << "ABSOLUTE POS_Y: " << pTaskView->getRectangle().m_absolutePosition.y << std::endl;
 	}
 
 }

@@ -51,4 +51,14 @@ void MachineLoader::handleComponent(pugi::xml_node componentXml, entt::entity en
 		modelRequest.loadShaders = false;
 		m_pRegistry->emplace<ModelRequest>(entity, modelRequest);
 	}
+	else if (componentName == "heat_out") {
+		HeatOut heatOut;
+		heatOut.position = makeVector3(componentXml.child("position"));
+		m_pRegistry->emplace<HeatOut>(entity, heatOut);
+	}
+	else if (componentName == "heat_in") {
+		HeatIn heatIn;
+		heatIn.position = makeVector3(componentXml.child("position"));
+		m_pRegistry->emplace<HeatIn>(entity, heatIn);
+	}
 }

@@ -3,9 +3,9 @@
 #include "game/machine/base_machine_system.h"
 
 
-class HeaterSystem : public BaseMachineSystem {
+class BoilerSystem : public BaseMachineSystem {
 public:
-	HeaterSystem(entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants);
+	BoilerSystem(entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants);
 
 	void update(float deltaTime) override;
 	void machineUpdate(float deltaTime) override;

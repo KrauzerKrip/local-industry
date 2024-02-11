@@ -2,5 +2,7 @@
 
 
 struct Heater {
-	float fuel;
+	bool isWorking;
+
+	Heater() : isWorking(false) {}
 };

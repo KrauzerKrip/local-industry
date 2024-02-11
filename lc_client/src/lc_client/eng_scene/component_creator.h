@@ -30,4 +30,4 @@ namespace pseudo {
 }
 
 
-static glm::vec3 makeVector3(pugi::xml_node node);
+glm::vec3 makeVector3(pugi::xml_node node);

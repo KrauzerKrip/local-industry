@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include <entt/entt.hpp>
 #include <glm/glm.hpp>
 
@@ -17,6 +19,8 @@ struct MachineRequest {
 
 	MachineRequest(MachineType type, std::string typeString) : type(type), typeString(typeString){}
 };
+
+struct MachineInit {};
 
 struct Blueprint {
 
@@ -45,16 +49,23 @@ struct RelativeTransform {
 struct HeatIn {
 	glm::vec3 position;
 	float heat = 0;
-
+	 
 	HeatIn() {} 
 };
 
 struct HeatOut {
 	glm::vec3 position;
-	entt::entity entity;
+	std::optional<entt::entity> entity;
 	float heat = 0;
 
-	HeatOut(entt::entity entity) : entity(entity) {}
+	HeatOut() : entity(std::nullopt) {}
 };
 
+struct CombustionFuelStorage {
+	std::optional<entt::entity> fuel;
+	float mass;
+
+	CombustionFuelStorage() : fuel(std::nullopt), mass(0) {}
+	CombustionFuelStorage(entt::entity fuel, float mass) : fuel(fuel), mass(mass) {}
+};
 

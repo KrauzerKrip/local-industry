@@ -27,6 +27,12 @@
     "kb_select": "MOUSE_BUTTON_LEFT",
     "kb_build": "MOUSE_BUTTON_RIGHT",
     "kb_rotate_camera": "MOUSE_BUTTON_MIDDLE",
-    "kb_machine_menu": "Q"
+    "kb_machine_menu": "Q",
+
+    "game_combustion_heat_diesel": "43400000.0",
+    "game_combustion_heat_anthracite": "32500000.0",
+    "game_combustion_heat_wood": "16300000.0",
+    "game_burning_duration_wood": "60",
+    "game_heater_efficiency": "0.80"
   }
 }

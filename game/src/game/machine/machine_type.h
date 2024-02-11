@@ -4,7 +4,8 @@
 
 
 enum class MachineType {
-	HEATER
+	HEATER,
+    BOILER
 };
 
 

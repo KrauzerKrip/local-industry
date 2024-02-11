@@ -17,4 +17,7 @@ target_sources(game PRIVATE
 	"machine_loader.cpp"
 	"machine_loading_system.h"
 	"machine_loading_system.cpp"
+	"base_machine_system.h"
+	"machine_connector.h"
+	"machine_connector.cpp"
 )

@@ -10,6 +10,7 @@ add_subdirectory("src/game/camera")
 add_subdirectory("src/game/control")
 add_subdirectory("src/game/character")
 add_subdirectory("src/game/machine")
+add_subdirectory("src/game/item")
 
 target_include_directories(game
     PUBLIC

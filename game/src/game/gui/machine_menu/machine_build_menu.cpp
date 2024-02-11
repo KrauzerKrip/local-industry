@@ -33,6 +33,7 @@ MachineBuildMenu::MachineBuildMenu(ActionControl* pActionControl, GuiDependencie
 	Grid* pGrid = new Grid(9, 25, 100);
 
 	pGrid->addChild(createSlot(MachineType::HEATER, "heater"));
+	pGrid->addChild(createSlot(MachineType::BOILER, "boiler"));
 
 	this->setLayout(pGrid);
 }

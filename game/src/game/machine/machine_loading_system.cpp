@@ -1,8 +1,9 @@
 #include "machine_loading_system.h"
 
 #include "components.h"
-#include "machines/heater/components.h"
 #include "lc_client/eng_scene/entt/components.h"
+#include "machines/heater/components.h"
+#include "machines/boiler/components.h"
 
 
 MachineLoadingSystem::MachineLoadingSystem(eng::IResource* pResource, entt::registry* pRegistry) :m_machineLoader(pResource, pRegistry) {
@@ -25,7 +26,11 @@ void MachineLoadingSystem::addMachineComponent(entt::entity entity, MachineType 
 	case MachineType::HEATER:
 		m_pRegistry->emplace<Heater>(entity);
 		break;
+	case MachineType::BOILER:
+		m_pRegistry->emplace<Boiler>(entity);
+		break;
 	default:
 		break;
 	}
+	m_pRegistry->emplace<MachineInit>(entity);
 }

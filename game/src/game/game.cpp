@@ -37,6 +37,7 @@
 #include "game/loader_fabric/openGL/gl_loader_fabric.h"
 #include "game/camera/orbital_camera_controller.h"
 #include "game/control/control_system.h"
+#include "game/machine/physics/physical_constants.h"
 
 #include "game/control/components.h"
 
@@ -78,6 +79,8 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	ModelManager* pModelManager = new ModelManager(
 		m_pResource, m_pTier1->getTextureManager(), m_pWorld->getUtilRegistry(), m_pTier0->getConsole());
 
+	PhysicalConstants* pPhysicalConstants = new PhysicalConstants(m_pTier0->getParameters(), m_pTier0->getConsole());
+
     m_pTier1->initGameConfig();
 
 	GuiDependenciesFabric* pGuiDependenciesFabric = new GuiDependenciesFabricGl(
@@ -105,7 +108,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 		&m_pWorld->getRegistry());
 	m_pCharacterSystem = new CharacterSystem(&m_pWorld->getRegistry());
 
-	m_pMachineSystem = new MachineSystem(m_pResource, &m_pWorld->getRegistry());
+	m_pMachineSystem = new MachineSystem(m_pResource, &m_pWorld->getRegistry(), pPhysicalConstants);
 }
 
 Game::~Game() {
@@ -242,8 +245,8 @@ void Game::update() {
 	m_pNpcSystem->update();
 	m_pControlSystem->update();
 	m_pCharacterSystem->update();
-	m_pMachineSystem->update();
-	m_pMachineSystem->machineUpdate();
+	m_pMachineSystem->update(Time::getDeltaTime());
+	m_pMachineSystem->machineUpdate(Time::getDeltaTime());
 
 	//if (pMapRegistry->view<Mesh>().size() == 0) {
 	//	m_pGraphicsSystems->update();
