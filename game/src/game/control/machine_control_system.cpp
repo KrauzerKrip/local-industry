@@ -22,26 +22,27 @@ MachineControlSystem::MachineControlSystem(
 void MachineControlSystem::input() {
 	m_isConnection = false;
 
-	auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform, RelativeTransform>(entt::exclude<Task>);
+    auto connectionRequests = m_pRegistry->view<ConnectionRequest, Transform>();
+	for (auto&& [entity, request, transform] : connectionRequests.each()) {
+		if (request.type == ConnectionType::HEAT) {
+			transform.position = m_pRegistry->get<HeatOut>(request.entity).position +
+								 m_pRegistry->get<Transform>(request.entity).position;
+			m_isConnection = true;
+		}
+	}
 
+	auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform, RelativeTransform>(entt::exclude<Task>);
 	if (selectedBlueprints.begin() != selectedBlueprints.end()) {
 		RaycastResult result = m_pMouseRaycast->doMouseRaycast(entt::exclude<Selected>);
 		if (result.intersectionPoint.has_value()) {
 			for (auto&& [ent, transform,  relativeTransform] : selectedBlueprints.each()) {
-				transform.position = relativeTransform.transform.position + result.intersectionPoint.value();
-				transform.position.x = (int)transform.position.x;
-				transform.position.y = (int)transform.position.y;
-				transform.position.z = (int)transform.position.z;
-
-			    if (m_pRegistry->all_of<Blueprint>(*result.entityIntersectedWith)) {
-					if (isConnectable(ent, *result.entityIntersectedWith)) {
-						glm::vec3 pos = m_pRegistry->get<HeatOut>(*result.entityIntersectedWith).position +
-							m_pRegistry->get<Transform>(*result.entityIntersectedWith).position;
-						transform.position = pos;
-						m_isConnection = true;
-					}
-					else {
-					}
+			    if (m_pRegistry->any_of<Blueprint, Built>(*result.entityIntersectedWith)) {
+					m_pRegistry->emplace_or_replace<ConnectionRequest>(ent, *result.entityIntersectedWith);
+				} else {
+					transform.position = relativeTransform.transform.position + result.intersectionPoint.value();
+					transform.position.x = static_cast<int>(transform.position.x);
+					transform.position.y = static_cast<int>(transform.position.y);
+					transform.position.z = static_cast<int>(transform.position.z);
 				}
 			}
 		}
@@ -56,19 +57,17 @@ void MachineControlSystem::onAction(std::string action, entt::entity entity, glm
 	if (action == "kb_build") {
 		if (m_pRegistry->all_of<Blueprint>(entity)) {
 			if (m_pRegistry->all_of<Task>(entity)) {
-				m_pRegistry->remove<Task>(entity);
-				if (m_pRegistry->all_of<CharacterAssignedTo>(entity)) {
-					m_pRegistry->remove<CharacterAssignedTo>(entity);
-				}
+				removeTask(entity);
 			}
 			else {
-				auto selectedCharacter = m_pRegistry->view<GameCharacter, Selected>();
-				for (auto&& [characterEntity, character] : selectedCharacter.each()) {
-					m_pRegistry->emplace<CharacterAssignedTo>(entity, characterEntity);
+				if (!checkIsOrphanAddition(entity)) {
+					addTask(entity);
 				}
-				m_pRegistry->emplace<Task>(entity);
 			}
 		}
+	}
+	else if (action == "kb_select") {
+	    
 	}
 }
 
@@ -80,14 +79,11 @@ bool MachineControlSystem::isConnectable(entt::entity blueprint, entt::entity en
 		if (m_pRegistry->get<HeatOut>(entityConnectTo).entity) {
 			return false;
 		}
-		else {
-			return true;
-		}
+	    return true;
 	}
-	else {
-		return false;
-	}
+    return false;
 }
+
 
 void MachineControlSystem::addSelectionCallback() {
 	m_pActionControl->addActionCallback("kb_select", [this]() {
@@ -139,5 +135,41 @@ void MachineControlSystem::addSelectionCallback() {
 			m_pRegistry->remove<BlueprintInit>(entity);
 		}
 	});
+}
+
+void MachineControlSystem::addTask(entt::entity entity) {
+	auto selectedCharacter = m_pRegistry->view<GameCharacter, Selected>();
+	for (auto&& [characterEntity, character] : selectedCharacter.each()) {
+		m_pRegistry->emplace<CharacterAssignedTo>(entity, characterEntity);
+	}
+	m_pRegistry->emplace<Task>(entity);
+}
+
+
+void MachineControlSystem::removeTask(entt::entity entity) {
+    m_pRegistry->remove<Task>(entity);
+    if (m_pRegistry->all_of<CharacterAssignedTo>(entity)) {
+        m_pRegistry->remove<CharacterAssignedTo>(entity);
+    }
+
+	if (!m_pRegistry->all_of<Addition>(entity)) {
+		auto connectionRequests = m_pRegistry->view<Addition, ConnectionRequest>();
+		for (auto&& [ent, request] : connectionRequests.each()) {
+			if (request.entity == entity) {
+				removeTask(ent);
+			}
+		}
+	}
+}
+
+bool MachineControlSystem::checkIsOrphanAddition(entt::entity entity) {
+	if (m_pRegistry->all_of<Addition, ConnectionRequest>(entity)) {
+		ConnectionRequest& connectionRequest = m_pRegistry->get<ConnectionRequest>(entity);
+		if (connectionRequest.type != ConnectionType::NONE &&
+			!m_pRegistry->any_of<Task, Built>(connectionRequest.entity)) {
+			return true;
+		}
+	}
+	return false;
 }
 

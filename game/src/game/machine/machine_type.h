@@ -1,7 +1,10 @@
 #pragma once
 
-#include <string>
 
+enum class ConnectionType {
+    NONE,
+    HEAT
+};
 
 enum class MachineType {
 	HEATER,

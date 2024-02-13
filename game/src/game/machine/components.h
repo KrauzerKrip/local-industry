@@ -33,6 +33,21 @@ struct BlueprintInit {
 
 };
 
+struct Built {
+    
+};
+
+struct Addition {
+    
+};
+
+struct ConnectionRequest {
+    entt::entity entity;
+	ConnectionType type;
+
+	explicit ConnectionRequest(entt::entity entity) : entity(entity),  type(ConnectionType::NONE) {}
+};
+
 struct CharacterAssignedTo {
 	entt::entity entity;
 

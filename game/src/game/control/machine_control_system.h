@@ -22,6 +22,14 @@ public:
 
 private:
 	void addSelectionCallback();
+	void addTask(entt::entity entity);
+	void removeTask(entt::entity entity);
+    /**
+     * \brief checks if addition's base isn't built or added to tasks.
+     * \param entity 
+     * \return 
+     */
+    bool checkIsOrphanAddition(entt::entity entity);
 
 	MouseRaycast* m_pMouseRaycast = nullptr;
 	ActionControl* m_pActionControl = nullptr;

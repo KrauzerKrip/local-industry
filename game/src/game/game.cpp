@@ -201,6 +201,7 @@ void Game::input() {
 		m_pControlSystem->input();
 	}
 
+	m_pMachineSystem->input(Time::getDeltaTime());
 
 	if (m_pActionControl->isAction("kb_menu")) {
 		exit(0);
