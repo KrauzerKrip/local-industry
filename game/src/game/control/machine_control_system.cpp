@@ -9,7 +9,6 @@
 
 import character;
 
-
 MachineControlSystem::MachineControlSystem(
 	MouseRaycast* pMouseRaycast, ActionControl* pActionControl, entt::registry* pRegistry) {
 	m_pMouseRaycast = pMouseRaycast;
@@ -27,8 +26,17 @@ void MachineControlSystem::input() {
     auto connectionRequests = m_pRegistry->view<ConnectionRequest, Transform>();
 	for (auto&& [entity, request, transform] : connectionRequests.each()) {
 		if (request.type == ConnectionType::HEAT) {
-			transform.position = m_pRegistry->get<HeatOut>(request.entity).position +
-								 m_pRegistry->get<Transform>(request.entity).position;
+			Transform& baseTransform = m_pRegistry->get<Transform>(request.entity);
+			glm::vec3 heatOutputPos = m_pRegistry->get<HeatOut>(request.entity).position;
+
+			glm::vec3 pos = heatOutputPos;
+			glm::quat quat = baseTransform.rotation;
+			quat *= glm::angleAxis(glm::radians(180.0f), glm::vec3(0.f, 1.f, 0.f));
+			glm::vec4 pos4(pos, 0.0);
+			pos4 = glm::toMat4(quat) * pos4;
+			pos = glm::vec3(pos4.x, pos4.y, pos4.z);
+
+			transform.position = pos + m_pRegistry->get<Transform>(request.entity).position;
 			m_isConnection = true;
 		}
 	}
@@ -118,7 +126,7 @@ void MachineControlSystem::addRotationCallback() {
 		auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform>();
 
 		for (auto&& [entity, transform] : selectedBlueprints.each()) {
-			transform.rotation *= glm::angleAxis(glm::radians(90.f), glm::vec3(0.f, 1.f, 0.f));
+			transform.rotation *= glm::angleAxis(glm::radians(-90.0f), glm::vec3(0.f, 1.f, 0.f));
 		}
 	});
 }
