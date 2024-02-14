@@ -62,6 +62,7 @@ void MachineSystem::machineUpdate(float deltaTime) {
 }
 
 void MachineSystem::completeTask(entt::entity entity) {
+	m_pRegistry->emplace<Machine>(entity);
 	m_pRegistry->emplace<Built>(entity);
 	m_pRegistry->remove<Blueprint>(entity);
 	m_pRegistry->emplace<ShaderRequest>(entity, ShaderRequest("dev", "base", "lighting"));

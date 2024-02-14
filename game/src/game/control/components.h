@@ -10,3 +10,7 @@ struct Selected {
 };
 
 struct MouseMoveRaycast {};
+
+struct MachineSelectable {
+    
+};

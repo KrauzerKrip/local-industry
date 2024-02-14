@@ -2,9 +2,12 @@
 
 #include <entt/entt.hpp>
 
+#include "components.h"
 #include "game/control/mouse_raycast_observer.h"
 #include "game/control/action_control.h"
 #include "mouse_raycast.h"
+#include "game/machine/components.h"
+#include "lc_client/eng_graphics/entt/components.h"
 
 
 /**
@@ -30,6 +33,8 @@ private:
      * \return 
      */
     bool checkIsOrphanAddition(entt::entity entity);
+	void selectOrUnselect(entt::entity entity);  
+	void selectOrUnselect_(const RaycastResult& result);
 
 	MouseRaycast* m_pMouseRaycast = nullptr;
 	ActionControl* m_pActionControl = nullptr;

@@ -1,6 +1,7 @@
 #include "machine_loading_system.h"
 
 #include "components.h"
+#include "game/control/components.h"
 #include "lc_client/eng_scene/entt/components.h"
 #include "machines/heater/components.h"
 #include "machines/boiler/components.h"
