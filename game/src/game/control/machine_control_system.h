@@ -25,6 +25,8 @@ public:
 
 private:
 	void addSelectionCallback();
+	void addRotationCallback();
+	void addRemoveCallback();
 	void addTask(entt::entity entity);
 	void removeTask(entt::entity entity);
     /**

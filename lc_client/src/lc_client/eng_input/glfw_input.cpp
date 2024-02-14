@@ -41,6 +41,8 @@ InputGlfw::InputGlfw() {
 	m_keyMap.emplace(KeyCode::SPACE, GLFW_KEY_SPACE);
 	m_keyMap.emplace(KeyCode::LEFT_SHIFT, GLFW_KEY_LEFT_SHIFT);
 	m_keyMap.emplace(KeyCode::LEFT_CTRL, GLFW_KEY_LEFT_CONTROL);
+	m_keyMap.emplace(KeyCode::LEFT_ALT, GLFW_KEY_LEFT_ALT);
+	m_keyMap.emplace(KeyCode::RIGHT_ALT, GLFW_KEY_RIGHT_ALT);
 
 	m_keyMap.emplace(KeyCode::GRAVE_ACCENT, GLFW_KEY_GRAVE_ACCENT);
 

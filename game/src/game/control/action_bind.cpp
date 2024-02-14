@@ -6,8 +6,8 @@
 
 ActionBind::ActionBind(
 	Parameters* pParameters, IConsole* pConsole, KeyCodeStrings* pKeyCodeStrings) {
-	std::vector actions = std::vector<std::string>({"kb_forward", "kb_left", "kb_back", "kb_right", "kb_up", "kb_fast",
-		"kb_down", "kb_use", "kb_menu", "kb_build", "kb_select", "kb_rotate_camera", "kb_machine_menu"});
+	std::vector actions = std::vector<std::string>({"kb_forward", "kb_left", "kb_back", "kb_right", "kb_up", "kb_fast", "kb_down", "kb_use", "kb_menu", "kb_build",
+			"kb_select", "kb_rotate_camera", "kb_machine_menu", "kb_rotate_blueprint", "kb_remove_blueprint"});
 
 	for (std::string action : actions) {
 		ConPar<std::string> conpar(action, "");

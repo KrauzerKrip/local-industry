@@ -16,7 +16,9 @@ MachineControlSystem::MachineControlSystem(
 	m_pActionControl = pActionControl;
 	m_pRegistry = pRegistry;
 
-	addSelectionCallback(); 
+	addSelectionCallback();
+	addRotationCallback();
+	addRemoveCallback();
 }
 
 void MachineControlSystem::input() {
@@ -107,6 +109,32 @@ void MachineControlSystem::addSelectionCallback() {
 			m_pRegistry->emplace_or_replace<Selected>(entity);
 			m_pRegistry->emplace_or_replace<Outline>(entity, outline);
 			m_pRegistry->remove<BlueprintInit>(entity);
+		}
+	});
+}
+
+void MachineControlSystem::addRotationCallback() {
+	m_pActionControl->addActionCallback("kb_rotate_blueprint", [this]() {
+		auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform>();
+
+		for (auto&& [entity, transform] : selectedBlueprints.each()) {
+			transform.rotation *= glm::angleAxis(glm::radians(90.f), glm::vec3(0.f, 1.f, 0.f));
+		}
+	});
+}
+
+void MachineControlSystem::addRemoveCallback() {
+	m_pActionControl->addActionCallback("kb_remove_blueprint", [this]() {
+		auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected>();
+
+		for (auto&& [entity] : selectedBlueprints.each()) {
+			m_pRegistry->destroy(entity);
+			auto connectionRequests = m_pRegistry->view<Addition, ConnectionRequest>();
+			for (auto&& [ent, request] : connectionRequests.each()) {
+				if (request.entity == entity) {
+					m_pRegistry->destroy(ent);   
+				}
+			}
 		}
 	});
 }

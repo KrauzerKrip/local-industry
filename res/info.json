@@ -28,6 +28,8 @@
     "kb_build": "MOUSE_BUTTON_RIGHT",
     "kb_rotate_camera": "MOUSE_BUTTON_MIDDLE",
     "kb_machine_menu": "Q",
+    "kb_rotate_blueprint": "R",
+    "kb_remove_blueprint" : "LEFT_ALT",
 
     "game_combustion_heat_diesel": "43400000.0",
     "game_combustion_heat_anthracite": "32500000.0",

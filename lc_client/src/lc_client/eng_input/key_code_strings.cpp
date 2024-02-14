@@ -42,6 +42,8 @@ KeyCodeStrings::KeyCodeStrings() {
 		{"LEFT_SHIFT", KeyCode::LEFT_SHIFT},
 		{"LEFT_CTRL", KeyCode::LEFT_CTRL},
 		{"GRAVE_ACCENT", KeyCode::GRAVE_ACCENT},
+		{"LEFT_ALT", KeyCode::LEFT_ALT},
+		{"RIGHT_ALT", KeyCode::RIGHT_ALT},
 		{"F1", KeyCode::F1},
 		{"F2", KeyCode::F2},
 		{"F3", KeyCode::F3},

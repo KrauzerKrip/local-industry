@@ -34,7 +34,9 @@ enum class KeyCode {
 	SPACE,
 	LEFT_SHIFT,
 	LEFT_CTRL,
-	GRAVE_ACCENT, 
+	GRAVE_ACCENT,
+	LEFT_ALT,
+	RIGHT_ALT,
 
 	F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12
 };
