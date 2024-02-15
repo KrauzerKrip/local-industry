@@ -11,8 +11,8 @@ public:
 	Framebuffer(int width, int height);
 	~Framebuffer();
 
-	virtual void bind();
-	virtual void bindTexture();
+    void bind();
+	void bindTexture();
 
 protected:
 	unsigned int m_fbo;

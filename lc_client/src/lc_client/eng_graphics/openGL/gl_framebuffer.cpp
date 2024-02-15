@@ -18,7 +18,6 @@ Framebuffer::Framebuffer(int width, int height) {
 
 	glEnable(GL_MULTISAMPLE);
 
-
 	glGenFramebuffers(1, &m_fbo);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
@@ -39,9 +38,8 @@ Framebuffer::Framebuffer(int width, int height) {
 
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo);
 
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-		assert("ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
-	}
+    _ASSERT_EXPR(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE,
+			"ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
