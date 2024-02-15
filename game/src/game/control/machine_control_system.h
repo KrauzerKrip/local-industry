@@ -36,7 +36,6 @@ private:
      */
     bool checkIsOrphanAddition(entt::entity entity);
 	void selectOrUnselect(entt::entity entity);  
-	void selectOrUnselect_(const RaycastResult& result);
 
 	MouseRaycast* m_pMouseRaycast = nullptr;
 	ActionControl* m_pActionControl = nullptr;

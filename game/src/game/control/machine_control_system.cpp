@@ -25,11 +25,17 @@ void MachineControlSystem::input() {
 
     auto connectionRequests = m_pRegistry->view<ConnectionRequest, Transform>();
 	for (auto&& [entity, request, transform] : connectionRequests.each()) {
-		if (request.type == ConnectionType::HEAT) {
-			Transform& baseTransform = m_pRegistry->get<Transform>(request.entity);
-			glm::vec3 heatOutputPos = m_pRegistry->get<HeatOut>(request.entity).position;
 
-			glm::vec3 pos = heatOutputPos;
+		glm::vec3 attachmentPosition;
+
+		if (request.type == ConnectionType::HEAT) {
+			attachmentPosition = m_pRegistry->get<HeatOut>(request.entity).position;
+		}
+
+		if (request.type != ConnectionType::NONE) {
+			Transform& baseTransform = m_pRegistry->get<Transform>(request.entity);
+
+		    glm::vec3 pos = attachmentPosition;
 			glm::quat quat = baseTransform.rotation;
 			quat *= glm::angleAxis(glm::radians(180.0f), glm::vec3(0.f, 1.f, 0.f));
 			glm::vec4 pos4(pos, 0.0);
@@ -123,7 +129,7 @@ void MachineControlSystem::addSelectionCallback() {
 
 void MachineControlSystem::addRotationCallback() {
 	m_pActionControl->addActionCallback("kb_rotate_blueprint", [this]() {
-		auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform>();
+		auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform>(entt::exclude<Task>);
 
 		for (auto&& [entity, transform] : selectedBlueprints.each()) {
 			transform.rotation *= glm::angleAxis(glm::radians(-90.0f), glm::vec3(0.f, 1.f, 0.f));
@@ -133,11 +139,15 @@ void MachineControlSystem::addRotationCallback() {
 
 void MachineControlSystem::addRemoveCallback() {
 	m_pActionControl->addActionCallback("kb_remove_blueprint", [this]() {
-		auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected>();
+		auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected>(entt::exclude<Task>); //TODO: fix and remove exclude
 
 		for (auto&& [entity] : selectedBlueprints.each()) {
+			if (m_pRegistry->all_of<Task>(entity)) {
+				removeTask(entity);
+			}
+
 			m_pRegistry->destroy(entity);
-			auto connectionRequests = m_pRegistry->view<Addition, ConnectionRequest>();
+			auto connectionRequests = m_pRegistry->view<Attachment, ConnectionRequest>();
 			for (auto&& [ent, request] : connectionRequests.each()) {
 				if (request.entity == entity) {
 					m_pRegistry->destroy(ent);   
@@ -162,8 +172,8 @@ void MachineControlSystem::removeTask(entt::entity entity) {
         m_pRegistry->remove<CharacterAssignedTo>(entity);
     }
 
-	if (!m_pRegistry->all_of<Addition>(entity)) {
-		auto connectionRequests = m_pRegistry->view<Addition, ConnectionRequest>();
+	if (!m_pRegistry->all_of<Attachment>(entity)) {
+		auto connectionRequests = m_pRegistry->view<Attachment, ConnectionRequest>();
 		for (auto&& [ent, request] : connectionRequests.each()) {
 			if (request.entity == entity) {
 				removeTask(ent);
@@ -173,7 +183,7 @@ void MachineControlSystem::removeTask(entt::entity entity) {
 }
 
 bool MachineControlSystem::checkIsOrphanAddition(entt::entity entity) {
-	if (m_pRegistry->all_of<Addition, ConnectionRequest>(entity)) {
+	if (m_pRegistry->all_of<Attachment, ConnectionRequest>(entity)) {
 		ConnectionRequest& connectionRequest = m_pRegistry->get<ConnectionRequest>(entity);
 		if (connectionRequest.type != ConnectionType::NONE &&
 			!m_pRegistry->any_of<Task, Built>(connectionRequest.entity)) {
@@ -207,44 +217,6 @@ void MachineControlSystem::selectOrUnselect(entt::entity entity) {
 				m_pRegistry->emplace_or_replace<Selected>(entity);
 				m_pRegistry->emplace_or_replace<Outline>(entity, outline);
 			}
-		}
-	}
-}
-
-
-void MachineControlSystem::selectOrUnselect_(const RaycastResult& result) {
-	auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected>();
-	Outline outline(glm::vec3(255 / 255., 255 / 255., 255 / 255.), 0.025);
-
-	if (selectedBlueprints.begin() == selectedBlueprints.end()) {
-		if (result.entityIntersectedWith.has_value()) {
-			entt::entity entIntersect = result.entityIntersectedWith.value();
-			if (m_pRegistry->any_of<Blueprint, Machine>(entIntersect)) {
-				m_pRegistry->emplace_or_replace<Selected>(entIntersect);
-				m_pRegistry->emplace_or_replace<Outline>(entIntersect, outline);
-			}
-		}
-	}
-
-	for (auto&& [entity] : selectedBlueprints.each()) {
-		if (result.entityIntersectedWith.has_value()) {
-			entt::entity entIntersect = result.entityIntersectedWith.value();
-			if (entity == entIntersect) {
-				m_pRegistry->remove<Selected>(entity);
-				m_pRegistry->remove<Outline>(entity);
-			}
-			else {
-				m_pRegistry->remove<Selected>(entity);
-				m_pRegistry->remove<Outline>(entity);
-				if (m_pRegistry->any_of<Blueprint, Machine>(entIntersect) && !m_isConnection) {
-					m_pRegistry->emplace_or_replace<Selected>(entIntersect);
-					m_pRegistry->emplace_or_replace<Outline>(entIntersect, outline);
-				}
-			}
-		}
-		else {
-			m_pRegistry->remove<Selected>(entity);
-			m_pRegistry->remove<Outline>(entity);
 		}
 	}
 }
