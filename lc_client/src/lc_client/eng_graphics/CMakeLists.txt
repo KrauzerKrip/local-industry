@@ -34,8 +34,8 @@ target_sources(lc_client
         "openGL/gl_framebuffer.cpp"
         "openGL/gl_skybox_render.h"
         "openGL/gl_skybox_render.cpp"
-        #"openGL/gl_texture_cubemap.h"
-        #"openGL/gl_texture_cubemap.cpp"
+        "openGL/gl_cubemap.h"
+        "openGL/gl_cubemap.cpp"
         "openGL/renders/gl_render_map.h"
         "openGL/renders/gl_render_map.cpp"
         "openGL/renders/gl_lighting.h"
@@ -46,6 +46,11 @@ target_sources(lc_client
         "openGL/renders/gl_transparent_render.cpp"
         "openGL/renders/gl_mesh_render.h"
         "openGL/renders/gl_mesh_render.cpp"
+        "openGL/renders/gl_outline_render.h"
+        "openGL/renders/gl_outline_render.cpp"
+        "openGL/renders/gl_opaque_render.h"
+        "openGL/renders/gl_opaque_render.cpp"
+
 
         "gui/text_render.h"
         "gui/background_render.h"

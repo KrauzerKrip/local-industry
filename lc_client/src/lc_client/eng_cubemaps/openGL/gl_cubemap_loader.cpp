@@ -5,13 +5,16 @@
 #include "lc_client/eng_cubemaps/entt/components.h"
 
 
-void CubemapLoaderGl::loadCubemap(entt::registry* pRegistry, entt::entity entity, std::string path) {
+void CubemapLoaderGl::loadCubemap(
+	entt::entity entity, std::string path, entt::registry* pRegistry, entt::registry* pUtilRegistry) {
 	CubemapTextureLoader cubemapLoader(path, m_pResource);
 	std::unique_ptr<CubemapMaterial> material = cubemapLoader.getMaterial();
 
 	unsigned int texture = getTexture(std::move(material));
 
-	pRegistry->emplace_or_replace<CubemapGl>(entity, texture);
+	entt::entity cubemapGlEntity = pUtilRegistry->create();
+	pUtilRegistry->emplace_or_replace<CubemapGl>(cubemapGlEntity, CubemapGl(texture));
+	pRegistry->emplace_or_replace<Cubemap>(entity, Cubemap(cubemapGlEntity));
 }
 
 unsigned int CubemapLoaderGl::getTexture(std::unique_ptr<CubemapMaterial> material) { 

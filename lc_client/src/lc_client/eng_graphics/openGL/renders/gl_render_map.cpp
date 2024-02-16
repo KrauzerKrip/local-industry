@@ -25,37 +25,37 @@ void RenderMapGl::render(glm::mat4 view, glm::mat4 projection) {
 		m_pRegistry->view<CubemapGl, Transform>();
 
 	for (entt::entity entity : meshesGroup) {
-		Mesh& mesh = meshesGroup.get<Mesh>(entity);
-		unsigned int shaderProgram = meshesGroup.get<ShaderGl>(entity).shaderProgram;
-		glUseProgram(shaderProgram);
-		m_pSkybox->bindTexture();
-		Transform& transform = meshesGroup.get<Transform>(entity);
-		unsigned int nearestCubemapId = m_pRenderGl->getNearestCubemap(transform.position, cubemapEntities);
-		if (nearestCubemapId != 0) {
-			glActiveTexture(GL_TEXTURE0 + TextureType::CUBEMAP);
-			glBindTexture(GL_TEXTURE_CUBE_MAP, nearestCubemapId);
-		}
+		//Mesh& mesh = meshesGroup.get<Mesh>(entity);
+		//unsigned int shaderProgram = meshesGroup.get<ShaderGl>(entity).shaderProgram;
+		//glUseProgram(shaderProgram);
+		//m_pSkybox->bindTexture();
+		//Transform& transform = meshesGroup.get<Transform>(entity);
+		//unsigned int nearestCubemapId = m_pRenderGl->getNearestCubemap(transform.position, cubemapEntities);
+		//if (nearestCubemapId != 0) {
+		//	glActiveTexture(GL_TEXTURE0 + TextureType::CUBEMAP);
+		//	glBindTexture(GL_TEXTURE_CUBE_MAP, nearestCubemapId);
+		//}
 
-		setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
-		setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
-		eng::setMaterialSg(shaderProgram);
-		m_pLighting->setLighting(shaderProgram);
-		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
-		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		eng::transform(modelMatrix, transform);
-		eng::setMatrices(shaderProgram, modelMatrix, view, projection);
+		//setUniform(shaderProgram, "skybox", TextureType::SKYBOX);
+		//setUniform(shaderProgram, "cubemap", TextureType::CUBEMAP);
+		//eng::setMaterialSg(shaderProgram);
+		//m_pLighting->setLighting(shaderProgram);
+		//setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
+		//glm::mat4 modelMatrix = glm::mat4(1.0f);
+		//eng::transform(modelMatrix, transform);
+		//eng::setMatrices(shaderProgram, modelMatrix, view, projection);
 
-		int vao = m_pRegistry->get<VaoGl>(entity).vaoId;
-		MaterialSG& materialSG = m_pRegistry->get<MaterialSG>(entity);
-		Texture* aoTexture = materialSG.aoTexture;
-		Texture* diffuseTexture = materialSG.diffuseTexture;
-		Texture* normalMap = materialSG.normalMap;
-		Texture* specularMap = materialSG.specularTexture;
-		aoTexture->bind();
-		diffuseTexture->bind();
-		normalMap->bind();
-		specularMap->bind();
-		glBindVertexArray(vao);
-		glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, 0);
+		//int vao = m_pRegistry->get<VaoGl>(entity).vaoId;
+		//MaterialSG& materialSG = m_pRegistry->get<MaterialSG>(entity);
+		//Texture* aoTexture = materialSG.aoTexture;
+		//Texture* diffuseTexture = materialSG.diffuseTexture;
+		//Texture* normalMap = materialSG.normalMap;
+		//Texture* specularMap = materialSG.specularTexture;
+		//aoTexture->bind();
+		//diffuseTexture->bind();
+		//normalMap->bind();
+		//specularMap->bind();
+		//glBindVertexArray(vao);
+		//glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, 0);
 	}
 }

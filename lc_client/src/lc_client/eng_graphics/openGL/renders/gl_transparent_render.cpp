@@ -9,27 +9,35 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h" 
 
 
-TransparentRenderGl::TransparentRenderGl(Camera* pCamera, entt::registry* pRegistry, entt::registry* pUtilRegistry) {
+TransparentRenderGl::TransparentRenderGl(
+	Camera* pCamera, MeshRenderGl* pMeshRenderGl, OutlineRenderGl* pOutlineRender, entt::registry* pRegistry) {
 	m_pRegistry = pRegistry;
-	m_pUtilRegistry = pUtilRegistry;
 	m_pCamera = pCamera;
+	m_pMeshRender = pMeshRenderGl;
+	m_pOutlineRender = pOutlineRender;
 }
 
-void TransparentRenderGl::render(glm::mat4 projection, glm::mat4 view) {
+void TransparentRenderGl::render(const glm::mat4& projection, const glm::mat4& view) {
 	auto transparentEntitiesGroup = m_pRegistry->view<Transparent, Model, Transform, ShaderGl>();
 
 	for (auto&& [entity, model, transform, shader] : transparentEntitiesGroup.each()) {
 		unsigned int shaderProgram = shader.shaderProgram;
 		std::vector<entt::entity>& meshes = model.meshes;
 		glUseProgram(shaderProgram);
-		eng::setMaterialSg(shaderProgram);
 		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
-		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		eng::transform(modelMatrix, transform);
-		eng::setMatrices(shaderProgram, modelMatrix, view, projection);
 
+		m_pMeshRender->setUp(transform, shaderProgram, projection, view);
+
+		if (m_pRegistry->all_of<Outline>(entity)) {
+			glStencilFunc(GL_ALWAYS, 1, 0xFF);
+			glStencilMask(0xFF);
+		}
 		for (entt::entity& meshEntity : meshes) {
-			eng::renderMesh(meshEntity, m_pUtilRegistry);
+			m_pMeshRender->renderMesh(meshEntity);
+		}
+
+		if (m_pRegistry->all_of<Outline>(entity)) {
+			m_pOutlineRender->render(model, m_pRegistry->get<Outline>(entity), transform, projection, view);
 		}
 	}
 }

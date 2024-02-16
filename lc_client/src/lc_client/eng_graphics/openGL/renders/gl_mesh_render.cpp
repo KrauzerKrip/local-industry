@@ -13,11 +13,22 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
+MeshRenderGl::MeshRenderGl(entt::registry* pUtilRegistry) { m_pUtilRegistry = pUtilRegistry; }
 
-void eng::renderMesh(entt::entity meshEntity, entt::registry* pUtilRegistry) {
-	Mesh& mesh = pUtilRegistry->get<Mesh>(meshEntity);
-	int vao = pUtilRegistry->get<VaoGl>(meshEntity).vaoId;
-	MaterialSG& materialSG = pUtilRegistry->get<MaterialSG>(meshEntity);
+void MeshRenderGl::setUp(
+	const Transform& transform, unsigned shaderProgram, const glm::mat4& projection, const glm::mat4& view) {
+	setMaterialSg(shaderProgram);
+
+	glm::mat4 modelMatrix(1.0f);
+	appleTransform(modelMatrix, transform);
+
+	setMatrices(shaderProgram, modelMatrix, projection, view);
+}
+
+void MeshRenderGl::renderMesh(entt::entity meshEntity) {
+	Mesh& mesh = m_pUtilRegistry->get<Mesh>(meshEntity);
+	unsigned int vao = m_pUtilRegistry->get<VaoGl>(meshEntity).vaoId;
+	MaterialSG& materialSG = m_pUtilRegistry->get<MaterialSG>(meshEntity);
 	Texture* aoTexture = materialSG.aoTexture;
 	Texture* diffuseTexture = materialSG.diffuseTexture;
 	Texture* normalMap = materialSG.normalMap;
@@ -30,9 +41,9 @@ void eng::renderMesh(entt::entity meshEntity, entt::registry* pUtilRegistry) {
 	glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, 0);
 }
 
-
-void eng::setMatrices(unsigned int shaderProgram, glm::mat4& model, glm::mat4& view, glm::mat4 projection) {
-	glm::mat4 normal = model;
+void MeshRenderGl::setMatrices(
+	unsigned shaderProgram, const glm::mat4& model, const glm::mat4& projection, const glm::mat4& view) {
+    glm::mat4 normal = model;
 	glm::inverse(normal);
 	glm::transpose(normal);
 
@@ -49,13 +60,12 @@ void eng::setMatrices(unsigned int shaderProgram, glm::mat4& model, glm::mat4& v
 	glUniformMatrix4fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normal));
 }
 
-void eng::transform(glm::mat4& model, Transform& transform) {
+void MeshRenderGl::appleTransform(glm::mat4& model, const Transform& transform) {
 	model = glm::translate(model, transform.position);
 	model *= glm::mat4_cast(transform.rotation);
 	model = glm::scale(model, transform.scale);
 }
-
-void eng::setMaterialSg(unsigned int shaderProgram) {
+void MeshRenderGl::setMaterialSg(unsigned shaderProgram) {
 	setUniform(shaderProgram, "material.diffuse", TextureType::DIFFUSE);
 	setUniform(shaderProgram, "material.normal", TextureType::NORMAL);
 	setUniform(shaderProgram, "material.specular", TextureType::SPECULAR);

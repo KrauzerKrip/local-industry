@@ -6,11 +6,14 @@
 #include "lc_client/eng_graphics/camera/camera.h"
 #include "gl_mesh_render.h"
 #include "gl_outline_render.h"
+#include "gl_lighting.h"
+#include "lc_client/eng_scene/skybox.h"
 
 
-class TransparentRenderGl {
+class OpaqueRenderGl {
 public:
-	TransparentRenderGl(Camera* pCamera, MeshRenderGl* pMeshRenderGl, OutlineRenderGl* pOutlineRender, entt::registry* pRegistry);
+	OpaqueRenderGl(
+		Camera* pCamera, MeshRenderGl* pMeshRenderGl, OutlineRenderGl* pOutlineRender, LightingGl* pLighting, Skybox* pSkybox, entt::registry* pRegistry, entt::registry* pUtilRegistry);
 
 	void render(const glm::mat4& projection, const glm::mat4& view);
 
@@ -21,4 +24,6 @@ private:
 	Camera* m_pCamera = nullptr;
 	MeshRenderGl* m_pMeshRender = nullptr;
 	OutlineRenderGl* m_pOutlineRender = nullptr;
+	LightingGl* m_pLighting = nullptr;
+	Skybox* m_pSkybox = nullptr;
 };

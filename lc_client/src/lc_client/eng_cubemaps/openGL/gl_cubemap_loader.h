@@ -10,9 +10,10 @@
 
 class CubemapLoaderGl : public CubemapLoader {
 public:
-	CubemapLoaderGl(eng::IResource* pResource) : CubemapLoader(pResource){};
+	CubemapLoaderGl(eng::IResource* pResource)
+		: CubemapLoader(pResource){};
 
-	void loadCubemap(entt::registry* pRegistry, entt::entity entity, std::string path); 
+	void loadCubemap(entt::entity entity, std::string path, entt::registry* pRegistry, entt::registry* pUtilRegistry) override; 
 
 private:
 	unsigned int getTexture(std::unique_ptr<CubemapMaterial> material);

@@ -8,10 +8,13 @@
 
 class CubemapLoader {
 public:
-	CubemapLoader(eng::IResource* pResource) : m_pResource(pResource) {};
+	CubemapLoader(eng::IResource* pResource)
+		: m_pResource(pResource) {}
+	virtual ~CubemapLoader() = default;
 
-	virtual void loadCubemap(entt::registry* pRegistry, entt::entity entity, std::string path) = 0;
+	virtual void loadCubemap(
+		entt::entity entity, std::string path, entt::registry* pRegistry, entt::registry* pUtilRegistry) = 0;
 
 protected: 
-	eng::IResource* m_pResource;
+	eng::IResource* m_pResource = nullptr;
 };

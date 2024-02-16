@@ -59,8 +59,14 @@ struct ShaderRequest {
 struct Shader {
 	entt::entity* shader;
 
+    std::unordered_map<std::string, glm::vec4> vectorUniforms;
+	std::unordered_map<std::string, float> floatUniforms;
+
 	Shader() = default;
-	Shader(entt::entity* shader) : shader(shader){};
+	Shader(entt::entity* shader)
+		: shader(shader),
+    vectorUniforms(std::unordered_map<std::string, glm::vec4>()),
+    floatUniforms(std::unordered_map<std::string, float>()){}
 	Shader(const Shader&) = default;
 };
 
