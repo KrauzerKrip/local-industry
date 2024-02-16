@@ -28,6 +28,17 @@ void TransparentRenderGl::render(const glm::mat4& projection, const glm::mat4& v
 
 		m_pMeshRender->setUp(transform, shaderProgram, projection, view);
 
+		if (m_pRegistry->all_of<ShaderUniforms>(entity)) {
+			const ShaderUniforms& uniforms = m_pRegistry->get<ShaderUniforms>(entity);
+
+			for (auto&& [k, v] : uniforms.floatUniforms) {
+				setUniform(shaderProgram, k, v);
+			}
+			for (auto&& [k, v] : uniforms.vectorUniforms) {
+				setUniform(shaderProgram, k, v);
+			}
+		}
+
 		if (m_pRegistry->all_of<Outline>(entity)) {
 			glStencilFunc(GL_ALWAYS, 1, 0xFF);
 			glStencilMask(0xFF);

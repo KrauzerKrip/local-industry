@@ -56,6 +56,7 @@ struct ShaderRequest {
 };
 
 
+//TODO remove
 struct Shader {
 	entt::entity* shader;
 
@@ -68,6 +69,11 @@ struct Shader {
     vectorUniforms(std::unordered_map<std::string, glm::vec4>()),
     floatUniforms(std::unordered_map<std::string, float>()){}
 	Shader(const Shader&) = default;
+};
+
+struct ShaderUniforms {
+	std::unordered_map<std::string, glm::vec4> vectorUniforms;
+	std::unordered_map<std::string, float> floatUniforms;
 };
 
 struct ShaderGl {

@@ -43,6 +43,17 @@ void OpaqueRenderGl::render(const glm::mat4& projection, const glm::mat4& view) 
 		m_pLighting->setLighting(shaderProgram);
 		setUniform(shaderProgram, "viewPos", m_pCamera->getPosition());
 
+	    if (m_pRegistry->all_of<ShaderUniforms>(entity)) {
+			const ShaderUniforms& uniforms = m_pRegistry->get<ShaderUniforms>(entity);
+
+			for (auto&& [k, v] : uniforms.floatUniforms) {
+				setUniform(shaderProgram, k, v);
+			}
+			for (auto&& [k, v] : uniforms.vectorUniforms) {
+				setUniform(shaderProgram, k, v);
+			}
+		}
+
 		m_pMeshRender->setUp(transform, shaderProgram, projection, view);
 
 		if (m_pRegistry->all_of<Outline>(entity)) {
