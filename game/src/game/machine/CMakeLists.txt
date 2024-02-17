@@ -5,6 +5,7 @@ project(machine)
 add_subdirectory("blueprint")
 add_subdirectory("machines")
 add_subdirectory("physics")
+add_subdirectory("graphics")
 
 target_sources(game PRIVATE
 	"components.h"

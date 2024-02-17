@@ -13,7 +13,7 @@ import character;
 
 
 
-MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants) : m_machineLoadingSystem(pResource, pRegistry), m_machineConnector(pRegistry) {
+MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants) : m_machineLoadingSystem(pResource, pRegistry), m_machineConnector(pRegistry), m_machineGraphicsSystem(pRegistry) {
 	m_pRegistry = pRegistry;
 
 	m_machineSystems = {
@@ -44,7 +44,7 @@ void MachineSystem::update(float deltaTime) {
 		pMachineSystem->update(deltaTime);
 	}
 }
-
+  
 void MachineSystem::machineUpdate(float deltaTime) { 
 	auto machinesHeatOut = m_pRegistry->view<Machine, HeatOut>();
 
@@ -60,6 +60,8 @@ void MachineSystem::machineUpdate(float deltaTime) {
 		}
 	}
 }
+
+void MachineSystem::frame(float deltaTime) { m_machineGraphicsSystem.frame(deltaTime); }
 
 void MachineSystem::completeTask(entt::entity entity) {
 	m_pRegistry->emplace<Machine>(entity);

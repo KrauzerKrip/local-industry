@@ -8,6 +8,7 @@
 #include "machines/heater/heater_system.h"
 #include "base_machine_system.h"
 #include "machine_connector.h"
+#include "graphics/machine_graphics_system.h"
 
 
 class MachineSystem {
@@ -17,12 +18,14 @@ public:
 	void input(float deltaTime);
 	void update(float deltaTime);
 	void machineUpdate(float deltaTime);
+	void frame(float deltaTime);
 
 private:
 	void completeTask(entt::entity entity);
 
 	MachineLoadingSystem m_machineLoadingSystem;
 	MachineConnector m_machineConnector;
+	MachineGraphicsSystem m_machineGraphicsSystem;
 
 	entt::registry* m_pRegistry = nullptr;
 

@@ -282,6 +282,7 @@ void Game::update() {
 void Game::render() {
 	m_pScriptSystem->frame();
 	m_pGraphicsSystems->frame();
+	m_pMachineSystem->frame(Time::getDeltaTime());
 	m_pRender->render();
 }
 

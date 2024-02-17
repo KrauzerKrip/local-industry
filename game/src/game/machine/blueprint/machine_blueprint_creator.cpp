@@ -19,6 +19,7 @@ void MachineBlueprintCreator::createMachineBlueprint(MachineType type, std::stri
 	m_pRegistry->emplace<BoxCollider>(entity, BoxCollider(4.0f, 4.0f, 4.0f));
 	m_pRegistry->emplace<ShaderRequest>(entity, ShaderRequest("game", "base", "blueprint"));
 	m_pRegistry->emplace<Transparent>(entity);
+	m_pRegistry->emplace<ShaderUniforms>(entity);
 	m_pRegistry->emplace<BlueprintInit>(entity);
 	m_pRegistry->emplace<MachineSelectable>(entity);
 }
