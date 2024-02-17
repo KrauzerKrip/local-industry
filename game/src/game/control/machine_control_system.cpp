@@ -183,10 +183,15 @@ void MachineControlSystem::removeTask(entt::entity entity) {
 }
 
 bool MachineControlSystem::checkIsOrphanAddition(entt::entity entity) {
-	if (m_pRegistry->all_of<Attachment, ConnectionRequest>(entity)) {
-		ConnectionRequest& connectionRequest = m_pRegistry->get<ConnectionRequest>(entity);
-		if (connectionRequest.type != ConnectionType::NONE &&
-			!m_pRegistry->any_of<Task, Built>(connectionRequest.entity)) {
+	if (m_pRegistry->all_of<Attachment>(entity)) {
+		if (m_pRegistry->all_of<ConnectionRequest>(entity)) {
+			ConnectionRequest& connectionRequest = m_pRegistry->get<ConnectionRequest>(entity);
+			if (connectionRequest.type != ConnectionType::NONE &&
+				!m_pRegistry->any_of<Task, Built>(connectionRequest.entity)) {
+				return true;
+			}
+		}
+		else {
 			return true;
 		}
 	}
