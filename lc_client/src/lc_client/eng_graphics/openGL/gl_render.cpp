@@ -73,7 +73,9 @@ void RenderGL::render() {
 	m_pSkybox->render(projection, view);
 	glDepthFunc(GL_LESS);
 
+	glDepthMask(false);
 	m_pTransparentRender->render(projection, view);
+	glDepthMask(true);
 	m_pPrimitiveRender->render(projection, view);
 	m_pGuiPresenter->render();
 

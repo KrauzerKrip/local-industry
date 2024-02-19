@@ -8,7 +8,7 @@
 #include "lc_client/eng_graphics/i_window.h"
 #include "lc_client/eng_graphics/openGL/gl_window.h"
 #include "lc_client/tier0/tier0.h"
-
+ 
 
 void printException(const std::exception& e, int level = 0) {
 	std::cerr << std::string(level, ' ') << "Exception: " << e.what() << '\n';

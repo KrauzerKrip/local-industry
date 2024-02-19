@@ -18,7 +18,12 @@ TransparentRenderGl::TransparentRenderGl(
 }
 
 void TransparentRenderGl::render(const glm::mat4& projection, const glm::mat4& view) {
-	auto transparentEntitiesGroup = m_pRegistry->view<Transparent, Model, Transform, ShaderGl>();
+	auto transparentEntitiesGroup = m_pRegistry->group<>(entt::get<Transparent, Model, Transform, ShaderGl>);
+
+	transparentEntitiesGroup.sort<Transform>([this](Transform& transform1, Transform& transform2) { 
+		return glm::distance(transform2.position, m_pCamera->getPosition()) < glm::distance(transform1.position, m_pCamera->getPosition());
+		});
+
 
 	for (auto&& [entity, model, transform, shader] : transparentEntitiesGroup.each()) {
 		unsigned int shaderProgram = shader.shaderProgram;
