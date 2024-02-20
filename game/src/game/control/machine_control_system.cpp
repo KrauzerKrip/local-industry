@@ -23,13 +23,15 @@ MachineControlSystem::MachineControlSystem(
 void MachineControlSystem::input() {
 	m_isConnection = false;
 
-    auto connectionRequests = m_pRegistry->view<ConnectionRequest, Transform>();
-	for (auto&& [entity, request, transform] : connectionRequests.each()) {
+    auto connectionRequests = m_pRegistry->view<ConnectionRequest, Transform, RelativeTransform>();
+	for (auto&& [entity, request, transform, relativeTransform] : connectionRequests.each()) {
 
 		glm::vec3 attachmentPosition;
+		glm::vec3 attachmentRotation;
 
 		if (request.type == ConnectionType::HEAT) {
 			attachmentPosition = m_pRegistry->get<HeatOut>(request.entity).position;
+			attachmentRotation = m_pRegistry->get<HeatOut>(request.entity).rotation;
 		}
 
 		if (request.type != ConnectionType::NONE) {
@@ -42,7 +44,8 @@ void MachineControlSystem::input() {
 			pos4 = glm::toMat4(quat) * pos4;
 			pos = glm::vec3(pos4.x, pos4.y, pos4.z);
 
-			transform.position = pos + m_pRegistry->get<Transform>(request.entity).position;
+			transform.position = pos + m_pRegistry->get<Transform>(request.entity).position + relativeTransform.transform.position;
+			transform.rotation = glm::quat(attachmentRotation) * m_pRegistry->get<Transform>(request.entity).rotation * relativeTransform.transform.rotation;
 			m_isConnection = true;
 		}
 	}

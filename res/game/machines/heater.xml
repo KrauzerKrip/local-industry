@@ -13,6 +13,7 @@
     </model_data>
     <heat_out>
       <position x="2.5" y="0" z="-2"></position>
+      <rotation x="0" y="0" z="0"></rotation>
     </heat_out>
   </components>    
 </machine>

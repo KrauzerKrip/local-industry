@@ -54,6 +54,7 @@ void MachineLoader::handleComponent(pugi::xml_node componentXml, entt::entity en
 	else if (componentName == "heat_out") {
 		HeatOut heatOut;
 		heatOut.position = makeVector3(componentXml.child("position"));
+		heatOut.rotation = makeVector3(componentXml.child("rotation"));
 		m_pRegistry->emplace<HeatOut>(entity, heatOut);
 	}
 	else if (componentName == "heat_in") {

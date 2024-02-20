@@ -70,6 +70,7 @@ struct HeatIn {
 
 struct HeatOut {
 	glm::vec3 position;
+	glm::vec3 rotation;
 	std::optional<entt::entity> entity;
 	float heat = 0;
 
