@@ -55,12 +55,12 @@ Pack::Model::Model(Pack& parent, std::string name) : m_parent(parent) {
 			}
 
 			isFound = true;
-
-			m_modelPath = model.value().at("model_path");
-			m_texturesPath = model.value().at("textures_path");
-			m_materialType = model.value().at("material_type");
-			m_vertexShader = model.value().at("vertex_shader");
-			m_fragmentShader = model.value().at("fragment_shader");
+			try {
+				m_modelPath = model.value();
+			}
+			catch (std::exception&) {
+				throw ModelNotFoundException("model '" + name + "' in the pack '" + parent.m_name + "' is incorrect.");
+			}
 		}
 	}
 
@@ -74,10 +74,6 @@ Pack::Model::Model(Pack& parent, std::string name) : m_parent(parent) {
 
 Pack::Model::~Model() = default;
 std::string Pack::Model::getPath() { return m_modelPath; }
-std::string Pack::Model::getTexturesPath() { return m_texturesPath; }
-std::string Pack::Model::getMaterialType() { return m_materialType; }
-std::string Pack::Model::getVertexShader() { return m_vertexShader; }
-std::string Pack::Model::getFragmentShader() { return m_fragmentShader; }
 
 Pack::Skybox::Skybox(Pack& parent, std::string name) : m_parent(parent){ 
 	auto& skyboxes = parent.m_descriptor.at("skyboxes");

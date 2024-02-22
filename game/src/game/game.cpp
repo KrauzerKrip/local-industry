@@ -78,6 +78,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	ModelManager* pModelManager = new ModelManager(
 		m_pResource, m_pTier1->getTextureManager(), m_pWorld->getUtilRegistry(), m_pTier0->getConsole());
+	ModelParser* pModelParser = new ModelParser(m_pResource);
 
 	PhysicalConstants* pPhysicalConstants = new PhysicalConstants(m_pTier0->getParameters(), m_pTier0->getConsole());
 
@@ -94,8 +95,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	m_pRender->init();
 
-	m_pGraphicsSystems = new GraphicsSystems(m_pTier0, m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(),
-		pLoaderFabric->getCubemapLoader(), m_pWorld, pModelManager);
+	m_pGraphicsSystems = new GraphicsSystems(m_pTier0, m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(), pLoaderFabric->getCubemapLoader(), m_pWorld, pModelManager, pModelParser);
 
 	m_pScriptSystem = new ScriptSystem(&m_pWorld->getRegistry());
 	Physics* pPhysics = new Physics(&m_pWorld->getRegistry());

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<model>
+  <model_file>model.dae</model_file>
+  <material_type>sg</material_type>
+  <vertex_shader>base</vertex_shader>
+  <fragment_shader>lighting</fragment_shader>
+  <physics_file>physics.xml</physics_file>
+</model>

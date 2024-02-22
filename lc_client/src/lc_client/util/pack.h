@@ -26,19 +26,11 @@ public:
 		~Model();
 
 		std::string getPath();
-		std::string getTexturesPath();
-		std::string getMaterialType();
-		std::string getVertexShader();
-		std::string getFragmentShader();
 
 	private:
 		Pack& m_parent;
 
 		std::string m_modelPath;
-		std::string m_texturesPath;
-		std::string m_materialType;
-		std::string m_vertexShader;
-		std::string m_fragmentShader;
 	};
 
 	class Skybox {

@@ -8,6 +8,7 @@
 #include "lc_client/eng_world/world.h"
 #include "lc_client/eng_model/model_manager.h"
 #include "lc_client/eng_world/world.h"
+#include "lc_client/eng_model/model_parser.h"
 
 #include "lc_client/eng_graphics/shader_system.h"
 #include "lc_client/eng_graphics/material_system.h"
@@ -21,17 +22,14 @@ class GraphicsSystems {
 public:
 	GraphicsSystems(Tier0* pTier0, Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork,
 		CubemapLoader* pCubemapWork,
-		World* pWorld, ModelManager* pModelManager);
+		World* pWorld, ModelManager* pModelManager, ModelParser* pModelParser);
 
 	void update();
 	void frame();
 
 private:
 	ShaderSystem* m_pShaderSystem = nullptr;
-	ShaderSystem* m_pShaderSystemMap = nullptr;
 	MaterialSystem* m_pMaterialSystem = nullptr;
-	MaterialSystem* m_pMaterialSystemMap = nullptr;
 	ModelSystem* m_pModelSystem = nullptr;
-	ModelSystem* m_pModelSystemMap = nullptr;
 	CubemapSystem* m_pCubemapSystem = nullptr;
 };

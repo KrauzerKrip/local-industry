@@ -3,11 +3,13 @@
 #include "lc_client/eng_model/entt/components.h"
 #include "lc_client/util/pack.h"
 #include "lc_client/util/timer.h"
+#include <lc_client/exceptions/io_exceptions.h>
 
 
-ModelSystem::ModelSystem(
-	ModelManager* pModelManager, MeshLoader* pMeshWork, entt::registry* pSceneRegistry, entt::registry* pUtilRegistry) {
+ModelSystem::ModelSystem(ModelManager* pModelManager, ModelParser* pModelParser, MeshLoader* pMeshWork,
+	entt::registry* pSceneRegistry, entt::registry* pUtilRegistry) {
 	m_pModelManager = pModelManager;
+	m_pModelParser = pModelParser;
 	m_pMeshWork = pMeshWork;
 	m_pSceneRegistry = pSceneRegistry;
 	m_pUtilRegistry = pUtilRegistry;
@@ -19,32 +21,46 @@ void ModelSystem::update() {
 	for (auto& entity : entities) {
 		ModelRequest& modelRequest = entities.get<ModelRequest>(entity);
 
-		Pack& pack = Pack::getPack(modelRequest.packName);
-		Pack::Model modelData(pack, modelRequest.modelName);
+		std::string modelDirPath;
+		try {
+			Pack& pack = Pack::getPack(modelRequest.packName);
+			modelDirPath = Pack::Model(pack, modelRequest.modelName).getPath();
+		}
+		catch (std::runtime_error& exception) {
+			Pack& pack = Pack::getPack("dev");
+			modelDirPath = Pack::Model(pack, "eng_model_not_found").getPath();
+			std::cerr << exception.what() << std::endl;
+		} 
 
 		Model* pModel = nullptr;
 
 		auto modelCashed = m_loadedModelMap.find(modelRequest);
 
 		if (modelCashed != m_loadedModelMap.end()) {
-			pModel = modelCashed->second;
+			auto&& [pModel, vertexShader, fragmentShader] = modelCashed->second;
 			m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel);
 			if (modelRequest.loadShaders) {
-				m_pSceneRegistry->emplace<ShaderRequest>(
-					entity, modelRequest.packName, modelData.getVertexShader(), modelData.getFragmentShader());
+				m_pSceneRegistry->emplace<ShaderRequest>(entity, modelRequest.packName, vertexShader, fragmentShader);
 			}
 			m_pSceneRegistry->erase<ModelRequest>(entity);
 			
 			break;
 		}
 
+		std::string modelVertexShader;
+		std::string modelFragmentShader;
+
 		try {
+			ModelData modelData = m_pModelParser->parse(modelDirPath + "model.xml");
 			pModel = m_pModelManager->getModel(
-				modelData.getPath(), modelData.getTexturesPath(), modelData.getMaterialType());
+				modelDirPath + modelData.modelFile, modelDirPath, modelData.materialType);
 			if (modelRequest.loadShaders) {
 				m_pSceneRegistry->emplace<ShaderRequest>(
-					entity, modelRequest.packName, modelData.getVertexShader(), modelData.getFragmentShader());
+					entity, modelRequest.packName, modelData.vertexShader, modelData.fragmentShader);
 			}
+
+			modelVertexShader = modelData.vertexShader;
+			modelFragmentShader = modelData.fragmentShader;
 		}
 		catch (std::runtime_error& exception) {
 			std::cerr << exception.what() << std::endl;
@@ -53,6 +69,8 @@ void ModelSystem::update() {
 		if (pModel == nullptr) {
 			pModel = m_pModelManager->getModel("gmodVibe", "gmodVibe", "sg");
 			m_pSceneRegistry->emplace<ShaderRequest>(entity, modelRequest.packName, "base", "base");
+			modelVertexShader = "base";
+			modelFragmentShader = "base";
 		}
 
 		for (auto& mesh : pModel->meshes) {
@@ -61,7 +79,7 @@ void ModelSystem::update() {
 
 		m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel);
 
-		m_loadedModelMap.emplace(modelRequest, pModel);
+		m_loadedModelMap.emplace(modelRequest, std::make_tuple(pModel, modelVertexShader, modelFragmentShader));
 
 		m_pSceneRegistry->erase<ModelRequest>(entity);
 	}

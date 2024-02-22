@@ -10,6 +10,8 @@ target_sources(lc_client
         "model_manager.cpp"
         "model_system.h"
         "model_system.cpp"
+        "model_parser.h"
+        "model_parser.cpp"
 
         "entt/components.h"
 

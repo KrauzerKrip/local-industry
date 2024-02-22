@@ -36,75 +36,8 @@
   },
 
   "models": {
-    "eng_model_not_found": {
-      "model_path": "dev/models/eng_model_not_found/model.obj",
-      "textures_path": "gmod_vibe",
-      "material_type": "sg",
-      "vertex_shader": "base",
-      "fragment_shader": "base"
-    },
-    "camera": {
-      "model_path": "dev/models/camera/model.dae",
-      "textures_path": "dev/models/camera/",
-      "material_type": "sg",
-      "vertex_shader": "base",
-      "fragment_shader": "camera_model"
-    },
-    "test_model": {
-      "model_path": "dev/models/test_model/model.obj",
-      "textures_path": "dev/textures/test_texture/",
-      "material_type": "sg",
-      "vertex_shader": "base",
-      "fragment_shader": "base"
-    },
-    "bunny": {
-      "model_path": "dev/models/bunny/model.obj",
-      "textures_path": "dev/models/test_model/",
-      "material_type": "sg",
-      "vertex_shader": "base",
-      "fragment_shader": "base"
-    },
-    "lamp": {
-      "model_path": "dev/models/lamp/model.dae",
-      "textures_path": "dev/models/lamp/",
-      "material_type": "sg",
-      "vertex_shader": "base",
-      "fragment_shader": "lighting"
-    },
-    "test_cube": {
-      "model_path": "dev/models/test_cube/model.dae",
-      "textures_path": "dev/models/test_cube/",
-      "material_type": "sg",
-      "vertex_shader": "base",
-      "fragment_shader": "lighting"
-    },
-    "test_cube_blend": {
-      "model_path": "dev/models/test_cube_blend/model.dae",
-      "textures_path": "dev/models/test_cube_blend/",
-      "material_type": "sg",
-      "vertex_shader": "base",
-      "fragment_shader": "lighting"
-    },
-    "test_cube_white": {
-      "model_path": "dev/models/test_cube_white/model.dae",
-      "textures_path": "dev/models/test_cube_white/",
-      "material_type": "sg",
-      "vertex_shader": "base",
-      "fragment_shader": "lighting"
-    },
-    "test_surface": {
-      "model_path": "dev/models/test_cube_white/model.dae",
-      "textures_path": "dev/textures/test_surface/",
-      "material_type": "sg",
-      "vertex_shader": "base",
-      "fragment_shader": "lighting"
-    },
-    "test_cube_water": {
-      "model_path": "dev/models/test_cube_water/model.dae",
-      "textures_path": "dev/models/test_cube_water/",
-      "material_type": "sg",
-      "vertex_shader": "water",
-      "fragment_shader": "water"
-    }
+    "eng_model_not_found": "dev/models/eng_model_not_found/",
+    "test_cube": "dev/models/test_cube/",
+    "test_surface": "dev/models/test_surface/"
   }
 }
