@@ -16,13 +16,13 @@ TEST_F(RayTest, ray_test) {
 	float width = 100;
 	float height = 100;
 
-	BoxCollider boxCollider(length, width, height);
+	glm::vec3 size(length, width, height);
 
 	glm::vec3 boxPosition(10.0f, 0.0f, 0.0f);
 
 	Ray ray(glm::vec3(0, 0, 0), glm::vec3(1, 0, 0));
 
-	std::optional<RaycastIntersection> result = ray.getIntersectionWithAABB(boxCollider, boxPosition);
+	std::optional<RaycastIntersection> result = ray.getIntersectionWithAABB(size, boxPosition);
 
 	EXPECT_EQ(result.has_value(), true);
 };

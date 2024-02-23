@@ -1,11 +1,13 @@
 #include "ray.h"
 
+#include <iostream>
+
 
 Ray::Ray(glm::vec3 origin, glm::vec3 direction) : m_origin(origin), m_direction(direction) {}
 
 
-std::optional<RaycastIntersection> Ray::getIntersectionWithAABB(BoxCollider boxCollider, glm::vec3 boxPosition) {
-	glm::vec3 size = glm::vec3(boxCollider.length, boxCollider.height, boxCollider.width) * 0.5f;
+std::optional<RaycastIntersection> Ray::getIntersectionWithAABB(glm::vec3 boxPosition, glm::vec3 boxSize) {
+	glm::vec3 size = boxSize;
 
 	glm::vec3 boxMin = boxPosition - size;
 	glm::vec3 boxMax = boxPosition + size;	
@@ -38,9 +40,9 @@ std::optional<RaycastIntersection> Ray::getIntersectionWithAABB(BoxCollider boxC
 	return std::make_optional<RaycastIntersection>(RaycastIntersection(intersectionPoint, maxT));
 }
 
-std::optional<RaycastIntersection> Ray::getIntersectionWithOBB(BoxCollider boxCollider, Transform transform) {
-	glm::qua boxOrientation = transform.rotation;
-	glm::vec3 boxPosition = transform.position;
+std::optional<RaycastIntersection> Ray::getIntersectionWithOBB(const Transform& boxTransform) {
+	glm::qua boxOrientation = boxTransform.rotation;
+	glm::vec3 boxPosition = boxTransform.position;
 
 	glm::mat3 transformMatrix = glm::mat3(boxOrientation);
 
@@ -50,7 +52,7 @@ std::optional<RaycastIntersection> Ray::getIntersectionWithOBB(BoxCollider boxCo
 
 	Ray aabbRay(inverseTransform * localRayPos, inverseTransform * m_direction);
 
-	std::optional<RaycastIntersection> result = aabbRay.getIntersectionWithAABB(boxCollider, glm::vec3(0));
+	std::optional<RaycastIntersection> result = aabbRay.getIntersectionWithAABB(glm::vec3(0), boxTransform.scale);
 
 	if (result.has_value()) {
 		glm::vec3 intersectionPoint = transformMatrix * result.value().point + boxPosition;

@@ -36,7 +36,7 @@ public:
 	}
 
 	void processTasks() {
-	    auto taskQueues = m_pRegistry->view<GameCharacter, TaskQueue, Transform, BoxCollider>();
+	    /*auto taskQueues = m_pRegistry->view<GameCharacter, TaskQueue, Transform, BoxCollider>();
 
 		for (auto&& [entity, character, taskQueue, transform, boxCollider] : taskQueues.each()) {
 			auto task = taskQueue.getFront();
@@ -63,12 +63,12 @@ public:
 					taskQueue.pop();
 				};
 			}
-		}
+		}*/
 	}
 
 	float getTaskAreaRadius(const BoxCollider& boxCollider) const {
-		glm::vec3 farPoint = glm::vec3(boxCollider.length, 0, boxCollider.width);
-		return glm::distance(glm::vec3(0), farPoint);
+		//glm::vec3 farPoint = glm::vec3(boxCollider.length, 0, boxCollider.width);
+		//return glm::distance(glm::vec3(0), farPoint);
 	}
 
 

@@ -2,17 +2,32 @@
 
 #include <vector>
 #include <optional>
+#include <string>
+#include <tuple>
 
 #include <glm/glm.hpp>
 #include <entt/entt.hpp>
 
 
-struct BoxCollider {
-	float length;
-	float height;
-	float width;
+enum class ColliderType {
+	BOX,
+	AABB,
+	SPHERE,
+	CAPSULE
+};
 
-	BoxCollider(float length, float height, float width) : length(length), width(width), height(height){};
+
+struct PhysicsRequest {
+	std::string filePath;
+
+	PhysicsRequest(std::string filePath) : filePath(filePath) {}
+};
+
+struct Colliders {
+	std::vector<std::tuple<entt::entity, ColliderType>> colliders;
+};
+
+struct BoxCollider {
 }; 
 
                              

@@ -21,8 +21,8 @@ class Ray {
 public:
 	Ray(glm::vec3 origin, glm::vec3 direction);
 
-	std::optional<RaycastIntersection> getIntersectionWithAABB(BoxCollider boxCollider, glm::vec3 boxPosition);
-	std::optional<RaycastIntersection> getIntersectionWithOBB(BoxCollider boxCollider, Transform transform);
+	std::optional<RaycastIntersection> getIntersectionWithAABB(glm::vec3 boxPosition, glm::vec3 boxSize);
+	std::optional<RaycastIntersection> getIntersectionWithOBB(const Transform& boxTransform);
 
 private:
 	glm::vec3 m_origin;

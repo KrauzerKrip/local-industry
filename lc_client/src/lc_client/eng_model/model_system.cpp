@@ -43,8 +43,11 @@ void ModelSystem::update() {
 			if (modelRequest.loadShaders) {
 				m_pSceneRegistry->emplace<ShaderRequest>(entity, modelRequest.packName, vertexShader, fragmentShader);
 			}
+			if (physicsFile) {
+				m_pSceneRegistry->emplace<PhysicsRequest>(entity, PhysicsRequest(modelDirPath + *physicsFile));
+			}	
 			m_pSceneRegistry->erase<ModelRequest>(entity);
-			
+
 			break;
 		}
 

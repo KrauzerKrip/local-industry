@@ -99,7 +99,10 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	m_pScriptSystem = new ScriptSystem(&m_pWorld->getRegistry());
 	Physics* pPhysics = new Physics(&m_pWorld->getRegistry());
-	m_pPhysicsSystem = new PhysicsSystem(pPhysics, pTier0->getParameters(), &m_pWorld->getRegistry());
+	PhysicsLoader* pPhysicsLoader = new PhysicsLoader(new PhysicsParser(m_pResource), &m_pWorld->getRegistry());
+
+	m_pPhysicsSystem = new PhysicsSystem(
+		pPhysics, pPhysicsLoader, pTier0->getParameters(), &m_pWorld->getRegistry(), m_pTier0->getConsole());
 
 	m_pNpcSystem = new NpcSystem(m_pTier0->getParameters(), m_pWorld);
 
@@ -184,11 +187,9 @@ void Game::init() {
 
 	for (auto&& [entity, properties] : view.each()) {
 		if (properties.id == "cube_2") {
-			pRegistry->emplace<BoxCollider>(entity, 2.f, 2.0f, 2.0f);
 			pRegistry->emplace<Walkable>(entity);
 		}
 		if (properties.id == "surface") {
-			pRegistry->emplace<BoxCollider>(entity, 200.f, 2.0f, 200.0f);
 			pRegistry->emplace<Walkable>(entity);
 		}
 	}

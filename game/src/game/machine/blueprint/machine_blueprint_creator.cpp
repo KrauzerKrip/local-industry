@@ -16,7 +16,6 @@ void MachineBlueprintCreator::createMachineBlueprint(MachineType type, std::stri
 	m_pRegistry->emplace<MachineRequest>(entity, type, typeString);
 	m_pRegistry->emplace<Selected>(entity);
 	m_pRegistry->emplace<Outline>(entity, Outline(glm::vec3(255 / 255., 255 / 255., 255 / 255.), 0.025));
-	m_pRegistry->emplace<BoxCollider>(entity, BoxCollider(4.0f, 4.0f, 4.0f));
 	m_pRegistry->emplace<ShaderRequest>(entity, ShaderRequest("game", "base", "blueprint"));
 	m_pRegistry->emplace<Transparent>(entity);
 	m_pRegistry->emplace<ShaderUniforms>(entity);

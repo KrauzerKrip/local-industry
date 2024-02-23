@@ -40,7 +40,7 @@ int main() {
 	IGameLogic* pGameLogic = nullptr;
 	Loop* pLoop = nullptr;
 
-	try {
+	//try {
 		pTier0 = new Tier0();
 
 
@@ -53,12 +53,12 @@ int main() {
 		pLoop->startLoop();
 
 		pLoop->cleanUp();
-	}
-	catch (std::runtime_error& exception) {
-		printException(exception);
-		//abort();
-		exit(-1);
-	}
+	//}
+	//catch (std::runtime_error& exception) {
+	//	printException(exception);
+	//	//abort();
+	//	exit(-1);
+	//}
 
 	if (pLoop) {
 		delete pLoop;

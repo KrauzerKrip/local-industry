@@ -6,8 +6,10 @@
 #include "raycast/plane.h"
 
 
-PhysicsSystem::PhysicsSystem(Physics* pPhysics, Parameters* pParameters, entt::registry* pRegistry)
-	: m_physicsVisualizer(pParameters, pRegistry) {
+PhysicsSystem::PhysicsSystem(Physics* pPhysics, PhysicsLoader* pPhysicsLoader, Parameters* pParameters,
+	entt::registry* pRegistry, IConsole* pConsole)
+	: m_physicsVisualizer(pParameters, pRegistry),
+	  m_physicsLoadingSystem(pPhysicsLoader, pRegistry, pConsole) {
 	m_pPhysics = pPhysics;
 	m_pRegistry = pRegistry;
 }
@@ -17,34 +19,35 @@ void PhysicsSystem::update() {
 	updateRaycast();
 
 	m_physicsVisualizer.update();
+	m_physicsLoadingSystem.update();
 }
 
 void PhysicsSystem::updateVertices() {
 	auto boxColliders = m_pRegistry->view<BoxCollider, Transform>(entt::exclude<BoxColliderVertices>);
 
-	for (auto&& [entity, box, transform] : boxColliders.each()) {
-		BoxColliderVertices vertices;
+	//for (auto&& [entity, box, transform] : boxColliders.each()) {
+	//	BoxColliderVertices vertices;
 
-		float minX = -box.length / 2;
-		float maxX = box.length / 2;
-		float minY = -box.height / 2;
-		float maxY = box.height / 2;
-		float minZ = -box.width / 2;
-		float maxZ = box.width / 2;
+	//	float minX = -box.length / 2;
+	//	float maxX = box.length / 2;
+	//	float minY = -box.height / 2;
+	//	float maxY = box.height / 2;
+	//	float minZ = -box.width / 2;
+	//	float maxZ = box.width / 2;
 
-		vertices.vertices.push_back(glm::vec3(minX, maxY, maxZ));
-		vertices.vertices.push_back(glm::vec3(minX, minY, maxZ));
-		vertices.vertices.push_back(glm::vec3(maxX, minY, maxZ));
-		vertices.vertices.push_back(glm::vec3(maxX, maxY, maxZ));
-		vertices.vertices.push_back(glm::vec3(minX, maxY, minZ));
-		vertices.vertices.push_back(glm::vec3(minX, minY, minZ));
-		vertices.vertices.push_back(glm::vec3(maxX, minY, minZ));
-		vertices.vertices.push_back(glm::vec3(maxX, maxY, minZ));
+	//	vertices.vertices.push_back(glm::vec3(minX, maxY, maxZ));
+	//	vertices.vertices.push_back(glm::vec3(minX, minY, maxZ));
+	//	vertices.vertices.push_back(glm::vec3(maxX, minY, maxZ));
+	//	vertices.vertices.push_back(glm::vec3(maxX, maxY, maxZ));
+	//	vertices.vertices.push_back(glm::vec3(minX, maxY, minZ));
+	//	vertices.vertices.push_back(glm::vec3(minX, minY, minZ));
+	//	vertices.vertices.push_back(glm::vec3(maxX, minY, minZ));
+	//	vertices.vertices.push_back(glm::vec3(maxX, maxY, minZ));
 
-		transformVertices(vertices.vertices, transform);
+	//	transformVertices(vertices.vertices, transform);
 
-		m_pRegistry->emplace<BoxColliderVertices>(entity, vertices);
-	}
+	//	m_pRegistry->emplace<BoxColliderVertices>(entity, vertices);
+	//}
 }
 
 void PhysicsSystem::updateRaycast() {

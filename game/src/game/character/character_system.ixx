@@ -12,6 +12,7 @@ module;
 export module character:character_system;
 import :components;
 import :character_task_system;
+import :task_queue;
 
 
 export class CharacterSystem {
@@ -54,7 +55,6 @@ private:
 		m_pRegistry->emplace<GameCharacter>(entity, GameCharacter("emmy"));
 		m_pRegistry->emplace<Npc>(entity, Npc(2));
 		m_pRegistry->emplace<Selectable>(entity, Selectable());
-		m_pRegistry->emplace<BoxCollider>(entity, BoxCollider(2, 2, 2));
 		m_pRegistry->emplace<TaskQueue>(entity, TaskQueue());
 	}
 

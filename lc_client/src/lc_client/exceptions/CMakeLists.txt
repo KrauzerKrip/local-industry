@@ -13,4 +13,5 @@ target_sources(lc_client
         "command_exceptions.h"
         "graphics_exceptions.h"
         "npc_exceptions.h"
+        "physics_exception.h"
 )

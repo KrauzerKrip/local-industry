@@ -1,6 +1,9 @@
 #pragma once
 
+#include <iostream>
+
 #include <entt/entt.hpp>
+
 #include "raycast/ray.h"
 
 
@@ -23,8 +26,6 @@ private:
 
 template <typename... Components, typename... Exclude>
 RaycastResult Physics::raycast(RaycastQuery query, entt::exclude_t<Exclude...> exclude) {
-	auto boxColliders = m_pRegistry->view<BoxCollider, Transform, Components...>(exclude);
-
 	std::unordered_map<entt::entity, RaycastIntersection> intersections =
 		getIntersections<Components...>(query, exclude);
 
@@ -45,16 +46,30 @@ RaycastResult Physics::raycast(RaycastQuery query, entt::exclude_t<Exclude...> e
 template <typename... Components, typename... Exclude>
 std::unordered_map<entt::entity, RaycastIntersection> Physics::getIntersections(
 	RaycastQuery query, entt::exclude_t<Exclude...> exclude) {
-	auto boxColliders = m_pRegistry->view<BoxCollider, Transform, Components...>(exclude);
+	auto colliderEntities = m_pRegistry->view<Colliders, Transform, Components...>(exclude);
 
 	std::unordered_map<entt::entity, RaycastIntersection> intersections;
 
-	for (auto&& [ent, boxCollider, transform] : boxColliders.each()) {
-		Ray ray(query.position, query.direction);
-		std::optional<RaycastIntersection> raycastResult = ray.getIntersectionWithOBB(boxCollider, transform);
+	for (entt::entity entity : colliderEntities) {
+		auto&& [colliders, transform] = m_pRegistry->get<Colliders, Transform>(entity);
 
-		if (raycastResult.has_value()) {
-			intersections.emplace(ent, raycastResult.value());
+		Ray ray(query.position, query.direction);
+
+		for (auto&& [colliderEnt, colliderType] : colliders.colliders) {
+			std::optional<RaycastIntersection> raycastResult;
+
+			if (colliderType == ColliderType::BOX) {
+				Transform& colliderTransform = m_pRegistry->get<Transform>(colliderEnt);
+				Transform boxTransform;
+				boxTransform.position = transform.position + colliderTransform.position;
+				boxTransform.rotation = transform.rotation * colliderTransform.rotation;
+				boxTransform.scale = colliderTransform.scale;
+				raycastResult = ray.getIntersectionWithOBB(boxTransform);
+			}
+
+			if (raycastResult) {
+				intersections.emplace(entity, *raycastResult);
+			}
 		}
 	}
 
