@@ -3,7 +3,8 @@
 #include "lc_client/eng_model/entt/components.h"
 #include "lc_client/util/pack.h"
 #include "lc_client/util/timer.h"
-#include <lc_client/exceptions/io_exceptions.h>
+#include "lc_client/exceptions/io_exceptions.h"
+#include "lc_client/eng_physics/entt/components.h"
 
 
 ModelSystem::ModelSystem(ModelManager* pModelManager, ModelParser* pModelParser, MeshLoader* pMeshWork,
@@ -37,7 +38,7 @@ void ModelSystem::update() {
 		auto modelCashed = m_loadedModelMap.find(modelRequest);
 
 		if (modelCashed != m_loadedModelMap.end()) {
-			auto&& [pModel, vertexShader, fragmentShader] = modelCashed->second;
+			auto&& [pModel, vertexShader, fragmentShader, physicsFile] = modelCashed->second;
 			m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel);
 			if (modelRequest.loadShaders) {
 				m_pSceneRegistry->emplace<ShaderRequest>(entity, modelRequest.packName, vertexShader, fragmentShader);
@@ -49,6 +50,7 @@ void ModelSystem::update() {
 
 		std::string modelVertexShader;
 		std::string modelFragmentShader;
+		std::optional<std::string> physicsFile;
 
 		try {
 			ModelData modelData = m_pModelParser->parse(modelDirPath + "model.xml");
@@ -61,6 +63,11 @@ void ModelSystem::update() {
 
 			modelVertexShader = modelData.vertexShader;
 			modelFragmentShader = modelData.fragmentShader;
+			physicsFile = modelData.physicsFile;
+
+			if (physicsFile) {
+				m_pSceneRegistry->emplace<PhysicsRequest>(entity, PhysicsRequest(modelDirPath + *physicsFile));
+			}	
 		}
 		catch (std::runtime_error& exception) {
 			std::cerr << exception.what() << std::endl;
@@ -79,7 +86,7 @@ void ModelSystem::update() {
 
 		m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel);
 
-		m_loadedModelMap.emplace(modelRequest, std::make_tuple(pModel, modelVertexShader, modelFragmentShader));
+		m_loadedModelMap.emplace(modelRequest, std::make_tuple(pModel, modelVertexShader, modelFragmentShader, physicsFile));
 
 		m_pSceneRegistry->erase<ModelRequest>(entity);
 	}

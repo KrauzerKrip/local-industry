@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <array>
 #include <tuple>
+#include <optional>
 
 #include <entt/entt.hpp>
 
@@ -24,5 +25,8 @@ private:
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pUtilRegistry = nullptr;
 
-	std::unordered_map<ModelRequest, std::tuple<Model*, std::string, std::string>> m_loadedModelMap;
+	/**
+	 * @brief std::tuple(Model*, <vertex shader name>, <fragment shader name>, <optional of physics file name>) 
+	 */
+	std::unordered_map<ModelRequest, std::tuple<Model*, std::string, std::string, std::optional<std::string>>> m_loadedModelMap;
 };
