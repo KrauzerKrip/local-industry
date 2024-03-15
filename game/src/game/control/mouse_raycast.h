@@ -42,8 +42,8 @@ RaycastResult MouseRaycast::doMouseRaycast(entt::exclude_t<Exclude...> exclude) 
 	glm::vec3 rayDir = glm::normalize(mouseWorld - m_pCamera->getPosition());
 
 	RaycastQuery query(mouseWorld, rayDir);
-	auto ent = m_pRegistry->create();
-	m_pRegistry->emplace<RaycastQuery>(ent, query);
+	//auto ent = m_pRegistry->create();
+	//m_pRegistry->emplace<RaycastQuery>(ent, query);
 	RaycastResult result = m_pPhysics->raycast<Components...>(query, exclude);
 	return result;
 }
