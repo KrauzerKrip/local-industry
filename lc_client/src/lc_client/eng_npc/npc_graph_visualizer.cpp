@@ -31,7 +31,7 @@ void NpcGraphVisualizer::buildGraph() {
 	for (npc::GraphNode& node : nodes) {
 		entt::entity entity = m_pRegistry->create();
 
-		PrimitiveCube gizmoCube(glm::vec3(0, 0, 1));
+		PrimitiveCube gizmoCube(glm::vec4(0, 0, 1, 1));
 		Transform transform(node.position, glm::vec3(0, 0, 0), glm::vec3(0.1, 0.1, 0.1));
 
 		m_pRegistry->emplace<PrimitiveCube>(entity, gizmoCube);

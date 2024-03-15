@@ -28,6 +28,7 @@ void initGraphicsParameters(Parameters& parameters) {
 
 void initPhysicsParameters(Parameters& parameters) {
 	ADD_PARAMETER_BOOL("ph_debug_mode", false);
+	ADD_PARAMETER_BOOL("ph_show_colliders", false);
 }
 
 void initUtilParameters(Parameters& parameters) {

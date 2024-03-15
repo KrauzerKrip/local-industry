@@ -9,12 +9,14 @@
 PhysicsSystem::PhysicsSystem(Physics* pPhysics, PhysicsLoader* pPhysicsLoader, Parameters* pParameters,
 	entt::registry* pRegistry, IConsole* pConsole)
 	: m_physicsVisualizer(pParameters, pRegistry),
-	  m_physicsLoadingSystem(pPhysicsLoader, pRegistry, pConsole) {
+	  m_physicsLoadingSystem(pPhysicsLoader, pRegistry, pConsole),
+	  m_colliderSystem(pRegistry) {
 	m_pPhysics = pPhysics;
 	m_pRegistry = pRegistry;
 }
 
 void PhysicsSystem::update() { 
+	m_colliderSystem.update();
 	updateVertices();
 	updateRaycast();
 

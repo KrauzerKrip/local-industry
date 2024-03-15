@@ -54,13 +54,6 @@ struct CharacterAssignedTo {
 	CharacterAssignedTo(entt::entity entity) : entity(entity){};
 };
 
-struct RelativeTransform {
-	Transform transform;
-
-	RelativeTransform() : transform(Transform()){};
-	RelativeTransform(Transform transform) : transform(transform){};
-};
-
 struct HeatIn {
 	glm::vec3 position;
 	float heat = 0;

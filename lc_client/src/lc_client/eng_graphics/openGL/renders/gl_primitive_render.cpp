@@ -13,7 +13,7 @@ PrimitiveRender::PrimitiveRender(ShaderLoaderGl* pShaderLoader, entt::registry* 
 	m_pSceneRegistry = pSceneRegisry;
 	m_pMapRegistry = pMapRegistry;
 
-	m_shader = pShaderLoader->createShaderProgram("primitive", "primitive");
+	m_shader = pShaderLoader->createShaderProgram("primitive", "primitive_alpha");
 
 	glGenVertexArrays(1, &m_lineVao);
 	glGenBuffers(1, &m_lineVbo);

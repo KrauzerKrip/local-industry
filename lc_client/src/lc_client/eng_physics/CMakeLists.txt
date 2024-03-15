@@ -21,4 +21,6 @@ target_sources(lc_client
         "physics_parser.cpp"
         "physics_loader.h"
         "physics_loader.cpp"
+        "collider_system.h"
+        "collider_system.cpp"
 )

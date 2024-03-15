@@ -1,0 +1,14 @@
+{
+  "pack": "game",
+  "skyboxes": {},
+  "shaders": {
+    "vertex": {
+    },
+    "fragment": {
+      "blueprint" : "game/shaders/frag/blueprint.frag"
+    }
+  },
+  "models": {
+    "heater": "game/models/heater/"
+  }
+  }

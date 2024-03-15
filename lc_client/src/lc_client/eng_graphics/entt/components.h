@@ -35,9 +35,9 @@ struct PrimitiveLine {
 };
 
 struct PrimitiveCube {
-	glm::vec3 color;
+	glm::vec4 color;
 
-	PrimitiveCube(glm::vec3 color) : color(color){}
+	explicit PrimitiveCube(glm::vec4 color) : color(color){}
 };
 
 struct ShaderRequest {

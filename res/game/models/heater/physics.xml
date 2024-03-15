@@ -1,9 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version=" 1.0 " encoding=" utf - 8 "?>
 
 <physics>
-  <box_collider>
-    <position x="0" y="0" z="0"></position>
-    <rotation x="0" y="0" z="0"></rotation>
-    <scale x="1.0" y="1.0" z="1.0"></scale>
-  </box_collider>
+	<box_collider>
+		<position x="1.69999993" y="2.69999981" z="3.70000005" />
+		<rotation x="0" y="-0" z="0" />
+		<scale x="3.75637531" y="1.98000014" z="3.78000045" />
+	</box_collider>
+	<box_collider>
+		<position x="-0.699999988" y="-2" z="3.75" />
+		<rotation x="0" y="-0" z="0" />
+		<scale x="6.12728548" y="2.63999987" z="3.76523471" />
+	</box_collider>
 </physics>

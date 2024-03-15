@@ -9,6 +9,7 @@
 #include "physics.h"
 #include "physics_loading_system.h"
 #include "physics_loader.h"
+#include "collider_system.h"
 
 
 class PhysicsSystem {
@@ -24,6 +25,7 @@ private:
 
 	PhysicsVisualizer m_physicsVisualizer;
 	PhysicsLoadingSystem m_physicsLoadingSystem;
+	ColliderSystem m_colliderSystem;
 
 	Physics* m_pPhysics = nullptr;
 	entt::registry* m_pRegistry = nullptr;

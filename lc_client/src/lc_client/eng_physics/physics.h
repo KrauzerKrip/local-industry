@@ -64,7 +64,7 @@ std::unordered_map<entt::entity, RaycastIntersection> Physics::getIntersections(
 				boxTransform.position = transform.position + colliderTransform.position;
 				boxTransform.rotation = transform.rotation * colliderTransform.rotation;
 				boxTransform.scale = colliderTransform.scale;
-				raycastResult = ray.getIntersectionWithOBB(boxTransform);
+				raycastResult = ray.getIntersectionWithOBB(colliderTransform);
 			}
 
 			if (raycastResult) {

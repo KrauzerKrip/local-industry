@@ -34,7 +34,8 @@ void PhysicsLoader::loadPhysics(entt::entity entity, std::string path) {
 entt::entity PhysicsLoader::loadCollider(const ColliderData& colliderData) {
 	entt::entity entity = m_pRegistry->create();
 
-	m_pRegistry->emplace<Transform>(entity, colliderData.transform);
+	m_pRegistry->emplace<RelativeTransform>(entity, colliderData.transform);
+	m_pRegistry->emplace<Transform>(entity, Transform());
 
 	if (colliderData.type == ColliderType::BOX) {
 		m_pRegistry->emplace<BoxCollider>(entity);
