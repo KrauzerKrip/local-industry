@@ -27,8 +27,8 @@ void PhysicsVisualizer::update() {
 
 		for (auto&& [entity, result] : raycastResultEntities.each()) {
 			if (result.intersectionPoint.has_value()) {
-				Transform transform(result.intersectionPoint.value(), glm::vec3(0, 0, 0), glm::vec3(0.1f, 0.1f, 0.1f));
-				m_pRegistry->emplace<PrimitiveCube>(entity, glm::vec3(1.0, 0.0, 0.0));
+				Transform transform(result.intersectionPoint.value(), glm::vec3(0,  0, 0), glm::vec3(0.1f, 0.1f, 0.1f));
+				m_pRegistry->emplace<PrimitiveCube>(entity, glm::vec4(1.0, 0.0, 0.0, 1));
 				m_pRegistry->emplace<Transform>(entity, transform);
 			}
 		}
@@ -43,6 +43,19 @@ void PhysicsVisualizer::update() {
 		for (auto&& [entity, query, cube, transform] : raycastResultEntities.each()) {
 			m_pRegistry->remove<PrimitiveCube>(entity);
 			m_pRegistry->remove<Transform>(entity);
+		}
+	}
+
+	if (m_pParameters->getParameterValue<bool>("ph_show_colliders")) {
+		auto boxColliderEntities = m_pRegistry->view<BoxCollider>(entt::exclude<PrimitiveCube>);
+		for (auto&& [entity] : boxColliderEntities.each()) {
+			m_pRegistry->emplace<PrimitiveCube>(entity, PrimitiveCube(glm::vec4(0, 1, 0, 0.5)));
+		}
+	}
+	else {
+		auto boxColliderEntities = m_pRegistry->view<BoxCollider, PrimitiveCube>();
+		for (auto&& [entity, boxCollider] : boxColliderEntities.each()) {
+			m_pRegistry->remove<PrimitiveCube>(entity);
 		}
 	}
 }

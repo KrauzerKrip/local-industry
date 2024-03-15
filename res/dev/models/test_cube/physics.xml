@@ -2,7 +2,7 @@
 
 <physics>
   <box_collider>
-    <position x="1" y="0" z="0"></position>
+    <position x="0" y="0" z="0"></position>
     <rotation x="0" y="0" z="0"></rotation>
     <scale x="1.0" y="1.0" z="1.0"></scale>
   </box_collider>
