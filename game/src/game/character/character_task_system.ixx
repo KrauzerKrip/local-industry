@@ -36,9 +36,9 @@ public:
 	}
 
 	void processTasks() {
-	    /*auto taskQueues = m_pRegistry->view<GameCharacter, TaskQueue, Transform, BoxCollider>();
+	    auto taskQueues = m_pRegistry->view<GameCharacter, TaskQueue, Transform, Colliders>();
 
-		for (auto&& [entity, character, taskQueue, transform, boxCollider] : taskQueues.each()) {
+		for (auto&& [entity, character, taskQueue, transform, colliders] : taskQueues.each()) {
 			auto task = taskQueue.getFront();
 			if (task) {
 				if (!m_pRegistry->valid(*task)) {
@@ -57,18 +57,25 @@ public:
 					m_pRegistry->get<Task>(*task).progress = TaskProgress::WAYPOINT;
 				}
 
-				if (glm::distance(transform.position, taskTransform.position) < getTaskAreaRadius(boxCollider)) {
+				if (glm::distance(transform.position, taskTransform.position) < getTaskAreaRadius(colliders)) {
 					m_pRegistry->remove<Waypoint>(entity);
 					m_pRegistry->get<Task>(*task).progress = TaskProgress::COMPLETED;
 					taskQueue.pop();
 				};
 			}
-		}*/
+		}
 	}
 
-	float getTaskAreaRadius(const BoxCollider& boxCollider) const {
-		//glm::vec3 farPoint = glm::vec3(boxCollider.length, 0, boxCollider.width);
-		//return glm::distance(glm::vec3(0), farPoint);
+	float getTaskAreaRadius(const Colliders& colliders) const {
+		float maxDistance = 0;
+		for (auto&& [entity, type] : colliders.colliders) {
+			if (type == ColliderType::BOX) {
+				Transform& transform = m_pRegistry->get<Transform>(entity);
+				float distance = glm::distance(glm::vec3(0), glm::vec3(transform.scale.x, 0, transform.scale.y));
+				maxDistance = std::max(distance, maxDistance);
+			}
+		}
+		return maxDistance;
 	}
 
 

@@ -40,6 +40,7 @@
   "models": {
     "eng_model_not_found": "dev/models/eng_model_not_found/",
     "test_cube": "dev/models/test_cube/",
+    "test_cube_white": "dev/models/test_cube_white/",
     "test_surface": "dev/models/test_surface/"
   }
 }

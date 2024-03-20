@@ -5,4 +5,5 @@
   <material_type>sg</material_type>
   <vertex_shader>base</vertex_shader>
   <fragment_shader>lighting</fragment_shader>
+  <physics_file>physics.xml</physics_file>
 </model>
