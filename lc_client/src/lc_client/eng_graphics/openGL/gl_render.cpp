@@ -48,8 +48,10 @@ void RenderGL::init() {
 	m_framebufferShader = m_pShaderLoader->createShaderProgram("framebuffer", "framebuffer");
 
 	m_pWindow->setResizeCallback([this](int width, int height) {
-		delete m_pFramebuffer;
-		m_pFramebuffer = new Framebuffer(width, height);
+		if (width != 0 && height != 0) {
+			delete m_pFramebuffer;
+			m_pFramebuffer = new Framebuffer(width, height);
+		}
 	});
 
 }

@@ -117,7 +117,6 @@ void WindowGL::init() {
 }
 
 void WindowGL::update() {
-
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -196,7 +195,12 @@ void WindowGL::mouseButtonCallback(GLFWwindow* pGlfwWindow, int button, int acti
 
 void WindowGL::mouseCallback(GLFWwindow* pGlfwWindow, double x, double y) {
 	WindowGL* pWindow = (WindowGL*)glfwGetWindowUserPointer(pGlfwWindow);
-	pWindow->getInput()->invokeMouseCallbacks(glm::vec2(x, y));
+
+	float offsetX = 1920.0f / pWindow->m_width;
+	float offsetY = 1080.0f / pWindow->m_height;
+	glm::vec2 relativePosition(x * offsetX, y * offsetY);
+
+	pWindow->getInput()->invokeMouseCallbacks(relativePosition);
 }
 
 void WindowGL::mouseWheelCallback(GLFWwindow* pGlfwWindow, double xoffset, double yoffset) {
@@ -204,8 +208,8 @@ void WindowGL::mouseWheelCallback(GLFWwindow* pGlfwWindow, double xoffset, doubl
 	pWindow->getInput()->invokeMouseWheelCallbacks(glm::vec2((float) xoffset, (float) yoffset));
 }
 
-static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
-	WindowGL* pWindowGL = (WindowGL*)glfwGetWindowUserPointer(window);
+static void framebufferSizeCallback(GLFWwindow* pWindow, int width, int height) {
+	WindowGL* pWindowGL = (WindowGL*)glfwGetWindowUserPointer(pWindow);
 
 	bool debug = pWindowGL->m_debug;
 
@@ -215,6 +219,7 @@ static void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 	pWindowGL->setSize(widthWindow, heightWindow);
 
 	glViewport(0, 0, widthWindow, heightWindow);
+
 
 	std::function<void(int, int)>& resizeCallback = pWindowGL->getResizeCallback();
 	resizeCallback(width, height);
