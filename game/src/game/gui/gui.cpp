@@ -25,7 +25,7 @@ Gui::Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInp
 	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
 	m_layoutController.setLayout(frame);
 
-	MachineBuildMenu* pMachineBuildMenu = new MachineBuildMenu(pActionControl, dependencies, pRegistry);
+	MachineBuildMenu* pMachineBuildMenu = new MachineBuildMenu(pActionControl, frame.get(), dependencies, pRegistry);
 	frame->addChild(pMachineBuildMenu);
 
 	PercentagePane* pPercentagePane = new PercentagePane();

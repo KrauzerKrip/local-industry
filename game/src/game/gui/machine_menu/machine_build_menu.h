@@ -13,7 +13,8 @@
 
 class MachineBuildMenu : public Widget {
 public:
-	MachineBuildMenu(ActionControl* pActionControl, GuiDependencies guiDependecies, entt::registry* pRegistry);
+	MachineBuildMenu(
+		ActionControl* pActionControl, Layout* pGuiLayout, GuiDependencies guiDependecies, entt::registry* pRegistry);
 	~MachineBuildMenu();
 
 private:

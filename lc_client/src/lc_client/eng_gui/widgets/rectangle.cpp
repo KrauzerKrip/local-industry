@@ -7,7 +7,7 @@ Rectangle::Rectangle() {
 
 bool Rectangle::isPointIntersecting(glm::vec2 point) const { 
 	if (point.x > m_absolutePosition.x && point.x < m_absolutePosition.x + m_size.x) {
-		if (point.y > m_absolutePosition.y && point.y < m_absolutePosition.y + m_size.y) {
+		if ((point.y - 0) > m_absolutePosition.y && (point.y - 0) < m_absolutePosition.y + m_size.y) {
 			return true;
 		}
 	}

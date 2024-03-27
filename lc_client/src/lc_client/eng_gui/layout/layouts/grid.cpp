@@ -1,10 +1,13 @@
 #include "grid.h"
 
-Grid::Grid(unsigned int columnNumber, float margin, float rowHeight) : m_columnNumber(columnNumber), m_margin(margin), m_rowHeight(rowHeight) {}
+Grid::Grid(unsigned int columnNumber, float padding, float rowHeight)
+	: m_columnNumber(columnNumber),
+	  m_padding(padding),
+	  m_rowHeight(rowHeight) {}
 
 void Grid::updateChildWidgets() {
-	float cursorX = m_margin;
-	float cursorY = m_size.y - m_rowHeight - m_margin;
+	float cursorX = m_padding;
+	float cursorY = m_size.y - m_rowHeight - m_padding;
 
 	unsigned int columnNumber = 0;
 	for (Widget* widget : m_widgets) {
@@ -18,11 +21,11 @@ void Grid::updateChildWidgets() {
 
 		widget->getRectangle().m_absolutePosition = position;
 
-		cursorX += widget->getRectangle().m_size.x + m_margin;
+		cursorX += widget->getRectangle().m_size.x + m_padding;
 
 		if (columnNumber == m_columnNumber) {
 			columnNumber = 0;
-			cursorY -= (m_margin + m_rowHeight);
+			cursorY -= (m_padding + m_rowHeight);
 		}
 	}
 }

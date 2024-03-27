@@ -5,6 +5,7 @@ TextWidget::TextWidget(Background* background, GuiDependencies dependencies)
 	  m_textDependencies(dependencies) {
 	m_pTextRender = dependencies.pTextRender;
 	m_textColor = glm::vec4(0, 0, 0, 1);
+	m_textSize = 16;
 }
 
 TextWidget::TextWidget(GuiDependencies dependencies)
@@ -12,6 +13,7 @@ TextWidget::TextWidget(GuiDependencies dependencies)
 	  m_textDependencies(dependencies) {
 	m_pTextRender = dependencies.pTextRender;
 	m_textColor = glm::vec4(0, 0, 0, 1);
+	m_textSize = 16;
 }
 
 void TextWidget::setText(std::string text) { m_text = text; }

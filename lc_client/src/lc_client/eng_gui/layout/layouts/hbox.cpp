@@ -1,5 +1,8 @@
 #include "hbox.h"
 
+#include <iostream>
+
+
 HBox::HBox() {
     m_padding = glm::vec2(0);
 	m_mode = BoxMode::STRETCH_WIDGETS;
@@ -10,7 +13,8 @@ void HBox::setPadding(unsigned x, unsigned y) { m_padding = glm::vec2(x, y); }
 void HBox::setPadding(glm::vec2 padding) { m_padding = padding; }
 
 void HBox::updateChildWidgets() {
-	float cursorX = m_padding.y;
+	float cursorX = m_padding.x;
+	bool isFirst = true;
 
 	if (m_mode == BoxMode::STRETCH_WIDGETS) {
 		for (Widget* widget : m_widgets) {
@@ -36,9 +40,9 @@ void HBox::updateChildWidgets() {
 		}
 
 		float freeSpace = usableSpace - widgetSizeXSum;
-		unsigned int innerPaddingX = 0;
+		unsigned int spacing = 0;
 		if (m_widgets.size() > 1) {
-			innerPaddingX = static_cast<unsigned int>(freeSpace / m_widgets.size() - 1);
+			spacing = static_cast<unsigned int>(freeSpace / (m_widgets.size() - 1));
 		}
 
 		for (Widget* widget : m_widgets) {
@@ -47,10 +51,12 @@ void HBox::updateChildWidgets() {
 
 			glm::vec2 position = glm::vec2(0);
 
-			cursorX -= widget->getRectangle().m_size.x + m_padding.x * 2.0f;
-
 			position.x = cursorX;
 			position.y += m_padding.y;
+
+			cursorX += widget->getRectangle().m_size.x + spacing;
+
+			//cursorX += widget->getRectangle().m_size.x + m_padding.x * 2.0f;
 
 			widget->getRectangle().m_absolutePosition += position;
 		}

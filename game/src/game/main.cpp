@@ -23,7 +23,6 @@ void printException(const std::exception& e, int level = 0) {
 }
 
 int main() {
-
 	std::string title = "Local` Engine";
 	// int width = 1080;
 	// int height = 720;

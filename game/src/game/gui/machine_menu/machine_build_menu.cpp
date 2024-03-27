@@ -6,42 +6,71 @@
 #include "lc_client/eng_gui/widgets/button.h"
 #include "game/machine/machine_type.h"
 #include "lc_client/eng_gui/paint_objects/color_background.h"
+#include "lc_client/eng_gui/includes.h"
+#include "machine_category.h"
+#include "machine_category_button.h"
 
 
-MachineBuildMenu::MachineBuildMenu(ActionControl* pActionControl, GuiDependencies guiDependecies, entt::registry* pRegistry)
+
+MachineBuildMenu::MachineBuildMenu(
+	ActionControl* pActionControl, Layout* pGuiLayout, GuiDependencies guiDependecies, entt::registry* pRegistry)
 	: Widget(guiDependecies),
 	  m_guiDependencies(guiDependecies) {
 
 	m_pMachineBlueprintCreator = new MachineBlueprintCreator(pRegistry);
 
-	this->setPosition(glm::vec2(100, 100));
-	this->setSize(glm::vec2(1500, 800));
+	float width = 1920;
+	float height = 80;
 
-	pActionControl->addActionCallback("kb_machine_menu", [this]() {
-		if (this->isVisible()) {
-			this->hideWithChildren();
-		}
-		else {
-			this->showWithChildren();
-		}
-	});
+	this->setPosition(glm::vec2(0, 0));
+	this->setSize(glm::vec2(width, height));
 
-	ColorBackground* colorBackground = new ColorBackground(glm::vec4(0, 0, 0, 0.5), m_guiDependencies);
+	ColorBackground* colorBackground = new ColorBackground(120, 120, 120, 120, m_guiDependencies);
 	this->setBackground(colorBackground);
 
+	HBox* pHBox = new HBox();
+	pHBox->setBoxMode(BoxMode::STRETCH_SPACING);
+	pHBox->setPadding(0, 8);
+	this->setLayout(pHBox);
 
-	Grid* pGrid = new Grid(9, 25, 100);
+	Widget* pCharactersWidget = new Widget();
+	pCharactersWidget->setSize(width / 4.0f, height);
+	pHBox->addChild(pCharactersWidget);
+	Widget* pCategoriesWidget = new Widget();
+	pCategoriesWidget->setSize((width / 4.0f) * 2, height);
+	pHBox->addChild(pCategoriesWidget);
+	Widget* pActionsWidget = new Widget();
+	pActionsWidget->setSize(width / 4.0f, height);
+	pHBox->addChild(pActionsWidget);
 
-	pGrid->addChild(createSlot(MachineType::HEATER, "heater"));
-	pGrid->addChild(createSlot(MachineType::BOILER, "boiler"));
+	HBox* pCategoriexHBox = new HBox();
+	pCategoriexHBox->setBoxMode(BoxMode::STRETCH_SPACING);
+	pCategoriesWidget->setLayout(pCategoriexHBox);
+	
+	MachineCategory* pMachineCategory = new MachineCategory(guiDependecies);
 
-	this->setLayout(pGrid);
+	std::vector<MachineSlot*> machineSlots{
+		createSlot(MachineType::HEATER, "heater"), createSlot(MachineType::BOILER, "boiler")
+	};
+
+	pMachineCategory->setSlots(machineSlots);
+	pGuiLayout->addChild(pMachineCategory);
+
+	MachineCategoryButton* pButtonThermo = new MachineCategoryButton("Thermodynamics", "gmod_vibes/", guiDependecies, pMachineCategory);
+	pCategoriexHBox->addChild(pButtonThermo);
+		
+	this->showWithChildren();
+	//Grid* pGrid = new Grid(9, 25, 100);
+
+	//pGrid->addChild(createSlot(MachineType::HEATER, "heater"));
+	//pGrid->addChild(createSlot(MachineType::BOILER, "boiler"));
+
+	//this->setLayout(pGrid);
 }
 
 MachineBuildMenu::~MachineBuildMenu() { delete m_pMachineBlueprintCreator; }
 
 MachineSlot* MachineBuildMenu::createSlot(MachineType type, std::string typeString) { 
 	MachineSlot* pMachineSlot = new MachineSlot(type, typeString, m_guiDependencies, m_pMachineBlueprintCreator);
-	pMachineSlot->setCallback([this]() { this->hideWithChildren(); });
 	return pMachineSlot;
 }

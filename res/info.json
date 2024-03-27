@@ -12,7 +12,6 @@
     "gh_vsync": "true",
     "gh_fov": "90.0",
     "gui_imgui_debug": "false"
-
   },
   "game_config": {
     "kb_forward": "W",
