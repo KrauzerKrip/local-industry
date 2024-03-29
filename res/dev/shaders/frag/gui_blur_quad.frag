@@ -1,6 +1,7 @@
 #version 400 core
 
 in vec2 TexCoords;
+in vec2 VertexClipPos;
 out vec4 color;
 uniform vec4 quadColor;
 
@@ -20,7 +21,8 @@ float CalcGauss(float x, float sigma)
 
 void main()
 {
-    vec4 texCol   = texture2D(screenTexture, TexCoords);
+    vec2 textureCoordinates = VertexClipPos * 0.5 + 0.5;
+    vec4 texCol   = texture2D(screenTexture, textureCoordinates);
     vec4 gaussCol = vec4(texCol.rgb, 1.0);
     vec2 step     = direction / screenTextureSize;
     for ( int i = 1; i <= 32; ++ i )
@@ -28,9 +30,9 @@ void main()
         float weight = CalcGauss( float(i) / 32.0, sigma * 0.5 );
         if ( weight < 1.0/255.0 )
             break;
-        texCol    = texture2D( screenTexture, TexCoords + step * float(i) );
+        texCol    = texture2D( screenTexture, textureCoordinates + step * float(i) );
         gaussCol += vec4( texCol.rgb * weight, weight );
-        texCol    = texture2D( screenTexture, TexCoords - step * float(i) );
+        texCol    = texture2D( screenTexture, textureCoordinates - step * float(i) );
         gaussCol += vec4( texCol.rgb * weight, weight );
     }
     gaussCol.rgb = clamp(gaussCol.rgb / gaussCol.w, 0.0, 1.0);

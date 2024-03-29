@@ -6,7 +6,7 @@ const float MachineCategory::PADDING = 8;
 
 MachineCategory::MachineCategory(const GuiDependencies& dependencies) {
 	m_pGrid = new Grid(5, 8, 100);
-	ColorBackground* pColorBackground = new ColorBackground(120, 120, 120, 120, dependencies);
+	BlurBackground* pColorBackground = new BlurBackground(160, 160, 160, 255, 0.05f, dependencies);
 	this->setBackground(pColorBackground);
 	this->setLayout(m_pGrid);
 }
