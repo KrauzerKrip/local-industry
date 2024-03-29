@@ -7,18 +7,22 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
-BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork, TextureManager* pTextureManager) : BackgroundRender(m_pConsole) {
+BackgroundRenderGl::BackgroundRenderGl(
+	IConsole* pConsole, ShaderLoaderGl* pShaderWork, TextureManager* pTextureManager, FramebufferController* pFramebufferController)
+	: BackgroundRender(m_pConsole) {
 	m_pTextureManager = pTextureManager;
+	m_pFramebufferController = pFramebufferController;
 
 	m_colorShader = pShaderWork->createShaderProgram("gui_quad", "gui_quad");
 	m_imageShader = pShaderWork->createShaderProgram("gui_quad", "gui_image_quad");
+	m_blurShader = pShaderWork->createShaderProgram("gui_quad", "gui_blur_quad");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	m_projection = glm::ortho(0.0f, 1920.0f, 0.0f, 1080.0f);
 
-	glGenVertexArrays(1, &m_vao);
+	glGenVertexArrays(1, &m_vao); 
 	glGenBuffers(1, &m_vbo);
 
 	glBindVertexArray(m_vao);
@@ -31,9 +35,19 @@ BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShad
 	glBindVertexArray(0);
 }
 
+
+
 void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
-	glUseProgram(m_colorShader);
-	unsigned int projLoc = glGetUniformLocation(m_colorShader, "projection");
+	unsigned int shader;
+	if (colorQuad.blurIntensity == 0) {
+		shader = m_colorShader;
+	}
+	else {
+		shader = m_blurShader;
+	}
+
+	glUseProgram(shader);
+	unsigned int projLoc = glGetUniformLocation(shader, "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(m_vao);
@@ -49,14 +63,31 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 		{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomRight.x, bottomRight.y, 1.0f, 0.0f},
 		{topRight.x, topRight.y, 1.0f, 1.0f}};
 
-	setUniform(m_colorShader, "zOffset", colorQuad.zOffset);
-	setUniform(m_colorShader, "quadColor", colorQuad.color);
+	setUniform(shader, "zOffset", colorQuad.zOffset);
+	setUniform(shader, "quadColor", colorQuad.color);
+	if (colorQuad.blurIntensity != 0) {
+		m_pFramebufferController->getBlurFramebuffer()->bind();
+		m_pFramebufferController->getFramebuffer()->bindTexture();
+
+		setUniform(shader, "sigma", colorQuad.blurIntensity);
+		setUniform(shader, "direction", glm::vec2(1.0f, 0.0f));
+		setUniform(shader, "screenTexture", TextureType::FRAMEBUFFER);
+		setUniform(shader, "screenTextureSize", glm::vec2(1920, 1057));
+	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	// render quad
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	if (colorQuad.blurIntensity != 0) {
+		m_pFramebufferController->getFramebuffer()->bind();
+		m_pFramebufferController->getBlurFramebuffer()->bindTexture();
+		setUniform(shader, "direction", glm::vec2(0.0f, 1.0f));
+		setUniform(shader, "screenTexture", TextureType::BLUR_FRAMEBUFFER);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+	}
 
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);

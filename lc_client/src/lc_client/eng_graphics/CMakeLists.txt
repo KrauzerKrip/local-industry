@@ -36,6 +36,8 @@ target_sources(lc_client
         "openGL/gl_skybox_render.cpp"
         "openGL/gl_cubemap.h"
         "openGL/gl_cubemap.cpp"
+        "openGL/gl_framebuffer_controller.h"
+        "openGL/gl_framebuffer_controller.cpp"
         "openGL/renders/gl_render_map.h"
         "openGL/renders/gl_render_map.cpp"
         "openGL/renders/gl_lighting.h"
@@ -63,6 +65,8 @@ target_sources(lc_client
         "gui/openGl/gl_widget_zoffset_calculator.cpp"
         "gui/openGl/gl_text_zoffset_calculator.h"
         "gui/openGl/gl_text_zoffset_calculator.cpp"
+        "gui/openGl/gl_blur_framebuffer.h"
+        "gui/openGl/gl_blur_framebuffer.cpp"
 
 
         "entt/components.h"

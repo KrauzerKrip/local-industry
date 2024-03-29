@@ -18,11 +18,12 @@
 #include "lc_client/tier0/tier0.h"
 
 
-RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork, GuiPresenter* pGuiPresenter, GraphicsSettings* pGraphicsSettings) {
+RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork,
+	FramebufferController* pFramebufferController, GuiPresenter* pGuiPresenter, GraphicsSettings* pGraphicsSettings) {
 	m_pWindow = pWindow; // mb remove it
 	m_pCamera = pCamera;
 	m_pShaderLoader = pShaderWork;
-	m_pFramebuffer = new Framebuffer(pWindow->getSize()[0], pWindow->getSize()[1]);
+	m_pFramebufferController = pFramebufferController;
 	m_pGuiPresenter = pGuiPresenter;
 	m_pGraphicsSettings = pGraphicsSettings;
 }
@@ -46,18 +47,10 @@ void RenderGL::init() {
 	createFramebufferVao();
 
 	m_framebufferShader = m_pShaderLoader->createShaderProgram("framebuffer", "framebuffer");
-
-	m_pWindow->setResizeCallback([this](int width, int height) {
-		if (width != 0 && height != 0) {
-			delete m_pFramebuffer;
-			m_pFramebuffer = new Framebuffer(width, height);
-		}
-	});
-
 }
 
 void RenderGL::render() {
-	m_pFramebuffer->bind();
+	m_pFramebufferController->getFramebuffer()->bind();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
@@ -80,9 +73,11 @@ void RenderGL::render() {
 	glDepthMask(true);
 	m_pPrimitiveRender->render(projection, view);
 	m_pGuiPresenter->render();
+	m_pFramebufferController->getBlurFramebuffer()->bind();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
-	m_pFramebuffer->bindTexture();
+	m_pFramebufferController->getFramebuffer()->bindTexture();
 	glDisable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT);
 

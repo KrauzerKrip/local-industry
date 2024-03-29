@@ -12,13 +12,16 @@ struct ColorQuad {
 	glm::vec4 color;
 	RectangleVertices vertices;
 	float zOffset;
+	float blurIntensity;
 
 	ColorQuad(glm::vec4 color)
 		: color(color) {}
-	ColorQuad(glm::vec4 color, RectangleVertices vertices, float zOffset)
+	ColorQuad(glm::vec4 color, RectangleVertices vertices, float zOffset, float blurIntensity)
 		: color(color),
 		  vertices(vertices),
-		  zOffset(zOffset){};
+		  zOffset(zOffset),
+		  blurIntensity(blurIntensity)
+	{};
 };
 
 struct ImageQuad {

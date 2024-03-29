@@ -25,8 +25,8 @@ MachineBuildMenu::MachineBuildMenu(
 	this->setPosition(glm::vec2(0, 0));
 	this->setSize(glm::vec2(width, height));
 
-	ColorBackground* colorBackground = new ColorBackground(120, 120, 120, 120, m_guiDependencies);
-	this->setBackground(colorBackground);
+	BlurBackground* pBackground = new BlurBackground(120, 120, 120, 120, 0.5f, m_guiDependencies);
+	this->setBackground(pBackground);
 
 	HBox* pHBox = new HBox();
 	pHBox->setBoxMode(BoxMode::STRETCH_SPACING);

@@ -30,6 +30,8 @@ target_sources(lc_client
     "paint_objects/image_background.cpp"
     "paint_objects/color_background.h"
     "paint_objects/color_background.cpp"
+    "paint_objects/blur_background.h"
+    "paint_objects/blur_background.cpp"
     "paint_objects/text.h"
 
 )

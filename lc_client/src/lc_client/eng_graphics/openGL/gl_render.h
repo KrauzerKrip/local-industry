@@ -23,6 +23,7 @@
 #include "renders/gl_mesh_render.h"
 #include "renders/gl_opaque_render.h"
 #include "renders/gl_outline_render.h"
+#include "gl_framebuffer_controller.h"
 
 
 typedef decltype(entt::registry().view<CubemapGl, Transform>()) CubemapView;
@@ -38,7 +39,8 @@ class RenderGL : public IRender {
 friend class RenderMapGl;
 
 public:
-RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork, GuiPresenter* pGuiPresenter,
+RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork, FramebufferController* pFramebufferController,
+	GuiPresenter* pGuiPresenter,
 		 GraphicsSettings* pGraphicsSettings);
 	~RenderGL();
 
@@ -69,7 +71,7 @@ private:
 	entt::registry* m_pRegistry = nullptr;
 	entt::registry* m_pUtilRegistry = nullptr;
 
-	Framebuffer* m_pFramebuffer = nullptr;
+	FramebufferController* m_pFramebufferController = nullptr;
 	unsigned int m_framebufferTexture = 0;
 	unsigned int m_framebufferVao = 0;
 	unsigned int m_framebufferShader = 0;

@@ -3,12 +3,12 @@
 #include <glad/glad.h>
 #include <iostream>
 
-#include "lc_client/eng_graphics/texture.h"
-
 #include <cassert>
 
 
-Framebuffer::Framebuffer(int width, int height) {
+Framebuffer::Framebuffer(int width, int height, TextureType textureType) {
+	m_textureType = textureType;
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -51,10 +51,16 @@ Framebuffer::~Framebuffer() {
 }
 
 void Framebuffer::bind() {
-	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo); // back to default
+	//int currentFramebuffer;
+	//glGetIntegerv(GL_FRAMEBUFFER_BINDING, &currentFramebuffer);
+	//if (currentFramebuffer != m_fbo) {
+	//	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+	//}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 }
 
 void Framebuffer::bindTexture() {
-	glActiveTexture(GL_TEXTURE0 + TextureType::FRAMEBUFFER);
+	glActiveTexture(GL_TEXTURE0 + m_textureType);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 }

@@ -8,5 +8,5 @@ uniform float zOffset;
 void main()
 {
 	gl_Position = projection * vec4(vertex.xy, zOffset, 1.0);
-	TexCoords = vertex.zw;
+	TexCoords = gl_Position.st * 0.5 + 0.5;
 }

@@ -14,6 +14,10 @@ void setUniform(unsigned int shaderProgram, std::string uniform, int value) {
 	glUniform1i(glGetUniformLocation(shaderProgram, uniform.c_str()), value);
 }
 
+void setUniform(unsigned int shaderProgram, std::string uniform, glm::vec2 vector) {
+	glUniform2fv(glGetUniformLocation(shaderProgram, uniform.c_str()), 1, glm::value_ptr(vector));
+}
+
 void setUniform(unsigned int shaderProgram, std::string uniform, glm::vec3 vector) {
 	glUniform3fv(glGetUniformLocation(shaderProgram, uniform.c_str()), 1, glm::value_ptr(vector));
 }

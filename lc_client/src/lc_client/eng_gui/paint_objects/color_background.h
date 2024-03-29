@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include <glm/glm.hpp>
 
 #include "lc_client/eng_gui/widgets/dependencies.h"

@@ -7,6 +7,8 @@ void setUniform(unsigned int shaderProgram, std::string uniform, float value);
 
 void setUniform(unsigned int shaderProgram, std::string uniform, int value);
 
+void setUniform(unsigned int shaderProgram, std::string uniform, glm::vec2 vector);
+
 void setUniform(unsigned int shaderProgram, std::string uniform, glm::vec3 vector);
 
 void setUniform(unsigned int shaderProgram, std::string uniform, glm::vec4 vector);

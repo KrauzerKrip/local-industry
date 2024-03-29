@@ -11,18 +11,20 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
 #include "lc_client/eng_graphics/texture.h"
 #include "lc_client/tier1/texture_manager.h"
+#include "gl_blur_framebuffer.h"
+#include "lc_client/eng_graphics/openGL/gl_framebuffer_controller.h"
 
 
 class ShaderLoaderGl;
 
 class BackgroundRenderGl : public BackgroundRender {
 public:
-	BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork, TextureManager* pTextureManager);
+	BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork, TextureManager* pTextureManager,
+		FramebufferController* pFramebufferController);
 
 	void renderColor(ColorQuad colorQuad) override;
 	void renderImage(ImageQuad imageQuad) override;
 	Texture* getTexture(std::string path) override;
-	
 
 private:
 	std::queue<ColorQuad> m_colorQuads;
@@ -30,9 +32,12 @@ private:
 
 	unsigned int m_colorShader;
 	unsigned int m_imageShader;
+	unsigned int m_blurShader;
 	unsigned int m_vao;
 	unsigned int m_vbo;
 	glm::mat4 m_projection;
+
+	FramebufferController* m_pFramebufferController = nullptr;
 
 	TextureManager* m_pTextureManager = nullptr;
 };

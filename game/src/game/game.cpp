@@ -84,12 +84,14 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
     m_pTier1->initGameConfig();
 
-	GuiDependenciesFabric* pGuiDependenciesFabric = new GuiDependenciesFabricGl(
-		m_pTier0->getConsole(), pLoaderFabric->getShaderLoaderGl(), m_pInput, m_pTier1->getTextureManager());
+	FramebufferController* pFramebufferController = new FramebufferController(m_pWindow);
+	
+
+	GuiDependenciesFabric* pGuiDependenciesFabric = new GuiDependenciesFabricGl(m_pTier0->getConsole(),
+		pLoaderFabric->getShaderLoaderGl(), m_pInput, m_pTier1->getTextureManager(), pFramebufferController);
 	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput, m_pActionControl, &m_pWorld->getRegistry());
 
-	m_pRender = new RenderGL(
-		m_pWindow, m_pCamera, pLoaderFabric->getShaderLoaderGl(), m_pGui->getPresenter(), m_pGraphicsSettings);
+	m_pRender = new RenderGL(m_pWindow, m_pCamera, pLoaderFabric->getShaderLoaderGl(), pFramebufferController, m_pGui->getPresenter(), m_pGraphicsSettings);
 
 	m_pRender->setDependecies(m_pWorld);
 

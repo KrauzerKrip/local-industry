@@ -21,10 +21,11 @@
       "water": "dev/shaders/frag/water.frag",
       "gui_text": "dev/shaders/frag/gui_text.frag",
       "gui_quad": "dev/shaders/frag/gui_quad.frag",
+      "gui_blur_quad": "dev/shaders/frag/gui_blur_quad.frag",
       "primitive": "dev/shaders/frag/primitive.frag",
-      "gui_image_quad":  "dev/shaders/frag/gui_image_quad.frag",
-      "base_material":  "dev/shaders/frag/base_material.frag",
-      "primitive_alpha":  "dev/shaders/frag/primitive_alpha.frag"
+      "gui_image_quad": "dev/shaders/frag/gui_image_quad.frag",
+      "base_material": "dev/shaders/frag/base_material.frag",
+      "primitive_alpha": "dev/shaders/frag/primitive_alpha.frag"
     }
   },
 
