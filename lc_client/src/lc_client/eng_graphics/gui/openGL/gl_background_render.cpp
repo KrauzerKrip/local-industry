@@ -68,7 +68,7 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 	if (colorQuad.blurIntensity != 0) {
 		m_pFramebufferController->getBlurFramebuffer()->bind();
 		m_pFramebufferController->getFramebuffer()->bindTexture();
-
+		 
 		setUniform(shader, "sigma", colorQuad.blurIntensity);
 		setUniform(shader, "direction", glm::vec2(1.0f, 0.0f));
 		setUniform(shader, "screenTexture", TextureType::FRAMEBUFFER);

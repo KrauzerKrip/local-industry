@@ -6,7 +6,8 @@ const float MachineCategory::PADDING = 8;
 
 MachineCategory::MachineCategory(const GuiDependencies& dependencies) {
 	m_pGrid = new Grid(5, 8, 100);
-	BlurBackground* pColorBackground = new BlurBackground(160, 160, 160, 255, 0.05f, dependencies);
+	BlurBackground* pColorBackground = new BlurBackground(dependencies.pStyle->getColor("blur_background_base"),
+		dependencies.pStyle->getBlurIntensity("base"), dependencies);
 	this->setBackground(pColorBackground);
 	this->setLayout(m_pGrid);
 }

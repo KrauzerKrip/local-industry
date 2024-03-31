@@ -4,13 +4,20 @@
 
 
 TaskView::TaskView(GuiDependencies dependencies) {
+	BlurBackground* pBaseBlurBackground = new BlurBackground(dependencies.pStyle->getColor("blur_background_base"),
+		dependencies.pStyle->getBlurIntensity("base"), dependencies);
+	BlurBackground* pDarkBlurBackground = new BlurBackground(dependencies.pStyle->getColor("blur_background_dark"),
+		dependencies.pStyle->getBlurIntensity("base"), dependencies);
+	ColorBackground* pDarkBackground =
+		new ColorBackground(dependencies.pStyle->getColor("background_dark"), dependencies);
+
 	this->setSize(1, 50);
 
-	this->setBackground(new ColorBackground(120, 120, 120, 255, dependencies));
+	this->setBackground(pBaseBlurBackground);
 
     HBox* pHBox = new HBox();
 	pHBox->setBoxMode(BoxMode::STRETCH_WIDGETS);
-	m_pLabel = new TextWidget(new ColorBackground(120, 120, 120, 255, dependencies), dependencies);
+	m_pLabel = new TextWidget(pBaseBlurBackground, dependencies);
 	m_pLabel->setTextSize(16);
 	m_pLabel->setTextColor(255, 255, 255, 255);
 	m_pLabel->setSize(70, 36);

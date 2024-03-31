@@ -9,14 +9,19 @@
 TaskMenu::TaskMenu(entt::registry* pRegistry, GuiDependencies dependencies) : Widget(dependencies) {
 	m_pRegistry = pRegistry;
 
-	this->setBackground(new ColorBackground(70, 70, 70, 255, dependencies));
+	BlurBackground* pBaseBackground = new BlurBackground(dependencies.pStyle->getColor("blur_background_base"),
+		dependencies.pStyle->getBlurIntensity("base"), dependencies);
+	BlurBackground* pDarkBackground = new BlurBackground(dependencies.pStyle->getColor("blur_background_dark"),
+		dependencies.pStyle->getBlurIntensity("base"), dependencies);
+
+	this->setBackground(pDarkBackground);
 	HBox* pHBox = new HBox();
 	pHBox->setPadding(5, 5);
 
 	VBox* pCharacterTaskBox = new VBox();
 	pCharacterTaskBox->setMode(BoxMode::STRETCH_WIDGETS);
 	Widget* pCharacterTaskBoxWidget = new Widget();
-	pCharacterTaskBoxWidget->setBackground(new ColorBackground(120, 120, 120, 255, dependencies));
+	pCharacterTaskBoxWidget->setBackground(pBaseBackground);
 	pCharacterTaskBoxWidget->setLayout(pCharacterTaskBox);
 
     TaskList* pTaskList = new PlannedTaskList("Tasks", dependencies);

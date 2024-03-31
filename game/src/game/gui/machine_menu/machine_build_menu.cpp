@@ -25,7 +25,8 @@ MachineBuildMenu::MachineBuildMenu(
 	this->setPosition(glm::vec2(0, 0));
 	this->setSize(glm::vec2(width, height));
 
-	BlurBackground* pBackground = new BlurBackground(160, 160, 160, 255, 0.05f, m_guiDependencies);
+	BlurBackground* pBackground = new BlurBackground(guiDependecies.pStyle->getColor("blur_background_base"),
+		guiDependecies.pStyle->getBlurIntensity("base"), m_guiDependencies);
 	this->setBackground(pBackground);
 
 	HBox* pHBox = new HBox();
