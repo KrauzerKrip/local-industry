@@ -4,6 +4,7 @@
 #include "lc_client/eng_graphics/gui/zoffset_calculator.h"
 #include "lc_client/eng_graphics/gui/text_render.h"
 #include "lc_client/eng_gui/input/input_controller.h"
+#include "style.h"
 
 
 struct GuiDependencies {
@@ -12,5 +13,6 @@ struct GuiDependencies {
 	ZOffsetCalculator* pWidgetZOffsetCalculator;
 	ZOffsetCalculator* pTextZOffsetCalculator;
 	InputController* pInputController;
+	Style* pStyle;
 };
 

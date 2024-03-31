@@ -15,6 +15,9 @@ target_sources(lc_client
     "rectangle.h"
     "rectangle.cpp"
     "layer.h"
+    "style_impl.h"
+    "style_impl.cpp"
+    "style.h"
     
     "dependencies.h"
    )
