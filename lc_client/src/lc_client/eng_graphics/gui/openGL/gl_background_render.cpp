@@ -7,20 +7,22 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
-BackgroundRenderGl::BackgroundRenderGl(
-	IConsole* pConsole, ShaderLoaderGl* pShaderWork, TextureManager* pTextureManager, FramebufferController* pFramebufferController)
+BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork, TextureManager* pTextureManager,
+	FramebufferController* pFramebufferController, IWindow* pWindow)
 	: BackgroundRender(m_pConsole) {
 	m_pTextureManager = pTextureManager;
 	m_pFramebufferController = pFramebufferController;
+	m_pWindow = pWindow;
 
+	m_projection = glm::ortho(
+		0.0f, static_cast<float>(m_pWindow->getSize()[0]), 0.0f, static_cast<float>(m_pWindow->getSize()[1]));
+	 
 	m_colorShader = pShaderWork->createShaderProgram("gui_quad", "gui_quad");
 	m_imageShader = pShaderWork->createShaderProgram("gui_quad", "gui_image_quad");
 	m_blurShader = pShaderWork->createShaderProgram("gui_quad", "gui_blur_quad");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	m_projection = glm::ortho(0.0f, 1920.0f, 0.0f, 1080.0f);
 
 	glGenVertexArrays(1, &m_vao); 
 	glGenBuffers(1, &m_vbo);
@@ -38,6 +40,8 @@ BackgroundRenderGl::BackgroundRenderGl(
 
 
 void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
+	m_projection = glm::ortho(0.0f, 1920.0f, 0.0f, 1080.0f);
+
 	unsigned int shader;
 	if (colorQuad.blurIntensity == 0) {
 		shader = m_colorShader;
@@ -72,7 +76,7 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 		setUniform(shader, "sigma", colorQuad.blurIntensity);
 		setUniform(shader, "direction", glm::vec2(1.0f, 0.0f));
 		setUniform(shader, "screenTexture", TextureType::FRAMEBUFFER);
-		setUniform(shader, "screenTextureSize", glm::vec2(1920, 1057));
+		setUniform(shader, "screenTextureSize", glm::vec2(1920, 1080));
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
@@ -94,6 +98,8 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 }
 
 void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
+	m_projection = glm::ortho(0.0f, 1920.0f, 0.0f, 1080.0f);
+
 	glUseProgram(m_imageShader);
 	unsigned int projLoc = glGetUniformLocation(m_imageShader, "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
@@ -144,3 +150,8 @@ void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
 }
 
 Texture* BackgroundRenderGl::getTexture(std::string path) { return m_pTextureManager->getTexture(path); }
+
+void BackgroundRenderGl::frame() {
+	m_projection = glm::ortho(
+		0.0f, static_cast<float>(m_pWindow->getSize()[0]), 0.0f, static_cast<float>(m_pWindow->getSize()[1]));
+}

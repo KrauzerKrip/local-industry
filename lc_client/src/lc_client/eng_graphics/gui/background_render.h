@@ -39,6 +39,7 @@ public:
 	virtual void renderColor(ColorQuad colorQuad) = 0;
 	virtual void renderImage(ImageQuad colorQuad) = 0;
 	virtual Texture* getTexture(std::string path) = 0;
+	virtual void frame() = 0;
 
 protected:
 	IConsole* m_pConsole = nullptr;

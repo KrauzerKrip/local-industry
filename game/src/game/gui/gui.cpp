@@ -16,7 +16,7 @@ Gui::Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInp
 
 	std::vector<QueueRender*> queueRenders;
 
-	pGuiPresenter = new GuiPresenter(&m_overlayLayoutController, &m_layoutController, queueRenders);
+	pGuiPresenter = new GuiPresenter(&m_overlayLayoutController, &m_layoutController, dependencies.pBackgroundRender, queueRenders);
 
 	std::shared_ptr<Overlay> overlay = std::make_shared<Overlay>(pTier0, pDependenciesFabric, pInput);
 	m_overlayLayoutController.setLayout(overlay);

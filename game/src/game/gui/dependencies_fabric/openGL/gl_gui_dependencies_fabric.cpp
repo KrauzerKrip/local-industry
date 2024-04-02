@@ -8,9 +8,9 @@
 
 
 GuiDependenciesFabricGl::GuiDependenciesFabricGl(IConsole* pConsole, ShaderLoaderGl* pShaderWorkGl, IInput* pInput,
-	TextureManager* pTextureManager, FramebufferController* pFramebufferController) { 
+	TextureManager* pTextureManager, FramebufferController* pFramebufferController, IWindow* pWindow) { 
 	BackgroundRenderGl* pBackgroundRender =
-		new BackgroundRenderGl(pConsole, pShaderWorkGl, pTextureManager, pFramebufferController);
+		new BackgroundRenderGl(pConsole, pShaderWorkGl, pTextureManager, pFramebufferController, pWindow);
 	TextRenderGl* pTextRender = new TextRenderGl(pConsole, pShaderWorkGl);
 	WidgetZOffsetCalculatorGl* pWidgetZOffsetCalculator = new WidgetZOffsetCalculatorGl();
 	TextZOffsetCalculatorGl* pTextZOffsetCalculator = new TextZOffsetCalculatorGl();
