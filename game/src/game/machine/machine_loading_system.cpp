@@ -18,6 +18,7 @@ void MachineLoadingSystem::update() {
 		m_machineLoader.loadMachine(entity, request.typeString);
 		addMachineComponent(entity, request.type);
 		m_pRegistry->emplace<Properties>(entity, Properties());
+		m_pRegistry->emplace<MachineProperties>(entity, MachineProperties(request.type, request.typeString));
 		m_pRegistry->remove<MachineRequest>(entity);
 	}
 }

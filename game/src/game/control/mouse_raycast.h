@@ -4,7 +4,6 @@
 
 #include "lc_client/eng_input/i_input.h"
 #include "game/control/action_control.h"
-#include "lc_client/eng_graphics/i_window.h"
 #include "lc_client/eng_graphics/graphics_settings.h"
 #include "lc_client/eng_graphics/camera/camera.h"
 #include "mouse_raycast_observer.h"
@@ -26,9 +25,9 @@ private:
 	Camera* m_pCamera = nullptr;
 	Physics* m_pPhysics = nullptr;
 
-	float m_fov;
-	glm::vec2 m_windowSize;
-	float m_aspectRatio;
+	float m_fov; // TODO FIX BUG: if changes in game this remains the same
+	glm::vec2 m_windowSize;  // TODO FIX BUG: if changes in game this remains the same
+	float m_aspectRatio;  // TODO FIX BUG: if changes in game this remains the same
 
 	entt::registry* m_pRegistry = nullptr;
 };

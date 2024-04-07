@@ -9,9 +9,7 @@
 #include "machine_type.h"
 
 
-struct Machine {
-
-};
+struct Machine {};
 
 struct MachineRequest {
 	MachineType type;
@@ -51,7 +49,20 @@ struct ConnectionRequest {
 struct CharacterAssignedTo {
 	entt::entity entity;
 
-	CharacterAssignedTo(entt::entity entity) : entity(entity){};
+	CharacterAssignedTo(entt::entity entity) : entity(entity) {}
+};
+
+struct MachineMode {
+	bool toggle;
+
+	MachineMode() { toggle = false; }
+};
+
+struct MachineProperties {
+	MachineType type;
+	std::string typeString;
+
+	MachineProperties(MachineType type, std::string typeString) : type(type), typeString(typeString) {}
 };
 
 struct HeatIn {

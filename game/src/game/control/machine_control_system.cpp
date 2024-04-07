@@ -6,6 +6,8 @@
 #include "game/machine/components.h"
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_scene/entt/components.h"
+#include <imgui.h>
+
 
 import character;
 
@@ -103,6 +105,10 @@ bool MachineControlSystem::isConnectable(entt::entity blueprint, entt::entity en
 
 void MachineControlSystem::addSelectionCallback() {
     m_pActionControl->addActionCallback("kb_select", [this]() {
+		if (ImGui::GetIO().WantCaptureMouse) { // TODO Temporal
+			return;
+		}
+
 		auto selected = m_pRegistry->view<MachineSelectable, Selected>();
 		Outline outline(glm::vec3(255 / 255., 255 / 255., 255 / 255.), 0.025);
 		 
@@ -204,6 +210,7 @@ bool MachineControlSystem::checkIsOrphanAddition(entt::entity entity) {
 void MachineControlSystem::selectOrUnselect(entt::entity entity) {
 	auto selected = m_pRegistry->view<MachineSelectable, Selected>();
 	Outline outline(glm::vec3(255 / 255., 255 / 255., 255 / 255.), 0.025);
+
 	if (selected.begin() == selected.end()) {
 		if (m_pRegistry->all_of<MachineSelectable>(entity)) {
 			m_pRegistry->emplace_or_replace<Selected>(entity);

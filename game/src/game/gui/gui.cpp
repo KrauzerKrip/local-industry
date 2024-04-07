@@ -5,14 +5,17 @@
 #include "overlay/overlay.h"
 #include "machine_menu/machine_build_menu.h"
 #include "side_menu/side_menu.h"
-
 #include "lc_client/eng_gui/widgets/button.h"
 
 
 Gui::Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInput,
-	ActionControl* pActionControl, entt::registry* pRegistry)
+	ActionControl* pActionControl, GraphicsSettings* pGraphicsSettings, Camera* pCamera, entt::registry* pRegistry)
 	: m_inputController(pInput) { 
 	GuiDependencies dependencies = pDependenciesFabric->getDependencies();
+
+	m_pMachineInspectorView = new MachineInspectorView(dependencies);
+	m_pMachineInspectorController =
+		new MachineInspectorController(m_pMachineInspectorView, pGraphicsSettings, pCamera, pRegistry);
 
 	std::vector<QueueRender*> queueRenders;
 
@@ -67,6 +70,9 @@ void Gui::update() {
 	m_overlayLayoutController.update();
 	m_layoutController.update();
 	m_inputController.update();
+
+	m_pMachineInspectorController->input();
+	m_pMachineInspectorView->frame();
 }
 
 GuiPresenter* Gui::getPresenter() { return pGuiPresenter; }

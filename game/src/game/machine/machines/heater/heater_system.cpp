@@ -13,6 +13,7 @@ void HeaterSystem::update(float deltaTime) {
 
 	for (auto&& [entity, heater] : uninitedHeaters.each()) {
 		m_pRegistry->emplace<CombustionFuelStorage>(entity);
+		m_pRegistry->emplace<MachineMode>(entity);
 		m_pRegistry->remove<MachineInit>(entity);
 	}
 }
