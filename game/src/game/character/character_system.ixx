@@ -53,7 +53,7 @@ private:
 		m_pRegistry->emplace<Transform>(entity, Transform(glm::vec3(0, 0,2), glm::vec3(0,0,0), glm::vec3(1, 1, 1)));
 		m_pRegistry->emplace<ModelRequest>(entity, ModelRequest("dev", "test_cube_white"));
 		m_pRegistry->emplace<GameCharacter>(entity, GameCharacter("emmy"));
-		m_pRegistry->emplace<Npc>(entity, Npc(2));
+		m_pRegistry->emplace<Npc>(entity, Npc(10));
 		m_pRegistry->emplace<Selectable>(entity, Selectable());
 		m_pRegistry->emplace<TaskQueue>(entity, TaskQueue());
 	}
