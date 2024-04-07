@@ -9,4 +9,7 @@ public:
 
 	void update(float deltaTime) override;
 	void machineUpdate(float deltaTime) override;
+
+private:
+	entt::entity m_fuelEntity;
 };
