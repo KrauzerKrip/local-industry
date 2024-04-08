@@ -52,4 +52,5 @@ public:
 
 	virtual int* getAspectRatio() = 0;
 	virtual std::array<int, 2> getSize() = 0;
+	virtual void setSize(int width, int height) = 0;
 };

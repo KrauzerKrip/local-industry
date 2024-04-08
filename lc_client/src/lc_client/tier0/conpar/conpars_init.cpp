@@ -24,6 +24,10 @@ void initGraphicsParameters(Parameters& parameters) {
 	ADD_PARAMETER_BOOL_F("gh_triggers_display", false, ConparFlags::CHEATS);
 	ADD_PARAMETER_FLOAT("gh_fov", 90.0f);
 	ADD_PARAMETER_BOOL("gh_vsync", false);
+	ADD_PARAMETER_INT("gh_window_width", 0);
+	ADD_PARAMETER_INT("gh_window_height", 0);
+	ADD_PARAMETER_INT("gh_window_aspect_ratio_x", 0);
+	ADD_PARAMETER_INT("gh_window_aspect_ratio_y", 0);
 }
 
 void initPhysicsParameters(Parameters& parameters) {

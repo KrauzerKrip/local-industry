@@ -54,6 +54,11 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
 	m_pGraphicsSettings = new GraphicsSettings(m_pTier0->getParameters());
+
+	m_pGraphicsSettings->addUpdateCallback([this](GraphicsSettings* pGraphicsSettings) { 
+		m_pWindow->setSize(pGraphicsSettings->getWindowSize()[0], pGraphicsSettings->getWindowSize()[1]);
+		});
+
 	m_pActionControl =
 		new ActionControl(pWindow->getInput(), m_pTier0->getParameters(), m_pTier0->getConsole());
 

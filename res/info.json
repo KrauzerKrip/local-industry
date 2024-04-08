@@ -11,7 +11,11 @@
     "npc_show_graph": "false",
     "gh_vsync": "true",
     "gh_fov": "90.0",
-    "gui_imgui_debug": "false"
+    "gui_imgui_debug": "false",
+    "gh_window_width": "1920",
+    "gh_window_height": "1080",
+    "gh_window_aspect_ratio_x": "16",
+    "gh_window_aspect_ratio_y": "9"
   },
   "game_config": {
     "kb_forward": "W",
