@@ -10,9 +10,14 @@
 #include "lc_client/eng_input/i_input.h"
 
 
-enum class WindowMode {
+enum class CursorMode {
 	CURSOR_DISABLED,
 	CURSOR_ENABLED
+};
+
+enum class WindowMode {
+	WINDOWED, 
+	FULLSCREEN,
 };
 
 
@@ -31,9 +36,10 @@ public:
 	virtual bool windowShouldClose() = 0;
 	virtual void terminate() = 0;
 	virtual IInput* getInput() = 0;
-	virtual void setMode(WindowMode mode) = 0;
-	virtual WindowMode getMode() = 0;
+	virtual void setCursorMode(CursorMode mode) = 0;
+	virtual CursorMode getMode() = 0;
 	virtual void setResizeCallback(std::function<void(int, int)> callback) = 0;
+	virtual void setWindowMode(WindowMode mode) = 0;
 	
 	/**
 	 * Breaks encapsulation

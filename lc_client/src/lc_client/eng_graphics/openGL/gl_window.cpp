@@ -22,13 +22,16 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	m_height = height;
 	m_pAspectRatio = aspectRatio;
 
-	m_shouldCallWindowResizeCallback = false;
+	m_windowMode = WindowMode::WINDOWED;
+
+	m_shouldWindowResize = false;
+	m_shouldChangeWindowMode = false;
 
 	m_resizeCallback = [](int width, int height) {};
 
 	m_pInput = new InputGlfw();
 
-		int code = glfwGetError(NULL);
+	int code = glfwGetError(NULL);
 
 	if (code == GLFW_NO_ERROR) {
 		std::cout << "glfw all ok" << std::endl;
@@ -60,25 +63,6 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 		throw GladInitFailException();
 	}
 
-	glViewport(0, 0, m_width, m_height);
-	// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
-	// glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-}
-
-WindowGL::~WindowGL() {
-	delete m_pInput;
-	delete[] m_pAspectRatio;
-};
-
-void WindowGL::init() {
-	glfwSetWindowUserPointer(m_pGlfwWindow, this);
-	glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
-	glfwSetKeyCallback(m_pGlfwWindow, keyCallback);
-	glfwSetMouseButtonCallback(m_pGlfwWindow, mouseButtonCallback);
-	glfwSetCursorPosCallback(m_pGlfwWindow, mouseCallback);
-	glfwSetScrollCallback(m_pGlfwWindow, mouseWheelCallback);
-
 	GLint flags;
 	glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
 	if (flags & GL_CONTEXT_FLAG_DEBUG_BIT) {
@@ -93,29 +77,46 @@ void WindowGL::init() {
 	else {
 		std::cout << "OpenGL Error: OpenGL debug context wasn`t created." << std::endl;
 	}
+}
+
+WindowGL::~WindowGL() {
+	delete m_pInput;
+	delete[] m_pAspectRatio;
+};
+
+void WindowGL::init() {
+
+	glViewport(0, 0, m_width, m_height);
+	// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
+	// glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	if (m_vSync) {
 		glfwSwapInterval(1);
 	}
 
-	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	m_windowMode = WindowMode::CURSOR_DISABLED;
+	glfwSetWindowUserPointer(m_pGlfwWindow, this);
+	glfwSetFramebufferSizeCallback(m_pGlfwWindow, framebufferSizeCallback);
+	glfwSetKeyCallback(m_pGlfwWindow, keyCallback);
+	glfwSetMouseButtonCallback(m_pGlfwWindow, mouseButtonCallback);
+	glfwSetCursorPosCallback(m_pGlfwWindow, mouseCallback);
+	glfwSetScrollCallback(m_pGlfwWindow, mouseWheelCallback);
 
+	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	m_cursorMode = CursorMode::CURSOR_DISABLED;
 
 	ImGui_ImplGlfw_InitForOpenGL(m_pGlfwWindow, true);
 	ImGui_ImplOpenGL3_Init("#version 400");
-
-	startFrame();
 
 	glfwSetWindowAspectRatio(m_pGlfwWindow, m_pAspectRatio[0], m_pAspectRatio[1]);
 
 	ImGui::StyleColorsDark();
 
-	glfwMaximizeWindow(m_pGlfwWindow); 
-
 	std::cout << "Window init" << std::endl;
 
 	m_debug = true;
+
+	glfwMaximizeWindow(m_pGlfwWindow);
 }
 
 void WindowGL::update() {
@@ -127,9 +128,13 @@ void WindowGL::update() {
 }
 
 void WindowGL::startFrame() { 
-	if (m_shouldCallWindowResizeCallback) {
+	if (m_shouldWindowResize) {
 		this->resize();
-		m_shouldCallWindowResizeCallback = false;
+		m_shouldWindowResize = false;
+	}
+	if (m_shouldChangeWindowMode) {
+		this->changeWindowMode();
+		m_shouldChangeWindowMode = false;
 	}
 
 	ImGui_ImplGlfw_NewFrame();
@@ -154,17 +159,17 @@ InputGlfw* WindowGL::getInput() {
 	return m_pInput;
 }
 
-void WindowGL::setMode(WindowMode mode) {
-	m_windowMode = mode;
-	if (mode == WindowMode::CURSOR_DISABLED) {
+void WindowGL::setCursorMode(CursorMode mode) {
+	m_cursorMode = mode;
+	if (mode == CursorMode::CURSOR_DISABLED) {
 		glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
-	else if(mode == WindowMode::CURSOR_ENABLED) {
+	else if(mode == CursorMode::CURSOR_ENABLED) {
 		glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 }
 
-WindowMode WindowGL::getMode() { return m_windowMode; }
+CursorMode WindowGL::getMode() { return m_cursorMode; }
 
 void WindowGL::setResizeCallback(std::function<void(int, int)> callback) { m_resizeCallback = callback; }
 
@@ -185,7 +190,7 @@ void WindowGL::setSize(int width, int height) {
 	m_width = width;
 	m_height = height;
 
-	m_shouldCallWindowResizeCallback = true;
+	m_shouldWindowResize = true;
 }
 
 int* WindowGL::getAspectRatio() {
@@ -227,7 +232,7 @@ static void framebufferSizeCallback(GLFWwindow* pWindow, int width, int height) 
 	const int heightWindow = height; // std::round(width / aspectRatio);
 	pWindowGL->setSize(widthWindow, heightWindow);
 
-	pWindowGL->update();
+	//pWindowGL->update();
 }
 
 void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
@@ -240,5 +245,50 @@ void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint id, GLenum se
 void WindowGL::resize() {
 	glfwSetWindowSize(m_pGlfwWindow, m_width, m_height);
 	glViewport(0, 0, m_width, m_height);
+	m_resizeCallback(m_width, m_height);
+}
+
+void WindowGL::setWindowMode(WindowMode mode) { 
+	if (mode == m_windowMode) {
+		return;
+	}
+	
+	m_shouldChangeWindowMode = true;
+
+	m_windowMode = mode;
+}
+
+void WindowGL::changeWindowMode() {
+	glfwDestroyWindow(m_pGlfwWindow);
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	//ImGui::DestroyContext();
+
+	if (m_windowMode == WindowMode::FULLSCREEN) {
+		m_pGlfwWindow = glfwCreateWindow(m_width, m_height, m_title.c_str(), glfwGetPrimaryMonitor(), NULL);
+	}
+	else if (m_windowMode == WindowMode::WINDOWED) {
+		m_pGlfwWindow = glfwCreateWindow(m_width, m_height, m_title.c_str(), NULL, NULL);
+	}
+
+	
+	if (m_pGlfwWindow == nullptr) {
+		throw GlfwWindowFailException();
+		glfwTerminate();
+	}
+
+	//glfwMakeContextCurrent(m_pGlfwWindow);
+
+	//glViewport(0, 0, m_width, m_height);
+	//// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	//glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
+	//// glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+	//ImGui::CreateContext();
+	//ImGui_ImplGlfw_InitForOpenGL(m_pGlfwWindow, true);
+	//ImGui_ImplOpenGL3_Init("#version 400");
+	//glfwSetWindowAspectRatio(m_pGlfwWindow, m_pAspectRatio[0], m_pAspectRatio[1]);
+	this->init();
+
 	m_resizeCallback(m_width, m_height);
 }

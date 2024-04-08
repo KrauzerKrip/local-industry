@@ -28,6 +28,7 @@ void initGraphicsParameters(Parameters& parameters) {
 	ADD_PARAMETER_INT("gh_window_height", 0);
 	ADD_PARAMETER_INT("gh_window_aspect_ratio_x", 0);
 	ADD_PARAMETER_INT("gh_window_aspect_ratio_y", 0);
+	ADD_PARAMETER_STRING("gh_window_mode", "windowed");
 }
 
 void initPhysicsParameters(Parameters& parameters) {

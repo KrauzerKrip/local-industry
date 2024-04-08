@@ -57,6 +57,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	m_pGraphicsSettings->addUpdateCallback([this](GraphicsSettings* pGraphicsSettings) { 
 		m_pWindow->setSize(pGraphicsSettings->getWindowSize()[0], pGraphicsSettings->getWindowSize()[1]);
+		m_pWindow->setWindowMode(pGraphicsSettings->getWindowMode());
 		});
 
 	m_pActionControl =
@@ -166,28 +167,28 @@ void Game::init() {
 
 	m_pInput->addMappedKeyCallback(
 		KeyCode::F3, [this]() {
-			if (m_pWindow->getMode() == WindowMode::CURSOR_DISABLED) {
-				m_pWindow->setMode(WindowMode::CURSOR_ENABLED);
+			if (m_pWindow->getMode() == CursorMode::CURSOR_DISABLED) {
+				m_pWindow->setCursorMode(CursorMode::CURSOR_ENABLED);
 				m_guiMode = true;
 			}
 			else {
-				m_pWindow->setMode(WindowMode::CURSOR_DISABLED);
+				m_pWindow->setCursorMode(CursorMode::CURSOR_DISABLED);
 				m_guiMode = false;
 			}
 		});
 
 	m_pInput->addMappedKeyCallback(KeyCode::F3, [this]() {
-		if (m_pWindow->getMode() == WindowMode::CURSOR_DISABLED) {
-			m_pWindow->setMode(WindowMode::CURSOR_ENABLED);
+		if (m_pWindow->getMode() == CursorMode::CURSOR_DISABLED) {
+			m_pWindow->setCursorMode(CursorMode::CURSOR_ENABLED);
 			m_guiMode = true;
 		}
 		else {
-			m_pWindow->setMode(WindowMode::CURSOR_DISABLED);
+			m_pWindow->setCursorMode(CursorMode::CURSOR_DISABLED);
 			m_guiMode = false;
 		}
 	});
 
-	m_pWindow->setMode(WindowMode::CURSOR_ENABLED);
+	m_pWindow->setCursorMode(CursorMode::CURSOR_ENABLED);
 
 	auto pRegistry = &m_pWorld->getRegistry();
 	auto view = pRegistry->view<Properties>();

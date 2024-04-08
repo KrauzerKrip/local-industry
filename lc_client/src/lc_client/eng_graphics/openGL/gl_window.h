@@ -25,17 +25,18 @@ class WindowGL : public IWindow {
 public:
 
 	WindowGL(std::string, int width, int height, int* aspectRatio);
-	virtual ~WindowGL();
+	~WindowGL();
 
-	void init();
-	void update();
-	void startFrame(); 
-	bool windowShouldClose();
-	void terminate();
+	void init() override;
+	void update() override;
+	void startFrame() override; 
+	bool windowShouldClose() override;
+	void terminate() override;
 	InputGlfw* getInput();
-	void setMode(WindowMode mode);
-	WindowMode getMode();
+	void setCursorMode(CursorMode mode);
+	CursorMode getMode();
 	void setResizeCallback(std::function<void(int, int)> callback);
+	void setWindowMode(WindowMode mode) override;
 
 	GLFWwindow* getGlfwWindow();
 	std::function<void(int, int)>& getResizeCallback();
@@ -55,6 +56,7 @@ public:
 
 private:
 	void resize();
+	void changeWindowMode();
 
 	std::function<void(int, int)> m_resizeCallback; 
 
@@ -66,8 +68,10 @@ private:
 	float m_fov;
 	double mouseOffsetX;
 	double mouseOffsetY;
+	CursorMode m_cursorMode;
 	WindowMode m_windowMode;
-	bool m_shouldCallWindowResizeCallback;
+	bool m_shouldWindowResize;
+	bool m_shouldChangeWindowMode;
 
 	GLFWwindow* m_pGlfwWindow;
 	InputGlfw* m_pInput;

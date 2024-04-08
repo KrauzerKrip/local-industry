@@ -4,6 +4,7 @@
 #include <functional>
 
 #include "lc_client/tier0/conpar/parameters.h"
+#include "lc_client/eng_graphics/i_window.h"
 
 
 class GraphicsSettings {
@@ -14,6 +15,7 @@ public:
 	bool getVSync();
 	std::array<int, 2> getWindowSize();
 	std::array<int, 2> getWindowAspectRatio();
+	WindowMode getWindowMode();
 
 	void addUpdateCallback(std::function<void(GraphicsSettings* pGraphicsSettings)> callback);
 
@@ -21,12 +23,15 @@ public:
 private:
 	void updateCallbacks();
 
+	WindowMode windowModeStrToEnum(std::string modeStr);
+
 	Parameters* m_pParameters = nullptr;
 	
-	float m_fov = 90.0f;
-	bool m_vSync = false;
+	float m_fov;
+	bool m_vSync;
 	std::array<int, 2> m_windowSize;
 	std::array<int, 2> m_windowAspectRatio;
+	WindowMode m_windowMode;
 
 	std::vector<std::function<void(GraphicsSettings* pGraphicsSettings)>> m_updateCallbacks;
 };

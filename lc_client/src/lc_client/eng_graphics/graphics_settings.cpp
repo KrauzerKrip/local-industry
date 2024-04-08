@@ -8,6 +8,8 @@ GraphicsSettings::GraphicsSettings(Parameters* pParameters) {
 	m_windowSize[1] = pParameters->getParameter<int>("gh_window_height").getValue();
 	m_windowAspectRatio[0] = pParameters->getParameter<int>("gh_window_aspect_ratio_x").getValue();
 	m_windowAspectRatio[1] = pParameters->getParameter<int>("gh_window_aspect_ratio_y").getValue();
+	m_windowMode = this->windowModeStrToEnum(pParameters->getParameter<std::string>("gh_window_mode").getValue());
+
 
 	pParameters->getParameter<float>("gh_fov").setCallback([this](float value) {
 		m_fov = value;
@@ -33,6 +35,10 @@ GraphicsSettings::GraphicsSettings(Parameters* pParameters) {
 		m_windowAspectRatio[1] = value;
 		this->updateCallbacks();
 	});
+	pParameters->getParameter<std::string>("gh_window_mode").setCallback([this](std::string value) {
+		m_windowMode = this->windowModeStrToEnum(value);
+		this->updateCallbacks();
+	});
 }
 
 float GraphicsSettings::getFov() { return m_fov; }
@@ -45,6 +51,8 @@ std::array<int, 2> GraphicsSettings::getWindowSize() { return m_windowSize; }
 
 std::array<int, 2> GraphicsSettings::getWindowAspectRatio() { return m_windowAspectRatio; }
 
+WindowMode GraphicsSettings::getWindowMode() { return m_windowMode; }
+
 void GraphicsSettings::addUpdateCallback(std::function<void(GraphicsSettings* pGraphicsSettings)> callback) {
 	m_updateCallbacks.push_back(callback);
 }
@@ -52,5 +60,14 @@ void GraphicsSettings::addUpdateCallback(std::function<void(GraphicsSettings* pG
 void GraphicsSettings::updateCallbacks() {
 	for (auto& callback : m_updateCallbacks) {
 		callback(this);
+	}
+}
+
+WindowMode GraphicsSettings::windowModeStrToEnum(std::string modeStr) {
+	if (modeStr == "windowed") {
+		return WindowMode::WINDOWED;
+	}
+	else if (modeStr == "fullscreen") {
+		return WindowMode::FULLSCREEN;
 	}
 }
