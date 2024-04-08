@@ -39,9 +39,9 @@ public:
 
 	GLFWwindow* getGlfwWindow();
 	std::function<void(int, int)>& getResizeCallback();
-	std::array<int, 2> getSize();
-	void setSize(int width, int height);
-	int* getAspectRatio();
+	std::array<int, 2> getSize() override;
+	void setSize(int width, int height) override;
+	int* getAspectRatio() override;
 
 	static void keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods);
 	static void mouseButtonCallback(GLFWwindow* pGlfwWindow, int button, int action, int mods);
@@ -54,17 +54,20 @@ public:
 	bool m_debug = false;
 
 private:
+	void resize();
+
 	std::function<void(int, int)> m_resizeCallback; 
 
-	std::string m_title;
 	int m_width;
 	int m_height;
+	std::string m_title;
 	int* m_pAspectRatio;
 	bool m_vSync;
 	float m_fov;
 	double mouseOffsetX;
 	double mouseOffsetY;
 	WindowMode m_windowMode;
+	bool m_shouldCallWindowResizeCallback;
 
 	GLFWwindow* m_pGlfwWindow;
 	InputGlfw* m_pInput;

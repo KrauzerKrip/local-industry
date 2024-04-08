@@ -22,6 +22,8 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	m_height = height;
 	m_pAspectRatio = aspectRatio;
 
+	m_shouldCallWindowResizeCallback = false;
+
 	m_resizeCallback = [](int width, int height) {};
 
 	m_pInput = new InputGlfw();
@@ -125,6 +127,11 @@ void WindowGL::update() {
 }
 
 void WindowGL::startFrame() { 
+	if (m_shouldCallWindowResizeCallback) {
+		this->resize();
+		m_shouldCallWindowResizeCallback = false;
+	}
+
 	ImGui_ImplGlfw_NewFrame();
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui::NewFrame();
@@ -177,6 +184,8 @@ std::array<int, 2> WindowGL::getSize() {
 void WindowGL::setSize(int width, int height) {
 	m_width = width;
 	m_height = height;
+
+	m_shouldCallWindowResizeCallback = true;
 }
 
 int* WindowGL::getAspectRatio() {
@@ -218,12 +227,6 @@ static void framebufferSizeCallback(GLFWwindow* pWindow, int width, int height) 
 	const int heightWindow = height; // std::round(width / aspectRatio);
 	pWindowGL->setSize(widthWindow, heightWindow);
 
-	glViewport(0, 0, widthWindow, heightWindow);
-
-
-	std::function<void(int, int)>& resizeCallback = pWindowGL->getResizeCallback();
-	resizeCallback(width, height);
-
 	pWindowGL->update();
 }
 
@@ -232,4 +235,10 @@ void GLAPIENTRY messageCallback(GLenum source, GLenum type, GLuint id, GLenum se
 
 	//fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
 	//	(type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""), type, severity, message);
+}
+
+void WindowGL::resize() {
+	glfwSetWindowSize(m_pGlfwWindow, m_width, m_height);
+	glViewport(0, 0, m_width, m_height);
+	m_resizeCallback(m_width, m_height);
 }
