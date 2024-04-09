@@ -29,10 +29,8 @@ Loop* Loop::getInstance() {
 }
 
 void Loop::init() {
-
-	m_pWindow->init();
 	m_pGameLogic->init(); // it was before
-	
+	m_pWindow->init();
 }
 
 void Loop::startLoop() {
