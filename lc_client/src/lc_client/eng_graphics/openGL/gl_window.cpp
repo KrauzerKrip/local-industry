@@ -23,6 +23,7 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	m_pAspectRatio = aspectRatio;
 
 	m_windowMode = WindowMode::WINDOWED;
+	m_cursorMode = CursorMode::CURSOR_DISABLED;
 
 	m_shouldWindowResize = false;
 	m_shouldChangeWindowMode = false;
@@ -85,7 +86,6 @@ WindowGL::~WindowGL() {
 };
 
 void WindowGL::init() {
-
 	glViewport(0, 0, m_width, m_height);
 	// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
@@ -101,9 +101,6 @@ void WindowGL::init() {
 	glfwSetMouseButtonCallback(m_pGlfwWindow, mouseButtonCallback);
 	glfwSetCursorPosCallback(m_pGlfwWindow, mouseCallback);
 	glfwSetScrollCallback(m_pGlfwWindow, mouseWheelCallback);
-
-	glfwSetInputMode(m_pGlfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	m_cursorMode = CursorMode::CURSOR_DISABLED;
 
 	ImGui_ImplGlfw_InitForOpenGL(m_pGlfwWindow, true);
 	ImGui_ImplOpenGL3_Init("#version 400");
