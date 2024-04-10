@@ -8,8 +8,8 @@ target_sources(lc_client
     "scene_loading.cpp"
     "component_creator.h"
     "component_creator.cpp"
-    "skybox.h"
-    "skybox.cpp"
+    "skybox_system.h"
+    "skybox_system.cpp"
 
     "entt/components.h"
 )

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 project(game)
 
-add_executable(game "src/game/main.cpp" "src/game/main.h" "src/game/game.cpp" "src/game/game.h" "src/game/gui/machine_menu/machine_category.cpp")
+add_executable(game "src/game/main.cpp" "src/game/main.h" "src/game/game.cpp" "src/game/game.h" "src/game/graphics.h" "src/game/graphics.cpp")
 
 add_subdirectory("src/game/gui")
 add_subdirectory("src/game/loader_fabric")

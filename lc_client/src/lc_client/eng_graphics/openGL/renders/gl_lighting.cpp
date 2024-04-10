@@ -2,15 +2,24 @@
 
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
-LightingGl::LightingGl(entt::registry* pRegistry, Camera* pCamera, Skybox* pSkybox) {
+LightingGl::LightingGl(entt::registry* pRegistry, Camera* pCamera) {
 	m_pRegistry = pRegistry;
 	m_pCamera = pCamera;
-	m_pSkybox = pSkybox;
 }
 
 void LightingGl::setLighting(unsigned int shaderProgram) {
-	setUniform(shaderProgram, "ambientLight.color", m_pSkybox->getLightColor());
-	setUniform(shaderProgram, "ambientLight.strength", m_pSkybox->getLightStrength());
+	auto skyboxes = m_pRegistry->view<Skybox>();
+
+	Skybox skybox;
+	skybox.lightColor = glm::vec3(1, 1, 1);
+	skybox.lightStrength = 1.0f;
+
+	for (auto&& [entity, sbox] : skyboxes.each()) {
+		skybox = sbox;
+	}
+
+	setUniform(shaderProgram, "ambientLight.color", skybox.lightColor);
+	setUniform(shaderProgram, "ambientLight.strength", skybox.lightStrength);
 
 	setUniform(shaderProgram, "spotLight.position", m_pCamera->getPosition());
 	setUniform(shaderProgram, "spotLight.direction", m_pCamera->getCameraFront());

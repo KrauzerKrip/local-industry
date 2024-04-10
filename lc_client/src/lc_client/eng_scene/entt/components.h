@@ -67,3 +67,15 @@ struct Parent {
 struct SceneEntity {
 
 };
+
+struct Skybox {
+	glm::vec3 lightColor;
+	float lightStrength;
+};
+
+struct SkyboxRequest {
+	std::string pack;
+	std::string name;
+
+	SkyboxRequest(std::string pack, std::string name) : pack(pack), name(name) {}
+};

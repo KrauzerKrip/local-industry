@@ -8,7 +8,6 @@
 #include "lc_client/eng_scene/entt/components.h"
 #include "lc_client/eng_graphics/camera/camera.h"
 #include "lc_client/eng_world/world.h"
-#include "lc_client/eng_scene/skybox.h"
 #include "gl_shader_loader.h"
 #include "lc_client/eng_graphics/openGL/gl_framebuffer.h"
 #include "lc_client/eng_cubemaps/entt/components.h"
@@ -24,6 +23,7 @@
 #include "renders/gl_opaque_render.h"
 #include "renders/gl_outline_render.h"
 #include "gl_framebuffer_controller.h"
+#include "gl_skybox_render.h"
 
 
 typedef decltype(entt::registry().view<CubemapGl, Transform>()) CubemapView;
@@ -39,7 +39,7 @@ class RenderGL : public IRender {
 friend class RenderMapGl;
 
 public:
-RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork, FramebufferController* pFramebufferController,
+RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork, SkyboxRenderGl* pSkyboxRender, FramebufferController* pFramebufferController,
 	GuiPresenter* pGuiPresenter,
 		 GraphicsSettings* pGraphicsSettings);
 	~RenderGL();
@@ -57,7 +57,7 @@ private:
 	Camera* m_pCamera;
 	ShaderLoaderGl* m_pShaderLoader;
 	RenderMapGl* m_pRenderMap;	
-	Skybox* m_pSkybox = nullptr;
+	SkyboxRenderGl* m_pSkyboxRender = nullptr;
 	LightingGl* m_pLighting = nullptr;
 	GuiPresenter* m_pGuiPresenter = nullptr;
 	MeshRenderGl* m_pMeshRender = nullptr;

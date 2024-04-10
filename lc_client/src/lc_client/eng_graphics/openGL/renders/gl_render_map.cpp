@@ -9,13 +9,13 @@
 
 
 RenderMapGl::RenderMapGl(LightingGl* pLighting, RenderGL* pRenderGL, Camera* pCamera,
-	Skybox* pSkybox, entt::registry* pRegistry, entt::registry* pUtilRegistry) { 
+	SkyboxRenderGl* pSkyboxRender, entt::registry* pRegistry, entt::registry* pUtilRegistry) { 
 	m_pRegistry = pRegistry;
 	m_pUtilRegistry = pUtilRegistry;
 	m_pRenderGl = pRenderGL;
 	m_pLighting = pLighting;
 	m_pCamera = pCamera;
-	m_pSkybox = pSkybox;
+	m_pSkyboxRender = pSkyboxRender;
 }
 
 void RenderMapGl::render(glm::mat4 view, glm::mat4 projection) {

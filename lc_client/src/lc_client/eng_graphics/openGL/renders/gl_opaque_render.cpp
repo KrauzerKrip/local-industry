@@ -11,14 +11,14 @@
 
 
 OpaqueRenderGl::OpaqueRenderGl(Camera* pCamera, MeshRenderGl* pMeshRenderGl, OutlineRenderGl* pOutlineRender,
-	LightingGl* pLighting, Skybox* pSkybox, entt::registry* pRegistry, entt::registry* pUtilRegistry) {
+	LightingGl* pLighting, SkyboxRenderGl* pSkyboxRender, entt::registry* pRegistry, entt::registry* pUtilRegistry) {
 	m_pRegistry = pRegistry;
 	m_pUtilRegistry = pUtilRegistry;
 	m_pCamera = pCamera;
 	m_pMeshRender = pMeshRenderGl;
 	m_pOutlineRender = pOutlineRender;
 	m_pLighting = pLighting;
-	m_pSkybox = pSkybox;
+	m_pSkyboxRender = pSkyboxRender;
 }
 
 void OpaqueRenderGl::render(const glm::mat4& projection, const glm::mat4& view) {
@@ -28,7 +28,7 @@ void OpaqueRenderGl::render(const glm::mat4& projection, const glm::mat4& view) 
 		std::vector<entt::entity>& meshes = model.meshes;
 		unsigned int shaderProgram = shader.shaderProgram;
 		glUseProgram(shaderProgram);
-		m_pSkybox->bindTexture();
+		m_pSkyboxRender->bindTexture();
 		
 		if (m_pRegistry->all_of<AssignedCubemap>(entity)) {
 			entt::entity cubemapEntity = m_pRegistry->get<AssignedCubemap>(entity).cubemap;

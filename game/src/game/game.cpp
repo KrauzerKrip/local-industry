@@ -17,7 +17,7 @@
 #include "lc_client/eng_graphics/openGL/gl_mesh_loader.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
 #include "lc_client/eng_gui/gui_console.h"
-#include "lc_client/eng_scene/skybox.h"
+#include "lc_client/eng_scene/skybox_system.h"
 #include "lc_client/util/pack.h"
 #include "lc_client/eng_gui/layout/layouts/frame.h"
 #include "lc_client/eng_gui/widgets/widget.h"
@@ -53,12 +53,6 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pResource = new eng::Resource("E:/Industry/industry/res/"); 
 	m_pTier0 = pTier0;
 	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
-	m_pGraphicsSettings = new GraphicsSettings(m_pTier0->getParameters());
-
-	m_pGraphicsSettings->addUpdateCallback([this](GraphicsSettings* pGraphicsSettings) { 
-		m_pWindow->setSize(pGraphicsSettings->getWindowSize()[0], pGraphicsSettings->getWindowSize()[1]);
-		m_pWindow->setWindowMode(pGraphicsSettings->getWindowMode());
-		});
 
 	m_pActionControl =
 		new ActionControl(pWindow->getInput(), m_pTier0->getParameters(), m_pTier0->getConsole());
@@ -68,42 +62,14 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	m_pInput = m_pWindow->getInput();
 
-	m_pTier1->getShaderManager()->loadShaders();
-
-	LoaderFabricGl* pLoaderFabric =  new LoaderFabricGl(m_pResource, m_pTier0->getConsole(), m_pTier1->getShaderManager());
-
-	Pack pack = Pack::getPack("dev");
-	SkyboxRender* pSkyboxRender = new SkyboxRenderGl(pLoaderFabric->getShaderLoaderGl());
-
 	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
-	m_pWorld = new World(m_pResource, pSceneLoading, pSkyboxRender);
+	m_pWorld = new World(m_pResource, pSceneLoading);
 
-	Skybox* pSkybox = m_pWorld->getSkybox();
-	pSkybox->setLightColor(255, 255, 200); // 255, 255, 236
-	pSkybox->setLightStrength(0.4f);
-
-	ModelManager* pModelManager = new ModelManager(
-		m_pResource, m_pTier1->getTextureManager(), m_pWorld->getUtilRegistry(), m_pTier0->getConsole());
-	ModelParser* pModelParser = new ModelParser(m_pResource);
+	m_pGraphics = new Graphics(m_pTier0, m_pTier1, m_pWindow, m_pResource, m_pWorld, m_pCamera, m_pInput, m_pActionControl);
 
 	PhysicalConstants* pPhysicalConstants = new PhysicalConstants(m_pTier0->getParameters(), m_pTier0->getConsole());
 
     m_pTier1->initGameConfig();
-
-	FramebufferController* pFramebufferController = new FramebufferController(m_pWindow);
-	
-
-	GuiDependenciesFabric* pGuiDependenciesFabric = new GuiDependenciesFabricGl(m_pTier0->getConsole(),
-		pLoaderFabric->getShaderLoaderGl(), m_pInput, m_pTier1->getTextureManager(), pFramebufferController, pWindow);
-	m_pGui = new Gui(m_pTier0, pGuiDependenciesFabric, m_pInput, m_pActionControl, m_pGraphicsSettings, m_pCamera, &m_pWorld->getRegistry());
-
-	m_pRender = new RenderGL(m_pWindow, m_pCamera, pLoaderFabric->getShaderLoaderGl(), pFramebufferController, m_pGui->getPresenter(), m_pGraphicsSettings);
-
-	m_pRender->setDependecies(m_pWorld);
-
-	m_pRender->init();
-
-	m_pGraphicsSystems = new GraphicsSystems(m_pTier0, m_pTier1, pLoaderFabric->getShaderLoaderGl(), pLoaderFabric->getMeshLoader(), pLoaderFabric->getCubemapLoader(), m_pWorld, pModelManager, pModelParser);
 
 	m_pScriptSystem = new ScriptSystem(&m_pWorld->getRegistry());
 	Physics* pPhysics = new Physics(&m_pWorld->getRegistry());
@@ -115,7 +81,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pNpcSystem = new NpcSystem(m_pTier0->getParameters(), m_pWorld);
 
 	m_pControlSystem = new ControlSystem(
-		m_pGraphicsSettings, m_pInput, m_pCamera, m_pActionControl, pPhysics,
+		m_pGraphics->getSettings(), m_pInput, m_pCamera, m_pActionControl, pPhysics,
 		&m_pWorld->getRegistry());
 	m_pCharacterSystem = new CharacterSystem(&m_pWorld->getRegistry());
 
@@ -123,7 +89,6 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 }
 
 Game::~Game() {
-	delete m_pRender;
 	delete m_pResource;
 	delete m_pTier1;
 	delete m_pCamera;
@@ -134,11 +99,11 @@ void Game::init() {
 	m_pWorld->loadMap("dev", "test");
 	m_pWorld->loadScene("dev", "test");
 
-	m_pWorld->getSkybox()->loadSkybox("anime");
-
+	entt::entity skyboxEntity = m_pWorld->getRegistry().create();
+	m_pWorld->getRegistry().emplace<SkyboxRequest>(skyboxEntity, SkyboxRequest("dev", "anime"));
 
 	auto dirLight = m_pWorld->getRegistry().create(); // temp
-	auto dirLightComponent = m_pWorld->getRegistry().emplace<DirectionalLight>(dirLight);
+	auto& dirLightComponent = m_pWorld->getRegistry().emplace<DirectionalLight>(dirLight);
 	dirLightComponent.color = glm::vec3(1, 1, 1);
 	dirLightComponent.direction = glm::vec3(-0.2f, -1.0f, -0.3f);
 
@@ -248,8 +213,7 @@ void Game::update() {
 
 	//	pRegistry->emplace<ModelRequest>(surfaceScene, "dev", "test_surface");
 	//}
-
-	m_pGraphicsSystems->update();
+	
 	m_pPhysicsSystem->update();
 	m_pScriptSystem->update();
 	m_pNpcSystem->update();
@@ -257,6 +221,14 @@ void Game::update() {
 	m_pCharacterSystem->update();
 	m_pMachineSystem->update(Time::getDeltaTime());
 	m_pMachineSystem->machineUpdate(Time::getDeltaTime());
+	m_pGraphics->getSystems()->update();
+
+	auto skyboxes = m_pWorld->getRegistry().view<Skybox>();
+
+	for (auto&& [entity, skybox] : skyboxes.each()) {
+		skybox.lightColor = glm::vec3(1, 1, 0.7);
+		skybox.lightStrength = 0.4f;
+	}
 
 	//if (pMapRegistry->view<Mesh>().size() == 0) {
 	//	m_pGraphicsSystems->update();
@@ -285,14 +257,14 @@ void Game::update() {
 	//	}
 	//}
 
-	m_pGui->update();
+	m_pGraphics->getGui()->update();
 }
 
 void Game::render() {
 	m_pScriptSystem->frame();
-	m_pGraphicsSystems->frame();
+	m_pGraphics->getSystems()->frame();
 	m_pMachineSystem->frame(Time::getDeltaTime());
-	m_pRender->render();
+	m_pGraphics->getRender()->render();
 }
 
 void Game::cleanUp() {}

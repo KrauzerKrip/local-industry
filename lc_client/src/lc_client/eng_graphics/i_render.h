@@ -4,7 +4,6 @@
 #include <entt/entt.hpp>
 
 #include "lc_client/eng_world/world.h" 
-#include "lc_client/eng_scene/skybox.h"
 
 
 class IRender {

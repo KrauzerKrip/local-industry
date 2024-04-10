@@ -29,6 +29,8 @@
 #include "game/control/control_system.h"
 #include "lc_client/eng_npc/npc_system.h"
 #include "machine/machine_system.h"
+#include "game/graphics.h"
+
 
 import character;
 
@@ -52,12 +54,10 @@ private:
 	IWindow* m_pWindow = nullptr;
 	IInput* m_pInput = nullptr;
 	Camera* m_pCamera = nullptr;
-	RenderGL* m_pRender = nullptr;
 	ActionControl* m_pActionControl = nullptr;
 	World* m_pWorld = nullptr;
+	Graphics* m_pGraphics = nullptr;
 	ConsoleGui* m_pConsoleGui = nullptr;
-	GraphicsSettings* m_pGraphicsSettings = nullptr;
-	GraphicsSystems* m_pGraphicsSystems = nullptr;
 	PhysicsSystem* m_pPhysicsSystem = nullptr;
 	ScriptSystem* m_pScriptSystem = nullptr;
 	NpcSystem* m_pNpcSystem = nullptr;

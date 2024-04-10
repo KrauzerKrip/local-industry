@@ -19,6 +19,7 @@
 
 
 RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWork,
+	SkyboxRenderGl* pSkyboxRender,
 	FramebufferController* pFramebufferController, GuiPresenter* pGuiPresenter, GraphicsSettings* pGraphicsSettings) {
 	m_pWindow = pWindow; // mb remove it
 	m_pCamera = pCamera;
@@ -26,6 +27,7 @@ RenderGL::RenderGL(IWindow* pWindow, Camera* pCamera, ShaderLoaderGl* pShaderWor
 	m_pFramebufferController = pFramebufferController;
 	m_pGuiPresenter = pGuiPresenter;
 	m_pGraphicsSettings = pGraphicsSettings;
+	m_pSkyboxRender = pSkyboxRender;
 }
 
 RenderGL::~RenderGL() {}
@@ -65,7 +67,7 @@ void RenderGL::render() {
 	m_pOpaqueRender->render(projection, view);
 
 	glDepthFunc(GL_LEQUAL);
-	m_pSkybox->render(projection, view);
+	m_pSkyboxRender->render(projection, view);
 	glDepthFunc(GL_LESS);
 
 	glDepthMask(false);
@@ -97,17 +99,15 @@ void RenderGL::cleanUp() {}
 void RenderGL::setDependecies(World* pWorld) {
 	m_pRegistry = &pWorld->getRegistry();
 	m_pUtilRegistry = &pWorld->getUtilRegistry();
-
-	m_pSkybox = pWorld->getSkybox();
 	
-	m_pLighting = new LightingGl(m_pRegistry, m_pCamera, m_pSkybox);
+	m_pLighting = new LightingGl(m_pRegistry, m_pCamera);
 
     m_pMeshRender = new MeshRenderGl(m_pUtilRegistry);
 	m_pOutlineRender = new OutlineRenderGl(m_pMeshRender, m_pShaderLoader);
-	m_pRenderMap = new RenderMapGl(m_pLighting, this, m_pCamera, m_pSkybox, m_pRegistry, m_pUtilRegistry);
+	m_pRenderMap = new RenderMapGl(m_pLighting, this, m_pCamera, m_pSkyboxRender, m_pRegistry, m_pUtilRegistry);
 	m_pPrimitiveRender = new PrimitiveRender(m_pShaderLoader, m_pRegistry, m_pRegistry);
 	m_pOpaqueRender = new OpaqueRenderGl(
-		m_pCamera, m_pMeshRender, m_pOutlineRender, m_pLighting, m_pSkybox, m_pRegistry, m_pUtilRegistry);
+		m_pCamera, m_pMeshRender, m_pOutlineRender, m_pLighting, m_pSkyboxRender, m_pRegistry, m_pUtilRegistry);
 	m_pTransparentRender = new TransparentRenderGl(m_pCamera, m_pMeshRender, m_pOutlineRender, m_pRegistry);
 }
 

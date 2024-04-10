@@ -4,10 +4,9 @@
 
 
 
-World::World(eng::IResource* pResource, SceneLoading* pSceneLoading, SkyboxRender* pSkyboxRender) { 
+World::World(eng::IResource* pResource, SceneLoading* pSceneLoading) { 
 	m_pResource = pResource;
 	m_pSceneLoading = pSceneLoading;
-	m_pSkybox = new Skybox(pSkyboxRender, pResource);
 }
 
 World::~World() {}
@@ -39,7 +38,5 @@ void World::loadMap(std::string pack, std::string map) {
 entt::registry& World::getRegistry() { return m_registry; }
 
 entt::registry& World::getUtilRegistry() { return m_utilRegistry; }
-
-Skybox* World::getSkybox() { return m_pSkybox; }
 
 NpcGraph* World::getNpcGraph() { return m_npcGraph.get(); }
