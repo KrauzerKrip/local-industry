@@ -170,8 +170,11 @@ CursorMode WindowGL::getMode() { return m_cursorMode; }
 
 void WindowGL::setResizeCallback(std::function<void(int, int)> callback) { m_resizeCallback = callback; }
 
+void WindowGL::setCreationCallback(std::function<void()> callback) { m_creationCallback = callback; }
+
 GLFWwindow* WindowGL::getGlfwWindow() {
-	return m_pGlfwWindow; }
+	return m_pGlfwWindow; 
+}
 
 std::function<void(int, int)>& WindowGL::getResizeCallback() { return m_resizeCallback; }
 

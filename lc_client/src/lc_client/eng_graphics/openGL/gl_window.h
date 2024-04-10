@@ -36,6 +36,7 @@ public:
 	void setCursorMode(CursorMode mode);
 	CursorMode getMode();
 	void setResizeCallback(std::function<void(int, int)> callback);
+	void setCreationCallback(std::function<void()> callback);
 	void setWindowMode(WindowMode mode) override;
 
 	GLFWwindow* getGlfwWindow();
@@ -59,6 +60,7 @@ private:
 	void changeWindowMode();
 
 	std::function<void(int, int)> m_resizeCallback; 
+	std::function<void()> m_creationCallback;
 
 	int m_width;
 	int m_height;

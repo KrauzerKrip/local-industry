@@ -39,6 +39,7 @@ public:
 	virtual void setCursorMode(CursorMode mode) = 0;
 	virtual CursorMode getMode() = 0;
 	virtual void setResizeCallback(std::function<void(int, int)> callback) = 0;
+	virtual void setCreationCallback(std::function<void()> callback) = 0;
 	virtual void setWindowMode(WindowMode mode) = 0;
 	
 	/**
