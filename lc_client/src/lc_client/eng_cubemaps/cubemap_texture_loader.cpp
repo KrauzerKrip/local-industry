@@ -39,8 +39,8 @@ CubemapTextureLoader::CubemapTextureLoader(std::string path, eng::IResource* pRe
 
 }
 
-std::unique_ptr<CubemapMaterial> CubemapTextureLoader::getMaterial() {
-	return std::unique_ptr<CubemapMaterial>(m_pMaterial);
+CubemapMaterial* CubemapTextureLoader::getMaterial() {
+	return m_pMaterial;
 }
 
 void CubemapTextureLoader::testLoadImages(eng::IResource* pResource, std::string path) {

@@ -19,5 +19,13 @@ class SkyboxRender {
 public:
 	virtual void render(glm::mat4& projection, glm::mat4& view) = 0;
 	virtual void bindTexture() = 0;
+	/**
+	 * @brief 
+	 * @param pMat should pass ownership. 
+	 */
 	virtual void load(CubemapMaterial* pMat) = 0;
+	virtual void reload() = 0;
+
+protected:
+	CubemapMaterial* m_pMaterial = nullptr;
 };

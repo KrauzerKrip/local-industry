@@ -32,6 +32,6 @@ void SkyboxSystem::update() {
 
 void SkyboxSystem::loadSkybox(std::string pack, std::string name) {
 	std::string skyboxPath = Pack::Skybox(Pack::getPack(pack), name).getPath();
-	std::unique_ptr<CubemapMaterial> skyboxMaterial = CubemapTextureLoader(skyboxPath, m_pResource).getMaterial();
-	m_pSkyboxRender->load(skyboxMaterial.get());
+	CubemapMaterial* pSkyboxMaterial = CubemapTextureLoader(skyboxPath, m_pResource).getMaterial();
+	m_pSkyboxRender->load(pSkyboxMaterial);
 }

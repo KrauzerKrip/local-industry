@@ -10,10 +10,12 @@
 
 
 SkyboxRenderGl::SkyboxRenderGl(ShaderLoaderGl* pShaderWork) {
-	m_shader = pShaderWork->createShaderProgram("skybox", "skybox");
+	m_pShaderLoader = pShaderWork;
 }
 
 void SkyboxRenderGl::load(CubemapMaterial* pMaterial) {
+	m_pMaterial = pMaterial;
+
 	int imageFormat;
 
 	if (pMaterial->right.getChannelsNumber() > 3 || pMaterial->left.getChannelsNumber() > 3 ||
@@ -98,3 +100,11 @@ void SkyboxRenderGl::render(glm::mat4& projection, glm::mat4& view) {
 }
 
 void SkyboxRenderGl::bindTexture() { glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture); }
+
+void SkyboxRenderGl::reload() { 
+	m_shader = m_pShaderLoader->createShaderProgram("skybox", "skybox");
+
+	if (m_pMaterial != nullptr) {
+		this->load(m_pMaterial);
+	}
+}

@@ -8,7 +8,7 @@
 void CubemapLoaderGl::loadCubemap(
 	entt::entity entity, std::string path, entt::registry* pRegistry, entt::registry* pUtilRegistry) {
 	CubemapTextureLoader cubemapLoader(path, m_pResource);
-	std::unique_ptr<CubemapMaterial> material = cubemapLoader.getMaterial();
+	std::unique_ptr<CubemapMaterial> material = std::unique_ptr<CubemapMaterial>(cubemapLoader.getMaterial());
 
 	unsigned int texture = getTexture(std::move(material));
 

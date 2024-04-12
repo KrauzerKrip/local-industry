@@ -29,6 +29,8 @@ Graphics::Graphics(Tier0* pTier0, IWindow* pWindow, eng::IResource* pResource, W
 	m_modelParser = std::make_unique<ModelParser>(pResource);
 
 	m_textureManager = std::make_unique<TextureManagerGl>(m_pResource);
+
+	m_skyboxRender = std::make_unique<SkyboxRenderGl>(m_loaderFabric->getShaderLoaderGl());
 }
 
 void Graphics::load() {}
@@ -51,10 +53,9 @@ void Graphics::recreate() {
 
 	m_loaderFabric->getShaderLoaderGl()->setShaderManager(m_shaderManager.get());
 
+	m_skyboxRender->reload();
+
 	m_modelManager->setTextureManager(m_textureManager.get());
-	
-	m_skyboxRender.reset();
-	m_skyboxRender = std::make_unique<SkyboxRenderGl>(m_loaderFabric->getShaderLoaderGl());
 
 	FramebufferController* pFramebufferController = new FramebufferController(m_pWindow);
 

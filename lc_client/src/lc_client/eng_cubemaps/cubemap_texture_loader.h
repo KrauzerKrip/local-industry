@@ -36,7 +36,7 @@ class CubemapTextureLoader {
 public:
 	CubemapTextureLoader(std::string path, eng::IResource* pResource);
 
-	std::unique_ptr<CubemapMaterial> getMaterial();
+	CubemapMaterial* getMaterial();
 
 private:
 	CubemapMaterial* m_pMaterial;
