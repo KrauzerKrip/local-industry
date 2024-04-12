@@ -2,11 +2,11 @@
 
 #include <unordered_map>
 
-#include "lc_client/tier1/i_shaders.h"
+#include "lc_client/eng_graphics/shader_manager.h"
 #include "lc_client/util/i_eng_resource.h"
 
 
-class ShaderManagerGl : public IShaderManager{
+class ShaderManagerGl : public ShaderManager {
 public:
 	ShaderManagerGl(eng::IResource* pResource);
 	~ShaderManagerGl();

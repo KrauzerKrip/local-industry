@@ -48,3 +48,5 @@ unsigned int ShaderLoaderGl::createShaderProgram(std::string vertexShaderName, s
 
 	return shaderProgram;
 }
+
+void ShaderLoaderGl::setShaderManager(ShaderManagerGl* pShaderManager) { m_pShaderManager = pShaderManager; }

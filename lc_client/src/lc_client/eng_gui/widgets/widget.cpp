@@ -14,7 +14,7 @@ Widget::Widget(Background* pBackground)
 Widget::Widget(GuiDependencies dependencies) {
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
-	m_background = std::make_unique<ColorBackground>(glm::vec4(0, 0, 0, 0), dependencies);
+	m_background = new ColorBackground(glm::vec4(0, 0, 0, 0), dependencies);
 
 	m_rectangle = Rectangle();
 }
@@ -80,14 +80,13 @@ void Widget::setPosition(glm::vec2 position) { m_position = position; }
 
 void Widget::setPosition(unsigned x, unsigned y) { m_position = glm::vec2(x, y);  }
 
-std::shared_ptr<Layout> Widget::getLayout() { return m_layout; }
+Layout* Widget::getLayout() { return m_layout.get(); }
 
-void Widget::setLayout(std::shared_ptr<Layout> layout) { m_layout = layout; }
-void Widget::setLayout(Layout* pLayout) { m_layout = std::shared_ptr<Layout>(pLayout); }
+void Widget::setLayout(Layout* pLayout) { m_layout = std::unique_ptr<Layout>(pLayout); }
 
-void Widget::setBackground(Background* background) { m_background = std::unique_ptr<Background>(background); }
+void Widget::setBackground(Background* background) { m_background = background; }
 
-Background* Widget::getBackground() { return m_background.get(); }
+Background* Widget::getBackground() { return m_background; }
 
 void Widget::setName(std::string name) { m_name = name; }
 

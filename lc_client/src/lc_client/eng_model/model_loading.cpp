@@ -4,25 +4,18 @@
 
 #include "lc_client/exceptions/io_exceptions.h"
 #include "lc_client/eng_graphics/entt/components.h"
-#include "lc_client/tier1/openGL/gl_texture_manager.h"
 #include "lc_client/util/file_util.h"
 
 
 namespace eng {
 
-	ModelLoading::ModelLoading(std::string modelPath, std::string texturesDirPath, std::string materialType,
-		std::string fileFormat, eng::IResource* pResource, TextureManager* pTextureManager,
-		entt::registry* pUtilRegistry)
+	ModelLoading::ModelLoading(std::string modelPath,
+		std::string fileFormat, eng::IResource* pResource, entt::registry* pUtilRegistry)
 
 		: m_modelPath(modelPath),
-		  m_texturesDirPath(texturesDirPath),
-		  m_materialType(materialType),
 		  m_fileFormat(fileFormat),
 		  m_pResource(pResource),
-		  m_pTextureManager(pTextureManager),
 		  m_pUtilRegistry(pUtilRegistry) {}
-
-	std::vector<MaterialSG>& ModelLoading::getMeshesMaterialsSG() { return m_materials; };
 
 	Model* ModelLoading::loadModel() {
 
@@ -55,22 +48,6 @@ namespace eng {
 			aiMesh* pMesh = scene->mMeshes[node->mMeshes[i]];
 			entt::entity entity = m_pUtilRegistry->create();
 			m_pUtilRegistry->emplace<Mesh>(entity, eng::ModelLoading::processMesh(pMesh, scene));
-
-			if (pMesh->mMaterialIndex >= 0) {
-				if (m_materialType == "sg") {
-					MaterialSG material = eng::ModelLoading::getMaterialSG(scene->mMaterials[pMesh->mMaterialIndex]);
-					m_pUtilRegistry->emplace<MaterialSG>(entity, material);
-				}
-				else if (m_materialType == "mr") {
-					MaterialMR material = eng::ModelLoading::getMaterialMR(scene->mMaterials[pMesh->mMaterialIndex]);
-					m_pUtilRegistry->emplace<MaterialMR>(entity, material);
-				}
-				else {
-					throw std::runtime_error("ModelLoading: unknown model material type: " + m_materialType);
-				}
-			}
-
-
 
 			meshes.push_back(entity);
 		}
@@ -137,56 +114,6 @@ namespace eng {
 				indices.push_back(face.mIndices[j]);
 			}
 		}
-	}
-
-	MaterialMR ModelLoading::getMaterialMR(aiMaterial* pMaterial) {
-		aiString str;
-
-		std::cout << "processMaterialMR in model_loading.cpp isn`t ready yet" << std::endl;
-
-		assert(1);
-
-		MaterialMR material;
-
-		pMaterial->GetTexture(aiTextureType_BASE_COLOR, 0, &str);
-		std::cout << "processMaterial BASE_COLOR str: " << str.C_Str() << std::endl;
-		material.colorTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
-
-		// pMaterial->GetTexture(aiTextureType_, 0, &str);
-		material.metallicTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
-
-		pMaterial->GetTexture(aiTextureType_AMBIENT_OCCLUSION, 0, &str);
-		material.aoTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
-
-		pMaterial->GetTexture(aiTextureType_AMBIENT_OCCLUSION, 0, &str);
-		material.aoTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
-
-		pMaterial->GetTexture(aiTextureType_AMBIENT_OCCLUSION, 0, &str);
-		material.aoTexture = m_pTextureManager->getTexture(m_texturesDirPath + str.C_Str());
-
-		return material;
-	}
-
-	MaterialSG ModelLoading::getMaterialSG(aiMaterial* pMaterial) {
-
-		MaterialSG material;
-
-		material.diffuseTexture = m_pTextureManager->getTexture(m_texturesDirPath + "diffuse"); // str.C_Str());
-		material.diffuseTexture->setTextureType(TextureType::DIFFUSE);
-
-		material.specularTexture = m_pTextureManager->getTexture(m_texturesDirPath + "specular");
-		material.specularTexture->setTextureType(TextureType::SPECULAR);
-
-		material.glossinessTexture = m_pTextureManager->getTexture(m_texturesDirPath + "glossiness");
-		material.glossinessTexture->setTextureType(TextureType::GLOSSINESS);
-
-		material.aoTexture = m_pTextureManager->getTexture(m_texturesDirPath + "ao");
-		material.aoTexture->setTextureType(TextureType::AO);
-
-		material.normalMap = m_pTextureManager->getTexture(m_texturesDirPath + "normal");
-		material.normalMap->setTextureType(TextureType::NORMAL);
-
-		return material;
 	}
 
 }

@@ -56,6 +56,11 @@ struct ShaderRequest {
 };
 
 
+struct ShaderReloadRequest {
+
+};
+
+
 //TODO remove
 struct Shader {
 	entt::entity* shader;
@@ -74,6 +79,22 @@ struct Shader {
 struct ShaderUniforms {
 	std::unordered_map<std::string, glm::vec4> vectorUniforms;
 	std::unordered_map<std::string, float> floatUniforms;
+};
+
+
+/**
+ * @brief For internal use. Do not use this as a request.
+ */
+struct ShaderData {
+	std::string packName;
+	std::string vertexShaderName;
+	std::string fragmentShaderName;
+
+	ShaderData(std::string packName, std::string vertexShaderName, std::string fragmentShaderName)
+		: packName(packName),
+		  vertexShaderName(vertexShaderName),
+		  fragmentShaderName(fragmentShaderName) {}
+	ShaderData(const ShaderData&) = default;
 };
 
 struct ShaderGl {
@@ -112,6 +133,12 @@ struct VaoGl {
 	VaoGl() = default;
 	VaoGl(const int vaoId) : vaoId(vaoId){};
 	VaoGl(const VaoGl&) = default;
+};
+
+struct MaterialSgRequest {
+	std::string materialDir;
+	
+	MaterialSgRequest(std::string materialDir) : materialDir(materialDir) {}
 };
 
 struct MaterialLoadRequest {};

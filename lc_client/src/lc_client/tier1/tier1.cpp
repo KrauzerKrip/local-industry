@@ -20,13 +20,6 @@ Tier1::Tier1(eng::IResource* pResource, Tier0* pTier0) : m_config(pTier0->getPar
 	loadPacks(pResource);
 }
 
-Tier1::~Tier1() {
-	delete m_pShaderManager;
-	delete m_pTextureManager;
-}
-
-TextureManager* Tier1::getTextureManager() { return m_pTextureManager; }
-IShaderManager* Tier1::getShaderManager() { return m_pShaderManager; }
 void Tier1::initGameConfig() { m_config.initGameConfig(); }
 
 void Tier1::loadPacks(eng::IResource* pResource) {

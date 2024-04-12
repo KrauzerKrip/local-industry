@@ -17,11 +17,8 @@ ModelSystem::ModelSystem(ModelManager* pModelManager, ModelParser* pModelParser,
 }
 
 void ModelSystem::update() {
-	auto entities = m_pSceneRegistry->view<ModelRequest>();
-
-	for (auto& entity : entities) {
-		ModelRequest& modelRequest = entities.get<ModelRequest>(entity);
-
+	auto modelRequestEntities = m_pSceneRegistry->view<ModelRequest>();
+	for (auto&& [entity, modelRequest] : modelRequestEntities.each()) {
 		std::string modelDirPath;
 		try {
 			Pack& pack = Pack::getPack(modelRequest.packName);
@@ -31,7 +28,7 @@ void ModelSystem::update() {
 			Pack& pack = Pack::getPack("dev");
 			modelDirPath = Pack::Model(pack, "eng_model_not_found").getPath();
 			std::cerr << exception.what() << std::endl;
-		} 
+		}
 
 		Model* pModel = nullptr;
 
@@ -45,7 +42,8 @@ void ModelSystem::update() {
 			}
 			if (physicsFile) {
 				m_pSceneRegistry->emplace<PhysicsRequest>(entity, PhysicsRequest(modelDirPath + *physicsFile));
-			}	
+			}
+
 			m_pSceneRegistry->erase<ModelRequest>(entity);
 
 			break;
@@ -57,8 +55,8 @@ void ModelSystem::update() {
 
 		try {
 			ModelData modelData = m_pModelParser->parse(modelDirPath + "model.xml");
-			pModel = m_pModelManager->getModel(
-				modelDirPath + modelData.modelFile, modelDirPath, modelData.materialType);
+			pModel =
+				m_pModelManager->getModel(modelDirPath + modelData.modelFile, modelDirPath, modelData.materialType);
 			if (modelRequest.loadShaders) {
 				m_pSceneRegistry->emplace<ShaderRequest>(
 					entity, modelRequest.packName, modelData.vertexShader, modelData.fragmentShader);
@@ -70,7 +68,7 @@ void ModelSystem::update() {
 
 			if (physicsFile) {
 				m_pSceneRegistry->emplace<PhysicsRequest>(entity, PhysicsRequest(modelDirPath + *physicsFile));
-			}	
+			}
 		}
 		catch (std::runtime_error& exception) {
 			std::cerr << exception.what() << std::endl;
@@ -89,8 +87,28 @@ void ModelSystem::update() {
 
 		m_pSceneRegistry->emplace_or_replace<Model>(entity, *pModel);
 
-		m_loadedModelMap.emplace(modelRequest, std::make_tuple(pModel, modelVertexShader, modelFragmentShader, physicsFile));
+		m_loadedModelMap.emplace(
+			modelRequest, std::make_tuple(pModel, modelVertexShader, modelFragmentShader, physicsFile));
 
+		m_pSceneRegistry->emplace<MeshLoadRequest>(entity);
 		m_pSceneRegistry->erase<ModelRequest>(entity);
+	}
+	 
+	auto meshUnloadRequestEntities = m_pSceneRegistry->view<MeshUnloadRequest, Model>();
+	for (auto&& [entity, model] : meshUnloadRequestEntities.each()) {
+		// TODO mesh unload
+		m_pSceneRegistry->remove<MeshUnloadRequest>(entity);
+	}
+
+	auto meshLoadRequestEntities = m_pSceneRegistry->view<MeshLoadRequest, Model>();
+
+	for (auto&& [entity, model] : meshLoadRequestEntities.each()) {
+		std::cout << "Model System" << std::endl;
+
+		for (auto meshEnt : model.meshes) {
+			m_pMeshWork->loadMesh(m_pUtilRegistry, meshEnt);
+			m_pUtilRegistry->emplace_or_replace<MaterialSgRequest>(meshEnt, MaterialSgRequest(model.materialDir));
+		}
+		m_pSceneRegistry->remove<MeshLoadRequest>(entity);
 	}
 }

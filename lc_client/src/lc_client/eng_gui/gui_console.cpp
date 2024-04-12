@@ -21,7 +21,7 @@ using namespace ImGui;
 
 
 ConsoleGui::ConsoleGui(
-	IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts, TextureManager* pTextureManager, Parameters* pParameters) {
+	IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts, Parameters* pParameters) {
 	m_pConsole = pConsole;
 	m_pImGuiFonts = pImGuiFonts;
 	m_pParameters = pParameters;

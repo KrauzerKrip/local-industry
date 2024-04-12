@@ -1,7 +1,6 @@
 #pragma once
 
 #include "lc_client/tier0/tier0.h"
-#include "lc_client/tier1/tier1.h"
 #include "lc_client/eng_graphics/shader_loader.h"
 #include "lc_client/eng_graphics/mesh_loader.h"
 #include "lc_client/eng_cubemaps/cubemap_loader.h"
@@ -10,9 +9,11 @@
 #include "lc_client/eng_world/world.h"
 #include "lc_client/eng_model/model_parser.h"
 #include "lc_client/eng_graphics/skybox_render.h"
+#include "lc_client/eng_graphics/shader_manager.h"
+#include "lc_client/eng_graphics/texture_manager.h"
 
 #include "lc_client/eng_graphics/shader_system.h"
-#include "lc_client/eng_graphics/material_system.h"
+#include "lc_client/eng_model/material_system.h"
 #include "lc_client/eng_model/model_system.h"
 #include "lc_client/eng_script/script_system.h"
 #include "lc_client/eng_cubemaps/cubemap_system.h"
@@ -22,7 +23,7 @@
 
 class GraphicsSystems {
 public:
-	GraphicsSystems(Tier0* pTier0, Tier1* pTier1, ShaderLoader* pShaderWork, MeshLoader* pMeshWork,
+	GraphicsSystems(Tier0* pTier0, ShaderManager* pShaderManager, TextureManager* pTextureManager, ShaderLoader* pShaderWork, MeshLoader* pMeshWork,
 		CubemapLoader* pCubemapWork,
 		World* pWorld, ModelManager* pModelManager, ModelParser* pModelParser, SkyboxRender* pSkyboxRender, eng::IResource* pResource);
 

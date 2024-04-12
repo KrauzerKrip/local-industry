@@ -32,15 +32,17 @@ public:
 
 	virtual void init() = 0;
 	virtual void startFrame() = 0; 
-	virtual void update() = 0;
+	virtual void input() = 0;
+	virtual void frame() = 0;
 	virtual bool windowShouldClose() = 0;
 	virtual void terminate() = 0;
 	virtual IInput* getInput() = 0;
 	virtual void setCursorMode(CursorMode mode) = 0;
-	virtual CursorMode getMode() = 0;
+	virtual CursorMode getCursorMode() = 0;
 	virtual void setResizeCallback(std::function<void(int, int)> callback) = 0;
 	virtual void setCreationCallback(std::function<void()> callback) = 0;
 	virtual void setWindowMode(WindowMode mode) = 0;
+	virtual WindowMode getWindowMode() = 0;
 	
 	/**
 	 * Breaks encapsulation

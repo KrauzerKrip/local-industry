@@ -11,8 +11,8 @@
 Widget* createRow(std::string labelText, std::string dataText, GuiDependencies dependencies, TextWidget** pDataWidget) {
 	Widget* pRow = new Widget(dependencies);
 	pRow->setSize(glm::vec2(200, 24));
-	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
-	pRow->setLayout(frame);
+	Frame* pFrame =  new Frame();
+	pRow->setLayout(pFrame);
 	pRow->setName("row");
 
 	TextWidget* pLabel = new TextWidget(dependencies);
@@ -21,7 +21,7 @@ Widget* createRow(std::string labelText, std::string dataText, GuiDependencies d
 	pLabel->setText(labelText);
 	pLabel->setName("label_" + labelText);
 	pLabel->setTextColor(glm::vec4(1, 1, 1, 1));
-	frame->addChild(pLabel);
+	pFrame->addChild(pLabel);
 
 	TextWidget* pData = new TextWidget(dependencies);
 	pData->setTextSize(16);
@@ -29,7 +29,7 @@ Widget* createRow(std::string labelText, std::string dataText, GuiDependencies d
 	pData->setText(dataText);
 	pData->setName("data");
 	pData->setTextColor(glm::vec4(1, 1, 1, 1));
-	frame->addChild(pData);
+	pFrame->addChild(pData);
 
 	*pDataWidget = pData;
 
@@ -53,15 +53,15 @@ DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, GuiDependencies dependen
 	pLabel->setName("label_local");
 	pLabel->setTextColor(glm::vec4(1, 1, 1, 1));
 
-	std::shared_ptr<VBox> vbox = std::make_shared<VBox>();
-	this->setLayout(vbox);
+	VBox* pVbox = new VBox();
+	this->setLayout(pVbox);
 
     Widget* rowFps = createRow("FPS", "", dependencies, &m_pFpsDataWidget);
 	Widget* rowMousePos = createRow("MP", "", dependencies, &m_pMousePositionWidget);
 
-	vbox->addChild(pLabel);
-	vbox->addChild(rowFps);
-	vbox->addChild(rowMousePos);
+	pVbox->addChild(pLabel);
+	pVbox->addChild(rowFps);
+	pVbox->addChild(rowMousePos);
 
 	pTier0->getParameters()->getParameter<bool>("cl_debug_mode").setCallback([this](bool value) {
 		if (value) {

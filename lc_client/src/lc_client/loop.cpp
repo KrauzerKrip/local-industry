@@ -30,7 +30,7 @@ Loop* Loop::getInstance() {
 
 void Loop::init() {
 	m_pGameLogic->init(); // it was before
-	m_pWindow->init();
+	//m_pWindow->init();
 }
 
 void Loop::startLoop() {
@@ -38,20 +38,20 @@ void Loop::startLoop() {
 	double lastTime = 0.0;
 
 	while (!m_pWindow->windowShouldClose()) {
-
 		double currentTime = glfwGetTime();
 
 		m_deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
 		Time::m_deltaTime = m_deltaTime;
 		
+		m_pWindow->input();
 		m_pWindow->startFrame();
 		m_pGameLogic->input();
 
 		//
 		m_pGameLogic->update();
 		m_pGameLogic->render();
-		m_pWindow->update();
+		m_pWindow->frame();
 	}
 }
 

@@ -11,6 +11,7 @@ public:
 	TextureManager(eng::IResource* pResource);
 
 	Texture* getTexture(std::string path);
+	void reload();
 
 protected: 
 	virtual Texture* loadTexture(std::string path) = 0;

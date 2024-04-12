@@ -35,8 +35,7 @@ public:
 	glm::vec2 getPosition();
 	void setPosition(glm::vec2 position);
 	void setPosition(unsigned int x, unsigned int y);
-	std::shared_ptr<Layout> getLayout();
-	void setLayout(std::shared_ptr<Layout> layout);
+	Layout* getLayout();
 	void setLayout(Layout* pLayout);
 	void setBackground(Background* background);
 	Background* getBackground();
@@ -48,9 +47,9 @@ public:
 protected:
 	glm::vec2 m_size;
 	glm::vec2 m_position;
-	std::shared_ptr<Layout> m_layout;
+	std::unique_ptr<Layout> m_layout;
 	bool m_isVisible = false;
-	std::unique_ptr<Background> m_background;
+	Background* m_background;
 	std::string m_name;
 	Rectangle m_rectangle;
 	Layer m_layer;

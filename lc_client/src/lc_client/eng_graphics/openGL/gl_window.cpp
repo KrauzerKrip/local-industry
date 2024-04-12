@@ -22,7 +22,7 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	m_height = height;
 	m_pAspectRatio = aspectRatio;
 
-	m_windowMode = WindowMode::WINDOWED;
+	m_windowMode = WindowMode::FULLSCREEN;
 	m_cursorMode = CursorMode::CURSOR_DISABLED;
 
 	m_shouldWindowResize = false;
@@ -32,15 +32,17 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 
 	m_pInput = new InputGlfw();
 
+	m_debug = false;
+
 	int code = glfwGetError(NULL);
 
 	if (code == GLFW_NO_ERROR) {
 		std::cout << "glfw all ok" << std::endl;
 	}
 
-	std::cout << "gl_window 1" << std::endl;
+	std::cout << "glfwInit 1" << std::endl;
 	std::cout << glfwInit() << std::endl;
-	std::cout << "gl_window 2" << std::endl;
+	std::cout << "glfwInit 2" << std::endl;
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -49,9 +51,26 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	glfwWindowHint(GLFW_DECORATED, true);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	glfwWindowHint(GLFW_SAMPLES, 8);
+}
 
+WindowGL::~WindowGL() {
+	delete m_pInput;
+	delete[] m_pAspectRatio;
+};
 
-	m_pGlfwWindow = glfwCreateWindow(m_width, m_height, m_title.c_str(), NULL, NULL);
+void WindowGL::init() {
+	if (m_debug) {
+		int i = 0;
+	}
+
+	m_debug = true;
+
+	if (m_windowMode == WindowMode::FULLSCREEN) {
+		m_pGlfwWindow = glfwCreateWindow(m_width, m_height, m_title.c_str(), glfwGetPrimaryMonitor(), NULL);
+	}
+	else if (m_windowMode == WindowMode::WINDOWED) {
+		m_pGlfwWindow = glfwCreateWindow(m_width, m_height, m_title.c_str(), NULL, NULL);
+	}
 
 	if (m_pGlfwWindow == nullptr) {
 		throw GlfwWindowFailException();
@@ -78,14 +97,7 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	else {
 		std::cout << "OpenGL Error: OpenGL debug context wasn`t created." << std::endl;
 	}
-}
 
-WindowGL::~WindowGL() {
-	delete m_pInput;
-	delete[] m_pAspectRatio;
-};
-
-void WindowGL::init() {
 	glViewport(0, 0, m_width, m_height);
 	// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
@@ -114,9 +126,14 @@ void WindowGL::init() {
 	m_debug = true;
 
 	glfwMaximizeWindow(m_pGlfwWindow);
+	
+	m_creationCallback();
 }
 
-void WindowGL::update() {
+void WindowGL::input() {
+}
+
+void WindowGL::frame() {
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -166,7 +183,7 @@ void WindowGL::setCursorMode(CursorMode mode) {
 	}
 }
 
-CursorMode WindowGL::getMode() { return m_cursorMode; }
+CursorMode WindowGL::getCursorMode() { return m_cursorMode; }
 
 void WindowGL::setResizeCallback(std::function<void(int, int)> callback) { m_resizeCallback = callback; }
 
@@ -258,36 +275,14 @@ void WindowGL::setWindowMode(WindowMode mode) {
 	m_windowMode = mode;
 }
 
+WindowMode WindowGL::getWindowMode() { return m_windowMode; }
+
 void WindowGL::changeWindowMode() {
 	glfwDestroyWindow(m_pGlfwWindow);
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	//ImGui::DestroyContext();
 
-	if (m_windowMode == WindowMode::FULLSCREEN) {
-		m_pGlfwWindow = glfwCreateWindow(m_width, m_height, m_title.c_str(), glfwGetPrimaryMonitor(), NULL);
-	}
-	else if (m_windowMode == WindowMode::WINDOWED) {
-		m_pGlfwWindow = glfwCreateWindow(m_width, m_height, m_title.c_str(), NULL, NULL);
-	}
-
-	
-	if (m_pGlfwWindow == nullptr) {
-		throw GlfwWindowFailException();
-		glfwTerminate();
-	}
-
-	//glfwMakeContextCurrent(m_pGlfwWindow);
-
-	//glViewport(0, 0, m_width, m_height);
-	//// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	//glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
-	//// glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
-	//ImGui::CreateContext();
-	//ImGui_ImplGlfw_InitForOpenGL(m_pGlfwWindow, true);
-	//ImGui_ImplOpenGL3_Init("#version 400");
-	//glfwSetWindowAspectRatio(m_pGlfwWindow, m_pAspectRatio[0], m_pAspectRatio[1]);
 	this->init();
 
 	m_resizeCallback(m_width, m_height);

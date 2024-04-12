@@ -12,9 +12,8 @@
 
 
 ModelManager::ModelManager(
-	eng::IResource* pResource, TextureManager* pTextureManager, entt::registry& pUtilRegistry, IConsole* pConsole) {
+	eng::IResource* pResource, entt::registry& pUtilRegistry, IConsole* pConsole) {
 	m_pResource = pResource;
-	m_pTextureManager = pTextureManager;
 	m_pUtilRegistry = &pUtilRegistry;
 	m_pConsole = pConsole;
 }
@@ -29,15 +28,16 @@ Model* ModelManager::getModel(const std::string modelPath, const std::string tex
 	}
 }
 
-Model* ModelManager::loadModel(const std::string modelPath, const std::string texturesDirPath, const std::string materialType) {
+void ModelManager::setTextureManager(TextureManager* pTextureManager) { m_pTextureManager = pTextureManager; }
 
+Model* ModelManager::loadModel(const std::string modelPath, const std::string texturesDirPath, const std::string materialType) {
 	Model* pModel = nullptr;  
 
 	bool success = false;
 
 	try {
 		eng::ModelLoading modelLoading(
-			modelPath, texturesDirPath, materialType, FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
+			modelPath, FILE_FORMAT, m_pResource, m_pUtilRegistry);
 		pModel = modelLoading.loadModel();
 
 		success = true;
@@ -47,7 +47,7 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 
 		// "gmod vibe" here just to occur exception and load black-purple textures
 		eng::ModelLoading modelLoading(
-			ERROR_MODEL_PATH, "gmod_vibe", "sg", FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
+			ERROR_MODEL_PATH, FILE_FORMAT, m_pResource, m_pUtilRegistry);
 		pModel = modelLoading.loadModel();
 	}
 	catch (AssimpException& exception) {
@@ -55,7 +55,7 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 
 		// "gmod vibe" here just to occur exception and load black-purple textures
 		eng::ModelLoading modelLoading(
-			ERROR_MODEL_PATH, "gmod_vibe", "sg", FILE_FORMAT, m_pResource, m_pTextureManager, m_pUtilRegistry);
+			ERROR_MODEL_PATH, FILE_FORMAT, m_pResource, m_pUtilRegistry);
 
 		pModel = modelLoading.loadModel();
 	}
@@ -75,6 +75,9 @@ Model* ModelManager::loadModel(const std::string modelPath, const std::string te
 		std::cout << "Model '" << modelPath << "' wasn`t loaded successfully. Set default instead." << std::endl;
 		m_pConsole->warn("Model '" + modelPath + " wasn`t loaded successfully. Set default instead.");
 	}
+
+	pModel->materialDir = texturesDirPath;
+	pModel->materialType = materialType;
 
 	return pModel;
 }

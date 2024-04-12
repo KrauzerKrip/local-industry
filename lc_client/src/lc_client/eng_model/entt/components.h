@@ -10,6 +10,8 @@
 
 struct Model {
 	std::vector<entt::entity> meshes;
+	std::string materialDir;
+	std::string materialType;
 
 	Model() = default;
 	Model(std::vector<entt::entity> meshes) : meshes(meshes){};
@@ -32,6 +34,21 @@ struct ModelRequest {
 	bool operator==(const ModelRequest& other) const {
 		return ((packName == other.packName) && (modelName == other.modelName));
 	}
+};
+
+
+
+
+struct ModelReloadRequest {
+
+};
+
+struct MeshLoadRequest {
+
+};
+
+struct MeshUnloadRequest {
+
 };
 
 template <> struct std::hash<ModelRequest> {

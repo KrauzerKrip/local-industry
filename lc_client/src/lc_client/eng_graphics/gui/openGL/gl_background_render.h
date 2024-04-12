@@ -10,7 +10,7 @@
 #include "lc_client/eng_gui/paint_objects/text.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
 #include "lc_client/eng_graphics/texture.h"
-#include "lc_client/tier1/texture_manager.h"
+#include "lc_client/eng_graphics/texture_manager.h"
 #include "gl_blur_framebuffer.h"
 #include "lc_client/eng_graphics/openGL/gl_framebuffer_controller.h"
 

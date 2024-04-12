@@ -40,12 +40,39 @@ Texture* TextureManager::getTexture(std::string path) {
 		}
 
 		if (pTexture == nullptr) {
-			std::string str = "TextureManagerGL: pTexture is nullptt. Path given: " + path;
+			std::string str = "TextureManagerGL: pTexture is nullptr. Path given: " + path;
 			_ASSERT(str.c_str());
 		}
 
 		return pTexture;
 		
+	}
+}
+
+void TextureManager::reload() {
+	for (auto [path, pTexture] : m_textureMap) {
+		try {
+			//delete pTexture;
+			pTexture = loadTexture(path);
+		}
+		catch (ResourceFileNotFoundException& exception) {
+			std::cerr << exception.what() << std::endl;
+			Tier0::getIConsole()->warn(exception.what());
+			pTexture = loadTexture("dev/textures/eng_texture_not_found/color");
+		}
+		catch (FileTooLargeException) {
+			std::cerr << ("Image is too large to load it: " + path) << std::endl;
+		}
+		catch (ImageLoadFailureException& exception) {
+			std::cerr << "Failed to load texture: " << path << ": " << exception.what() << std::endl;
+			Tier0::getIConsole()->warn("Failed to load texture: " + path + ": " + exception.what());
+			pTexture = loadTexture("dev/textures/eng_texture_not_found/color");
+		}
+
+		if (pTexture == nullptr) {
+			std::string str = "TextureManagerGL: pTexture is nullptt. Path given: " + path;
+			_ASSERT(str.c_str());
+		}
 	}
 }
 

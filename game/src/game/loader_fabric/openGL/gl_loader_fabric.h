@@ -1,7 +1,9 @@
+#pragma once
+
 #include "game/loader_fabric/loader_fabric.h"
 
 #include "lc_client/util/i_eng_resource.h"
-#include "lc_client/tier1/i_shaders.h"
+#include "lc_client/eng_graphics/shader_manager.h"
 #include "lc_client/tier0/console/i_console.h"
 #include "lc_client/eng_graphics/openGL/gl_mesh_loader.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
@@ -10,7 +12,7 @@
 
 class LoaderFabricGl : public LoaderFabric {
 public:
-	LoaderFabricGl(eng::IResource* pResource, IConsole* pConsole, IShaderManager* pShaderManager);
+	LoaderFabricGl(eng::IResource* pResource, IConsole* pConsole);
 
 	MeshLoader* getMeshLoader();
 	ShaderLoader* getShaderLoader();

@@ -6,13 +6,9 @@
 void MeshLoaderGl::loadMesh(entt::registry* pUtilRegistry, entt::entity entity) {
 	Mesh& mesh = pUtilRegistry->get<Mesh>(entity);
 
-	if (!pUtilRegistry->all_of<VaoGl>(entity)) { 
-		pUtilRegistry->emplace<VaoGl>(entity, createVao(mesh.vertices, mesh.indices));
-	}
+	pUtilRegistry->emplace_or_replace<VaoGl>(entity, VaoGl(createVao(mesh.vertices, mesh.indices)));
 
-	if (!pUtilRegistry->all_of<MaterialLoadRequest>(entity)) {
-		pUtilRegistry->emplace<MaterialLoadRequest>(entity);
-	}
+	pUtilRegistry->emplace_or_replace<MaterialLoadRequest>(entity);
 }
 
 unsigned int MeshLoaderGl::createVao(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {

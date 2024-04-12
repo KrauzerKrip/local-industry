@@ -21,15 +21,15 @@ Gui::Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInp
 
 	pGuiPresenter = new GuiPresenter(&m_overlayLayoutController, &m_layoutController, dependencies.pBackgroundRender, queueRenders);
 
-	std::shared_ptr<Overlay> overlay = std::make_shared<Overlay>(pTier0, pDependenciesFabric, pInput);
-	m_overlayLayoutController.setLayout(overlay);
+	Overlay* pOverlay = new Overlay(pTier0, pDependenciesFabric, pInput);
+	m_overlayLayoutController.setLayout(pOverlay);
 
 
-	std::shared_ptr<Frame> frame = std::make_shared<Frame>();
-	m_layoutController.setLayout(frame);
+	Frame* pFrame = new Frame();
+	m_layoutController.setLayout(pFrame);
 
-	MachineBuildMenu* pMachineBuildMenu = new MachineBuildMenu(pActionControl, frame.get(), dependencies, pRegistry);
-	frame->addChild(pMachineBuildMenu);
+	MachineBuildMenu* pMachineBuildMenu = new MachineBuildMenu(pActionControl, pFrame, dependencies, pRegistry);
+	pFrame->addChild(pMachineBuildMenu);
 
 	PercentagePane* pPercentagePane = new PercentagePane();
 
@@ -47,7 +47,7 @@ Gui::Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInp
 	pPercentagePaneWidget->setPosition(0, 0);
 	pPercentagePaneWidget->setSize(1920, 1080);
 	pSideMenu->showWithChildren();
-	frame->addChild(pPercentagePaneWidget);
+	pFrame->addChild(pPercentagePaneWidget);
 
 	//std::shared_ptr<Button> button = std::make_shared<Button>(pDependenciesFabric->getTextWidgetDependecies());
 	//button->setSize(glm::vec2(200, 100));

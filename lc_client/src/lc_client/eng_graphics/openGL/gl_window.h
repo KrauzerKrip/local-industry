@@ -28,16 +28,18 @@ public:
 	~WindowGL();
 
 	void init() override;
-	void update() override;
+	void input() override;
+	void frame() override;
 	void startFrame() override; 
 	bool windowShouldClose() override;
 	void terminate() override;
 	InputGlfw* getInput();
 	void setCursorMode(CursorMode mode);
-	CursorMode getMode();
+	CursorMode getCursorMode();
 	void setResizeCallback(std::function<void(int, int)> callback);
 	void setCreationCallback(std::function<void()> callback);
 	void setWindowMode(WindowMode mode) override;
+	WindowMode getWindowMode() override;
 
 	GLFWwindow* getGlfwWindow();
 	std::function<void(int, int)>& getResizeCallback();
@@ -75,6 +77,6 @@ private:
 	bool m_shouldWindowResize;
 	bool m_shouldChangeWindowMode;
 
-	GLFWwindow* m_pGlfwWindow;
-	InputGlfw* m_pInput;
+	GLFWwindow* m_pGlfwWindow = nullptr;
+	InputGlfw* m_pInput = nullptr;
 };

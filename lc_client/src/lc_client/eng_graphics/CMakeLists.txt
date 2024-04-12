@@ -14,10 +14,14 @@ target_sources(lc_client
         
         "shader_system.h"
         "shader_system.cpp"
-        "material_system.h"
-        "material_system.cpp"
+        "../eng_model/material_system.h"
+        "../eng_model/material_system.cpp"
         "graphics_settings.h"
         "graphics_settings.cpp"
+
+        "shader_manager.h"
+        "texture_manager.h"
+        "texture_manager.cpp"
 
         "openGL/gl_render.cpp"
         "openGL/gl_render.h"
@@ -38,6 +42,10 @@ target_sources(lc_client
         "openGL/gl_cubemap.cpp"
         "openGL/gl_framebuffer_controller.h"
         "openGL/gl_framebuffer_controller.cpp"
+        "openGL/gl_shader_manager.h"
+        "openGL/gl_shader_manager.cpp"
+        "openGL/gl_texture_manager.h"
+        "openGL/gl_texture_manager.cpp"
         "openGL/renders/gl_render_map.h"
         "openGL/renders/gl_render_map.cpp"
         "openGL/renders/gl_lighting.h"

@@ -13,7 +13,6 @@
 #include "lc_client/util/eng_resource.h"
 #include "lc_client/eng_input/glfw_input.h"
 #include "lc_client/exceptions/input_exceptions.h"
-#include "lc_client/tier1/openGL/gl_tier1.h"
 #include "lc_client/eng_graphics/openGL/gl_mesh_loader.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
 #include "lc_client/eng_gui/gui_console.h"
@@ -52,24 +51,28 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pCamera = new Camera();
 	m_pResource = new eng::Resource("E:/Industry/industry/res/"); 
 	m_pTier0 = pTier0;
-	m_pTier1 = new Tier1Gl(m_pResource, pTier0);
+	m_pTier1 = new Tier1(m_pResource, pTier0);
 
 	m_pActionControl =
 		new ActionControl(pWindow->getInput(), m_pTier0->getParameters(), m_pTier0->getConsole());
 
 	m_pConsoleGui = new ConsoleGui(
-		m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier1->getTextureManager(), m_pTier0->getParameters());
+		m_pTier0->getConsole(), m_pTier0->getImGuiFonts(), m_pTier0->getParameters());
 
 	m_pInput = m_pWindow->getInput();
 
 	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
 	m_pWorld = new World(m_pResource, pSceneLoading);
+	
+	m_pGraphics = new Graphics(m_pTier0, m_pWindow, m_pResource, m_pWorld, m_pCamera, m_pInput, m_pActionControl);
 
-	m_pGraphics = new Graphics(m_pTier0, m_pTier1, m_pWindow, m_pResource, m_pWorld, m_pCamera, m_pInput, m_pActionControl);
+	m_pWindow->setCreationCallback([this]() { 
+		m_pGraphics->recreate();
+		});
 
 	PhysicalConstants* pPhysicalConstants = new PhysicalConstants(m_pTier0->getParameters(), m_pTier0->getConsole());
 
-    m_pTier1->initGameConfig();
+	m_pTier1->initGameConfig();
 
 	m_pScriptSystem = new ScriptSystem(&m_pWorld->getRegistry());
 	Physics* pPhysics = new Physics(&m_pWorld->getRegistry());
@@ -96,6 +99,8 @@ Game::~Game() {
 };
 
 void Game::init() {
+	m_pWindow->init();
+
 	m_pWorld->loadMap("dev", "test");
 	m_pWorld->loadScene("dev", "test");
 
@@ -132,7 +137,7 @@ void Game::init() {
 
 	m_pInput->addMappedKeyCallback(
 		KeyCode::F3, [this]() {
-			if (m_pWindow->getMode() == CursorMode::CURSOR_DISABLED) {
+			if (m_pWindow->getCursorMode() == CursorMode::CURSOR_DISABLED) {
 				m_pWindow->setCursorMode(CursorMode::CURSOR_ENABLED);
 				m_guiMode = true;
 			}
@@ -143,12 +148,23 @@ void Game::init() {
 		});
 
 	m_pInput->addMappedKeyCallback(KeyCode::F3, [this]() {
-		if (m_pWindow->getMode() == CursorMode::CURSOR_DISABLED) {
+		if (m_pWindow->getCursorMode() == CursorMode::CURSOR_DISABLED) {
 			m_pWindow->setCursorMode(CursorMode::CURSOR_ENABLED);
 			m_guiMode = true;
 		}
 		else {
 			m_pWindow->setCursorMode(CursorMode::CURSOR_DISABLED);
+			m_guiMode = false;
+		}
+	});
+
+	m_pInput->addMappedKeyCallback(KeyCode::F11, [this]() { 
+		if (m_pWindow->getWindowMode() == WindowMode::FULLSCREEN) {
+			m_pWindow->setWindowMode(WindowMode::WINDOWED);
+			m_guiMode = true;
+		}
+		else {
+			m_pWindow->setWindowMode(WindowMode::FULLSCREEN);
 			m_guiMode = false;
 		}
 	});

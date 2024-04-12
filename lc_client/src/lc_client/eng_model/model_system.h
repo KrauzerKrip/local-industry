@@ -24,6 +24,7 @@ private:
 	ModelParser* m_pModelParser = nullptr;
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pUtilRegistry = nullptr;
+	bool m_debug = false;
 
 	/**
 	 * @brief std::tuple(Model*, <vertex shader name>, <fragment shader name>, <optional of physics file name>) 

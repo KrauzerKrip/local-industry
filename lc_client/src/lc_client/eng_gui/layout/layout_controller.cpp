@@ -1,9 +1,11 @@
 #include "layout_controller.h"
 
+LayoutController::~LayoutController() = default;
+
 void LayoutController::update() {
 	m_widgets.clear();
 
-	LayoutData layoutData(m_layout);
+	LayoutData layoutData(m_layout.get());
 
 	updateLayout(layoutData, m_widgets);
 }
@@ -18,17 +20,17 @@ void LayoutController::hide() {
 	
 }
 
-void LayoutController::setLayout(std::shared_ptr<Layout> layout) { m_layout = layout; }
+void LayoutController::setLayout(Layout* pLayout) { m_layout = std::unique_ptr<Layout>(pLayout); }
 
 void LayoutController::updateLayout(LayoutData layoutData, std::vector<Widget*>& widgets) {
-	std::vector<Widget*> layoutWidgets = layoutData.layout->getChildrenWidgets();
+	std::vector<Widget*> layoutWidgets = layoutData.pLayout->getChildrenWidgets();
 
 	for (Widget* pWidget : layoutWidgets) {
 		pWidget->getRectangle().m_absolutePosition = glm::vec2(0);
 		//widget->getRectangle().m_size = glm::vec2(0);
 	}
 
-	layoutData.layout->updateChildWidgets();
+	layoutData.pLayout->updateChildWidgets();
 
 	for (Widget* pWidget : layoutWidgets) {
 		pWidget->getRectangle().m_absolutePosition += layoutData.position;
@@ -42,7 +44,7 @@ void LayoutController::updateLayout(LayoutData layoutData, std::vector<Widget*>&
 
 		widgets.push_back(pWidget);
 		
-		if (pWidget->getLayout().get() != nullptr) {
+		if (pWidget->getLayout() != nullptr) {
 			childLayoutData.layer++;
 			pWidget->getLayout()->m_position = pWidget->getRectangle().m_absolutePosition;
 			pWidget->getLayout()->m_size = pWidget->getRectangle().m_size;

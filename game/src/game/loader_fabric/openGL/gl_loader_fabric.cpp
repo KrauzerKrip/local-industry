@@ -1,9 +1,9 @@
 #include "gl_loader_fabric.h"
 
 
-LoaderFabricGl::LoaderFabricGl(eng::IResource* pResource, IConsole* pConsole, IShaderManager* pShaderManager) {
+LoaderFabricGl::LoaderFabricGl(eng::IResource* pResource, IConsole* pConsole) {
 	m_pMeshLoader = new MeshLoaderGl();
-	m_pShaderLoader = new ShaderLoaderGl(pShaderManager, pConsole);
+	m_pShaderLoader = new ShaderLoaderGl(pConsole);
 	m_pCubemapLoader = new CubemapLoaderGl(pResource);
 }
 

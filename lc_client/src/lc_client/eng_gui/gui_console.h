@@ -8,7 +8,7 @@
 
 #include "lc_client/tier0/console/i_console_input.h"
 #include "lc_client/tier0/imgui_fonts.h"
-#include "lc_client/tier1/texture_manager.h"
+#include "lc_client/eng_graphics/texture_manager.h"
 #include "lc_client/tier0/conpar/parameters.h"
 
 
@@ -22,7 +22,7 @@ struct Message {
 class ConsoleGui {
 public:
 	ConsoleGui(
-		IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts, TextureManager* pTextureManager, Parameters* pParameters);
+		IConsoleInput* pConsole, ImGuiFonts* pImGuiFonts, Parameters* pParameters);
 
 	void open();
 	void close();

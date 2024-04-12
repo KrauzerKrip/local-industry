@@ -5,10 +5,10 @@
 
 
 struct LayoutData {
-	std::shared_ptr<Layout> layout;
+	Layout* pLayout;
 	glm::vec2 position;
 	glm::vec2 size;
 	unsigned int layer = 0;
 
-	LayoutData(std::shared_ptr<Layout> layout) : layout(layout), position(glm::vec2(0)), size(glm::vec2(0)){};
+	LayoutData(Layout* pLayout) : pLayout(pLayout), position(glm::vec2(0)), size(glm::vec2(0)){};
 };

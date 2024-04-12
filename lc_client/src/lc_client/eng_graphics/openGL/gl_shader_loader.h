@@ -4,22 +4,22 @@
 
 #include <vector>
 
-#include "lc_client/tier1/i_shaders.h"
+#include "lc_client/eng_graphics/openGL/gl_shader_manager.h"
 #include "lc_client/tier0/console/i_console.h"
 
 
 class ShaderLoaderGl : public ShaderLoader {
 public:
-	ShaderLoaderGl(IShaderManager* pShaderManager, IConsole* pConsole)
-		: ShaderLoader(),
-		  m_pShaderManager(pShaderManager),
+	ShaderLoaderGl(IConsole* pConsole)
+		: ShaderLoader(), m_pShaderManager(nullptr),
 		  m_pConsole(pConsole) {};
 
 	void loadShaders(entt::registry* pRegistry, entt::entity entity, const std::string vertexShaderName,
 		const std::string fragmentShaderName);
 	unsigned int createShaderProgram(std::string vertexShaderName, std::string fragmentShaderName);
+	void setShaderManager(ShaderManagerGl* pShaderManager);
 
 private:
-	IShaderManager* m_pShaderManager;
+	ShaderManager* m_pShaderManager;
 	IConsole* m_pConsole;
 };

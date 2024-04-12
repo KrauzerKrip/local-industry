@@ -2,9 +2,9 @@
 
 #include <string>
 
-class IShaderManager {
+class ShaderManager {
 public:
-	virtual ~IShaderManager() {};
+	virtual ~ShaderManager() {};
 
 	virtual void loadShaders() = 0;
 	virtual int getVertexShader(std::string shaderName) const = 0;
