@@ -11,6 +11,7 @@ GuiPresenter::GuiPresenter() {
 
 void GuiPresenter::render() { 
 	m_pBackgroundRender->frame();
+	m_pTextRender->frame();
 
 	std::vector<Widget*> overlayWidgets = m_pOverlayLayoutController->getWidgets();
 
@@ -37,6 +38,7 @@ void GuiPresenter::render() {
 void GuiPresenter::setDependencies(const GuiDependencies& dependencies, LayoutController* pOverlayLayoutController,
 	LayoutController* pLayoutController) {
 	m_pBackgroundRender = dependencies.pBackgroundRender;
+	m_pTextRender = dependencies.pTextRender;
 	m_pOverlayLayoutController = pOverlayLayoutController;
 	m_pLayoutController = pLayoutController;
 }

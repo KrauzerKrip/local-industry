@@ -169,8 +169,6 @@ void TextRenderGl::reload() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	m_projection = glm::ortho(0.0f, static_cast<float>(m_pWindow->getSize()[0]), 0.0f, static_cast<float>(m_pWindow->getSize()[1]));
-
 	glGenVertexArrays(1, &m_vao);
 	glGenBuffers(1, &m_vbo);
 	glBindVertexArray(m_vao);
@@ -180,4 +178,9 @@ void TextRenderGl::reload() {
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+}
+
+void TextRenderGl::frame() {
+	m_projection = glm::ortho(
+		0.0f, static_cast<float>(m_pWindow->getSize()[0]), 0.0f, static_cast<float>(m_pWindow->getSize()[1]));
 }

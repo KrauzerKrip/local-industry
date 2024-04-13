@@ -34,6 +34,7 @@ public:
 	void renderCentered(
 		std::string text, glm::vec4 color, glm::vec2 centerAbsolutePosition, unsigned int size, float zOffset) override;
 	void reload() override;
+	void frame() override;
 
 private:
 	std::map<char, Character> m_characters;

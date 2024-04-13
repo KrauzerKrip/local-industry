@@ -17,4 +17,5 @@ private:
 	LayoutController* m_pLayoutController = nullptr;
 	std::vector<QueueRender*> m_queueRenders;
 	BackgroundRender* m_pBackgroundRender = nullptr;
+	TextRender* m_pTextRender = nullptr;
 };
