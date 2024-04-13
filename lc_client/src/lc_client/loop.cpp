@@ -16,7 +16,7 @@ Loop::Loop(IWindow* pWindow, IGameLogic* gameLogic, int targetFPS, int targetUPS
 
 Loop* Loop::createInstance(IWindow* pWindow, IGameLogic* gameLogic, int targetFPS, int targetUPS) {
 	m_pInstance = new Loop(pWindow, gameLogic, targetFPS, targetUPS);
-	return m_pInstance;
+	return m_pInstance;\
 }
 
 Loop* Loop::getInstance() {
@@ -29,13 +29,17 @@ Loop* Loop::getInstance() {
 }
 
 void Loop::init() {
-	m_pGameLogic->init(); // it was before
-	//m_pWindow->init();
+	m_pGameLogic->init();
 }
 
 void Loop::startLoop() {
 
-	double lastTime = 0.0;
+	double lastTime = glfwGetTime();
+
+	double time = 0.0;
+	const double updateInterval = 1.0 / static_cast<double>(m_targetUPS);
+
+	double accumulator = 0.0;
 
 	while (!m_pWindow->windowShouldClose()) {
 		double currentTime = glfwGetTime();
@@ -43,13 +47,18 @@ void Loop::startLoop() {
 		m_deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
 		Time::m_deltaTime = m_deltaTime;
+
+		accumulator += m_deltaTime;
 		
 		m_pWindow->input();
 		m_pWindow->startFrame();
-		m_pGameLogic->input();
+		m_pGameLogic->input(m_deltaTime);
 
-		//
-		m_pGameLogic->update();
+		while (accumulator > updateInterval) {
+			m_pGameLogic->update(updateInterval);
+			accumulator -= updateInterval;
+		}
+
 		m_pGameLogic->render();
 		m_pWindow->frame();
 	}

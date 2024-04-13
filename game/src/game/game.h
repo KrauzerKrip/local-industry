@@ -39,8 +39,8 @@ public:
 	virtual ~Game();
 
 	void init();
-	void input();
-	void update();
+	void input(double deltaTime);
+	void update(double updateInterval);
 	void render();
 	void cleanUp();
 

@@ -193,7 +193,7 @@ void Game::init() {
 	}
 }
 
-void Game::input() {
+void Game::input(double deltaTime) {
 	m_pConsoleGui->update();
 
 	if (!m_pConsoleGui->isOpened()) { 
@@ -226,7 +226,7 @@ void Game::input() {
 	m_pCharacterSystem->input();
 }
 
-void Game::update() {
+void Game::update(double updateInterval) {
 	entt::registry* pRegistry = &m_pWorld->getRegistry();
 
 	entt::entity surface;

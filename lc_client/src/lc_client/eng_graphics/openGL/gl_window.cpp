@@ -52,6 +52,8 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	glfwWindowHint(GLFW_DECORATED, true);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	glfwWindowHint(GLFW_SAMPLES, 8);
+
+	m_vSync = true;
 }
 
 WindowGL::~WindowGL() {
@@ -106,6 +108,9 @@ void WindowGL::init() {
 
 	if (m_vSync) {
 		glfwSwapInterval(1);
+	} 
+	else {
+		glfwSwapInterval(0);
 	}
 
 	glfwSetWindowUserPointer(m_pGlfwWindow, this);
@@ -275,11 +280,17 @@ void WindowGL::setWindowMode(WindowMode mode) {
 		if (m_vSync) {
 			glfwSwapInterval(1);
 		}
+		else {
+			glfwSwapInterval(0);
+		}
 	}
 	else if (m_windowMode == WindowMode::FULLSCREEN) {
 		glfwSetWindowMonitor(m_pGlfwWindow, glfwGetPrimaryMonitor(), 0, 0, m_width, m_height, m_targetFps);
 		if (m_vSync) {
 			glfwSwapInterval(1);
+		}
+		else {
+			glfwSwapInterval(0);
 		}
 	}
 }

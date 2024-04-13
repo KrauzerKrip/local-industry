@@ -23,7 +23,7 @@ private:
 	IGameLogic* m_pGameLogic;
 	int m_targetFPS;
 	int m_targetUPS;
-	float m_deltaTime;
+	double m_deltaTime;
 
 	static Loop* m_pInstance;
 
