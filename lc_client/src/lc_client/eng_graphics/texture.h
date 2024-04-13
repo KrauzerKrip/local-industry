@@ -17,7 +17,8 @@ enum TextureType {
 	SPECULAR = 6,
 	SKYBOX = 7,
 	CUBEMAP = 8,
-	BLUR_FRAMEBUFFER = 9
+	BLUR_FRAMEBUFFER = 9,
+	IMAGE = 10
 };
 
 class Texture {

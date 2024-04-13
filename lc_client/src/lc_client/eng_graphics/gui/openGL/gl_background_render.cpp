@@ -77,6 +77,17 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 }
 
 void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
+	auto textureIter = m_textures.find(imageQuad.path);
+	Texture* pTexture = nullptr;
+	if (textureIter == m_textures.end()) {
+		pTexture = m_pTextureManager->getTexture(imageQuad.path);
+		pTexture->setTextureType(TextureType::IMAGE);
+		m_textures.emplace(imageQuad.path, pTexture);
+	}
+	else {
+		pTexture = textureIter->second;
+	}
+
 	glUseProgram(m_imageShader);
 	unsigned int projLoc = glGetUniformLocation(m_imageShader, "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
@@ -113,10 +124,8 @@ void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
 		{topRight.x, topRight.y, 1.0f, 0.0f}};
 
 	setUniform(m_imageShader, "zOffset", imageQuad.zOffset);
-	setUniform(m_imageShader, "image", TextureType::NORMAL);
-	//Texture* pTexture = m_pTextureManager->getTexture(imageQuad.path);
-	//pTexture->setTextureType(TextureType::NORMAL);
-	//pTexture->bind();
+	setUniform(m_imageShader, "image", TextureType::IMAGE);
+	pTexture->bind();
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
@@ -128,7 +137,6 @@ void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-Texture* BackgroundRenderGl::getTexture(std::string path) { return m_pTextureManager->getTexture(path); }
 
 void BackgroundRenderGl::frame() {
 	m_projection = glm::ortho(
@@ -139,6 +147,12 @@ void BackgroundRenderGl::reload() {
 	m_colorShader = m_pShaderLoader->createShaderProgram("gui_quad", "gui_quad");
 	m_imageShader = m_pShaderLoader->createShaderProgram("gui_quad", "gui_image_quad");
 	m_blurShader = m_pShaderLoader->createShaderProgram("gui_quad", "gui_blur_quad");
+
+	for (auto [path, pTexture] : m_textures) {
+		pTexture = m_pTextureManager->getTexture(path);
+		pTexture->setTextureType(TextureType::IMAGE);
+		m_textures[path] = pTexture;
+	}
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

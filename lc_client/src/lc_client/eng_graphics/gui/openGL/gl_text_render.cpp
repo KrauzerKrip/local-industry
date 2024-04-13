@@ -121,6 +121,8 @@ void TextRenderGl::renderCentered(
 }
 
 void TextRenderGl::reload() {
+	m_characters.clear();
+
 	m_shader = m_pShaderLoader->createShaderProgram("gui_text", "gui_text");
 
 	FT_Library ft;

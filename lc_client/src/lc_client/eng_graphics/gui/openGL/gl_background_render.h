@@ -4,6 +4,7 @@
 #include <string>
 #include <array>
 #include <queue>
+#include <unordered_map>
 
 #include "lc_client/eng_graphics/gui/background_render.h"
 #include "lc_client/eng_graphics/entt/components.h"
@@ -24,7 +25,6 @@ public:
 
 	void renderColor(ColorQuad colorQuad) override;
 	void renderImage(ImageQuad imageQuad) override;
-	Texture* getTexture(std::string path) override;
 	void frame() override;
 	void reload() override;
 
@@ -43,4 +43,6 @@ private:
 	TextureManager* m_pTextureManager = nullptr;
 	IWindow* m_pWindow = nullptr;
 	ShaderLoaderGl* m_pShaderLoader = nullptr;
+
+	std::unordered_map<std::string, Texture*> m_textures;
 };
