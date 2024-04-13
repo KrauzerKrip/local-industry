@@ -12,11 +12,10 @@
 class ModelManager {
 
 public:
-	ModelManager(eng::IResource* pResource, entt::registry& pUtilRegistry, IConsole* pConsole);
+	ModelManager(
+		TextureManager* pTextureManager, eng::IResource* pResource, entt::registry& pUtilRegistry, IConsole* pConsole);
 
 	Model* getModel(const std::string modelPath, const std::string texturesDirPath, const std::string materialType);
-
-	void setTextureManager(TextureManager* pTextureManager);
 
 private :
 	Model* loadModel(const std::string modelPath, const std::string texturesDirPath, const std::string materialType);

@@ -8,8 +8,9 @@
 #include "lc_client/eng_gui/widgets/button.h"
 
 
-Gui::Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInput,
-	ActionControl* pActionControl, GraphicsSettings* pGraphicsSettings, Camera* pCamera, entt::registry* pRegistry)
+Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInput,
+	ActionControl* pActionControl,
+	GraphicsSettings* pGraphicsSettings, Camera* pCamera, entt::registry* pRegistry)
 	: m_inputController(pInput) { 
 	GuiDependencies dependencies = pDependenciesFabric->getDependencies();
 
@@ -19,14 +20,14 @@ Gui::Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInp
 
 	std::vector<QueueRender*> queueRenders;
 
-	pGuiPresenter = new GuiPresenter(&m_overlayLayoutController, &m_layoutController, dependencies.pBackgroundRender, queueRenders);
-
 	Overlay* pOverlay = new Overlay(pTier0, pDependenciesFabric, pInput);
 	m_overlayLayoutController.setLayout(pOverlay);
 
 
 	Frame* pFrame = new Frame();
 	m_layoutController.setLayout(pFrame);
+
+	pGuiPresenter->setDependencies(dependencies, &m_overlayLayoutController, &m_layoutController);
 
 	MachineBuildMenu* pMachineBuildMenu = new MachineBuildMenu(pActionControl, pFrame, dependencies, pRegistry);
 	pFrame->addChild(pMachineBuildMenu);

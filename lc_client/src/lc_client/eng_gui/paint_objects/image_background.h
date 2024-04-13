@@ -16,6 +16,6 @@ public:
 private:
 	GuiDependencies m_dependencies;
 
-	Texture* m_pTexture = nullptr;
+	std::string m_path;
 	BackgroundRender* m_pBackgroundRender = nullptr;
 };

@@ -64,10 +64,20 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
 	m_pWorld = new World(m_pResource, pSceneLoading);
 	
-	m_pGraphics = new Graphics(m_pTier0, m_pWindow, m_pResource, m_pWorld, m_pCamera, m_pInput, m_pActionControl);
+	GuiPresenter* pGuiPresenter = new GuiPresenter();
 
-	m_pWindow->setCreationCallback([this]() { 
+	m_pGraphics = new Graphics(m_pTier0, m_pWindow, m_pResource, m_pWorld, m_pCamera, pGuiPresenter);
+
+	GuiDependenciesFabric* pGuiDependenciesFabric = new GuiDependenciesFabricGl(m_pTier0->getConsole(), m_pGraphics->getLoaderFabric()->getShaderLoaderGl(),
+			m_pInput, m_pGraphics->getTextureManager(), m_pGraphics->getFramebufferController(), m_pWindow);
+
+	m_pGui = new Gui(pGuiPresenter, m_pTier0, pGuiDependenciesFabric, m_pInput, m_pActionControl, m_pGraphics->getSettings(),
+		m_pCamera, &m_pWorld->getRegistry());
+
+	m_pWindow->setCreationCallback([this, pGuiDependenciesFabric]() { 
 		m_pGraphics->recreate();
+		pGuiDependenciesFabric->getDependencies().pBackgroundRender->reload();
+		pGuiDependenciesFabric->getDependencies().pTextRender->reload();
 		});
 
 	PhysicalConstants* pPhysicalConstants = new PhysicalConstants(m_pTier0->getParameters(), m_pTier0->getConsole());
@@ -273,7 +283,7 @@ void Game::update() {
 	//	}
 	//}
 
-	m_pGraphics->getGui()->update();
+	m_pGui->update();
 }
 
 void Game::render() {

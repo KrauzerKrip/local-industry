@@ -19,13 +19,14 @@ class ShaderLoaderGl;
 
 class BackgroundRenderGl : public BackgroundRender {
 public:
-	BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork, TextureManager* pTextureManager,
+	BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderLoader, TextureManager* pTextureManager,
 		FramebufferController* pFramebufferController, IWindow* pWindow);
 
 	void renderColor(ColorQuad colorQuad) override;
 	void renderImage(ImageQuad imageQuad) override;
 	Texture* getTexture(std::string path) override;
 	void frame() override;
+	void reload() override;
 
 private:
 	std::queue<ColorQuad> m_colorQuads;
@@ -41,4 +42,5 @@ private:
 	FramebufferController* m_pFramebufferController = nullptr;
 	TextureManager* m_pTextureManager = nullptr;
 	IWindow* m_pWindow = nullptr;
+	ShaderLoaderGl* m_pShaderLoader = nullptr;
 };

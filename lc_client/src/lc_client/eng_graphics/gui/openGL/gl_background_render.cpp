@@ -7,41 +7,20 @@
 #include "lc_client/eng_graphics/openGL/gl_shader_uniform.h"
 
 
-BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork, TextureManager* pTextureManager,
+BackgroundRenderGl::BackgroundRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderLoader, TextureManager* pTextureManager,
 	FramebufferController* pFramebufferController, IWindow* pWindow)
 	: BackgroundRender(m_pConsole) {
 	m_pTextureManager = pTextureManager;
 	m_pFramebufferController = pFramebufferController;
 	m_pWindow = pWindow;
-
+	m_pShaderLoader = pShaderLoader;
 	m_projection = glm::ortho(
 		0.0f, static_cast<float>(m_pWindow->getSize()[0]), 0.0f, static_cast<float>(m_pWindow->getSize()[1]));
-	 
-	m_colorShader = pShaderWork->createShaderProgram("gui_quad", "gui_quad");
-	m_imageShader = pShaderWork->createShaderProgram("gui_quad", "gui_image_quad");
-	m_blurShader = pShaderWork->createShaderProgram("gui_quad", "gui_blur_quad");
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glGenVertexArrays(1, &m_vao); 
-	glGenBuffers(1, &m_vbo);
-
-	glBindVertexArray(m_vao);
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
 }
 
 
 
 void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
-	m_projection = glm::ortho(0.0f, 1920.0f, 0.0f, 1080.0f);
-
 	unsigned int shader;
 	if (colorQuad.blurIntensity == 0) {
 		shader = m_colorShader;
@@ -98,8 +77,6 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 }
 
 void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
-	m_projection = glm::ortho(0.0f, 1920.0f, 0.0f, 1080.0f);
-
 	glUseProgram(m_imageShader);
 	unsigned int projLoc = glGetUniformLocation(m_imageShader, "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
@@ -137,7 +114,9 @@ void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
 
 	setUniform(m_imageShader, "zOffset", imageQuad.zOffset);
 	setUniform(m_imageShader, "image", TextureType::NORMAL);
-	imageQuad.pTexture->bind();
+	//Texture* pTexture = m_pTextureManager->getTexture(imageQuad.path);
+	//pTexture->setTextureType(TextureType::NORMAL);
+	//pTexture->bind();
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
@@ -154,4 +133,25 @@ Texture* BackgroundRenderGl::getTexture(std::string path) { return m_pTextureMan
 void BackgroundRenderGl::frame() {
 	m_projection = glm::ortho(
 		0.0f, static_cast<float>(m_pWindow->getSize()[0]), 0.0f, static_cast<float>(m_pWindow->getSize()[1]));
+}
+
+void BackgroundRenderGl::reload() {
+	m_colorShader = m_pShaderLoader->createShaderProgram("gui_quad", "gui_quad");
+	m_imageShader = m_pShaderLoader->createShaderProgram("gui_quad", "gui_image_quad");
+	m_blurShader = m_pShaderLoader->createShaderProgram("gui_quad", "gui_blur_quad");
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glGenVertexArrays(1, &m_vao);
+	glGenBuffers(1, &m_vbo);
+
+	glBindVertexArray(m_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }

@@ -10,6 +10,7 @@ class PrimitiveRender {
 public:
 	PrimitiveRender(ShaderLoaderGl* pShaderLoader, entt::registry* pSceneRegisry, entt::registry* pMapRegistry);
 
+	void init();
 	void render(glm::mat4 projection, glm::mat4 view);
 
 private:
@@ -23,4 +24,6 @@ private:
 
 	entt::registry* m_pSceneRegistry = nullptr;
 	entt::registry* m_pMapRegistry = nullptr;
+
+	ShaderLoaderGl* m_pShaderLoader = nullptr;
 };

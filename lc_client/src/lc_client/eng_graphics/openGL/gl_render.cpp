@@ -49,6 +49,9 @@ void RenderGL::init() {
 	createFramebufferVao();
 
 	m_framebufferShader = m_pShaderLoader->createShaderProgram("framebuffer", "framebuffer");
+
+	m_pOutlineRender->init();
+	m_pPrimitiveRender->init();
 }
 
 void RenderGL::render() {

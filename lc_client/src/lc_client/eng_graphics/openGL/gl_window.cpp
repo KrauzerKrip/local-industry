@@ -22,7 +22,7 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	m_height = height;
 	m_pAspectRatio = aspectRatio;
 
-	m_windowMode = WindowMode::FULLSCREEN;
+	m_windowMode = WindowMode::WINDOWED;
 	m_cursorMode = CursorMode::CURSOR_DISABLED;
 
 	m_shouldWindowResize = false;

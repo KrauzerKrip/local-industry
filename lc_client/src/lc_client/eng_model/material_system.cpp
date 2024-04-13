@@ -83,7 +83,6 @@ MaterialMR MaterialSystem::getMaterialMr(std::string dir) {
 }
 
 MaterialSG MaterialSystem::getMaterialSg(std::string dir) {
-
 	MaterialSG material;
 
 	material.diffuseTexture = m_pTextureManager->getTexture(dir + "diffuse"); // str.C_Str());

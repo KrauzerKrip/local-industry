@@ -14,6 +14,8 @@
 #include "lc_client/eng_gui/paint_objects/text.h"
 #include "lc_client/eng_graphics/gui/queue_render.h"
 #include "lc_client/eng_graphics/openGL/gl_shader_loader.h"
+#include "lc_client/eng_graphics/i_window.h"
+
 
 class ShaderLoaderGl;
 
@@ -26,11 +28,12 @@ struct Character {
 
 class TextRenderGl : public TextRender {
 public:
-	TextRenderGl(IConsole* pConsole, ShaderLoaderGl* pShaderWork);
+	TextRenderGl(IWindow* pWindow, IConsole* pConsole, ShaderLoaderGl* pShaderLoader);
 
-	void render(std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, float zOffset);
+	void render(std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, float zOffset) override;
 	void renderCentered(
-		std::string text, glm::vec4 color, glm::vec2 centerAbsolutePosition, unsigned int size, float zOffset);
+		std::string text, glm::vec4 color, glm::vec2 centerAbsolutePosition, unsigned int size, float zOffset) override;
+	void reload() override;
 
 private:
 	std::map<char, Character> m_characters;
@@ -38,4 +41,7 @@ private:
 	unsigned int m_vao;
 	unsigned int m_vbo;
 	glm::mat4 m_projection;
+
+	IWindow* m_pWindow = nullptr;
+	ShaderLoaderGl* m_pShaderLoader = nullptr;
 };

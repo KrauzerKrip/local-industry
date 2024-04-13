@@ -11,7 +11,7 @@ GuiDependenciesFabricGl::GuiDependenciesFabricGl(IConsole* pConsole, ShaderLoade
 	TextureManager* pTextureManager, FramebufferController* pFramebufferController, IWindow* pWindow) { 
 	BackgroundRenderGl* pBackgroundRender =
 		new BackgroundRenderGl(pConsole, pShaderWorkGl, pTextureManager, pFramebufferController, pWindow);
-	TextRenderGl* pTextRender = new TextRenderGl(pConsole, pShaderWorkGl);
+	TextRenderGl* pTextRender = new TextRenderGl(pWindow, pConsole, pShaderWorkGl);
 	WidgetZOffsetCalculatorGl* pWidgetZOffsetCalculator = new WidgetZOffsetCalculatorGl();
 	TextZOffsetCalculatorGl* pTextZOffsetCalculator = new TextZOffsetCalculatorGl();
 	InputController* pInputController = new InputController(pInput);

@@ -19,16 +19,16 @@ Texture* TextureManager::getTexture(std::string path) {
 	}
 	catch (std::out_of_range) {
 		std::cout << "Texture '" << path << "' not found in cache, will try to load." << std::endl;
-
 		Texture* pTexture = nullptr;
 		
 		try {
 			pTexture = loadTexture(path);
+			m_textureMap.emplace(path, pTexture);
 		}
 		catch (ResourceFileNotFoundException& exception) {
 			std::cerr << exception.what() << std::endl;
 			Tier0::getIConsole()->warn(exception.what());
-			pTexture = loadTexture("dev/textures/eng_texture_not_found/color");
+			pTexture = m_textureMap.at("no_css?");
 		}
 		catch (FileTooLargeException) {
 			throw FileTooLargeException("Image is too large to load it: " + path);
@@ -36,7 +36,7 @@ Texture* TextureManager::getTexture(std::string path) {
 		catch (ImageLoadFailureException& exception) {
 			std::cerr << "Failed to load texture: " << path << ": " << exception.what() << std::endl;
 			Tier0::getIConsole()->warn("Failed to load texture: " + path + ": " + exception.what());
-			pTexture = loadTexture("dev/textures/eng_texture_not_found/color");
+			pTexture = m_textureMap.at("no_css?");
 		}
 
 		if (pTexture == nullptr) {
@@ -50,15 +50,24 @@ Texture* TextureManager::getTexture(std::string path) {
 }
 
 void TextureManager::reload() {
+	Texture* pNoCssTexture = loadTexture("dev/textures/eng_texture_not_found/color");
+	m_textureMap.emplace(std::string("no_css?"), pNoCssTexture);
+
 	for (auto [path, pTexture] : m_textureMap) {
+		if (path == "no_css?") {
+			continue;
+		}
+
 		try {
-			//delete pTexture;
+			delete pTexture;
+			pTexture = nullptr;
 			pTexture = loadTexture(path);
+			m_textureMap[path] = pTexture;
 		}
 		catch (ResourceFileNotFoundException& exception) {
 			std::cerr << exception.what() << std::endl;
 			Tier0::getIConsole()->warn(exception.what());
-			pTexture = loadTexture("dev/textures/eng_texture_not_found/color");
+			pTexture = m_textureMap.at("no_css?");
 		}
 		catch (FileTooLargeException) {
 			std::cerr << ("Image is too large to load it: " + path) << std::endl;
@@ -66,7 +75,7 @@ void TextureManager::reload() {
 		catch (ImageLoadFailureException& exception) {
 			std::cerr << "Failed to load texture: " << path << ": " << exception.what() << std::endl;
 			Tier0::getIConsole()->warn("Failed to load texture: " + path + ": " + exception.what());
-			pTexture = loadTexture("dev/textures/eng_texture_not_found/color");
+			pTexture = m_textureMap.at("no_css?");
 		}
 
 		if (pTexture == nullptr) {

@@ -12,7 +12,9 @@
 
 
 ModelManager::ModelManager(
+	TextureManager* pTextureManager, 
 	eng::IResource* pResource, entt::registry& pUtilRegistry, IConsole* pConsole) {
+	m_pTextureManager = pTextureManager;
 	m_pResource = pResource;
 	m_pUtilRegistry = &pUtilRegistry;
 	m_pConsole = pConsole;
@@ -27,8 +29,6 @@ Model* ModelManager::getModel(const std::string modelPath, const std::string tex
 		return loadModel(modelPath, texturesDirPath, materialType);
 	}
 }
-
-void ModelManager::setTextureManager(TextureManager* pTextureManager) { m_pTextureManager = pTextureManager; }
 
 Model* ModelManager::loadModel(const std::string modelPath, const std::string texturesDirPath, const std::string materialType) {
 	Model* pModel = nullptr;  

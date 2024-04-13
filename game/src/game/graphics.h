@@ -17,20 +17,25 @@
 #include "loader_fabric/openGL/gl_loader_fabric.h"
 #include "lc_client/eng_model/model_manager.h"
 #include "lc_client/eng_model/model_parser.h"
+#include "lc_client/eng_graphics/openGL/gl_framebuffer_controller.h"
+#include "game/gui/dependencies_fabric/openGL/gl_gui_dependencies_fabric.h"
+#include "lc_client/eng_graphics/openGL/gl_render.h"
+#include "lc_client/eng_graphics/graphics_settings.h"
 
 
 class Graphics {
 public:
-	Graphics(Tier0* pTier0, IWindow* pWindow, eng::IResource* pResource, World* pWorld, Camera* pCamera, IInput* pInput, ActionControl* pActionControl);
+	Graphics(Tier0* pTier0, IWindow* pWindow, eng::IResource* pResource, World* pWorld, Camera* pCamera, GuiPresenter* pGuiPresenter);
 
 	void load();
 	void recreate();
 
 	IRender* getRender();
-	Gui* getGui();
 	GraphicsSettings* getSettings();
 	GraphicsSystems* getSystems();
 	TextureManager* getTextureManager();
+	LoaderFabricGl* getLoaderFabric();
+	FramebufferController* getFramebufferController();
 
 
 private:
@@ -44,13 +49,13 @@ private:
 	std::unique_ptr<SkyboxRenderGl> m_skyboxRender;
 	std::unique_ptr<ModelManager> m_modelManager;
 	std::unique_ptr<ModelParser> m_modelParser;
+	std::unique_ptr<FramebufferController> m_framebufferController;
+
 
 	Tier0* m_pTier0 = nullptr;
 	eng::IResource* m_pResource = nullptr;
 	IWindow* m_pWindow = nullptr;
 	World* m_pWorld;
-	IInput* m_pInput = nullptr;
-	ActionControl* m_pActionControl = nullptr;
 	Camera* m_pCamera = nullptr;
 
 	bool m_debug = false;

@@ -16,9 +16,6 @@ Texture* TextureManagerGl::loadTexture(std::string path) {
 
 	Texture* pTexture = new TextureGL(image); // TODO
 
-	m_textureMap.emplace(path, pTexture);
-
-
 	std::cout << "Texture '" << path << "' loaded." << std::endl;
 	
 	return pTexture;

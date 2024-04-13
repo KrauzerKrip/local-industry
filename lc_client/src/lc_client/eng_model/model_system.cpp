@@ -103,8 +103,6 @@ void ModelSystem::update() {
 	auto meshLoadRequestEntities = m_pSceneRegistry->view<MeshLoadRequest, Model>();
 
 	for (auto&& [entity, model] : meshLoadRequestEntities.each()) {
-		std::cout << "Model System" << std::endl;
-
 		for (auto meshEnt : model.meshes) {
 			m_pMeshWork->loadMesh(m_pUtilRegistry, meshEnt);
 			m_pUtilRegistry->emplace_or_replace<MaterialSgRequest>(meshEnt, MaterialSgRequest(model.materialDir));

@@ -7,10 +7,10 @@
 
 class GuiPresenter {
 public:
-	GuiPresenter(LayoutController* pOverlayLayoutController, LayoutController* pLayoutController,
-		BackgroundRender* pBackgroundRender, std::vector<QueueRender*> queueRenders);
+	GuiPresenter();
 
 	void render();
+	void setDependencies(const GuiDependencies& dependencies, LayoutController* pOverlayLayoutController, LayoutController* pLayoutController);
 
 private:
 	LayoutController* m_pOverlayLayoutController = nullptr;

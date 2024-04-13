@@ -12,8 +12,11 @@
 PrimitiveRender::PrimitiveRender(ShaderLoaderGl* pShaderLoader, entt::registry* pSceneRegisry, entt::registry* pMapRegistry) {
 	m_pSceneRegistry = pSceneRegisry;
 	m_pMapRegistry = pMapRegistry;
+	m_pShaderLoader = pShaderLoader;
+}
 
-	m_shader = pShaderLoader->createShaderProgram("primitive", "primitive_alpha");
+void PrimitiveRender::init() {
+	m_shader = m_pShaderLoader->createShaderProgram("primitive", "primitive_alpha");
 
 	glGenVertexArrays(1, &m_lineVao);
 	glGenBuffers(1, &m_lineVbo);
@@ -29,44 +32,44 @@ PrimitiveRender::PrimitiveRender(ShaderLoaderGl* pShaderLoader, entt::registry* 
 	glBindVertexArray(0);
 
 
-	 float cubeVertices[] = {// front
+	float cubeVertices[] = {// front
 
 		-1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
 		// back
 		-1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0};
 
-	 GLuint cubeIndices[] = {// front
-		 0, 1, 2, 2, 3, 0,
-		 // right
-		 1, 5, 6, 6, 2, 1,
-		 // back
-		 7, 6, 5, 5, 4, 7,
-		 // left
-		 4, 0, 3, 3, 7, 4,
-		 // bottom
-		 4, 5, 1, 1, 0, 4,
-		 // top
-		 3, 2, 6, 6, 7, 3};
+	GLuint cubeIndices[] = {// front
+		0, 1, 2, 2, 3, 0,
+		// right
+		1, 5, 6, 6, 2, 1,
+		// back
+		7, 6, 5, 5, 4, 7,
+		// left
+		4, 0, 3, 3, 7, 4,
+		// bottom
+		4, 5, 1, 1, 0, 4,
+		// top
+		3, 2, 6, 6, 7, 3};
 
-	 unsigned int cubeVbo;
-	 unsigned int cubeEbo;
+	unsigned int cubeVbo;
+	unsigned int cubeEbo;
 
-	 glGenVertexArrays(1, &m_cubeVao);
-	 glGenBuffers(1, &cubeVbo);
-	 glBindVertexArray(m_cubeVao);
+	glGenVertexArrays(1, &m_cubeVao);
+	glGenBuffers(1, &cubeVbo);
+	glBindVertexArray(m_cubeVao);
 
-	 glBindBuffer(GL_ARRAY_BUFFER, cubeVbo);
-	 glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, cubeVbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
 
-	 glGenBuffers(1, &cubeEbo);
-	 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeEbo);
-	 glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cubeIndices), cubeIndices, GL_STATIC_DRAW);
+	glGenBuffers(1, &cubeEbo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeEbo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cubeIndices), cubeIndices, GL_STATIC_DRAW);
 
-	 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	 glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
 
-	 glBindBuffer(GL_ARRAY_BUFFER, 0);
-	 glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
 void PrimitiveRender::render(glm::mat4 projection, glm::mat4 view) {

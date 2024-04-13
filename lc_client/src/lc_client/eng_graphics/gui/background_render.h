@@ -25,7 +25,7 @@ struct ColorQuad {
 };
 
 struct ImageQuad {
-	Texture* pTexture;
+	std::string path;
 	RectangleVertices vertices;
 	float zOffset;
 };
@@ -40,6 +40,7 @@ public:
 	virtual void renderImage(ImageQuad colorQuad) = 0;
 	virtual Texture* getTexture(std::string path) = 0;
 	virtual void frame() = 0;
+	virtual void reload() = 0;
 
 protected:
 	IConsole* m_pConsole = nullptr;

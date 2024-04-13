@@ -18,7 +18,8 @@
 
 class Gui {
 public:
-	Gui(Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInput, ActionControl* pActionControl,
+	Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInput,
+		ActionControl* pActionControl,
 		GraphicsSettings* pGraphicsSettings, Camera* pCamera, entt::registry* pRegistry);
 	~Gui();
 	

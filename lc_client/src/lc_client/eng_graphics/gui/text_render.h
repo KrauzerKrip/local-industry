@@ -15,6 +15,7 @@ public:
 		std::string text, glm::vec4 color, glm::vec2 absolutePosition, unsigned int size, float zOffset) = 0;
 	virtual void renderCentered(
 		std::string text, glm::vec4 color, glm::vec2 centerAbsolutePosition, unsigned int size, float zOffset) = 0;
+	virtual void reload() = 0;
 	
 protected:
 	IConsole* m_pConsole = nullptr;

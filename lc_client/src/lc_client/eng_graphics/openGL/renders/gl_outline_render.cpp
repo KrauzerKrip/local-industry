@@ -11,8 +11,10 @@
 
 OutlineRenderGl::OutlineRenderGl(MeshRenderGl* pMeshRender, ShaderLoaderGl* pShaderLoader) {
 	m_pMeshRender = pMeshRender;
-    m_outlineShader = pShaderLoader->createShaderProgram("base", "primitive");
+	m_pShaderLoader = pShaderLoader;
 }
+
+void OutlineRenderGl::init() { m_outlineShader = m_pShaderLoader->createShaderProgram("base", "primitive"); }
 
 void OutlineRenderGl::render(const Model& model, const Outline& outline, const Transform& transform,
 	const glm::mat4& projection, const glm::mat4& view) {

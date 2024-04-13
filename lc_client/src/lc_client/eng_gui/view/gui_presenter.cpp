@@ -6,12 +6,7 @@
 #include "lc_client/eng_gui/layout/widget_data.h"
 
 
-GuiPresenter::GuiPresenter(LayoutController* pOverlayLayoutController, LayoutController* pLayoutController,
-	BackgroundRender* pBackgroundRender, std::vector<QueueRender*> queueRenders) {
-	m_pOverlayLayoutController = pOverlayLayoutController;
-	m_pLayoutController = pLayoutController;
-	m_pBackgroundRender = pBackgroundRender;
-	m_queueRenders = queueRenders;
+GuiPresenter::GuiPresenter() {
 }
 
 void GuiPresenter::render() { 
@@ -37,4 +32,11 @@ void GuiPresenter::render() {
 	for (QueueRender* pQueueRender : m_queueRenders) {
 		pQueueRender->renderQueue();
 	}
+}
+
+void GuiPresenter::setDependencies(const GuiDependencies& dependencies, LayoutController* pOverlayLayoutController,
+	LayoutController* pLayoutController) {
+	m_pBackgroundRender = dependencies.pBackgroundRender;
+	m_pOverlayLayoutController = pOverlayLayoutController;
+	m_pLayoutController = pLayoutController;
 }
