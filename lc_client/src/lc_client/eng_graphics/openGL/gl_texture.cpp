@@ -8,8 +8,8 @@
 //#define DEBUG
 
 
-TextureGL::TextureGL(std::shared_ptr<eng::Image> image) {
-	m_image = image;
+TextureGL::TextureGL(eng::Image* pImage) {
+	m_image = std::unique_ptr<eng::Image>(pImage);
 
 	glGenTextures(1, &m_textureGl);
 

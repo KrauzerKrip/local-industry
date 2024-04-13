@@ -34,9 +34,8 @@ namespace eng{
 	};
 
 	const unsigned char* Image::getData() const { 
-		return m_data.data(); }
-
-	std::vector<unsigned char>& Image::getDataVector() { return m_data;}
+		return m_data.data();
+	}
 
 	void Image::loadData(const std::vector<unsigned char>& buffer) {
 
@@ -58,7 +57,7 @@ namespace eng{
 		m_data = std::vector<unsigned char>(size);
 		m_data.assign(data, data + imageDataSize);
 		/*m_data.assign(data, data + sizeof(data));*/
-		/*delete[] data;*/
+		delete[] data;
 	}
 
 	int Image::getWidth() {

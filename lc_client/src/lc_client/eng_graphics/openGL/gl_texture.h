@@ -6,7 +6,7 @@
 
 class TextureGL : public Texture{
 public:
-	TextureGL(std::shared_ptr<eng::Image> image);
+	TextureGL(eng::Image* pImage);
 
 	void load();
 	void unload();
@@ -16,5 +16,5 @@ public:
 
 private:
 	unsigned int m_textureGl;
-	std::shared_ptr<eng::Image> m_image;
+	std::unique_ptr<eng::Image> m_image;
 };

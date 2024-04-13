@@ -8,13 +8,13 @@
 TextureManagerGl::TextureManagerGl(eng::IResource* pResource) : TextureManager(pResource){}
 
 Texture* TextureManagerGl::loadTexture(std::string path) {
-	std::shared_ptr<eng::Image> image;
+	eng::Image* pImage;
 
 	const std::vector<unsigned char>& buffer = m_pResource->getFileResource(path + FILE_FORMAT);
 
-	image = std::make_shared<eng::Image>(buffer);
+	pImage = new eng::Image(buffer);
 
-	Texture* pTexture = new TextureGL(image); // TODO
+	Texture* pTexture = new TextureGL(pImage); // TODO
 
 	std::cout << "Texture '" << path << "' loaded." << std::endl;
 	
