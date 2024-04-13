@@ -48,12 +48,11 @@ OrbitalCameraController::OrbitalCameraController(Camera* pCamera, IInput* pInput
 	});
 }
 
-void OrbitalCameraController::input() {
+void OrbitalCameraController::input(double deltaTime) {
 	m_sphericalCoords.r = m_radius;
 
 	m_radiusChangeSpeed = m_radius * 1.5;
 
-	float deltaTime = Time::getDeltaTime();
 	float deltaRadius = m_targetRadius - m_radius;
 
 	float timeToReach = abs(deltaRadius) / m_radiusChangeSpeed;
@@ -86,7 +85,7 @@ void OrbitalCameraController::input() {
 	//std::cout << m_radius << std::endl;
 	//std::cout << m_targetRadius << std::endl << std::endl;
 	
-	float cameraSpeed = m_radius * 0.025;
+	float cameraSpeed = m_radius * deltaTime;
 
 	glm::vec3 front = m_pCamera->getCameraFront();
 	glm::vec3 right = m_pCamera->getCameraRight();

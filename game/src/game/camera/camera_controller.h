@@ -3,5 +3,5 @@
 
 class CameraController {
 public:
-	virtual void input() = 0;
+	virtual void input(double deltaTime) = 0;
 };

@@ -23,8 +23,8 @@ public:
 		entt::registry* pRegistry);
 	~ControlSystem();
 
-	void input();
-	void update();
+	void input(double deltaTime);
+	void update(double updateInterval);
 
 private:
 	MouseRaycast m_mouseRaycast;

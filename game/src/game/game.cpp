@@ -197,10 +197,10 @@ void Game::input(double deltaTime) {
 	m_pConsoleGui->update();
 
 	if (!m_pConsoleGui->isOpened()) { 
-		m_pControlSystem->input();
+		m_pControlSystem->input(deltaTime);
 	}
 
-	m_pMachineSystem->input(Time::getDeltaTime());
+	m_pMachineSystem->input(deltaTime);
 
 	if (m_pActionControl->isAction("kb_menu")) {
 		exit(0);
@@ -219,7 +219,7 @@ void Game::input(double deltaTime) {
 	m_lastMousePosY = m_pInput->getMousePosition().y;
 
 	if (!m_pConsoleGui->isOpened()) {
-		m_pControlSystem->input();
+		m_pControlSystem->input(deltaTime);
 	}
 	//m_pCamera->setPosition(cameraPos);
 
@@ -242,7 +242,7 @@ void Game::update(double updateInterval) {
 	m_pPhysicsSystem->update();
 	m_pScriptSystem->update();
 	m_pNpcSystem->update();
-	m_pControlSystem->update();
+	m_pControlSystem->update(updateInterval);
 	m_pCharacterSystem->update();
 	m_pMachineSystem->update(Time::getDeltaTime());
 	m_pMachineSystem->machineUpdate(Time::getDeltaTime());

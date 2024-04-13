@@ -22,10 +22,10 @@ ControlSystem::~ControlSystem() {
 	delete m_pCameraController;
 }
 
-void ControlSystem::input() { 
-	m_pCameraController->input();
+void ControlSystem::input(double deltaTime) { 
+	m_pCameraController->input(deltaTime);
 	m_mouseRaycastSystem.input();
 	m_machineControlSystem.input();
 }
 
-void ControlSystem::update() {}
+void ControlSystem::update(double updateInterval) {}
