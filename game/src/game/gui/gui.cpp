@@ -20,7 +20,7 @@ Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDep
 
 	std::vector<QueueRender*> queueRenders;
 
-	Overlay* pOverlay = new Overlay(pTier0, pDependenciesFabric, pInput);
+	Overlay* pOverlay = new Overlay(pTier0, pDependenciesFabric, pInput, pCamera);
 	m_overlayLayoutController.setLayout(pOverlay);
 
 

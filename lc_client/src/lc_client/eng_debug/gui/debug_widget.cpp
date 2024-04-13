@@ -37,12 +37,14 @@ Widget* createRow(std::string labelText, std::string dataText, GuiDependencies d
 }
 
 
-DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, GuiDependencies dependencies) : Widget(dependencies) {
+DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, Camera* pCamera, GuiDependencies dependencies) : Widget(dependencies) {
 	m_pInput = pInput;
+	m_pCamera = pCamera;
+
 	
 	this->setBackground(new ColorBackground(glm::vec4(0, 0, 0, 0.5), dependencies));
-	this->setPosition(glm::vec2(1750, 870));
-	this->setSize(glm::vec2(160, 200));
+	this->setPosition(glm::vec2(1700, 820));
+	this->setSize(glm::vec2(200, 250));
 	this->setName("debugWidget");
 
 	TextWidget* pLabel = new TextWidget(dependencies);
@@ -54,14 +56,17 @@ DebugWidget::DebugWidget(Tier0* pTier0, IInput* pInput, GuiDependencies dependen
 	pLabel->setTextColor(glm::vec4(1, 1, 1, 1));
 
 	VBox* pVbox = new VBox();
+	pVbox->setPadding(10, 10);
 	this->setLayout(pVbox);
 
     Widget* rowFps = createRow("FPS", "", dependencies, &m_pFpsDataWidget);
-	Widget* rowMousePos = createRow("MP", "", dependencies, &m_pMousePositionWidget);
+	Widget* rowMousePos = createRow("MPos", "", dependencies, &m_pMousePositionWidget);
+	Widget* rowCameraPos = createRow("CPos", "", dependencies, &m_pCameraPositionWidget);
 
 	pVbox->addChild(pLabel);
 	pVbox->addChild(rowFps);
 	pVbox->addChild(rowMousePos);
+	pVbox->addChild(rowCameraPos);
 
 	pTier0->getParameters()->getParameter<bool>("cl_debug_mode").setCallback([this](bool value) {
 		if (value) {
@@ -86,6 +91,11 @@ void DebugWidget::render() {
 
 	m_pMousePositionWidget->setText(std::to_string((int)m_pInput->getMousePosition().x) + " " +
 									std::to_string((int)m_pInput->getMousePosition().y));
+
+	m_pCameraPositionWidget->setText(
+		std::to_string((int)m_pCamera->getPosition().x) + " " +
+		std::to_string((int)m_pCamera->getPosition().y) + " " + 
+			std::to_string((int)m_pCamera->getPosition().z));
 
 	Widget::render();
 }
