@@ -16,6 +16,7 @@ public:
 	std::array<int, 2> getWindowSize();
 	std::array<int, 2> getWindowAspectRatio();
 	WindowMode getWindowMode();
+	unsigned int getTargetFps();
 
 	void addUpdateCallback(std::function<void(GraphicsSettings* pGraphicsSettings)> callback);
 
@@ -32,6 +33,7 @@ private:
 	std::array<int, 2> m_windowSize;
 	std::array<int, 2> m_windowAspectRatio;
 	WindowMode m_windowMode;
+	unsigned int m_targetFps;
 
 	std::vector<std::function<void(GraphicsSettings* pGraphicsSettings)>> m_updateCallbacks;
 };

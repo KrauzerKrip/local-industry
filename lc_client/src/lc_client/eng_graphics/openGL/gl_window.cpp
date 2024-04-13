@@ -21,6 +21,7 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 	m_width = width;
 	m_height = height;
 	m_pAspectRatio = aspectRatio;
+	m_targetFps = 0;
 
 	m_windowMode = WindowMode::WINDOWED;
 	m_cursorMode = CursorMode::CURSOR_DISABLED;
@@ -210,6 +211,10 @@ int* WindowGL::getAspectRatio() {
 	return m_pAspectRatio;
 }
 
+void WindowGL::setTargetFps(unsigned int fps) { 
+	m_targetFps = fps;
+}
+
 void WindowGL::keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods) {
 	WindowGL* pWindow = static_cast<WindowGL*>(glfwGetWindowUserPointer(pGlfwWindow));
 	pWindow->getInput()->invokeKeyCallbacks(key, action);
@@ -262,20 +267,20 @@ void WindowGL::resize() {
 }
 
 void WindowGL::setWindowMode(WindowMode mode) { 
-	if (mode == m_windowMode) {
-		return;
-	}
-	
-	m_shouldChangeWindowMode = true;
-
 	m_windowMode = mode;
 
 	if (m_windowMode == WindowMode::WINDOWED) {
-		glfwSetWindowMonitor(m_pGlfwWindow, nullptr, 0, 0, m_width, m_height, GLFW_DONT_CARE);
+		glfwSetWindowMonitor(m_pGlfwWindow, nullptr, 0, 0, m_width, m_height, m_targetFps);
 		glfwMaximizeWindow(m_pGlfwWindow);
+		if (m_vSync) {
+			glfwSwapInterval(1);
+		}
 	}
 	else if (m_windowMode == WindowMode::FULLSCREEN) {
-		glfwSetWindowMonitor(m_pGlfwWindow, glfwGetPrimaryMonitor(), 0, 0, m_width, m_height, GLFW_DONT_CARE);
+		glfwSetWindowMonitor(m_pGlfwWindow, glfwGetPrimaryMonitor(), 0, 0, m_width, m_height, m_targetFps);
+		if (m_vSync) {
+			glfwSwapInterval(1);
+		}
 	}
 }
 

@@ -15,7 +15,8 @@
     "gh_window_width": "1920",
     "gh_window_height": "1080",
     "gh_window_aspect_ratio_x": "16",
-    "gh_window_aspect_ratio_y": "9"
+    "gh_window_aspect_ratio_y": "9",
+    "gh_target_fps": "60"
   },
   "game_config": {
     "kb_forward": "W",

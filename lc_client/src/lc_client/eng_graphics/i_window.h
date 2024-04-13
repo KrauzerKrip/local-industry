@@ -43,6 +43,7 @@ public:
 	virtual void setCreationCallback(std::function<void()> callback) = 0;
 	virtual void setWindowMode(WindowMode mode) = 0;
 	virtual WindowMode getWindowMode() = 0;
+	virtual void setTargetFps(unsigned int fps) = 0;
 	
 	/**
 	 * Breaks encapsulation

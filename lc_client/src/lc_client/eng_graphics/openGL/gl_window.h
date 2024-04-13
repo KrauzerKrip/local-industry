@@ -40,6 +40,7 @@ public:
 	void setCreationCallback(std::function<void()> callback);
 	void setWindowMode(WindowMode mode) override;
 	WindowMode getWindowMode() override;
+	void setTargetFps(unsigned int fps) override;
 
 	GLFWwindow* getGlfwWindow();
 	std::function<void(int, int)>& getResizeCallback();
@@ -76,6 +77,7 @@ private:
 	WindowMode m_windowMode;
 	bool m_shouldWindowResize;
 	bool m_shouldChangeWindowMode;
+	unsigned int m_targetFps;
 
 	GLFWwindow* m_pGlfwWindow = nullptr;
 	InputGlfw* m_pInput = nullptr;
