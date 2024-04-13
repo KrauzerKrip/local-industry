@@ -146,10 +146,6 @@ void WindowGL::startFrame() {
 		this->resize();
 		m_shouldWindowResize = false;
 	}
-	if (m_shouldChangeWindowMode) {
-		this->changeWindowMode();
-		m_shouldChangeWindowMode = false;
-	}
 
 	ImGui_ImplGlfw_NewFrame();
 	ImGui_ImplOpenGL3_NewFrame();
@@ -273,17 +269,17 @@ void WindowGL::setWindowMode(WindowMode mode) {
 	m_shouldChangeWindowMode = true;
 
 	m_windowMode = mode;
+
+	if (m_windowMode == WindowMode::WINDOWED) {
+		glfwSetWindowMonitor(m_pGlfwWindow, nullptr, 0, 0, m_width, m_height, GLFW_DONT_CARE);
+		glfwMaximizeWindow(m_pGlfwWindow);
+	}
+	else if (m_windowMode == WindowMode::FULLSCREEN) {
+		glfwSetWindowMonitor(m_pGlfwWindow, glfwGetPrimaryMonitor(), 0, 0, m_width, m_height, GLFW_DONT_CARE);
+	}
 }
 
 WindowMode WindowGL::getWindowMode() { return m_windowMode; }
 
 void WindowGL::changeWindowMode() {
-	glfwDestroyWindow(m_pGlfwWindow);
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	//ImGui::DestroyContext();
-
-	this->init();
-
-	m_resizeCallback(m_width, m_height);
 }

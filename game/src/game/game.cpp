@@ -75,7 +75,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 		m_pCamera, &m_pWorld->getRegistry());
 
 	m_pWindow->setCreationCallback([this, pGuiDependenciesFabric]() { 
-		m_pGraphics->recreate();
+		m_pGraphics->init();
 		pGuiDependenciesFabric->getDependencies().pBackgroundRender->reload();
 		pGuiDependenciesFabric->getDependencies().pTextRender->reload();
 		});
@@ -169,11 +169,11 @@ void Game::init() {
 	});
 
 	m_pInput->addMappedKeyCallback(KeyCode::F11, [this]() { 
-		ConPar<std::string> conpar = m_pTier0->getParameters()->getParameter<std::string>("gh_window_mode");
+		ConPar<std::string>& conpar = m_pTier0->getParameters()->getParameter<std::string>("gh_window_mode");
 		if (conpar.getValue() == "fullscreen") {
 			conpar.setValue("windowed");
 		}
-		else {
+		else if (conpar.getValue() == "windowed") {
 			conpar.setValue("fullscreen");
 		}
 	});

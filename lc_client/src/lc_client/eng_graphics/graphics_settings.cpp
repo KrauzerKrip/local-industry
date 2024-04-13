@@ -1,5 +1,8 @@
 #include "graphics_settings.h"
 
+#include <iostream>
+
+
 GraphicsSettings::GraphicsSettings(Parameters* pParameters) { 
 	m_pParameters = pParameters;
 

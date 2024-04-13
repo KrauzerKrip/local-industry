@@ -27,8 +27,7 @@ class Graphics {
 public:
 	Graphics(Tier0* pTier0, IWindow* pWindow, eng::IResource* pResource, World* pWorld, Camera* pCamera, GuiPresenter* pGuiPresenter);
 
-	void load();
-	void recreate();
+	void init();
 
 	IRender* getRender();
 	GraphicsSettings* getSettings();

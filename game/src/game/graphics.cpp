@@ -11,11 +11,13 @@ Graphics::Graphics(Tier0* pTier0, IWindow* pWindow, eng::IResource* pResource, W
 
 	m_graphicsSettings = std::make_unique<GraphicsSettings>(pTier0->getParameters());
 	m_graphicsSettings->addUpdateCallback([pWindow](GraphicsSettings* pGraphicsSettings) {
-		pWindow->setSize(pGraphicsSettings->getWindowSize()[0], pGraphicsSettings->getWindowSize()[1]);
-		pWindow->setWindowMode(pGraphicsSettings->getWindowMode());
 		if (pGraphicsSettings->getWindowMode() == WindowMode::FULLSCREEN) {
 			pWindow->setSize(1920, 1080);
 		}
+		else {
+			pWindow->setSize(pGraphicsSettings->getWindowSize()[0], pGraphicsSettings->getWindowSize()[1]);
+		}
+		pWindow->setWindowMode(pGraphicsSettings->getWindowMode());
 	});
 	
 	m_loaderFabric = std::make_unique<LoaderFabricGl>(pResource, pTier0->getConsole());
@@ -36,11 +38,7 @@ Graphics::Graphics(Tier0* pTier0, IWindow* pWindow, eng::IResource* pResource, W
 	m_render->setDependecies(m_pWorld);
 }
 
-void Graphics::load() {}
-
-void Graphics::recreate() { 
-	entt::registry* pRegistry = &m_pWorld->getRegistry();
-
+void Graphics::init() { 
 	m_shaderManager.reset();
 	m_shaderManager = std::make_unique<ShaderManagerGl>(m_pResource);
 	m_shaderManager->loadShaders();
@@ -55,14 +53,6 @@ void Graphics::recreate() {
 		m_modelParser.get(), static_cast<SkyboxRender*>(m_skyboxRender.get()), m_pResource);
 
 	m_render->init();
-
-	auto models = pRegistry->view<Model>();
-
-	for (auto&& [entity, model] : models.each()) {
-		pRegistry->emplace_or_replace<MeshUnloadRequest>(entity);
-		pRegistry->emplace_or_replace<MeshLoadRequest>(entity);
-		pRegistry->emplace_or_replace<ShaderReloadRequest>(entity);
-	}
 }
 
 IRender* Graphics::getRender() { return m_render.get(); }
