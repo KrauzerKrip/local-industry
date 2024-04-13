@@ -83,7 +83,7 @@ void WindowGL::init() {
 		throw GladInitFailException();
 	}
 
-	GLint flags;
+	GLint flags; 
 	glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
 	if (flags & GL_CONTEXT_FLAG_DEBUG_BIT) {
 		glEnable(GL_DEBUG_OUTPUT);
@@ -98,7 +98,7 @@ void WindowGL::init() {
 		std::cout << "OpenGL Error: OpenGL debug context wasn`t created." << std::endl;
 	}
 
-	glViewport(0, 0, m_width, m_height);
+	glViewport(0, 0, m_width, m_height); 
 	// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClearColor(117.0f / 255, 187.0f / 255, 253.0f / 255, 1.0f);
 	// glClearColor(0.1f, 0.1f, 0.1f, 1.0f);

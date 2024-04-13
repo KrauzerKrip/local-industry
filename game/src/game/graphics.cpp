@@ -13,6 +13,9 @@ Graphics::Graphics(Tier0* pTier0, IWindow* pWindow, eng::IResource* pResource, W
 	m_graphicsSettings->addUpdateCallback([pWindow](GraphicsSettings* pGraphicsSettings) {
 		pWindow->setSize(pGraphicsSettings->getWindowSize()[0], pGraphicsSettings->getWindowSize()[1]);
 		pWindow->setWindowMode(pGraphicsSettings->getWindowMode());
+		if (pGraphicsSettings->getWindowMode() == WindowMode::FULLSCREEN) {
+			pWindow->setSize(1920, 1080);
+		}
 	});
 	
 	m_loaderFabric = std::make_unique<LoaderFabricGl>(pResource, pTier0->getConsole());

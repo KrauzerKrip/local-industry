@@ -169,13 +169,12 @@ void Game::init() {
 	});
 
 	m_pInput->addMappedKeyCallback(KeyCode::F11, [this]() { 
-		if (m_pWindow->getWindowMode() == WindowMode::FULLSCREEN) {
-			m_pWindow->setWindowMode(WindowMode::WINDOWED);
-			m_guiMode = true;
+		ConPar<std::string> conpar = m_pTier0->getParameters()->getParameter<std::string>("gh_window_mode");
+		if (conpar.getValue() == "fullscreen") {
+			conpar.setValue("windowed");
 		}
 		else {
-			m_pWindow->setWindowMode(WindowMode::FULLSCREEN);
-			m_guiMode = false;
+			conpar.setValue("fullscreen");
 		}
 	});
 
