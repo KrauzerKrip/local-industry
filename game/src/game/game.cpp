@@ -224,6 +224,8 @@ void Game::input(double deltaTime) {
 	//m_pCamera->setPosition(cameraPos);
 
 	m_pCharacterSystem->input();
+
+	m_pGui->update();
 }
 
 void Game::update(double updateInterval) {
@@ -281,8 +283,6 @@ void Game::update(double updateInterval) {
 	//		transform.rotation *= glm::angleAxis(glm::radians(1.f), glm::vec3(0.f, 1.f, 0.f));
 	//	}
 	//}
-
-	m_pGui->update();
 }
 
 void Game::render() {
