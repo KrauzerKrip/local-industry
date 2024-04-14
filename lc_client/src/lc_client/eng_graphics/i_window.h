@@ -44,6 +44,7 @@ public:
 	virtual void setWindowMode(WindowMode mode) = 0;
 	virtual WindowMode getWindowMode() = 0;
 	virtual void setTargetFps(unsigned int fps) = 0;
+	virtual void setVSync(bool vSync) = 0;
 	
 	/**
 	 * Breaks encapsulation

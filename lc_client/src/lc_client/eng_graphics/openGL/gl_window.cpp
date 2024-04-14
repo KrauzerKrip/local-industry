@@ -220,6 +220,10 @@ void WindowGL::setTargetFps(unsigned int fps) {
 	m_targetFps = fps;
 }
 
+void WindowGL::setVSync(bool vSync) { 
+	m_vSync = vSync;
+}
+
 void WindowGL::keyCallback(GLFWwindow* pGlfwWindow, int key, int scancode, int action, int mods) {
 	WindowGL* pWindow = static_cast<WindowGL*>(glfwGetWindowUserPointer(pGlfwWindow));
 	pWindow->getInput()->invokeKeyCallbacks(key, action);
