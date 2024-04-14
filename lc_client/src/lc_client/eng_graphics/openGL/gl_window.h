@@ -41,6 +41,7 @@ public:
 	void setWindowMode(WindowMode mode) override;
 	WindowMode getWindowMode() override;
 	void setTargetFps(unsigned int fps) override;
+	void setVSync(bool vSync) override;
 
 	GLFWwindow* getGlfwWindow();
 	std::function<void(int, int)>& getResizeCallback();

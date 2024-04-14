@@ -17,6 +17,7 @@ Graphics::Graphics(Tier0* pTier0, IWindow* pWindow, eng::IResource* pResource, W
 		else {
 			pWindow->setSize(pGraphicsSettings->getWindowSize()[0], pGraphicsSettings->getWindowSize()[1]);
 		}
+		pWindow->setVSync(pGraphicsSettings->getVSync());
 		pWindow->setTargetFps(pGraphicsSettings->getTargetFps());
 		pWindow->setWindowMode(pGraphicsSettings->getWindowMode());
 	});

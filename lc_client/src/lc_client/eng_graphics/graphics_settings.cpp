@@ -6,6 +6,7 @@
 GraphicsSettings::GraphicsSettings(Parameters* pParameters) { 
 	m_pParameters = pParameters;
 
+		m_vSync = pParameters->getParameter<bool>("gh_vsync").getValue();
 	m_fov = pParameters->getParameter<float>("gh_fov").getValue();
 	m_windowSize[0] = pParameters->getParameter<int>("gh_window_width").getValue();
 	m_windowSize[1] = pParameters->getParameter<int>("gh_window_height").getValue();
