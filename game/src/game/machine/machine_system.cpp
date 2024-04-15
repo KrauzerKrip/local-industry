@@ -7,7 +7,7 @@
 #include "physics/physical_constants.h"
 #include "machines/heater/heater_system.h"
 #include "machines/boiler/boiler_system.h"
-
+#include "game/character/components.h"
 
 import character;
 

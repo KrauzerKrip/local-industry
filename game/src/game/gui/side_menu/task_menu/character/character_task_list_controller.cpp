@@ -3,6 +3,7 @@
 #include <entt/entt.hpp>
 
 #include "../task_view.h"
+#include "game/character/components.h"
 
 
 CharacterTaskListController::CharacterTaskListController(TaskQueue* pTaskQueue, entt::registry* pRegistry, TaskList* pTaskList) {

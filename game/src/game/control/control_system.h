@@ -14,6 +14,7 @@
 #include "machine_control_system.h"
 #include "lc_client/eng_physics/physics.h"
 #include "mouse_raycast.h"
+#include "agriculture_control_system.h"
 
 
 class ControlSystem {
@@ -32,6 +33,7 @@ private:
 	CharacterControlSystem m_characterControlSystem;
 	MachineControlSystem m_machineControlSystem;
 	MouseRaycastSystem m_mouseRaycastSystem;
+	AgricultureControlSystem m_agricultureControlSystem;
 
 	CameraController* m_pCameraController = nullptr;
 };

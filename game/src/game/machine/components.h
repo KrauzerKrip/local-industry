@@ -46,12 +46,6 @@ struct ConnectionRequest {
 	explicit ConnectionRequest(entt::entity entity) : entity(entity),  type(ConnectionType::NONE) {}
 };
 
-struct CharacterAssignedTo {
-	entt::entity entity;
-
-	CharacterAssignedTo(entt::entity entity) : entity(entity) {}
-};
-
 struct MachineMode {
 	bool toggle;
 

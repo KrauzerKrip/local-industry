@@ -2,6 +2,7 @@
 
 #include "lc_client/eng_gui/widgets/widget.h"
 #include "lc_client/eng_gui/widgets/text_widget.h"
+#include "game/character/components.h"
 
 import character;
 

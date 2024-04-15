@@ -1,6 +1,7 @@
 #include "planned_task_list_controller.h"
 
 #include "game/machine/components.h"
+#include "game/character/components.h"
 
 import character;
 

@@ -2,6 +2,7 @@
 
 #include "game/machine/components.h"
 #include "lc_client/eng_graphics/entt/components.h"
+#include "game/character/components.h"
 
 import character;
 

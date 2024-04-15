@@ -29,4 +29,6 @@ private:
 	float m_minimusRadius;
 	
 	glm::vec2 m_lastMousePosition;
+
+	bool m_yAxisCam;
 };

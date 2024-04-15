@@ -8,9 +8,10 @@ module;
 #include "lc_client/eng_npc/components.h"
 #include <lc_client/eng_model/entt/components.h>
 #include <lc_client/eng_physics/entt/components.h>
+#include "components.h"
+
 
 export module character:character_task_system;
-import :components;
 import :task_queue;
 
 export class CharacterTaskSystem {
@@ -23,7 +24,7 @@ public:
 	}
 
 	void queueTasks() {
-		auto assignedTasks = m_pRegistry->view<Blueprint, Transform, Task, CharacterAssignedTo>();
+		auto assignedTasks = m_pRegistry->view<Transform, Task, CharacterAssignedTo>();
 
 		for (auto&& [entity, transform, task, characterAssignedTo] : assignedTasks.each()) {
 			TaskQueue& taskQueue = m_pRegistry->get<TaskQueue>(characterAssignedTo.entity);
@@ -45,7 +46,7 @@ public:
 					taskQueue.pop();
 					break;
 				}
-				if (!m_pRegistry->all_of<Blueprint, Task, Transform>(*task)) {
+				if (!m_pRegistry->all_of<Task, Transform>(*task)) {
 					taskQueue.pop();
 					break;
 				}

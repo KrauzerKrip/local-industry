@@ -19,6 +19,8 @@ OrbitalCameraController::OrbitalCameraController(Camera* pCamera, IInput* pInput
 	m_radiusChangeSpeed = 20;
 	m_targetRadius = m_radius;
 	m_minimusRadius = 15;
+
+	m_yAxisCam = false;
 	//m_sphericalCoords.t - theta (zenith)
 	//m_sphericalCoords.p - fita (azimuth)
 	// 
@@ -102,10 +104,10 @@ void OrbitalCameraController::input(double deltaTime) {
 	if (m_pActionControl->isAction("kb_right")) {
 		m_originPosition += cameraSpeed * glm::vec3(right.x, 0, right.z);
 	}
-	if (m_pActionControl->isAction("kb_up")) {
+	if (m_pActionControl->isAction("kb_up") && m_yAxisCam) {
 		m_originPosition += cameraSpeed * glm::vec3(0, 1, 0);
 	}
-	if (m_pActionControl->isAction("kb_down")) {
+	if (m_pActionControl->isAction("kb_down") && m_yAxisCam) {
 		m_originPosition += cameraSpeed * glm::vec3(0, -1, 0);
 	}
 

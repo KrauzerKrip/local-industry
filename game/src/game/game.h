@@ -28,6 +28,7 @@
 #include "lc_client/eng_npc/npc_system.h"
 #include "machine/machine_system.h"
 #include "game/graphics.h"
+#include "agriculture/agriculture_system.h"
 
 
 import character;
@@ -62,6 +63,7 @@ private:
 	ControlSystem* m_pControlSystem = nullptr;
 	CharacterSystem* m_pCharacterSystem = nullptr;
 	MachineSystem* m_pMachineSystem = nullptr;
+	AgricultureSystem* m_pAgricultureSystem = nullptr;
 
 	Gui* m_pGui = nullptr;
 

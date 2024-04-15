@@ -2,11 +2,13 @@
 
 #include <iostream>
 
+#include <imgui.h>
+
 #include "game/control/components.h"
 #include "game/machine/components.h"
 #include "lc_client/eng_graphics/entt/components.h"
 #include "lc_client/eng_scene/entt/components.h"
-#include <imgui.h>
+#include "game/character/components.h"
 
 
 import character;

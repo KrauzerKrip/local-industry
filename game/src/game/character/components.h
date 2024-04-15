@@ -1,33 +1,37 @@
-module;
+#pragma once
 
 #include <entt/entt.hpp>
 #include <string>
 
 #include <glm/glm.hpp>
 
-export module character:components;
 
-
-export struct GameCharacter {
+struct GameCharacter {
 	std::string name;
 
 	GameCharacter(std::string name) : name(name) {};
 };
 
-export struct Walkable {};
+struct Walkable {};
 
-export enum class TaskProgress {
+enum class TaskProgress {
 	PLANNED,
     QUEUED,
 	WAYPOINT,
 	COMPLETED
 };
 
-export struct Task {
+struct Task {
 	TaskProgress progress;
 	std::string name;
 
 
 	Task() : progress(TaskProgress::PLANNED), name("Unnamed task") {
 	};
+};
+
+struct CharacterAssignedTo {
+	entt::entity entity;
+
+	CharacterAssignedTo(entt::entity entity) : entity(entity) {}
 };

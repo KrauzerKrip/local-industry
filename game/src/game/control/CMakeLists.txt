@@ -22,4 +22,6 @@ target_sources(game PRIVATE
  "mouse_raycast.cpp"
  "character_control_system.h"
  "character_control_system.cpp"
+ "agriculture_control_system.h"
+ "agriculture_control_system.cpp"
 )

@@ -7,9 +7,10 @@ module;
 
 #include <entt/entt.hpp>
 
-export module character:task_queue;
+#include "components.h"
 
-import :components;
+
+export module character:task_queue;
 
 template <typename F>
 concept IsFunction = requires(const F& function) { function(entt::entity()); };

@@ -9,8 +9,10 @@ module;
 #include <lc_client/eng_npc/components.h>
 #include <lc_client/eng_physics/entt/components.h>
 
+#include "components.h"
+
+
 export module character:character_system;
-import :components;
 import :character_task_system;
 import :task_queue;
 

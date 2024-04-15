@@ -10,9 +10,7 @@
 #include "lc_client/eng_scene/entt/components.h"
 #include "components.h"
 #include "lc_client/eng_npc/components.h"
-
-import character;
-
+#include "game/character/components.h"
 
 
 CharacterControlSystem::CharacterControlSystem(entt::registry* pRegistry) { m_pRegistry = pRegistry; }

@@ -1,1 +1,1 @@
-{"models":{"cat":"game/models/cat/","heater":"game/models/heater/"},"pack":"game","shaders":{"fragment":{"blueprint":"game/shaders/frag/blueprint.frag"},"vertex":{}},"skyboxes":{}}
+{"models":{"bush":"game/models/bush/","cat":"game/models/cat/","heater":"game/models/heater/"},"pack":"game","shaders":{"fragment":{"blueprint":"game/shaders/frag/blueprint.frag"},"vertex":{}},"skyboxes":{}}
