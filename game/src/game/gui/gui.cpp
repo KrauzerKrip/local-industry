@@ -17,12 +17,13 @@ Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDep
 	m_pMachineInspectorView = new MachineInspectorView(dependencies);
 	m_pMachineInspectorController =
 		new MachineInspectorController(m_pMachineInspectorView, pGraphicsSettings, pCamera, pRegistry);
+	m_pInventoryView = new InventoryView(dependencies);
+	m_pInventoryController = new InventoryController(m_pInventoryView, pGraphicsSettings, pCamera, pRegistry);
 
 	std::vector<QueueRender*> queueRenders;
 
 	Overlay* pOverlay = new Overlay(pTier0, pDependenciesFabric, pInput, pCamera);
 	m_overlayLayoutController.setLayout(pOverlay);
-
 
 	Frame* pFrame = new Frame();
 	m_layoutController.setLayout(pFrame);
@@ -34,7 +35,6 @@ Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDep
 
 	PercentagePane* pPercentagePane = new PercentagePane();
 
-	
 	TaskMenu* pTaskMenu = new TaskMenu(pRegistry, dependencies); 
 	glm::vec2 taskMenuPercentagePosition(0.045, 0.25);
 	glm::vec2 taskMenuPercentageSize(0.25, 0.70);
@@ -74,6 +74,8 @@ void Gui::update() {
 
 	m_pMachineInspectorController->input();
 	m_pMachineInspectorView->frame();
+	m_pInventoryController->input();
+	m_pInventoryView->frame();
 }
 
 GuiPresenter* Gui::getPresenter() { return pGuiPresenter; }

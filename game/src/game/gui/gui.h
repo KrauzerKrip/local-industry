@@ -13,7 +13,8 @@
 #include "machine_inspector/machine_inspector_view.h"
 #include "machine_inspector/machine_inspector_controller.h"
 #include "lc_client/eng_graphics/camera/camera.h"
-
+#include "inventory/inventory_controller.h"
+#include "inventory/inventory_view.h"
 
 
 class Gui {
@@ -31,6 +32,8 @@ private:
 	LayoutController m_layoutController;
 	InputController m_inputController;
 	GuiPresenter* pGuiPresenter = nullptr;
-	MachineInspectorView* m_pMachineInspectorView;
-	MachineInspectorController* m_pMachineInspectorController;
+	MachineInspectorView* m_pMachineInspectorView = nullptr;
+	MachineInspectorController* m_pMachineInspectorController = nullptr;
+	InventoryView* m_pInventoryView = nullptr;
+	InventoryController* m_pInventoryController = nullptr;
 };
