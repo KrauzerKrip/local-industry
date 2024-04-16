@@ -8,6 +8,7 @@ module;
 #include <lc_client/eng_model/entt/components.h>
 #include <lc_client/eng_npc/components.h>
 #include <lc_client/eng_physics/entt/components.h>
+#include "game/inventory/components.h"
 
 #include "components.h"
 
@@ -58,6 +59,7 @@ private:
 		m_pRegistry->emplace<Npc>(entity, Npc(10));
 		m_pRegistry->emplace<Selectable>(entity, Selectable());
 		m_pRegistry->emplace<TaskQueue>(entity, TaskQueue());
+		m_pRegistry->emplace<Inventory>(entity, Inventory(9, 100));
 	}
 
 	entt::registry* m_pRegistry = nullptr;

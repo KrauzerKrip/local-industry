@@ -46,6 +46,8 @@
 #include "lc_client/eng_physics/physics.h"
 #include "game/character/components.h"
 #include "game/agriculture/components.h"
+#include "game/item/items.h"
+#include "game/item/components.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -102,6 +104,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	m_pMachineSystem = new MachineSystem(m_pResource, &m_pWorld->getRegistry(), pPhysicalConstants);
 	m_pAgricultureSystem = new AgricultureSystem(&m_pWorld->getRegistry());
+	m_pInventorySystem = new InventorySystem(&m_pWorld->getRegistry());
 }
 
 Game::~Game() {
@@ -195,11 +198,15 @@ void Game::init() {
 		}
 	}
 
+	entt::entity wood = pRegistry->create();
+	pRegistry->emplace<Wood>(wood);
+	pRegistry->emplace<Item>(wood, Item("Wood"));
+
 	for (int i = 1; i < 10; i++) {
 		entt::entity bush = pRegistry->create();
 		pRegistry->emplace<Properties>(bush, Properties());
 		pRegistry->emplace<Bush>(bush);
-		pRegistry->emplace<Harvestable>(bush, Harvestable(bush, 1.0));
+		pRegistry->emplace<Harvestable>(bush, Harvestable(wood, 1.0));
 		pRegistry->emplace<ModelRequest>(bush, ModelRequest("game", "bush"));
 		Transform& transform = pRegistry->emplace<Transform>(bush);
 		transform.position = glm::vec3(i * 5, 0, 0);
@@ -262,6 +269,7 @@ void Game::update(double updateInterval) {
 	m_pMachineSystem->update(Time::getDeltaTime());
 	m_pMachineSystem->machineUpdate(Time::getDeltaTime());
 	m_pAgricultureSystem->update();
+	m_pInventorySystem->update();
 	m_pGraphics->getSystems()->update();
 
 	auto skyboxes = m_pWorld->getRegistry().view<Skybox>();

@@ -12,6 +12,7 @@ add_subdirectory("src/game/character")
 add_subdirectory("src/game/machine")
 add_subdirectory("src/game/item")
 add_subdirectory("src/game/agriculture")
+add_subdirectory("src/game/inventory")
 
 
 target_include_directories(game

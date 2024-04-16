@@ -29,6 +29,7 @@
 #include "machine/machine_system.h"
 #include "game/graphics.h"
 #include "agriculture/agriculture_system.h"
+#include "inventory/inventory_system.h"
 
 
 import character;
@@ -64,6 +65,7 @@ private:
 	CharacterSystem* m_pCharacterSystem = nullptr;
 	MachineSystem* m_pMachineSystem = nullptr;
 	AgricultureSystem* m_pAgricultureSystem = nullptr;
+	InventorySystem* m_pInventorySystem = nullptr;
 
 	Gui* m_pGui = nullptr;
 
