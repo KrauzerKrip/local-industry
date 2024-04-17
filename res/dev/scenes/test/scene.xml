@@ -57,7 +57,7 @@
       <script is_eternal="false">dev/entities/light_test/entity.lua</script>
     </components>
   </entity>
-  <entity id="cube_2" uuid="">
+  <!--<entity id="cube_2" uuid="">
     <components>
       <transform>
         <position x="5" y="0" z="-0.5"></position>
@@ -69,7 +69,7 @@
         <model>test_cube</model>
       </model_data>
     </components>
-  </entity>
+  </entity>-->
   <entity id="surface" uuid="">
     <components>
       <transform>
@@ -96,7 +96,7 @@
       </model_data>
     </components>
   </entity>-->
-  <entity id="cube" uuid="">
+  <!--<entity id="cube" uuid="">
     <components>
       <transform>
         <position x="0" y="0" z="0"></position>
@@ -107,9 +107,9 @@
         <pack>dev</pack>
         <model>test_cube</model>
       </model_data>
-      <!--<script is_eternal="false">dev/scripts/example_script.lua</script>-->
+      --><!--<script is_eternal="false">dev/scripts/example_script.lua</script>--><!--
     </components>
-  </entity>
+  </entity>-->
   <entity id="trigger_1" uuid="" >
     <components>
       <transform>

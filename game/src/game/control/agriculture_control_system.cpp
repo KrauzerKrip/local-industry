@@ -34,8 +34,8 @@ void AgricultureControlSystem::addTask(entt::entity entity) {
 
 void AgricultureControlSystem::removeTask(entt::entity entity) {
 	m_pRegistry->remove<Task>(entity);
+	m_pRegistry->remove<Outline>(entity);
 	if (m_pRegistry->all_of<CharacterAssignedTo>(entity)) {
 		m_pRegistry->remove<CharacterAssignedTo>(entity);
-		m_pRegistry->remove<Outline>(entity);
 	}
 }
