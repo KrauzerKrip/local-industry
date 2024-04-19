@@ -36,5 +36,9 @@ struct InventoryPlaced {
 };
 
 struct InventoryCantPlace {
-	
+	entt::entity item;
+	float mass;
+
+	InventoryCantPlace(entt::entity item, float mass) : item(item), mass(mass) {}
+	InventoryCantPlace(const InventoryPlacement& placement) : item(placement.item), mass(placement.mass) {}
 };

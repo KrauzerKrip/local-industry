@@ -10,7 +10,7 @@ void InventorySystem::update() {
 		Inventory& inventory = m_pRegistry->get<Inventory>(placement.inventory);
 
 		if (this->getOccupiedSpace(inventory) >= inventory.capacity) {
-			m_pRegistry->emplace<InventoryCantPlace>(entity);
+			m_pRegistry->emplace<InventoryCantPlace>(entity, placement);
 			continue;
 		}
 
@@ -21,7 +21,7 @@ void InventorySystem::update() {
 				m_pRegistry->remove<InventoryPlacement>(entity);
 			}
 			else {
-				m_pRegistry->emplace<InventoryCantPlace>(entity);
+				m_pRegistry->emplace<InventoryCantPlace>(entity, placement);
 			}
 		}
 		else {
