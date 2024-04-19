@@ -1,3 +1,4 @@
+
 #include "game.h"
 
 #include <iostream>
@@ -100,11 +101,8 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 	m_pControlSystem = new ControlSystem(
 		m_pGraphics->getSettings(), m_pInput, m_pCamera, m_pActionControl, pPhysics,
 		&m_pWorld->getRegistry());
-	m_pCharacterSystem = new CharacterSystem(&m_pWorld->getRegistry());
 
-	m_pMachineSystem = new MachineSystem(m_pResource, &m_pWorld->getRegistry(), pPhysicalConstants);
-	m_pAgricultureSystem = new AgricultureSystem(&m_pWorld->getRegistry());
-	m_pInventorySystem = new InventorySystem(&m_pWorld->getRegistry());
+	m_pGameSystems = new GameSystems(&m_pWorld->getRegistry(), m_pResource, pPhysicalConstants);
 }
 
 Game::~Game() {
@@ -211,6 +209,9 @@ void Game::init() {
 		Transform& transform = pRegistry->emplace<Transform>(bush);
 		transform.position = glm::vec3(i * 5, 0, 0);
 	}
+
+	entt::entity account = pRegistry->create();
+	pRegistry->emplace<PlayerAccount>(account);
 }
 
 void Game::input(double deltaTime) {
@@ -220,7 +221,6 @@ void Game::input(double deltaTime) {
 		m_pControlSystem->input(deltaTime);
 	}
 
-	m_pMachineSystem->input(deltaTime);
 
 	if (m_pActionControl->isAction("kb_menu")) {
 		exit(0);
@@ -243,7 +243,7 @@ void Game::input(double deltaTime) {
 	}
 	//m_pCamera->setPosition(cameraPos);
 
-	m_pCharacterSystem->input();
+	m_pGameSystems->input(deltaTime);
 
 	m_pGui->update();
 }
@@ -265,11 +265,7 @@ void Game::update(double updateInterval) {
 	m_pScriptSystem->update();
 	m_pNpcSystem->update();
 	m_pControlSystem->update(updateInterval);
-	m_pCharacterSystem->update();
-	m_pMachineSystem->update(Time::getDeltaTime());
-	m_pMachineSystem->machineUpdate(Time::getDeltaTime());
-	m_pAgricultureSystem->update();
-	m_pInventorySystem->update();
+	m_pGameSystems->update(updateInterval);
 	m_pGraphics->getSystems()->update();
 
 	auto skyboxes = m_pWorld->getRegistry().view<Skybox>();
@@ -310,7 +306,7 @@ void Game::update(double updateInterval) {
 void Game::render() {
 	m_pScriptSystem->frame();
 	m_pGraphics->getSystems()->frame();
-	m_pMachineSystem->frame(Time::getDeltaTime());
+	m_pGameSystems->frame(Time::getDeltaTime());
 	m_pGraphics->getRender()->render();
 }
 

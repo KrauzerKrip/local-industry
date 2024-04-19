@@ -26,10 +26,9 @@
 #include "lc_client/eng_systems/graphics_systems.h"
 #include "game/control/control_system.h"
 #include "lc_client/eng_npc/npc_system.h"
-#include "machine/machine_system.h"
 #include "game/graphics.h"
-#include "agriculture/agriculture_system.h"
-#include "inventory/inventory_system.h"
+#include "economy/components.h"
+#include "game_systems.h"
 
 
 import character;
@@ -62,10 +61,8 @@ private:
 	ScriptSystem* m_pScriptSystem = nullptr;
 	NpcSystem* m_pNpcSystem = nullptr;
 	ControlSystem* m_pControlSystem = nullptr;
-	CharacterSystem* m_pCharacterSystem = nullptr;
-	MachineSystem* m_pMachineSystem = nullptr;
-	AgricultureSystem* m_pAgricultureSystem = nullptr;
-	InventorySystem* m_pInventorySystem = nullptr;
+	GameSystems* m_pGameSystems = nullptr;
+
 
 	Gui* m_pGui = nullptr;
 
