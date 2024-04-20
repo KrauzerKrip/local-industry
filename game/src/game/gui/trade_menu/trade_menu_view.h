@@ -11,6 +11,7 @@ struct OfferData {
 	std::string label;
 	std::string buttonLabel;
 	std::string priceLabel;
+	std::function<void()> callback;
 };
 
 

@@ -211,7 +211,7 @@ void Game::init() {
 	}
 
 	entt::entity account = pRegistry->create();
-	pRegistry->emplace<PlayerAccount>(account);
+	pRegistry->emplace<PlayerAccount>(account, PlayerAccount(999999));
 
 	entt::entity trader = pRegistry->create();
 	pRegistry->emplace<BlueprintTrader>(trader);

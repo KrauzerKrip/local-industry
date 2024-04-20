@@ -51,5 +51,6 @@ void TradeMenuView::setData(std::vector<OfferData> offersData) {
 		pSlot->setPriceLabel(data.priceLabel);
 		pSlot->setButtonLabel(data.buttonLabel);
 		pSlot->setLabel(data.label);
+		pSlot->setCallback(data.callback);
 	}
 }

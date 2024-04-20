@@ -3,6 +3,7 @@
 #include "game/economy/components.h"
 #include "game/control/components.h"
 #include "game/item/components.h"
+#include "game/character/components.h"
 
 
 TradeMenuController::TradeMenuController(TradeMenuView* pView, entt::registry* pRegistry) {
@@ -20,6 +21,13 @@ void TradeMenuController::input() {
 			data.label = m_pRegistry->get<Item>(item).name;
 			data.priceLabel = std::to_string(price);
 			data.buttonLabel = "Buy";
+			data.callback = [this, entity, item]() { 
+				m_pView->hideWithChildren();
+				auto view = m_pRegistry->view<GameCharacter>();
+				for (auto character : view) {
+					m_pRegistry->emplace<TradeRequest>(character, TradeRequest(entity, item, 1));
+				}
+				};
 			offersData.push_back(data);
 		}
 	}

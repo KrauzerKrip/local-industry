@@ -12,6 +12,7 @@ public:
 	void setLabel(std::string label);
 	void setButtonLabel(std::string buttonLabel);
 	void setPriceLabel(std::string price);
+	void setCallback(std::function<void()> callback);
 
 private:
 	Widget* m_pIcon = nullptr;

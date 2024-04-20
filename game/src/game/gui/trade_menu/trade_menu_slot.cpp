@@ -47,3 +47,5 @@ void TradeMenuSlot::setLabel(std::string label) { m_pLabel->setText(label); }
 void TradeMenuSlot::setButtonLabel(std::string buttonLabel) { m_pButton->setText(buttonLabel); }
 
 void TradeMenuSlot::setPriceLabel(std::string price) { m_pPrice->setText(price); }
+
+void TradeMenuSlot::setCallback(std::function<void()> callback) { m_pButton->setCallback(callback); }
