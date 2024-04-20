@@ -9,6 +9,9 @@ void InventorySystem::update() {
 	for (auto&& [entity, placement] : inventoryPlacements.each()) {
 		Inventory& inventory = m_pRegistry->get<Inventory>(placement.inventory);
 
+		if (m_pRegistry->any_of<InventoryCantPlace, InventoryPlaced>(entity)) {
+			continue;
+		}
 		if (this->getOccupiedSpace(inventory) >= inventory.capacity) {
 			m_pRegistry->emplace<InventoryCantPlace>(entity, placement);
 			continue;
