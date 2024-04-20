@@ -9,7 +9,7 @@
 
 class ImageBackground : public Background {
 public:
-	ImageBackground(std::string path, GuiDependencies dependencies);
+	ImageBackground(std::string path, const GuiDependencies& dependencies);
 
 	void render(const Rectangle& rectangle, const Layer& layer) override;
 

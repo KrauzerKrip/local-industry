@@ -49,7 +49,7 @@ protected:
 	glm::vec2 m_position;
 	std::unique_ptr<Layout> m_layout;
 	bool m_isVisible = false;
-	Background* m_background;
+	Background* m_background  ;
 	std::string m_name;
 	Rectangle m_rectangle;
 	Layer m_layer;

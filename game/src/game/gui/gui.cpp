@@ -6,6 +6,7 @@
 #include "machine_menu/machine_build_menu.h"
 #include "side_menu/side_menu.h"
 #include "lc_client/eng_gui/widgets/button.h"
+#include "trade_menu/trade_menu_view.h"
 
 
 Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInput,
@@ -50,6 +51,12 @@ Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDep
 	pSideMenu->showWithChildren();
 	pFrame->addChild(pPercentagePaneWidget);
 
+	TradeMenuView* pTradeMenuView = new TradeMenuView(dependencies);
+	m_pTradeMenuController = new TradeMenuController(pTradeMenuView, pRegistry);
+	glm::vec2 tradeMenuPercentagePosition(0.33, 0.14);
+	glm::vec2 tradeMenuPercentageSize(0.33, 0.75);
+	pPercentagePane->addWidget(pTradeMenuView, tradeMenuPercentagePosition, tradeMenuPercentageSize);
+
 	//std::shared_ptr<Button> button = std::make_shared<Button>(pDependenciesFabric->getTextWidgetDependecies());
 	//button->setSize(glm::vec2(200, 100));
 	//button->setPosition(glm::vec2(20, 960));
@@ -76,6 +83,7 @@ void Gui::update() {
 	m_pMachineInspectorView->frame();
 	m_pInventoryController->input();
 	m_pInventoryView->frame();
+	m_pTradeMenuController->input();
 }
 
 GuiPresenter* Gui::getPresenter() { return pGuiPresenter; }

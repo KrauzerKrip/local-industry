@@ -15,6 +15,7 @@
 #include "lc_client/eng_graphics/camera/camera.h"
 #include "inventory/inventory_controller.h"
 #include "inventory/inventory_view.h"
+#include "trade_menu/trade_menu_controller.h"
 
 
 class Gui {
@@ -36,4 +37,5 @@ private:
 	MachineInspectorController* m_pMachineInspectorController = nullptr;
 	InventoryView* m_pInventoryView = nullptr;
 	InventoryController* m_pInventoryController = nullptr;
+	TradeMenuController* m_pTradeMenuController = nullptr;
 };

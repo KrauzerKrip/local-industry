@@ -1,6 +1,6 @@
 #include "image_background.h"
 
-ImageBackground::ImageBackground(std::string path, GuiDependencies dependencies) : m_dependencies(dependencies) {
+ImageBackground::ImageBackground(std::string path, const GuiDependencies& dependencies) : m_dependencies(dependencies) {
 	m_path = path;
 	m_pBackgroundRender = dependencies.pBackgroundRender;
 }
