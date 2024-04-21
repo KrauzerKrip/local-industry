@@ -87,11 +87,14 @@ void OrbitalCameraController::input(double deltaTime) {
 	//std::cout << m_radius << std::endl;
 	//std::cout << m_targetRadius << std::endl << std::endl;
 	
-	float cameraSpeed = m_radius * deltaTime;
+	float cameraSpeed = m_radius * deltaTime * 0.75f;
 
 	glm::vec3 front = m_pCamera->getCameraFront();
 	glm::vec3 right = m_pCamera->getCameraRight();
 
+	if (m_pActionControl->isAction("kb_fast")) {
+		cameraSpeed *= 2.0f;
+	}
 	if (m_pActionControl->isAction("kb_forward")) {
 		m_originPosition += cameraSpeed * glm::vec3(front.x, 0, front.z);
 	}
