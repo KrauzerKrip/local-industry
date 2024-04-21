@@ -23,14 +23,15 @@ void TradeSystem::update() {
 	for (auto&& [entity, trade] : tradesInProgress.each()) {
 		if (m_pRegistry->all_of<InventoryPlaced>(entity)) {
 			account.funds -= trade.priceSum;
+			m_pRegistry->remove<InventoryPlaced>(entity);
 		}
 		else {
-			
+			m_pRegistry->remove<InventoryCantPlace>(entity);
 		}
 		m_pRegistry->remove<TradeInProgress>(entity);
 	}
 
-	auto tradeRequests = m_pRegistry->view<TradeRequest, Inventory>();
+	auto tradeRequests = m_pRegistry->view<TradeRequest, Inventory>(entt::exclude<TradeInProgress, InventoryPlacement>);
 	for (auto&& [entity, request, inventory] : tradeRequests.each()) {
 		Trader& trader = m_pRegistry->get<Trader>(request.trader);
 		if (trader.offers.find(request.goods) != trader.offers.end()) {

@@ -24,4 +24,6 @@ target_sources(game PRIVATE
  "character_control_system.cpp"
  "agriculture_control_system.h"
  "agriculture_control_system.cpp"
+ "trade_control_system.h"
+ "trade_control_system.cpp"
 )

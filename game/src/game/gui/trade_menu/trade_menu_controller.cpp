@@ -1,5 +1,7 @@
 #include "trade_menu_controller.h"
 
+#include <iostream>
+
 #include "game/economy/components.h"
 #include "game/control/components.h"
 #include "game/item/components.h"
@@ -13,8 +15,12 @@ TradeMenuController::TradeMenuController(TradeMenuView* pView, entt::registry* p
 
 void TradeMenuController::input() { 
 	auto selectedTraders = m_pRegistry->view<Trader, Selected>();
+	
+	entt::entity traderEntity = entt::null;
+
 	std::vector<OfferData> offersData;
 	for (auto&& [entity, trader] : selectedTraders.each()) {
+		traderEntity = entity;
 		for (auto [item, price] : trader.offers) {
 			OfferData data;
 			data.iconPath = "gmod_vibe";
@@ -31,5 +37,11 @@ void TradeMenuController::input() {
 			offersData.push_back(data);
 		}
 	}
-	m_pView->setData(offersData);
+
+	if (m_pRegistry->valid(traderEntity)) {
+		m_pView->setData(offersData);
+		m_pView->showWithChildren();
+		m_pRegistry->remove<Selected>(traderEntity);
+	}
+
 }

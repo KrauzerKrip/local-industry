@@ -59,7 +59,7 @@ private:
 		m_pRegistry->emplace<Npc>(entity, Npc(10));
 		m_pRegistry->emplace<Selectable>(entity, Selectable());
 		m_pRegistry->emplace<TaskQueue>(entity, TaskQueue());
-		m_pRegistry->emplace<Inventory>(entity, Inventory(9, 100));
+		m_pRegistry->emplace<Inventory>(entity, Inventory(9, 5));
 	}
 
 	entt::registry* m_pRegistry = nullptr;

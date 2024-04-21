@@ -16,7 +16,6 @@ TradeMenuSlot::TradeMenuSlot(GuiDependencies dependencies) : m_dependencies(depe
 	m_pButton->setSize(64, 48);
 	m_pButton->setTextColor(255, 255, 255, 255);
 	m_pButton->setBackground(new ColorBackground(dependencies.pStyle->getColor("background_dark"), dependencies));
-	m_pButton->setCallback([]() {});
 
 	HBox* pHBox = new HBox();
 	this->setLayout(pHBox);

@@ -30,8 +30,6 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) {
 		pOffersVBox->addChild(pSlot);
 		m_slots.push_back(pSlot);;
 	}
-
-	this->showWithChildren();
 }
 
 void TradeMenuView::render() { 

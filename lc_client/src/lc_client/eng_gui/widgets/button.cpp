@@ -1,5 +1,8 @@
 #include "button.h"
 
+#include <iostream>
+
+
 Button::Button(GuiDependencies dependencies) : TextWidget(dependencies) {
     dependencies.pInputController->addReceiver(this);
 };

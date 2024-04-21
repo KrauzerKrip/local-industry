@@ -219,6 +219,7 @@ void Game::init() {
 	offers.emplace(wood, 228);
 	pRegistry->emplace<Properties>(trader);
 	pRegistry->emplace<ModelRequest>(trader, ModelRequest("dev", "test_cube"));
+	pRegistry->emplace<Transform>(trader).position = glm::vec3(0, 0, 5);
 }
 
 void Game::input(double deltaTime) {
@@ -299,12 +300,6 @@ void Game::update(double updateInterval) {
 
 	//	pMapRegistry->emplace<Transform>(surface, glm::vec3(0, -1, 0), glm::vec3(0, 0, 0), glm::vec3(100, 0.1, 100));
 	//}
-
-	auto traders = pRegistry->view<Trader>(entt::exclude<Selected>);
-
-	for (auto trader : traders) {
-		m_pWorld->getRegistry().emplace<Selected>(trader);
-	}
 
 	//for (auto& entity : view) {
 	//	if (view.get<Properties>(entity).id == "cube") {
