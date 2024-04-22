@@ -1,7 +1,7 @@
 #include "trade_menu_view.h"
 
 
-TradeMenuView::TradeMenuView(GuiDependencies dependencies) { 
+TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(dependencies) {
 	this->setPosition(200, 200);
 	this->setSize(480, 720);
 	Background* pBaseBackground = new BlurBackground(dependencies.pStyle->getColor("blur_background_base"),
@@ -10,13 +10,14 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) {
 
 	VBox* pVBox = new VBox();
 	pVBox->setMode(BoxMode::STRETCH_SPACING);
-	this->setLayout(pVBox);
+	this->setContentLayout(pVBox);
 
-	m_pLabel = new TextWidget(dependencies);
-	m_pLabel->setTextSize(36);
-	m_pLabel->setTextColor(255, 255, 255, 255);
-	m_pLabel->setText("Trader");
-	pVBox->addChild(m_pLabel);
+	//m_pLabel = new TextWidget(dependencies);
+	//m_pLabel->setTextSize(36);
+	//m_pLabel->setTextColor(255, 255, 255, 255);
+	//m_pLabel->setText("Trader");
+	//pVBox->addChild(m_pLabel);
+	this->setLabel("Trader");
 
 	Widget* pOffersWidget = new Widget();
 	pOffersWidget->setSize(480, 720 - 720 * 0.1);
@@ -33,7 +34,6 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) {
 }
 
 void TradeMenuView::render() { 
-	m_pLabel->setSize(this->getRectangle().m_size.x, this->getRectangle().m_size.y * 0.1);
 	for (TradeMenuSlot* pSlot : m_slots) {
 		pSlot->setSize(this->getRectangle().m_size.x, this->getRectangle().m_size.y * 0.1);
 	}

@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "lc_client/eng_gui/includes.h"
+#include "game/gui/window_widget.h"
 #include "trade_menu_slot.h"
 
 
@@ -15,7 +16,7 @@ struct OfferData {
 };
 
 
-class TradeMenuView : public Widget {
+class TradeMenuView : public WindowWidget {
 public:
 	TradeMenuView(GuiDependencies dependencies);
 
@@ -24,6 +25,4 @@ public:
 
 private:
 	std::vector<TradeMenuSlot*> m_slots;
-
-	TextWidget* m_pLabel = nullptr;
 };

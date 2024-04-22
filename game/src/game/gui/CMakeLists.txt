@@ -14,7 +14,10 @@ target_sources(game PRIVATE
 	"main_layout.cpp"
 	"gui.h"
 	"gui.cpp"
+	"window_widget.h"
+    "window_widget.cpp"
 
 	"overlay/overlay.h"
 	"overlay/overlay.cpp"
+
 )
