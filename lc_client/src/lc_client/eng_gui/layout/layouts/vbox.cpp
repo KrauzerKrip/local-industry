@@ -17,25 +17,28 @@ void VBox::updateChildWidgets() {
 	bool isFirst = true;
 
 	if (m_mode == BoxMode::STRETCH_WIDGETS) {
-		for (Widget* widget : m_widgets) {
-			float sizeY = (m_size.y - 2 * m_padding.y + m_spacing) / static_cast<float>(m_widgets.size()) - m_spacing;
-			widget->getRectangle().m_size.y = sizeY;
-			widget->getRectangle().m_size.x = m_size.x - m_padding.x * 2;
+		for (Widget* pWidget : m_widgets) {
+			float sizeY = pWidget->getSize().y;
+			if (pWidget->getSizePolicy() == SizePolicy::RESIZE) {
+				sizeY = (m_size.y - 2 * m_padding.y + m_spacing) / static_cast<float>(m_widgets.size()) - m_spacing;
+			}
+			pWidget->getRectangle().m_size.y = sizeY;
+			pWidget->getRectangle().m_size.x = m_size.x - m_padding.x * 2;
 
 			glm::vec2 position = glm::vec2(0);
 
 			if (isFirst) {
-				cursorY -= widget->getRectangle().m_size.y;   
+				cursorY -= pWidget->getRectangle().m_size.y;   
 			}
 			else {
-				cursorY -= widget->getRectangle().m_size.y + m_spacing;  
+				cursorY -= pWidget->getRectangle().m_size.y + m_spacing;  
 			}
 			isFirst = false;
 
 			position.y = cursorY;
 			position.x += m_padding.x;
 
-			widget->getRectangle().m_absolutePosition += position;
+			pWidget->getRectangle().m_absolutePosition += position;
 		}
 	}
 	else if (m_mode == BoxMode::STRETCH_SPACING) {

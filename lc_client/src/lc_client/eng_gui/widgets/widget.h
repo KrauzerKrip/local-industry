@@ -15,6 +15,8 @@
 
 class Layout;
 
+enum class SizePolicy { FIXED, RESIZE };
+
 class Widget {
 public:
 	Widget(Background* pBackground);
@@ -40,17 +42,20 @@ public:
 	void setBackground(Background* background);
 	Background* getBackground();
 	void setName(std::string);
+	SizePolicy getSizePolicy();
+	void setSizePolicy(SizePolicy policy);
 	virtual void render();
 	Rectangle& getRectangle();
 	Layer& getLayer();
-
 protected:
+
 	glm::vec2 m_size;
 	glm::vec2 m_position;
 	std::unique_ptr<Layout> m_layout;
 	bool m_isVisible = false;
-	Background* m_background  ;
+	Background* m_background;
 	std::string m_name;
+	SizePolicy m_sizePolicy;
 	Rectangle m_rectangle;
 	Layer m_layer;
 };

@@ -17,19 +17,22 @@ void HBox::updateChildWidgets() {
 	bool isFirst = true;
 
 	if (m_mode == BoxMode::STRETCH_WIDGETS) {
-		for (Widget* widget : m_widgets) {
-			float sizeX = m_size.x / static_cast<float>(m_widgets.size()) - 1.5 * m_padding.x;
-			widget->getRectangle().m_size.x = sizeX;
-			widget->getRectangle().m_size.y = m_size.y - m_padding.y * 2;
+		for (Widget* pWidget : m_widgets) {
+			float sizeX = pWidget->getSize().x;
+			if (pWidget->getSizePolicy() == SizePolicy::RESIZE) {
+				sizeX = m_size.x / static_cast<float>(m_widgets.size()) - 1.5 * m_padding.x;
+			}
+			pWidget->getRectangle().m_size.x = sizeX;
+			pWidget->getRectangle().m_size.y = m_size.y - m_padding.y * 2;
 
 			glm::vec2 position = glm::vec2(0);
 
 			position.x = cursorX;
 			position.y += m_padding.x;
 
-			cursorX += widget->getRectangle().m_size.x + m_padding.x;
+			cursorX += pWidget->getRectangle().m_size.x + m_padding.x;
 
-			widget->getRectangle().m_absolutePosition += position;
+			pWidget->getRectangle().m_absolutePosition += position;
 		}
 	}
 	else if (m_mode == BoxMode::STRETCH_SPACING) {
