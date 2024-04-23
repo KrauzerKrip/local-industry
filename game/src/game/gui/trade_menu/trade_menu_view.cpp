@@ -11,6 +11,7 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(depend
 	VBox* pVBox = new VBox();
 	pVBox->setMode(BoxMode::STRETCH_SPACING);
 	this->setContentLayout(pVBox);
+	pVBox->setPadding(5, 0);
 
 	//m_pLabel = new TextWidget(dependencies);
 	//m_pLabel->setTextSize(36);
