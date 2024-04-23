@@ -79,6 +79,7 @@ private:
 	bool m_shouldWindowResize;
 	bool m_shouldChangeWindowMode;
 	unsigned int m_targetFps;
+	unsigned int m_windowedDecorationsHeight;
 
 	GLFWwindow* m_pGlfwWindow = nullptr;
 	InputGlfw* m_pInput = nullptr;

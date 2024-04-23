@@ -55,7 +55,7 @@ void BackgroundRenderGl::renderColor(ColorQuad colorQuad) {
 		setUniform(shader, "sigma", colorQuad.blurIntensity);
 		setUniform(shader, "direction", glm::vec2(1.0f, 0.0f));
 		setUniform(shader, "screenTexture", TextureType::FRAMEBUFFER);
-		setUniform(shader, "screenTextureSize", glm::vec2(1920, 1080));
+		setUniform(shader, "screenTextureSize", glm::vec2(m_pWindow->getSize()[0], m_pWindow->getSize()[1]));
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);

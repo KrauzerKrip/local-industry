@@ -253,6 +253,7 @@ void Game::input(double deltaTime) {
 
 	m_pGameSystems->input(deltaTime);
 
+	m_pGui->setSize(m_pWindow->getSize()[0], m_pWindow->getSize()[1]);
 	m_pGui->update();
 }
 

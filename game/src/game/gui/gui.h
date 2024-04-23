@@ -25,6 +25,7 @@ public:
 		GraphicsSettings* pGraphicsSettings, Camera* pCamera, entt::registry* pRegistry);
 	~Gui();
 	
+	void setSize(unsigned int width, unsigned int height);
 	void update();
 	GuiPresenter* getPresenter();
 
@@ -38,4 +39,6 @@ private:
 	InventoryView* m_pInventoryView = nullptr;
 	InventoryController* m_pInventoryController = nullptr;
 	TradeMenuController* m_pTradeMenuController = nullptr;
+
+	Widget* m_pPercentagePaneWidget = nullptr;
 };

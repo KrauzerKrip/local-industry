@@ -33,6 +33,8 @@ WindowGL::WindowGL(std::string title, int width, int height, int* aspectRatio) {
 
 	m_pInput = new InputGlfw();
 
+	m_windowedDecorationsHeight = 23;
+
 	m_debug = false;
 
 	int code = glfwGetError(NULL);
@@ -237,9 +239,12 @@ void WindowGL::mouseButtonCallback(GLFWwindow* pGlfwWindow, int button, int acti
 void WindowGL::mouseCallback(GLFWwindow* pGlfwWindow, double x, double y) {
 	WindowGL* pWindow = (WindowGL*)glfwGetWindowUserPointer(pGlfwWindow);
 
-	float offsetX = 1920.0f / pWindow->m_width;
-	float offsetY = 1080.0f / pWindow->m_height;
-	glm::vec2 relativePosition(x * offsetX, y * offsetY);
+	//float offsetX = 1920.0f / pWindow->m_width;
+	//float offsetY = 1080.0f / pWindow->m_height;
+	glm::vec2 relativePosition(x, y);
+	if (pWindow->m_windowMode == WindowMode::WINDOWED) {
+		relativePosition.y += pWindow->m_windowedDecorationsHeight;
+	}
 
 	pWindow->getInput()->invokeMouseCallbacks(relativePosition);
 }

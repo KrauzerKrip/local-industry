@@ -44,12 +44,11 @@ Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDep
 	glm::vec2 sideMenuPercentageSize(0.04, 0.25);
 	pPercentagePane->addWidget(pTaskMenu, taskMenuPercentagePosition, taskMenuPercentageSize);
 	pPercentagePane->addWidget(pSideMenu, sideMenuPercentagePosition, sideMenuPercentageSize);
-	Widget* pPercentagePaneWidget = new Widget(dependencies);
-	pPercentagePaneWidget->setLayout(pPercentagePane);
-	pPercentagePaneWidget->setPosition(0, 0);
-	pPercentagePaneWidget->setSize(1920, 1080);
+	m_pPercentagePaneWidget = new Widget(dependencies);
+	m_pPercentagePaneWidget->setLayout(pPercentagePane);
+	m_pPercentagePaneWidget->setPosition(0, 0);
 	pSideMenu->showWithChildren();
-	pFrame->addChild(pPercentagePaneWidget);
+	pFrame->addChild(m_pPercentagePaneWidget);
 
 	TradeMenuView* pTradeMenuView = new TradeMenuView(dependencies);
 	m_pTradeMenuController = new TradeMenuController(pTradeMenuView, pRegistry);
@@ -73,6 +72,8 @@ Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDep
 Gui::~Gui() { 
 	delete pGuiPresenter; 
 }
+
+void Gui::setSize(unsigned int width, unsigned int height) { m_pPercentagePaneWidget->setSize(width, height); }
 
 void Gui::update() {
 	m_overlayLayoutController.update();
