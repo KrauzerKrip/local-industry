@@ -57,7 +57,7 @@ MachineBuildMenu::MachineBuildMenu(
 	pMachineCategory->setSlots(machineSlots);
 	pGuiLayout->addChild(pMachineCategory);
 
-	MachineCategoryButton* pButtonThermo = new MachineCategoryButton("Thermodynamics", "gmod_vibes/", guiDependecies, pMachineCategory);
+	MachineCategoryButton* pButtonThermo = new MachineCategoryButton("Thermodynamics", "game/gui/icons/thermodynamics", guiDependecies, pMachineCategory);
 	pCategoriexHBox->addChild(pButtonThermo);
 		
 	this->showWithChildren();
