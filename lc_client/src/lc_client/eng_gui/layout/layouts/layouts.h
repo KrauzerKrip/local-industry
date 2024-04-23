@@ -6,3 +6,4 @@
 #include "anchor_pane.h"
 #include "percentage_pane.h"
 #include "hbox.h"
+#include "vertical_scroll_area.h"

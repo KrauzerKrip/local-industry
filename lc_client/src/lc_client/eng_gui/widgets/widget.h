@@ -47,8 +47,9 @@ public:
 	virtual void render();
 	Rectangle& getRectangle();
 	Layer& getLayer();
-protected:
+	void setInteractiveArea(Rectangle rectangle);
 
+protected:
 	glm::vec2 m_size;
 	glm::vec2 m_position;
 	std::unique_ptr<Layout> m_layout;
@@ -58,4 +59,6 @@ protected:
 	SizePolicy m_sizePolicy;
 	Rectangle m_rectangle;
 	Layer m_layer;
+
+	Rectangle m_interactiveArea;
 };

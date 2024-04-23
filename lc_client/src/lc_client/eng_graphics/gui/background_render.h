@@ -40,6 +40,8 @@ public:
 	virtual void renderImage(ImageQuad colorQuad) = 0;
 	virtual void frame() = 0;
 	virtual void reload() = 0;
+	virtual void enableScissors(float x, float y, float width, float height) = 0;
+	virtual void disableScissors() = 0;
 
 protected:
 	IConsole* m_pConsole = nullptr;

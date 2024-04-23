@@ -16,3 +16,9 @@ struct MouseClickEvent {
 struct KeyEvent {
 	KeyCode key;
 };
+
+struct ScrollEvent {
+	float offset;
+
+	ScrollEvent(float offset) : offset(offset) {}
+};

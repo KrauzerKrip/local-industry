@@ -20,16 +20,13 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(depend
 	//pVBox->addChild(m_pLabel);
 	this->setLabel("Trader");
 
-	Widget* pOffersWidget = new Widget();
+	ScrollWidget* pOffersWidget = new ScrollWidget(dependencies);
 	pOffersWidget->setSize(480, 720 - 720 * 0.1);
 	pVBox->addChild(pOffersWidget);
-	VBox* pOffersVBox = new VBox();
-	pOffersVBox->setMode(BoxMode::STRETCH_SPACING);
-	pOffersWidget->setLayout(pOffersVBox);
-
+	
 	for (int i = 0; i < 10; i++) {
 		TradeMenuSlot* pSlot = new TradeMenuSlot(dependencies);
-		pOffersVBox->addChild(pSlot);
+		pOffersWidget->addWidget(pSlot);
 		m_slots.push_back(pSlot);;
 	}
 }

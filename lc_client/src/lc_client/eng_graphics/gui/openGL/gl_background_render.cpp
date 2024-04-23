@@ -169,3 +169,10 @@ void BackgroundRenderGl::reload() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
+
+void BackgroundRenderGl::enableScissors(float x, float y, float width, float height) { 
+	glEnable(GL_SCISSOR_TEST);
+	glScissor(x, y, width, height);
+}
+
+void BackgroundRenderGl::disableScissors() { glDisable(GL_SCISSOR_TEST); }

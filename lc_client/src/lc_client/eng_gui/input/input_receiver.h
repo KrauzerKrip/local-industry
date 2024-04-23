@@ -11,4 +11,5 @@ public:
 	virtual void mouseClick(MouseClickEvent event) = 0;
 	virtual void keyPressed(KeyEvent event) = 0;
 	virtual void characterInput(std::string character) = 0;
+	virtual void scroll(ScrollEvent event) = 0;
 };

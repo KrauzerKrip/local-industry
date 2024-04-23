@@ -27,6 +27,8 @@ public:
 	void renderImage(ImageQuad imageQuad) override;
 	void frame() override;
 	void reload() override;
+	void enableScissors(float x, float y, float width, float height) override;
+	void disableScissors() override;
 
 private:
 	std::queue<ColorQuad> m_colorQuads;

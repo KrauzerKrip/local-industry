@@ -13,6 +13,7 @@ public:
 	void mouseClick(MouseClickEvent event);
 	void keyPressed(KeyEvent event);
 	void characterInput(std::string character);
+	void scroll(ScrollEvent event) override;
 	void setCallback(std::function<void()> callback);
 	virtual void click();
 

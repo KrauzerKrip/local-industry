@@ -10,8 +10,6 @@ add_subdirectory("inventory")
 add_subdirectory("trade_menu")
 
 target_sources(game PRIVATE
-	"main_layout.h"
-	"main_layout.cpp"
 	"gui.h"
 	"gui.cpp"
 	"window_widget.h"

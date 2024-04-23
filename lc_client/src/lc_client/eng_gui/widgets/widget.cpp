@@ -10,6 +10,7 @@ Widget::Widget(Background* pBackground)
 	m_sizePolicy = SizePolicy::RESIZE;
 
 	m_rectangle = Rectangle();
+	m_interactiveArea.m_size = glm::vec2(99999, 99999);
 }
 
 Widget::Widget(GuiDependencies dependencies) {
@@ -19,6 +20,7 @@ Widget::Widget(GuiDependencies dependencies) {
 	m_background = new ColorBackground(glm::vec4(0, 0, 0, 0), dependencies);
 
 	m_rectangle = Rectangle();
+	m_interactiveArea.m_size = glm::vec2(99999, 99999);
 }
 
 Widget::Widget() {
@@ -28,6 +30,7 @@ Widget::Widget() {
 	m_background = nullptr;
 
 	m_rectangle = Rectangle();
+	m_interactiveArea.m_size = glm::vec2(99999, 99999);
 }
 
 
@@ -104,6 +107,12 @@ void Widget::render() {
 	if (m_isVisible && m_background) {
 		m_background->render(m_rectangle, m_layer);
 	}
+	
+	if (m_layout) {
+		for (Widget* pWidget : m_layout->getChildrenWidgets()) {
+			pWidget->render();
+		}
+	}
 }
 
 Rectangle& Widget::getRectangle() {
@@ -111,3 +120,5 @@ Rectangle& Widget::getRectangle() {
 }
 
 Layer& Widget::getLayer() { return m_layer; }
+
+void Widget::setInteractiveArea(Rectangle rectangle) { m_interactiveArea = rectangle; }

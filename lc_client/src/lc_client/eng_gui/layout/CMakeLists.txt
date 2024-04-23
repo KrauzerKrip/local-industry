@@ -20,6 +20,8 @@ target_sources(lc_client
  "layouts/percentage_pane.cpp"
  "layouts/hbox.h"
  "layouts/hbox.cpp"
+ "layouts/vertical_scroll_area.h"
+ "layouts/vertical_scroll_area.cpp"
  
  
  

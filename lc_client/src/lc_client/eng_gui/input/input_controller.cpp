@@ -15,6 +15,12 @@ InputController::InputController(IInput* pInput) {
 			receiver->mouseClick(MouseClickEvent(m_pInput->getMousePosition(), KeyCode::MOUSE_BUTTON_RIGHT));
 		}
 	});
+
+	m_pInput->addMouseWheelCallback([this](glm::vec2 vec) {
+		for (std::shared_ptr<InputReceiver> receiver : m_receivers) {
+			receiver->scroll(ScrollEvent(vec.y));
+		}
+	});
 }
 
 void InputController::update() { 

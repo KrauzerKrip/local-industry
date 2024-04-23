@@ -18,6 +18,8 @@ target_sources(lc_client
     "style_impl.h"
     "style_impl.cpp"
     "style.h"
+    "scroll_widget.h"
+    "scroll_widget.cpp"
     
     "dependencies.h"
    )

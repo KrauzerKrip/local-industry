@@ -10,7 +10,7 @@ void LayoutController::update() {
 	updateLayout(layoutData, m_widgets);
 }
 
-std::vector<Widget*>& LayoutController::getWidgets() { return m_widgets; }
+std::vector<Widget*>& LayoutController::getWidgets() { return m_layout->getChildrenWidgets(); }
 
 void LayoutController::show() {
 	
