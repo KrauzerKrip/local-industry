@@ -25,4 +25,6 @@ public:
 
 private:
 	std::vector<TradeMenuSlot*> m_slots;
+
+	ScrollWidget* m_pScrollWidget = nullptr;
 };

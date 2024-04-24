@@ -19,6 +19,7 @@ public:
 	void setScrollbarWidgth(int width);
 	void enableVoidThumb();
 	void setScrollSpeed(float scrollSpeed);
+	void clear();
 
 private:
 	void input();

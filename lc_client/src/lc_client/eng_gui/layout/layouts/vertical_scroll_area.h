@@ -24,6 +24,7 @@ public:
 
 	int getContentSize();
 	int getNotFittingSize();
+	void clearWidgets();
 
 private:
 	float m_scroll;

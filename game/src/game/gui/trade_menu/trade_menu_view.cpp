@@ -20,21 +20,20 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(depend
 
 	this->setLabel("Trader");
 
-	ScrollWidget* pOffersWidget = new ScrollWidget(dependencies);
-	pVBox->addChild(pOffersWidget);
-	pOffersWidget->setSize(480, 720);
-	pOffersWidget->setSizePolicy(SizePolicy::FIXED);
+	m_pScrollWidget = new ScrollWidget(dependencies);
+	pVBox->addChild(m_pScrollWidget);
+	m_pScrollWidget->setSize(480, 720);
+	m_pScrollWidget->setSizePolicy(SizePolicy::FIXED);
 	
-	pOffersWidget->setScrollbarBackground(
+	m_pScrollWidget->setScrollbarBackground(
 		new ColorBackground(dependencies.pStyle->getColor("background_dark"), dependencies));
-	pOffersWidget->setScrollThumbBackground(pBaseBackground);
-	pOffersWidget->setHoverScrollThumbBackground(pDarkBackground);
-	pOffersWidget->enableVoidThumb();
-	pOffersWidget->setScrollSpeed(20.0f);
+	m_pScrollWidget->setScrollThumbBackground(pBaseBackground);
+	m_pScrollWidget->setHoverScrollThumbBackground(pDarkBackground);
+	m_pScrollWidget->enableVoidThumb();
+	m_pScrollWidget->setScrollSpeed(20.0f);
 	
 	for (int i = 0; i < 10; i++) {
 		TradeMenuSlot* pSlot = new TradeMenuSlot(dependencies);
-		pOffersWidget->addWidget(pSlot);
 		m_slots.push_back(pSlot);;
 	}
 }
@@ -48,6 +47,8 @@ void TradeMenuView::render() {
 }
 
 void TradeMenuView::setData(std::vector<OfferData> offersData) {
+	m_pScrollWidget->clear();
+
 	for (int i = 0; i < offersData.size(); i++) {
 		const OfferData& data = offersData.at(i);
 		TradeMenuSlot* pSlot = m_slots.at(i);
@@ -56,5 +57,7 @@ void TradeMenuView::setData(std::vector<OfferData> offersData) {
 		pSlot->setButtonLabel(data.buttonLabel);
 		pSlot->setLabel(data.label);
 		pSlot->setCallback(data.callback);
+
+		m_pScrollWidget->addWidget(pSlot);
 	}
 }

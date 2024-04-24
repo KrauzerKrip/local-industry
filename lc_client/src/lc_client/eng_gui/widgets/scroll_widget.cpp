@@ -100,6 +100,8 @@ void ScrollWidget::enableVoidThumb() { m_isThumbVoid = true; }
 
 void ScrollWidget::setScrollSpeed(float scrollSpeed) { m_scrollSpeed = scrollSpeed; }
 
+void ScrollWidget::clear() { m_pVerticalScrollArea->clearWidgets(); }
+
 void ScrollWidget::input() { 
 	InputController* pInputController = m_dependencies.pInputController;
 

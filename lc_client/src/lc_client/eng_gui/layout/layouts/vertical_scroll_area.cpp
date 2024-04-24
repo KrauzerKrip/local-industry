@@ -68,3 +68,5 @@ void VerticalScrollArea::scroll(float offset) {
 int VerticalScrollArea::getContentSize() { return m_contentSize; }
 
 int VerticalScrollArea::getNotFittingSize() { return m_notFittingSize; }
+
+void VerticalScrollArea::clearWidgets() { m_widgets.clear(); }
