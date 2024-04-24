@@ -73,19 +73,18 @@ void ScrollWidget::input() {
 	if (pInputController->isKeyPressed(KeyCode::MOUSE_BUTTON_LEFT)) {
 		if (m_pScrollThumb->getRectangle().isPointIntersecting(pInputController->getMousePosition())) {
 			m_isMouseScrolling = true;
-			m_lastMousePosition = pInputController->getMousePosition();
 		}
 	}
 	else {
 		m_isMouseScrolling = false;
 	}
 
+	glm::vec2 pos = pInputController->getMousePosition();
 	if (m_isMouseScrolling) {
-		glm::vec2 pos = pInputController->getMousePosition();
 		glm::vec2 posOffset = pos - m_lastMousePosition;
 		m_pVerticalScrollArea->scroll(posOffset.y);
-		m_lastMousePosition = pos;
 	}
+	m_lastMousePosition = pos;
 }
 
 void ScrollWidget::setWidgetInteractiveAreas(Layout* pLayout) { 
