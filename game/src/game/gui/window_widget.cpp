@@ -17,8 +17,8 @@ WindowWidget::WindowWidget(GuiDependencies dependencies) {
 		new ColorBackground(dependencies.pStyle->getColor("background_dark"), dependencies));
 
 	HBox* pHBox = new HBox();
-	pHBox->setBoxMode(BoxMode::STRETCH_SPACING);
 	pDecorationsWidget->setLayout(pHBox);
+	pHBox->setBoxMode(BoxMode::STRETCH_SPACING);
 
 	m_pLabel = new TextWidget(dependencies);
 	pHBox->addChild(m_pLabel);

@@ -21,6 +21,8 @@ GuiDependenciesFabricGl::GuiDependenciesFabricGl(IConsole* pConsole, ShaderLoade
 	pStyle->setColor("blur_background_dark", 72, 72, 72, 255);
 	pStyle->setColor("background_base", 140, 140, 140, 150);
 	pStyle->setColor("background_dark", 72, 72, 72, 150);
+	pStyle->setColor("button", 72, 72, 72, 150);
+	pStyle->setColor("button_hover", 48, 48, 48, 150);
 	pStyle->setBlurIntensitry("base", 0.05);
 
 	m_dependecies.pBackgroundRender = pBackgroundRender;

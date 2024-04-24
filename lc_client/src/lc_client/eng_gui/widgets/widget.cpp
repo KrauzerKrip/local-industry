@@ -4,7 +4,7 @@
 #include <iostream>
 
 Widget::Widget(Background* pBackground)
-	: m_background(pBackground) {
+	: m_pBackground(pBackground) {
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
 	m_sizePolicy = SizePolicy::RESIZE;
@@ -17,7 +17,7 @@ Widget::Widget(GuiDependencies dependencies) {
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
 	m_sizePolicy = SizePolicy::RESIZE;
-	m_background = new ColorBackground(glm::vec4(0, 0, 0, 0), dependencies);
+	m_pBackground = new ColorBackground(glm::vec4(0, 0, 0, 0), dependencies);
 
 	m_rectangle = Rectangle();
 	m_interactiveArea.m_size = glm::vec2(99999, 99999);
@@ -27,7 +27,7 @@ Widget::Widget() {
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
 	m_sizePolicy = SizePolicy::RESIZE;
-	m_background = nullptr;
+	m_pBackground = nullptr;
 
 	m_rectangle = Rectangle();
 	m_interactiveArea.m_size = glm::vec2(99999, 99999);
@@ -90,9 +90,9 @@ Layout* Widget::getLayout() { return m_layout.get(); }
 
 void Widget::setLayout(Layout* pLayout) { m_layout = std::unique_ptr<Layout>(pLayout); }
 
-void Widget::setBackground(Background* background) { m_background = background; }
+void Widget::setBackground(Background* background) { m_pBackground = background; }
 
-Background* Widget::getBackground() { return m_background; }
+Background* Widget::getBackground() { return m_pBackground; }
 
 std::string Widget::getName() { return m_name; }
 
@@ -106,8 +106,8 @@ void Widget::render() {
 	//std::cout << m_name << " " << m_rectangle.m_absolutePosition.x << " " << m_rectangle.m_absolutePosition.y << " "
 	//		  << m_rectangle.m_size.x << " " << m_rectangle.m_size.y << std::endl;
 
-	if (m_isVisible && m_background) {
-		m_background->render(m_rectangle, m_layer);
+	if (m_isVisible && m_pBackground) {
+		m_pBackground->render(m_rectangle, m_layer);
 	}
 	
 	if (m_layout) {

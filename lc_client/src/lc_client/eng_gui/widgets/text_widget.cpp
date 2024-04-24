@@ -41,7 +41,7 @@ void TextWidget::render() {
 
 		m_textLayer.number = (m_layer.number);
 
-		m_background->render(m_rectangle, m_layer);
+		m_pBackground->render(m_rectangle, m_layer);
 
 		glm::vec2 textPos =  m_rectangle.m_absolutePosition;
 		textPos += (m_rectangle.m_size / 2.0f);

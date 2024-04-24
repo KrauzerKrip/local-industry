@@ -39,7 +39,7 @@ public:
 	void setPosition(unsigned int x, unsigned int y);
 	Layout* getLayout();
 	void setLayout(Layout* pLayout);
-	void setBackground(Background* background);
+	virtual void setBackground(Background* background);
 	Background* getBackground();
 	std::string getName();
 	void setName(std::string);
@@ -55,7 +55,7 @@ protected:
 	glm::vec2 m_position;
 	std::unique_ptr<Layout> m_layout;
 	bool m_isVisible = false;
-	Background* m_background;
+	Background* m_pBackground;
 	std::string m_name;
 	SizePolicy m_sizePolicy;
 	Rectangle m_rectangle;
