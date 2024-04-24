@@ -20,7 +20,7 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(depend
 	pOffersWidget->setSizePolicy(SizePolicy::FIXED);
 	pVBox->addChild(pOffersWidget);
 	
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 10; i++) {
 		TradeMenuSlot* pSlot = new TradeMenuSlot(dependencies);
 		pOffersWidget->addWidget(pSlot);
 		m_slots.push_back(pSlot);;

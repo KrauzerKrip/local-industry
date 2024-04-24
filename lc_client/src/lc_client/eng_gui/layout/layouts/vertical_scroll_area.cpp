@@ -37,11 +37,12 @@ void VerticalScrollArea::updateChildWidgets() {
 	int usedSpace = -(cursorY - m_size.y);
 	int notFittingSize = -(m_size.y - usedSpace);
 	int spaceToScroll = static_cast<int>(notFittingSize * m_scroll);
-	for (Widget* pWidget : m_widgets) {
-		pWidget->getRectangle().m_absolutePosition.y += spaceToScroll;
+	
+	if (notFittingSize > 0) {
+		for (Widget* pWidget : m_widgets) {
+			pWidget->getRectangle().m_absolutePosition.y += spaceToScroll;
+		}
 	}
-
-	std::cout << m_scroll << std::endl;
 
 	m_contentSize = usedSpace;
 	m_notFittingSize = notFittingSize;
