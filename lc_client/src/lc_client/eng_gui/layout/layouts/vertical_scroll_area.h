@@ -23,10 +23,12 @@ public:
 	void scroll(float offset);
 
 	int getContentSize();
+	int getNotFittingSize();
 
 private:
 	float m_scroll;
 	unsigned int m_spacing;
 
 	int m_contentSize; 
+	int m_notFittingSize; 
 };

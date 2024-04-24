@@ -1,5 +1,7 @@
 #include "scroll_widget.h"
 
+#include <iostream>
+
 
 ScrollWidget::ScrollWidget(GuiDependencies dependencies) : m_dependencies(dependencies) { 
 	m_isMouseScrolling = false;
@@ -32,16 +34,16 @@ void ScrollWidget::render() {
 	this->input();
 
 	float contentSize = static_cast<float>(m_pVerticalScrollArea->getContentSize());
-	float freeSpace = m_pVerticalScrollArea->m_size.y - contentSize;
+	float notFittingSize = static_cast<float>(m_pVerticalScrollArea->getNotFittingSize());
 
 	int scrollThumbHeight = m_size.y;
-	if (freeSpace < 0) {
-		scrollThumbHeight *= -(freeSpace / contentSize);
+	if (notFittingSize > 0) {
+		scrollThumbHeight -= scrollThumbHeight * (notFittingSize / contentSize);
 	}
 
 	m_pScrollThumb->setSize(32, scrollThumbHeight);
 	m_pScrollbar->setSize(32, m_size.y);
-	m_pScrollAreaWidget->setSize(m_size.x + 32, m_size.y);
+	m_pScrollAreaWidget->setSize(m_size.x, m_size.y);
 
 	int scrollThumbPosY = (m_size.y - scrollThumbHeight) * (1.0f - m_pVerticalScrollArea->getScroll());
 	m_pScrollThumb->setPosition(0, scrollThumbPosY);

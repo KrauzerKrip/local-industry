@@ -7,6 +7,7 @@ VerticalScrollArea::VerticalScrollArea() {
 	m_scroll = 0.0f;
 	m_spacing = 0;
 	m_contentSize = 0;
+	m_notFittingSize = 0;
 }
 
 void VerticalScrollArea::updateChildWidgets() {
@@ -34,12 +35,16 @@ void VerticalScrollArea::updateChildWidgets() {
 	}
 
 	int usedSpace = -(cursorY - m_size.y);
-	int spaceToScroll = static_cast<int>(usedSpace * m_scroll);
+	int notFittingSize = -(m_size.y - usedSpace);
+	int spaceToScroll = static_cast<int>(notFittingSize * m_scroll);
 	for (Widget* pWidget : m_widgets) {
 		pWidget->getRectangle().m_absolutePosition.y += spaceToScroll;
 	}
 
+	std::cout << m_scroll << std::endl;
+
 	m_contentSize = usedSpace;
+	m_notFittingSize = notFittingSize;
 }
 
 float VerticalScrollArea::getScroll() { return m_scroll; }
@@ -49,7 +54,7 @@ void VerticalScrollArea::setScroll(float scroll) { m_scroll = scroll; }
 void VerticalScrollArea::setSpacing(unsigned int spacing) { m_spacing = spacing; }
 
 void VerticalScrollArea::scroll(float offset) { 
-	m_scroll -= 1 * offset / m_contentSize;
+	m_scroll -= 1 * offset / m_notFittingSize;
 
 	if (m_scroll < 0) {
 		m_scroll = 0;
@@ -59,6 +64,6 @@ void VerticalScrollArea::scroll(float offset) {
 	}
 }
 
-int VerticalScrollArea::getContentSize() {
-	return m_contentSize;
-}
+int VerticalScrollArea::getContentSize() { return m_contentSize; }
+
+int VerticalScrollArea::getNotFittingSize() { return m_notFittingSize; }

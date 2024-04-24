@@ -9,22 +9,18 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(depend
 	this->setBackground(pBaseBackground);
 
 	VBox* pVBox = new VBox();
-	pVBox->setMode(BoxMode::STRETCH_SPACING);
+	pVBox->setMode(BoxMode::STRETCH_WIDGETS);
 	this->setContentLayout(pVBox);
 	pVBox->setPadding(5, 0);
 
-	//m_pLabel = new TextWidget(dependencies);
-	//m_pLabel->setTextSize(36);
-	//m_pLabel->setTextColor(255, 255, 255, 255);
-	//m_pLabel->setText("Trader");
-	//pVBox->addChild(m_pLabel);
 	this->setLabel("Trader");
 
 	ScrollWidget* pOffersWidget = new ScrollWidget(dependencies);
-	pOffersWidget->setSize(480, 720 - 720 * 0.1);
+	pOffersWidget->setSize(480, 720);
+	pOffersWidget->setSizePolicy(SizePolicy::FIXED);
 	pVBox->addChild(pOffersWidget);
 	
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 5; i++) {
 		TradeMenuSlot* pSlot = new TradeMenuSlot(dependencies);
 		pOffersWidget->addWidget(pSlot);
 		m_slots.push_back(pSlot);;
