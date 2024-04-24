@@ -15,7 +15,12 @@ public:
 	void addWidget(Widget* pWidget);
 
 private:
+	void input();
+
 	void setWidgetInteractiveAreas(Layout* pLayout);
+
+	bool m_isMouseScrolling;
+	glm::vec2 m_lastMousePosition;
 
 	VerticalScrollArea* m_pVerticalScrollArea = nullptr;
 	Widget* m_pScrollbar = nullptr;

@@ -15,6 +15,9 @@ public:
 	void addReceiver(std::shared_ptr<InputReceiver> receiver);
 	void addReceiver(InputReceiver* pReceiver);
 
+	bool isKeyPressed(KeyCode key);
+	glm::vec2 getMousePosition();
+
 private:
 	std::vector<std::shared_ptr<InputReceiver>> m_receivers;
 

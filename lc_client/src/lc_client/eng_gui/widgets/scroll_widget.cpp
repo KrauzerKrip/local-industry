@@ -2,6 +2,9 @@
 
 
 ScrollWidget::ScrollWidget(GuiDependencies dependencies) : m_dependencies(dependencies) { 
+	m_isMouseScrolling = false;
+	m_lastMousePosition = glm::vec2(0);
+
 	dependencies.pInputController->addReceiver(this);
 
 	HBox* pHBox = new HBox();
@@ -26,6 +29,8 @@ ScrollWidget::ScrollWidget(GuiDependencies dependencies) : m_dependencies(depend
 }
 
 void ScrollWidget::render() {
+	this->input();
+
 	float contentSize = static_cast<float>(m_pVerticalScrollArea->getContentSize());
 	float freeSpace = m_pVerticalScrollArea->m_size.y - contentSize;
 
@@ -40,6 +45,7 @@ void ScrollWidget::render() {
 
 	int scrollThumbPosY = (m_size.y - scrollThumbHeight) * (1.0f - m_pVerticalScrollArea->getScroll());
 	m_pScrollThumb->setPosition(0, scrollThumbPosY);
+
 
 	this->setWidgetInteractiveAreas(m_pVerticalScrollArea);
 
@@ -60,6 +66,27 @@ void ScrollWidget::characterInput(std::string character) {}
 void ScrollWidget::scroll(ScrollEvent event) { m_pVerticalScrollArea->scroll(event.offset * 10); }
 
 void ScrollWidget::addWidget(Widget* pWidget) { m_pVerticalScrollArea->addChild(pWidget); }
+
+void ScrollWidget::input() { 
+	InputController* pInputController = m_dependencies.pInputController;
+
+	if (pInputController->isKeyPressed(KeyCode::MOUSE_BUTTON_LEFT)) {
+		if (m_pScrollThumb->getRectangle().isPointIntersecting(pInputController->getMousePosition())) {
+			m_isMouseScrolling = true;
+			m_lastMousePosition = pInputController->getMousePosition();
+		}
+	}
+	else {
+		m_isMouseScrolling = false;
+	}
+
+	if (m_isMouseScrolling) {
+		glm::vec2 pos = pInputController->getMousePosition();
+		glm::vec2 posOffset = pos - m_lastMousePosition;
+		m_pVerticalScrollArea->scroll(posOffset.y);
+		m_lastMousePosition = pos;
+	}
+}
 
 void ScrollWidget::setWidgetInteractiveAreas(Layout* pLayout) { 
 	for (Widget* pWidget : pLayout->getChildrenWidgets()) {
