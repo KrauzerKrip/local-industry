@@ -6,6 +6,7 @@
 HBox::HBox() {
     m_padding = glm::vec2(0);
 	m_mode = BoxMode::STRETCH_WIDGETS;
+	m_spacing = 0;
 }
 
 void HBox::setPadding(unsigned x, unsigned y) { m_padding = glm::vec2(x, y); }
@@ -17,10 +18,24 @@ void HBox::updateChildWidgets() {
 	bool isFirst = true;
 
 	if (m_mode == BoxMode::STRETCH_WIDGETS) {
+		int resizableWidgetsCount = 0;
+		float fixedWidgetSizeXSum = 0;
+
+		for (Widget* pWidget : m_widgets) {
+			if (pWidget->getSizePolicy() == SizePolicy::FIXED) {
+				fixedWidgetSizeXSum += pWidget->getRectangle().m_size.x;
+			}
+			else {
+				resizableWidgetsCount++;
+			}
+		}
+
+		float freeSpace = m_size.x - fixedWidgetSizeXSum;
+
 		for (Widget* pWidget : m_widgets) {
 			float sizeX = pWidget->getSize().x;
 			if (pWidget->getSizePolicy() == SizePolicy::RESIZE) {
-				sizeX = m_size.x / static_cast<float>(m_widgets.size()) - 1.5 * m_padding.x;
+				sizeX = (freeSpace / static_cast<float>(resizableWidgetsCount) - m_spacing - m_padding.x * 0.5f);
 			}
 			pWidget->getRectangle().m_size.x = sizeX;
 			pWidget->getRectangle().m_size.y = m_size.y - m_padding.y * 2;
@@ -28,9 +43,9 @@ void HBox::updateChildWidgets() {
 			glm::vec2 position = glm::vec2(0);
 
 			position.x = cursorX;
-			position.y += m_padding.x;
+			position.y += m_padding.y;
 
-			cursorX += pWidget->getRectangle().m_size.x + m_padding.x;
+			cursorX += pWidget->getRectangle().m_size.x + m_spacing;
 
 			pWidget->getRectangle().m_absolutePosition += position;
 		}
@@ -66,6 +81,8 @@ void HBox::updateChildWidgets() {
 	}
 
 }
+
+void HBox::setSpacing(unsigned int spacing) { m_spacing = spacing; }
 
 void HBox::setBoxMode(BoxMode mode) {
     m_mode = mode;

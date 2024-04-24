@@ -17,6 +17,7 @@ TaskMenu::TaskMenu(entt::registry* pRegistry, GuiDependencies dependencies) : Wi
 	this->setBackground(pDarkBackground);
 	HBox* pHBox = new HBox();
 	pHBox->setPadding(5, 5);
+	pHBox->setSpacing(5);
 
 	VBox* pCharacterTaskBox = new VBox();
 	pCharacterTaskBox->setMode(BoxMode::STRETCH_WIDGETS);

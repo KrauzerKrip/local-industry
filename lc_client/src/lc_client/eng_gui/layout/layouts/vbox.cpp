@@ -17,6 +17,20 @@ void VBox::updateChildWidgets() {
 	bool isFirst = true;
 
 	if (m_mode == BoxMode::STRETCH_WIDGETS) {
+		int resizableWidgetsCount = 0;
+		float fixedWidgetSizeXSum = 0;
+
+		for (Widget* pWidget : m_widgets) {
+			if (pWidget->getSizePolicy() == SizePolicy::FIXED) {
+				fixedWidgetSizeXSum += pWidget->getRectangle().m_size.x;
+			}
+			else {
+				resizableWidgetsCount++;
+			}
+		}
+
+		float freeSpace = m_size.y - fixedWidgetSizeXSum;
+
 		for (Widget* pWidget : m_widgets) {
 			float sizeY = pWidget->getSize().y;
 			if (pWidget->getSizePolicy() == SizePolicy::RESIZE) {

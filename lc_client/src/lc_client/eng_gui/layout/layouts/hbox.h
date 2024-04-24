@@ -11,10 +11,12 @@ public:
 	HBox();
 	void setPadding(unsigned int x, unsigned int y);
 	void setPadding(glm::vec2 padding);
+	void setSpacing(unsigned int spacing);
 	void updateChildWidgets();
 	void setBoxMode(BoxMode mode);
 
 private:
 	glm::vec2 m_padding;
 	BoxMode m_mode;
+	unsigned int m_spacing;
 };
