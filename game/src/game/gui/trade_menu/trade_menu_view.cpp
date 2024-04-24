@@ -2,11 +2,16 @@
 
 
 TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(dependencies) {
+	Background* pBaseBlurBackground = new BlurBackground(dependencies.pStyle->getColor("blur_background_base"),
+		dependencies.pStyle->getBlurIntensity("base"), dependencies);
+	ColorBackground* pBaseBackground =
+		new ColorBackground(dependencies.pStyle->getColor("background_base"), dependencies);
+	ColorBackground* pDarkBackground =
+		new ColorBackground(dependencies.pStyle->getColor("background_dark"), dependencies);
+
 	this->setPosition(200, 200);
 	this->setSize(480, 720);
-	Background* pBaseBackground = new BlurBackground(dependencies.pStyle->getColor("blur_background_base"),
-		dependencies.pStyle->getBlurIntensity("base"), dependencies);
-	this->setBackground(pBaseBackground);
+	this->setBackground(pBaseBlurBackground);
 
 	VBox* pVBox = new VBox();
 	pVBox->setMode(BoxMode::STRETCH_WIDGETS);
@@ -16,9 +21,14 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(depend
 	this->setLabel("Trader");
 
 	ScrollWidget* pOffersWidget = new ScrollWidget(dependencies);
+	pVBox->addChild(pOffersWidget);
 	pOffersWidget->setSize(480, 720);
 	pOffersWidget->setSizePolicy(SizePolicy::FIXED);
-	pVBox->addChild(pOffersWidget);
+	
+	pOffersWidget->setScrollbarBackground(
+		new ColorBackground(dependencies.pStyle->getColor("background_dark"), dependencies));
+	pOffersWidget->setScrollThumbBackground(pBaseBackground);
+	pOffersWidget->enableVoidThumb();
 	
 	for (int i = 0; i < 10; i++) {
 		TradeMenuSlot* pSlot = new TradeMenuSlot(dependencies);

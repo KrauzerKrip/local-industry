@@ -11,9 +11,12 @@ public:
 	ColorBackground(glm::vec4 color, const GuiDependencies& guiDependencies);
 	ColorBackground(unsigned int r, unsigned int g, unsigned int b, unsigned a, const GuiDependencies& guiDependencies);
 
+	void setStencil(Rectangle& rectangle);
     void render(const Rectangle& rectangle, const Layer& layer) override;
 
 private:
 	glm::vec4 m_color;
 	GuiDependencies m_guiDependencies;
+	bool m_hasStencil;
+	Rectangle m_stencil;
 };

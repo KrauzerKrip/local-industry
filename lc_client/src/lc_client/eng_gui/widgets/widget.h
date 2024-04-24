@@ -41,6 +41,7 @@ public:
 	void setLayout(Layout* pLayout);
 	void setBackground(Background* background);
 	Background* getBackground();
+	std::string getName();
 	void setName(std::string);
 	SizePolicy getSizePolicy();
 	void setSizePolicy(SizePolicy policy);

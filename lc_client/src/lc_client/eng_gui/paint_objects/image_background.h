@@ -11,6 +11,7 @@ class ImageBackground : public Background {
 public:
 	ImageBackground(std::string path, const GuiDependencies& dependencies);
 
+	void setStencil(Rectangle& rectangle);
 	void render(const Rectangle& rectangle, const Layer& layer) override;
 
 private:
@@ -18,4 +19,6 @@ private:
 
 	std::string m_path;
 	BackgroundRender* m_pBackgroundRender = nullptr;
+	bool m_hasStencil;
+	Rectangle m_stencil;
 };

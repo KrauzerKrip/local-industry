@@ -6,12 +6,16 @@
 ScrollWidget::ScrollWidget(GuiDependencies dependencies) : m_dependencies(dependencies) { 
 	m_isMouseScrolling = false;
 	m_lastMousePosition = glm::vec2(0);
+	m_scrollbarWidth = 32;
+	m_scrollbarPadding = glm::vec2(5, 5);
+	m_isThumbVoid = false;
 
 	dependencies.pInputController->addReceiver(this);
 
 	HBox* pHBox = new HBox();
 	this->setLayout(pHBox);
-	pHBox->setBoxMode(BoxMode::STRETCH_SPACING);
+	pHBox->setBoxMode(BoxMode::STRETCH_WIDGETS);
+	pHBox->setSpacing(5);
 
 	m_pScrollAreaWidget = new Widget();
 	pHBox->addChild(m_pScrollAreaWidget);
@@ -23,6 +27,7 @@ ScrollWidget::ScrollWidget(GuiDependencies dependencies) : m_dependencies(depend
 	
 	m_pScrollbar = new Widget();
 	pHBox->addChild(m_pScrollbar);
+	m_pScrollbar->setName("scrollbar");
 	m_pScrollbar->setSizePolicy(SizePolicy::FIXED);
 	Frame* pScrollbarFrame = new Frame();
 	m_pScrollbar->setLayout(pScrollbarFrame);
@@ -30,32 +35,41 @@ ScrollWidget::ScrollWidget(GuiDependencies dependencies) : m_dependencies(depend
 	pScrollbarFrame->addChild(m_pScrollThumb);
 }
 
+
 void ScrollWidget::render() {
+	if (m_isThumbVoid) {
+		m_pScrollbar->getBackground()->setStencil(m_pScrollThumb->getRectangle());
+	}
+
 	this->input();
 
 	float contentSize = static_cast<float>(m_pVerticalScrollArea->getContentSize());
 	float notFittingSize = static_cast<float>(m_pVerticalScrollArea->getNotFittingSize());
 
-	int scrollThumbHeight = m_size.y;
+	int scrollspace = m_size.y - m_scrollbarPadding.y * 2;
+
+
+	int scrollThumbHeight = scrollspace;
 	if (notFittingSize > 0) {
 		scrollThumbHeight -= scrollThumbHeight * (notFittingSize / contentSize);
 	}
 
-	m_pScrollThumb->setSize(32, scrollThumbHeight);
-	m_pScrollbar->setSize(32, m_size.y);
+	m_pScrollThumb->setSize(m_scrollbarWidth - m_scrollbarPadding.x * 2, scrollThumbHeight);
+	m_pScrollbar->setSize(m_scrollbarWidth, m_size.y);
 	m_pScrollAreaWidget->setSize(m_size.x, m_size.y);
 
-	int scrollThumbPosY = (m_size.y - scrollThumbHeight) * (1.0f - m_pVerticalScrollArea->getScroll());
-	m_pScrollThumb->setPosition(0, scrollThumbPosY);
-
-
+	int scrollThumbPosY = (scrollspace - scrollThumbHeight) * (1.0f - m_pVerticalScrollArea->getScroll()) + m_scrollbarPadding.y;
+	m_pScrollThumb->setPosition(m_scrollbarPadding.x, scrollThumbPosY);
+	
 	this->setWidgetInteractiveAreas(m_pVerticalScrollArea);
 
 	m_dependencies.pBackgroundRender->enableScissors(m_rectangle.m_absolutePosition.x, 
 		m_rectangle.m_absolutePosition.y, 
 		m_rectangle.m_size.x,
 		m_rectangle.m_size.y);
+
 	Widget::render();
+
 	m_dependencies.pBackgroundRender->disableScissors();
 }
 
@@ -68,6 +82,14 @@ void ScrollWidget::characterInput(std::string character) {}
 void ScrollWidget::scroll(ScrollEvent event) { m_pVerticalScrollArea->scroll(event.offset * 10); }
 
 void ScrollWidget::addWidget(Widget* pWidget) { m_pVerticalScrollArea->addChild(pWidget); }
+
+void ScrollWidget::setScrollbarBackground(Background* pBackground) { m_pScrollbar->setBackground(pBackground); }
+
+void ScrollWidget::setScrollThumbBackground(Background* pBackground) { m_pScrollThumb->setBackground(pBackground); }
+
+void ScrollWidget::setScrollbarWidgth(int width) { m_scrollbarWidth = width; }
+
+void ScrollWidget::enableVoidThumb() { m_isThumbVoid = true; }
 
 void ScrollWidget::input() { 
 	InputController* pInputController = m_dependencies.pInputController;
@@ -97,5 +119,3 @@ void ScrollWidget::setWidgetInteractiveAreas(Layout* pLayout) {
 		}
 	}
 }
-
-const int ScrollWidget::m_scrollbarWidth = 32;

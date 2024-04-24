@@ -94,6 +94,8 @@ void Widget::setBackground(Background* background) { m_background = background; 
 
 Background* Widget::getBackground() { return m_background; }
 
+std::string Widget::getName() { return m_name; }
+
 void Widget::setName(std::string name) { m_name = name; }
 
 SizePolicy Widget::getSizePolicy() { return m_sizePolicy; }

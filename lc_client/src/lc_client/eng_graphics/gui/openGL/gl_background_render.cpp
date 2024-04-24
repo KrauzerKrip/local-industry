@@ -99,22 +99,6 @@ void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
 	glm::vec2 topRight = imageQuad.vertices.topRight;
 	glm::vec2 bottomRight = imageQuad.vertices.bottomRight;
 
-	//float vertices[6][4] = {
-	//    {topLeft.x, topLeft.y, 0.0f, 1.0f},
-	//    {bottomLeft.x, bottomLeft.y, 0.0f, 0.0f},
-	//	{bottomRight.x, bottomRight.y, 1.0f, 0.0f},
-	//	{topLeft.x, topLeft.y, 0.0f, 1.0f},
-	//    {bottomRight.x, bottomRight.y, 1.0f, 0.0f},
-	//	{topRight.x, topRight.y, 1.0f, 1.0f}};
-
-  //  float vertices[6][4] = {
-  //      {topLeft.x, topLeft.y, 1.0f, 0.0f},
-	 //   {bottomLeft.x, bottomLeft.y, 1.0f, 1.0f},
-		//{bottomRight.x, bottomRight.y, 0.0f, 1.0f},
-		//{topLeft.x, topLeft.y, 1.0f, 0.0f},
-		//{bottomRight.x, bottomRight.y, 0.0f, 1.0f},
-		//{topRight.x, topRight.y, 0.0f, 0.0f}};
-
     float vertices[6][4] = {
         {topLeft.x, topLeft.y, 0.0f, 0.0f},
 	    {bottomLeft.x, bottomLeft.y, 0.0f, 1.0f},
@@ -137,6 +121,83 @@ void BackgroundRenderGl::renderImage(ImageQuad imageQuad) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void BackgroundRenderGl::renderColorStencil(ColorQuad colorQuad, RectangleVertices stencil) {
+	glm::vec2 bottomLeft = stencil.bottomLeft;
+	glm::vec2 topLeft = stencil.topLeft;
+	glm::vec2 topRight = stencil.topRight;
+	glm::vec2 bottomRight = stencil.bottomRight;
+
+	float vertices[6][4] = {{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomLeft.x, bottomLeft.y, 0.0f, 0.0f},
+		{bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+
+		{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+		{topRight.x, topRight.y, 1.0f, 1.0f}};
+
+	glUseProgram(m_colorShader);
+	setUniform(m_colorShader, "quadColor", glm::vec4(0, 0, 0, 0));
+
+	unsigned int projLoc = glGetUniformLocation(m_colorShader, "projection");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
+	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(m_vao);
+
+	glStencilFunc(GL_ALWAYS, 1, 0xFF); 
+	glStencilMask(0xFF);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glStencilFunc(GL_GREATER, 1, 0xFF);
+	glStencilMask(0x00);
+
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	this->renderColor(colorQuad);
+
+	glStencilMask(0xFF);
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+}
+
+void BackgroundRenderGl::renderImageStencil(ImageQuad imageQuad, RectangleVertices stencil) {
+	glm::vec2 bottomLeft = stencil.bottomLeft;
+	glm::vec2 topLeft = stencil.topLeft;
+	glm::vec2 topRight = stencil.topRight;
+	glm::vec2 bottomRight = stencil.bottomRight;
+
+	float vertices[6][4] = {{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomLeft.x, bottomLeft.y, 0.0f, 0.0f},
+		{bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+
+		{topLeft.x, topLeft.y, 0.0f, 1.0f}, {bottomRight.x, bottomRight.y, 1.0f, 0.0f},
+		{topRight.x, topRight.y, 1.0f, 1.0f}};
+
+	glUseProgram(m_colorShader);
+	setUniform(m_colorShader, "quadColor", glm::vec4(0, 0, 0, 0));
+
+	unsigned int projLoc = glGetUniformLocation(m_colorShader, "projection");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(m_projection));
+	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(m_vao);
+
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+	glStencilMask(0xFF);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glStencilFunc(GL_GREATER, 1, 0xFF);
+	glStencilMask(0x00);
+
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	this->renderImage(imageQuad);
+
+	glStencilMask(0xFF);
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+}
 
 void BackgroundRenderGl::frame() {
 	m_projection = glm::ortho(

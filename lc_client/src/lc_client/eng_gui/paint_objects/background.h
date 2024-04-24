@@ -7,5 +7,6 @@ class Background {
 public:
 	virtual ~Background() = default;
 
+	virtual void setStencil(Rectangle& rectangle) = 0;
 	virtual void render(const Rectangle& rectangle, const Layer& layer) = 0;
 };

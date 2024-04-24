@@ -37,7 +37,9 @@ public:
 	virtual ~BackgroundRender() = default;
 
 	virtual void renderColor(ColorQuad colorQuad) = 0;
-	virtual void renderImage(ImageQuad colorQuad) = 0;
+	virtual void renderImage(ImageQuad imageQuad) = 0;
+	virtual void renderColorStencil(ColorQuad colorQuad, RectangleVertices stencil) = 0;
+	virtual void renderImageStencil(ImageQuad imageQuad, RectangleVertices stencil) = 0;
 	virtual void frame() = 0;
 	virtual void reload() = 0;
 	virtual void enableScissors(float x, float y, float width, float height) = 0;

@@ -13,6 +13,10 @@ public:
 	void characterInput(std::string character) override;
 	void scroll(ScrollEvent event) override;
 	void addWidget(Widget* pWidget);
+	void setScrollbarBackground(Background* pBackground);
+	void setScrollThumbBackground(Background* pBackground);
+	void setScrollbarWidgth(int width);
+	void enableVoidThumb();
 
 private:
 	void input();
@@ -29,5 +33,7 @@ private:
 
 	GuiDependencies m_dependencies;
 
-	static const int m_scrollbarWidth;
+	int m_scrollbarWidth;
+	glm::vec2 m_scrollbarPadding;
+	bool m_isThumbVoid;
 };

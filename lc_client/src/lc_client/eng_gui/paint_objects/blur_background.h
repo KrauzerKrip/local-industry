@@ -13,10 +13,13 @@ public:
 	BlurBackground(unsigned int r, unsigned int g, unsigned int b, unsigned a,
 		float blurIntensity, const GuiDependencies& guiDependencies);
 
+	void setStencil(Rectangle& rectangle);
 	void render(const Rectangle& rectangle, const Layer& layer) override;
 
 private:
 	glm::vec4 m_color;
 	float m_blurIntensity;
 	GuiDependencies m_guiDependencies;
+	bool m_hasStencil;
+	Rectangle m_stencil;
 };
