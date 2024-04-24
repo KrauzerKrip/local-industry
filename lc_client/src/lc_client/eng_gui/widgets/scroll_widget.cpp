@@ -31,7 +31,8 @@ ScrollWidget::ScrollWidget(GuiDependencies dependencies) : m_dependencies(depend
 	m_pScrollbar->setSizePolicy(SizePolicy::FIXED);
 	Frame* pScrollbarFrame = new Frame();
 	m_pScrollbar->setLayout(pScrollbarFrame);
-	m_pScrollThumb = new Widget(new ColorBackground(0, 0, 0, 255, dependencies));
+	m_pScrollThumb = new Button(dependencies);
+	m_pScrollThumb->setBackground(new ColorBackground(0, 0, 0, 255, dependencies));
 	pScrollbarFrame->addChild(m_pScrollThumb);
 }
 
@@ -86,6 +87,11 @@ void ScrollWidget::addWidget(Widget* pWidget) { m_pVerticalScrollArea->addChild(
 void ScrollWidget::setScrollbarBackground(Background* pBackground) { m_pScrollbar->setBackground(pBackground); }
 
 void ScrollWidget::setScrollThumbBackground(Background* pBackground) { m_pScrollThumb->setBackground(pBackground); }
+
+;
+void ScrollWidget::setHoverScrollThumbBackground(Background* pBackground) {
+	m_pScrollThumb->setHoverBackground(pBackground);
+}
 
 void ScrollWidget::setScrollbarWidgth(int width) { m_scrollbarWidth = width; }
 

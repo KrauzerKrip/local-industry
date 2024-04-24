@@ -28,6 +28,7 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(depend
 	pOffersWidget->setScrollbarBackground(
 		new ColorBackground(dependencies.pStyle->getColor("background_dark"), dependencies));
 	pOffersWidget->setScrollThumbBackground(pBaseBackground);
+	pOffersWidget->setHoverScrollThumbBackground(pDarkBackground);
 	pOffersWidget->enableVoidThumb();
 	
 	for (int i = 0; i < 10; i++) {

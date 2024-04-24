@@ -15,6 +15,7 @@ public:
 	void addWidget(Widget* pWidget);
 	void setScrollbarBackground(Background* pBackground);
 	void setScrollThumbBackground(Background* pBackground);
+	void setHoverScrollThumbBackground(Background* pBackground);
 	void setScrollbarWidgth(int width);
 	void enableVoidThumb();
 
@@ -28,7 +29,7 @@ private:
 
 	VerticalScrollArea* m_pVerticalScrollArea = nullptr;
 	Widget* m_pScrollbar = nullptr;
-	Widget* m_pScrollThumb = nullptr;
+	Button* m_pScrollThumb = nullptr;
 	Widget* m_pScrollAreaWidget = nullptr;
 
 	GuiDependencies m_dependencies;
