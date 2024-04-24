@@ -18,6 +18,7 @@ public:
 	void setHoverScrollThumbBackground(Background* pBackground);
 	void setScrollbarWidgth(int width);
 	void enableVoidThumb();
+	void setScrollSpeed(float scrollSpeed);
 
 private:
 	void input();
@@ -37,4 +38,5 @@ private:
 	int m_scrollbarWidth;
 	glm::vec2 m_scrollbarPadding;
 	bool m_isThumbVoid;
+	float m_scrollSpeed;
 };

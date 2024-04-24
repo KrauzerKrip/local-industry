@@ -30,6 +30,7 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(depend
 	pOffersWidget->setScrollThumbBackground(pBaseBackground);
 	pOffersWidget->setHoverScrollThumbBackground(pDarkBackground);
 	pOffersWidget->enableVoidThumb();
+	pOffersWidget->setScrollSpeed(20.0f);
 	
 	for (int i = 0; i < 10; i++) {
 		TradeMenuSlot* pSlot = new TradeMenuSlot(dependencies);

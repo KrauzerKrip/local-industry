@@ -9,6 +9,7 @@ ScrollWidget::ScrollWidget(GuiDependencies dependencies) : m_dependencies(depend
 	m_scrollbarWidth = 32;
 	m_scrollbarPadding = glm::vec2(5, 5);
 	m_isThumbVoid = false;
+	m_scrollSpeed = 1.0f;
 
 	dependencies.pInputController->addReceiver(this);
 
@@ -80,7 +81,7 @@ void ScrollWidget::keyPressed(KeyEvent event) {}
 
 void ScrollWidget::characterInput(std::string character) {}
 
-void ScrollWidget::scroll(ScrollEvent event) { m_pVerticalScrollArea->scroll(event.offset * 10); }
+void ScrollWidget::scroll(ScrollEvent event) { m_pVerticalScrollArea->scroll(event.offset * m_scrollSpeed); }
 
 void ScrollWidget::addWidget(Widget* pWidget) { m_pVerticalScrollArea->addChild(pWidget); }
 
@@ -96,6 +97,8 @@ void ScrollWidget::setHoverScrollThumbBackground(Background* pBackground) {
 void ScrollWidget::setScrollbarWidgth(int width) { m_scrollbarWidth = width; }
 
 void ScrollWidget::enableVoidThumb() { m_isThumbVoid = true; }
+
+void ScrollWidget::setScrollSpeed(float scrollSpeed) { m_scrollSpeed = scrollSpeed; }
 
 void ScrollWidget::input() { 
 	InputController* pInputController = m_dependencies.pInputController;
