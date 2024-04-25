@@ -1,6 +1,7 @@
 #include "trade_menu_view.h"
 
 
+
 TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(dependencies) {
 	Background* pBaseBlurBackground = new BlurBackground(dependencies.pStyle->getColor("blur_background_base"),
 		dependencies.pStyle->getBlurIntensity("base"), dependencies);

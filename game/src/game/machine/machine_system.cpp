@@ -13,7 +13,7 @@ import character;
 
 
 
-MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants) : m_machineLoadingSystem(pResource, pRegistry), m_machineConnector(pRegistry), m_machineGraphicsSystem(pRegistry) {
+MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants) : m_machineLoadingSystem(pResource, pRegistry), m_machineConnector(pRegistry), m_machineGraphicsSystem(pRegistry), m_blueprintSystem(pRegistry) {
 	m_pRegistry = pRegistry;
 
 	m_machineSystems = {
@@ -29,7 +29,8 @@ void MachineSystem::input(float deltaTime) {
 	}
 }
 
-void MachineSystem::update(float deltaTime) { 
+void MachineSystem::update(float updateInterval) {
+	m_blueprintSystem.update(updateInterval);
 	m_machineLoadingSystem.update();
 
 	auto tasks = m_pRegistry->view<Blueprint, Task>();
@@ -41,15 +42,15 @@ void MachineSystem::update(float deltaTime) {
 	}
 
     for (BaseMachineSystem* pMachineSystem : m_machineSystems) {
-		pMachineSystem->update(deltaTime);
+		pMachineSystem->update(updateInterval);
 	}
 }
   
-void MachineSystem::machineUpdate(float deltaTime) { 
+void MachineSystem::machineUpdate(float updateInterval) { 
 	auto machinesHeatOut = m_pRegistry->view<Machine, HeatOut>();
 
     for (BaseMachineSystem* pMachineSystem : m_machineSystems) {
-		pMachineSystem->machineUpdate(deltaTime);
+		pMachineSystem->machineUpdate(updateInterval);
 	}
 
 	for (auto&& [entity, heatOut] : machinesHeatOut.each()) {

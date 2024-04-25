@@ -9,6 +9,7 @@
 #include "base_machine_system.h"
 #include "machine_connector.h"
 #include "graphics/machine_graphics_system.h"
+#include "blueprint/blueprint_system.h"
 
 
 class MachineSystem {
@@ -16,8 +17,8 @@ public:
 	MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants);
 
 	void input(float deltaTime);
-	void update(float deltaTime);
-	void machineUpdate(float deltaTime);
+	void update(float updateInterval);
+	void machineUpdate(float updateInterval);
 	void frame(float deltaTime);
 
 private:
@@ -26,6 +27,7 @@ private:
 	MachineLoadingSystem m_machineLoadingSystem;
 	MachineConnector m_machineConnector;
 	MachineGraphicsSystem m_machineGraphicsSystem;
+	BlueprintSystem m_blueprintSystem;
 
 	entt::registry* m_pRegistry = nullptr;
 

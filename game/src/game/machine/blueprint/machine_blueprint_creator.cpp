@@ -12,13 +12,5 @@ MachineBlueprintCreator::MachineBlueprintCreator(entt::registry* pRegistry) {
 
 void MachineBlueprintCreator::createMachineBlueprint(MachineType type, std::string typeString) {
 	entt::entity entity = m_pRegistry->create();
-	m_pRegistry->emplace<Blueprint>(entity);
-	m_pRegistry->emplace<MachineRequest>(entity, type, typeString);
-	m_pRegistry->emplace<Selected>(entity);
-	m_pRegistry->emplace<Outline>(entity, Outline(glm::vec3(255 / 255., 255 / 255., 255 / 255.), 0.025));
-	m_pRegistry->emplace<ShaderRequest>(entity, ShaderRequest("game", "base", "blueprint"));
-	m_pRegistry->emplace<Transparent>(entity);
-	m_pRegistry->emplace<ShaderUniforms>(entity);
-	m_pRegistry->emplace<BlueprintInit>(entity);
-	m_pRegistry->emplace<MachineSelectable>(entity);
+	m_pRegistry->emplace<BlueprintRequest>(entity, type, typeString);
 }

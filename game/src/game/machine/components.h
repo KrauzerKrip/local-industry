@@ -18,10 +18,23 @@ struct MachineRequest {
 	MachineRequest(MachineType type, std::string typeString) : type(type), typeString(typeString){}
 };
 
+struct BlueprintRequest {
+	MachineType type;
+	std::string typeString;
+
+	BlueprintRequest(MachineType type, std::string typeString) : type(type), typeString(typeString) {}
+};
+
 struct MachineInit {};
 
 struct Blueprint {
 
+};
+
+struct BlueprintItem {
+	MachineType type;
+
+	BlueprintItem(MachineType type) : type(type) {}
 };
 
 /**
