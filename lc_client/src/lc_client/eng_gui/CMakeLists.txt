@@ -14,6 +14,10 @@ target_sources(lc_client
 
     "gui.h"
     "gui.cpp"
+
+    "pointer_over_gui.h"
+    "pointer_over_gui_impl.h"
+    "pointer_over_gui_impl.cpp"
     
     "view/gui_presenter.h"
     "view/gui_presenter.cpp"

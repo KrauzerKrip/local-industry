@@ -1,5 +1,13 @@
 #include "layout_controller.h"
 
+#include <iostream>
+
+
+LayoutController::LayoutController(PointerOverGuiImpl* pPointerOverGui, InputController* pInputController) { 
+	m_pPointerOverGui = pPointerOverGui;
+	m_pInputController = pInputController;
+}
+
 LayoutController::~LayoutController() = default;
 
 void LayoutController::update() {
@@ -43,6 +51,12 @@ void LayoutController::updateLayout(LayoutData layoutData, std::vector<Widget*>&
 		childLayoutData.layer = layoutData.layer;
 
 		widgets.push_back(pWidget);
+
+		if (pWidget->isVisible()) {
+			if (pWidget->getRectangle().isPointIntersecting(m_pInputController->getMousePosition())) {
+				m_pPointerOverGui->setPointerOverGui(true);
+			}
+		}
 		
 		if (pWidget->getLayout() != nullptr) {
 			childLayoutData.layer++;

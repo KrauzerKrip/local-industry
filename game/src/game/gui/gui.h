@@ -16,6 +16,7 @@
 #include "inventory/inventory_controller.h"
 #include "inventory/inventory_view.h"
 #include "trade_menu/trade_menu_controller.h"
+#include "lc_client/eng_gui/pointer_over_gui_impl.h"
 
 
 class Gui {
@@ -27,13 +28,13 @@ public:
 	
 	void setSize(unsigned int width, unsigned int height);
 	void update();
-	GuiPresenter* getPresenter();
+	PointerOverGui* getPointerOverGui();
 
 private:
+	InputController m_inputController;
+	PointerOverGuiImpl* m_pPointerOverGui = nullptr;
 	LayoutController m_overlayLayoutController;
 	LayoutController m_layoutController;
-	InputController m_inputController;
-	GuiPresenter* pGuiPresenter = nullptr;
 	MachineInspectorView* m_pMachineInspectorView = nullptr;
 	MachineInspectorController* m_pMachineInspectorController = nullptr;
 	InventoryView* m_pInventoryView = nullptr;
