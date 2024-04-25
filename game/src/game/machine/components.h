@@ -9,6 +9,11 @@
 #include "machine_type.h"
 
 
+enum class BlueprintState {
+
+};
+
+
 struct Machine {};
 
 struct MachineRequest {
@@ -33,8 +38,13 @@ struct Blueprint {
 
 struct BlueprintItem {
 	MachineType type;
+	std::string typeString;
 
-	BlueprintItem(MachineType type) : type(type) {}
+	BlueprintItem(MachineType type, std::string typeString) : type(type), typeString(typeString) {}
+};
+
+struct BlueprintAcquired {
+
 };
 
 /**

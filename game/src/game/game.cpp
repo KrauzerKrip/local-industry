@@ -49,6 +49,7 @@
 #include "game/agriculture/components.h"
 #include "game/item/items.h"
 #include "game/item/components.h"
+#include "game/machine/machine_type.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -68,7 +69,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	SceneLoading* pSceneLoading = new SceneLoading(m_pResource);
 	m_pWorld = new World(m_pResource, pSceneLoading);
-	
+
 	GuiPresenter* pGuiPresenter = new GuiPresenter();
 
 	m_pGraphics = new Graphics(m_pTier0, m_pWindow, m_pResource, m_pWorld, m_pCamera, pGuiPresenter);
@@ -198,7 +199,7 @@ void Game::init() {
 
 	entt::entity wood = pRegistry->create();
 	pRegistry->emplace<Wood>(wood);
-	pRegistry->emplace<Item>(wood, Item("Wood"));
+	pRegistry->emplace<Item>(wood, Item("wood"));
 
 	for (int i = 1; i < 10; i++) {
 		entt::entity bush = pRegistry->create();
@@ -213,13 +214,25 @@ void Game::init() {
 	entt::entity account = pRegistry->create();
 	pRegistry->emplace<PlayerAccount>(account, PlayerAccount(999999));
 
+	for (MachineType type : MachineTypeIterator()) {
+		auto entity = pRegistry->create();
+		pRegistry->emplace<Item>(entity, Item(MachineTypeString::getTypeString(type) + "_blueprint"));
+		pRegistry->emplace<BlueprintItem>(entity, BlueprintItem(type, MachineTypeString::getTypeString(type)));
+	}
+
 	entt::entity trader = pRegistry->create();
 	pRegistry->emplace<BlueprintTrader>(trader);
 	auto& offers = pRegistry->emplace<Trader>(trader).offers;
-	offers.emplace(wood, 228);
 	pRegistry->emplace<Properties>(trader);
 	pRegistry->emplace<ModelRequest>(trader, ModelRequest("dev", "test_cube"));
 	pRegistry->emplace<Transform>(trader).position = glm::vec3(0, 0, 5);
+
+	offers.emplace(wood, 228);
+	
+	auto blueprintItems = pRegistry->view<BlueprintItem>();
+	for (auto&& [entity, blueprintItem] : blueprintItems.each()) {
+		offers.emplace(entity, 1);
+	}
 }
 
 void Game::input(double deltaTime) {
