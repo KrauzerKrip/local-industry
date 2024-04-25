@@ -98,8 +98,8 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	m_pNpcSystem = new NpcSystem(m_pTier0->getParameters(), m_pWorld);
 
-	m_pControlSystem = new ControlSystem(
-		m_pGraphics->getSettings(), m_pInput, m_pCamera, m_pActionControl, pPhysics,
+	m_pControlSystem = new ControlSystem(m_pGraphics->getSettings(), m_pInput, m_pCamera, m_pActionControl, pPhysics,
+		m_pGui->getPointerOverGui(),
 		&m_pWorld->getRegistry());
 
 	m_pGameSystems = new GameSystems(&m_pWorld->getRegistry(), m_pResource, pPhysicalConstants);
@@ -246,15 +246,15 @@ void Game::input(double deltaTime) {
 	m_lastMousePosX = m_pInput->getMousePosition().x;
 	m_lastMousePosY = m_pInput->getMousePosition().y;
 
+	m_pGui->setSize(m_pWindow->getSize()[0], m_pWindow->getSize()[1]);
+	m_pGui->update();
+
 	if (!m_pConsoleGui->isOpened()) {
 		m_pControlSystem->input(deltaTime);
 	}
 	//m_pCamera->setPosition(cameraPos);
 
 	m_pGameSystems->input(deltaTime);
-
-	m_pGui->setSize(m_pWindow->getSize()[0], m_pWindow->getSize()[1]);
-	m_pGui->update();
 }
 
 void Game::update(double updateInterval) {

@@ -16,12 +16,13 @@
 #include "mouse_raycast.h"
 #include "agriculture_control_system.h"
 #include "trade_control_system.h"
+#include "lc_client/eng_gui/pointer_over_gui.h"
 
 
 class ControlSystem {
 public:
 	ControlSystem(GraphicsSettings* pSettings, IInput* pInput, Camera* pCamera, ActionControl* pActionControl,
-		Physics* pPhysics, 
+		Physics* pPhysics, PointerOverGui* pPointerOverGui, 
 		entt::registry* pRegistry);
 	~ControlSystem();
 

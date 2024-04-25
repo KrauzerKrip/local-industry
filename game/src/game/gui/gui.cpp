@@ -12,7 +12,12 @@
 Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInput,
 	ActionControl* pActionControl,
 	GraphicsSettings* pGraphicsSettings, Camera* pCamera, entt::registry* pRegistry)
-	: m_inputController(pInput) { 
+	: m_inputController(pInput),
+	  m_pPointerOverGui(new PointerOverGuiImpl()),
+	  m_layoutController(m_pPointerOverGui, pDependenciesFabric->getDependencies().pInputController),
+	  m_overlayLayoutController(m_pPointerOverGui, pDependenciesFabric->getDependencies().pInputController)
+{
+
 	GuiDependencies dependencies = pDependenciesFabric->getDependencies();
 
 	m_pMachineInspectorView = new MachineInspectorView(dependencies);
@@ -70,12 +75,12 @@ Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDep
 }
 
 Gui::~Gui() { 
-	delete pGuiPresenter; 
 }
 
 void Gui::setSize(unsigned int width, unsigned int height) { m_pPercentagePaneWidget->setSize(width, height); }
 
 void Gui::update() {
+	m_pPointerOverGui->setPointerOverGui(false);
 	m_overlayLayoutController.update();
 	m_layoutController.update();
 	m_inputController.update();
@@ -87,4 +92,4 @@ void Gui::update() {
 	m_pTradeMenuController->input();
 }
 
-GuiPresenter* Gui::getPresenter() { return pGuiPresenter; }
+PointerOverGui* Gui::getPointerOverGui() { return m_pPointerOverGui; }

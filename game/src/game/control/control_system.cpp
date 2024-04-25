@@ -4,12 +4,12 @@
 
 
 ControlSystem::ControlSystem(GraphicsSettings* pSettings, IInput* pInput, Camera* pCamera,
-	ActionControl* pActionControl, Physics* pPhysics, entt::registry* pRegistry)
+	ActionControl* pActionControl, Physics* pPhysics, PointerOverGui* pPointerOverGui, entt::registry* pRegistry)
 	: m_mouseRaycast(pPhysics, pSettings, pInput, pCamera, pActionControl, pRegistry),
 	m_selectionSystem(pRegistry),
 	  m_characterControlSystem(pRegistry),
 	  m_machineControlSystem(&m_mouseRaycast, pActionControl, pRegistry),
-	  m_mouseRaycastSystem(&m_mouseRaycast, pActionControl),
+	  m_mouseRaycastSystem(&m_mouseRaycast, pActionControl, pPointerOverGui),
 	  m_agricultureControlSystem(pRegistry), m_tradeControlSystem(pRegistry) {
 
 	m_pCameraController = new OrbitalCameraController(pCamera, pInput, pActionControl);

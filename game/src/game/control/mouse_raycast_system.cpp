@@ -2,14 +2,15 @@
 
 
 
-MouseRaycastSystem::MouseRaycastSystem(MouseRaycast* pMouseRaycast, ActionControl* pActionControl) {
+MouseRaycastSystem::MouseRaycastSystem(
+	MouseRaycast* pMouseRaycast, ActionControl* pActionControl, PointerOverGui* pPointerOverGui) {
 	m_pMouseRaycast = pMouseRaycast;
 	m_pActionControl = pActionControl;
+	m_pPointerOverGui = pPointerOverGui;
 }
 
 void MouseRaycastSystem::input() {
 	//result will be acquired in the after the update
-
 	RaycastResult result = m_pMouseRaycast->doMouseRaycast();
 	if (result.entityIntersectedWith.has_value()) {
 		for (MouseRaycastObserver* pObserver : m_observers) {
@@ -35,6 +36,10 @@ void MouseRaycastSystem::removeObserver(MouseRaycastObserver* pObserver) {
 }
 
 void MouseRaycastSystem::onAction(std::string action, MouseRaycastObserver* pObserver) {
+	if (m_pPointerOverGui->isPointerOverGui()) {
+		return;
+	}
+
 	RaycastResult result = m_pMouseRaycast->doMouseRaycast();
 
 	if (result.entityIntersectedWith.has_value()) {
