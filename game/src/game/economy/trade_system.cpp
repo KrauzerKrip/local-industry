@@ -18,7 +18,8 @@ void TradeSystem::update() {
 	}
 	PlayerAccount& account = m_pRegistry->get<PlayerAccount>(accountEntity);
 
-
+	this->processPurchases(account);
+	this->processSales(account);
 }
 
 void TradeSystem::processPurchases(PlayerAccount& account) {
@@ -72,5 +73,7 @@ void TradeSystem::processSales(PlayerAccount& account) {
 			m_pRegistry->emplace<InventoryWithdrawal>(entity, InventoryWithdrawal(entity, request.goods, request.quantity));
 			m_pRegistry->emplace<SaleInProgress>(entity, SaleInProgress(priceSum));
 		}
+
+		m_pRegistry->remove<SaleRequest>(entity);
 	}
 }
