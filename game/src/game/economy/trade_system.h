@@ -2,6 +2,8 @@
 
 #include <entt/entt.hpp>
 
+#include "components.h"
+
 
 class TradeSystem {
 public:
@@ -10,5 +12,8 @@ public:
 	void update();
 
 private:
+	void processPurchases(PlayerAccount& account);
+	void processSales(PlayerAccount& account);
+
 	entt::registry* m_pRegistry = nullptr;
 };

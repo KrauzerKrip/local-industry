@@ -21,7 +21,7 @@ void TradeMenuController::input() {
 	std::vector<OfferData> offersData;
 	for (auto&& [entity, trader] : selectedTraders.each()) {
 		traderEntity = entity;
-		for (auto [item, price] : trader.offers) {
+		for (auto [item, price] : trader.purchaseOffers) {
 			OfferData data;
 			data.iconPath = "gmod_vibe";
 			data.label = m_pRegistry->get<Item>(item).name;
@@ -31,7 +31,7 @@ void TradeMenuController::input() {
 				m_pView->hideWithChildren();
 				auto view = m_pRegistry->view<GameCharacter>();
 				for (auto character : view) {
-					m_pRegistry->emplace<TradeRequest>(character, TradeRequest(entity, item, 1));
+					m_pRegistry->emplace<PurchaseRequest>(character, PurchaseRequest(entity, item, 1));
 				}
 				};
 			offersData.push_back(data);

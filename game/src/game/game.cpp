@@ -222,16 +222,16 @@ void Game::init() {
 
 	entt::entity trader = pRegistry->create();
 	pRegistry->emplace<BlueprintTrader>(trader);
-	auto& offers = pRegistry->emplace<Trader>(trader).offers;
+	auto& purchaseOffers = pRegistry->emplace<Trader>(trader).purchaseOffers;
 	pRegistry->emplace<Properties>(trader);
 	pRegistry->emplace<ModelRequest>(trader, ModelRequest("dev", "test_cube"));
 	pRegistry->emplace<Transform>(trader).position = glm::vec3(0, 0, 5);
 
-	offers.emplace(wood, 228);
+	purchaseOffers.emplace(wood, 228);
 	
 	auto blueprintItems = pRegistry->view<BlueprintItem>();
 	for (auto&& [entity, blueprintItem] : blueprintItems.each()) {
-		offers.emplace(entity, 1);
+		purchaseOffers.emplace(entity, 1);
 	}
 }
 

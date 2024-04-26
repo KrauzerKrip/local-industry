@@ -14,24 +14,42 @@ struct PlayerAccount {
 };
 
 struct Trader {
-	std::unordered_map<entt::entity, unsigned int> offers;
+	std::unordered_map<entt::entity, unsigned int> purchaseOffers;
+	std::unordered_map<entt::entity, unsigned int> saleOffers;
 };
 
-struct TradeRequest {
+struct PurchaseRequest {
 	entt::entity trader;
 	entt::entity goods;
 	unsigned int quantity;
 
-	TradeRequest(entt::entity trader, entt::entity goods, unsigned int quantity)
+	PurchaseRequest(entt::entity trader, entt::entity goods, unsigned int quantity)
 		: trader(trader),
 		  goods(goods),
 		  quantity(quantity) {}
 };
 
-struct TradeInProgress {
+struct SaleRequest {
+	entt::entity trader;
+	entt::entity goods;
+	unsigned int quantity;
+
+	SaleRequest(entt::entity trader, entt::entity goods, unsigned int quantity)
+		: trader(trader),
+		  goods(goods),
+		  quantity(quantity) {}
+};
+
+struct PurchaseInProgress {
 	unsigned int priceSum;
 	
-	TradeInProgress(unsigned int priceSum) : priceSum(priceSum) {}
+	PurchaseInProgress(unsigned int priceSum) : priceSum(priceSum) {}
+};
+
+struct SaleInProgress {
+	unsigned int priceSum;
+
+	SaleInProgress(unsigned int priceSum) : priceSum(priceSum) {}
 };
 
 struct BlueprintTrader {

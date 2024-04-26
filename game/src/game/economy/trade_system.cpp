@@ -2,7 +2,6 @@
 
 #include <stdexcept>
 
-#include "components.h"
 #include "game/inventory/components.h"
 
 
@@ -19,8 +18,12 @@ void TradeSystem::update() {
 	}
 	PlayerAccount& account = m_pRegistry->get<PlayerAccount>(accountEntity);
 
-	auto tradesInProgress = m_pRegistry->view<TradeInProgress>();
-	for (auto&& [entity, trade] : tradesInProgress.each()) {
+
+}
+
+void TradeSystem::processPurchases(PlayerAccount& account) {
+	auto purchasesInProgress = m_pRegistry->view<PurchaseInProgress>();
+	for (auto&& [entity, trade] : purchasesInProgress.each()) {
 		if (m_pRegistry->all_of<InventoryPlaced>(entity)) {
 			account.funds -= trade.priceSum;
 			m_pRegistry->remove<InventoryPlaced>(entity);
@@ -28,20 +31,46 @@ void TradeSystem::update() {
 		else {
 			m_pRegistry->remove<InventoryCantPlace>(entity);
 		}
-		m_pRegistry->remove<TradeInProgress>(entity);
+		m_pRegistry->remove<PurchaseInProgress>(entity);
 	}
 
-	auto tradeRequests = m_pRegistry->view<TradeRequest, Inventory>(entt::exclude<TradeInProgress, InventoryPlacement>);
-	for (auto&& [entity, request, inventory] : tradeRequests.each()) {
+	auto purchaseRequests = m_pRegistry->view<PurchaseRequest, Inventory>(entt::exclude<PurchaseInProgress, InventoryPlacement>);
+	for (auto&& [entity, request, inventory] : purchaseRequests.each()) {
 		Trader& trader = m_pRegistry->get<Trader>(request.trader);
-		if (trader.offers.find(request.goods) != trader.offers.end()) {
-			unsigned int priceSum = trader.offers.at(request.goods) * request.quantity;
+		if (trader.purchaseOffers.find(request.goods) != trader.purchaseOffers.end()) {
+			unsigned int priceSum = trader.purchaseOffers.at(request.goods) * request.quantity;
 			if (account.funds >= priceSum) {
-				m_pRegistry->emplace<InventoryPlacement>(entity, InventoryPlacement(entity, request.goods, request.quantity));
-				m_pRegistry->emplace<TradeInProgress>(entity, TradeInProgress(priceSum));
+				m_pRegistry->emplace<InventoryPlacement>(
+					entity, InventoryPlacement(entity, request.goods, request.quantity));
+				m_pRegistry->emplace<PurchaseInProgress>(entity, PurchaseInProgress(priceSum));
 			}
 		}
 
-		m_pRegistry->remove<TradeRequest>(entity);
+		m_pRegistry->remove<PurchaseRequest>(entity);
+	}
+}
+
+void TradeSystem::processSales(PlayerAccount& account) {
+	auto salesInProgress = m_pRegistry->view<SaleInProgress>();
+	for (auto&& [entity, trade] : salesInProgress.each()) {
+		if (m_pRegistry->all_of<InventoryWithdrawn>(entity)) {
+			account.funds += trade.priceSum;
+			m_pRegistry->remove<InventoryWithdrawn>(entity);
+		}
+		else {
+			m_pRegistry->remove<InventoryCantWithdraw>(entity);
+		}
+		m_pRegistry->remove<SaleInProgress>(entity);
+	}
+
+	auto saleRequests = m_pRegistry->view<SaleRequest, Inventory>(entt::exclude<SaleInProgress, InventoryWithdrawal>);
+	for (auto&& [entity, request, inventory] : saleRequests.each()) {
+		Trader& trader = m_pRegistry->get<Trader>(request.trader);
+
+		if (trader.saleOffers.find(request.goods) != trader.saleOffers.end()) {
+			unsigned int priceSum = trader.saleOffers.at(request.goods) * request.quantity;
+			m_pRegistry->emplace<InventoryWithdrawal>(entity, InventoryWithdrawal(entity, request.goods, request.quantity));
+			m_pRegistry->emplace<SaleInProgress>(entity, SaleInProgress(priceSum));
+		}
 	}
 }
