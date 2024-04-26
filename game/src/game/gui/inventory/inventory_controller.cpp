@@ -41,7 +41,7 @@ void InventoryController::input() {
 		}
 
 		m_pView->enable(true);
-		m_pView->setData(data);
+		m_pView->setPurchasesData(data);
 		m_pView->setWindowName("Inventory");
 
 		glm::mat4 projection =

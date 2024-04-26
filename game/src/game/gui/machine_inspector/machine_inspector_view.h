@@ -11,7 +11,7 @@ public:
 	MachineInspectorView(const GuiDependencies& dependencies);
 
 	void frame();
-	void setData(std::unordered_map<std::string, std::string> data);
+	void setPurchasesData(std::unordered_map<std::string, std::string> data);
 	void enable(bool value);
 	void setPosition(glm::vec2 position);
 	void setWindowName(std::string name);

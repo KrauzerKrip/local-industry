@@ -45,4 +45,4 @@ void InventoryView::setPosition(glm::vec2 position) { m_position = position; }
 
 void InventoryView::setWindowName(std::string name) { m_windowName = name; }
 
-void InventoryView::setData(std::unordered_map<std::string, float> data) { m_data = data; }
+void InventoryView::setPurchasesData(std::unordered_map<std::string, float> data) { m_data = data; }

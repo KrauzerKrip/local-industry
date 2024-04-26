@@ -24,10 +24,10 @@ public:
 	Widget();
 	virtual ~Widget() = default;
 	
-	void show();
-	void showWithChildren();
-	void hide();
-	void hideWithChildren();
+	virtual void show();
+	virtual void showWithChildren();
+	virtual void hide();
+	virtual void hideWithChildren();
 	void toggle();
 	void toggleWithChildren();
 	bool isVisible();

@@ -40,7 +40,7 @@ void MachineInspectorView::frame() {
 	}
 }
 
-void MachineInspectorView::setData(std::unordered_map<std::string, std::string> data) { m_data = data; }
+void MachineInspectorView::setPurchasesData(std::unordered_map<std::string, std::string> data) { m_data = data; }
 
 void MachineInspectorView::enable(bool value) { m_enable = value; }
 

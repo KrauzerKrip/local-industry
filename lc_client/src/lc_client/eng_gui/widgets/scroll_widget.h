@@ -21,6 +21,9 @@ public:
 	void setScrollSpeed(float scrollSpeed);
 	void clear();
 
+	float getVerticalScroll();
+	void setVerticalScroll(float scroll);
+
 private:
 	void input();
 

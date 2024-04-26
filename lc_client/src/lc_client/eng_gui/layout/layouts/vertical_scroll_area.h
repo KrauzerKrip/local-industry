@@ -9,12 +9,12 @@ public:
 
 	void updateChildWidgets() override;
 
-	float getScroll();
+	float getVerticalScroll();
 	/**
 	 * @brief
 	 * @param scroll: percentage of scroll. D = [0, 1].
 	 */
-	void setScroll(float scroll);
+	void setVerticalScroll(float scroll);
 	void setSpacing(unsigned int spacing);
 	/**
 	 * @brief scrolls the area by given value, regardless of the size of the area and content.

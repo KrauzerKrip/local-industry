@@ -14,7 +14,7 @@ public:
 	void enable(bool value);
 	void setPosition(glm::vec2 position);
 	void setWindowName(std::string name);
-	void setData(std::unordered_map<std::string, float> data);
+	void setPurchasesData(std::unordered_map<std::string, float> data);
 
 private:
 	std::unordered_map<std::string, float> m_data;

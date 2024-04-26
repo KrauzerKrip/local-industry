@@ -60,7 +60,7 @@ void ScrollWidget::render() {
 	m_pScrollbar->setSize(m_scrollbarWidth, m_size.y);
 	m_pScrollAreaWidget->setSize(m_size.x, m_size.y);
 
-	int scrollThumbPosY = (scrollspace - scrollThumbHeight) * (1.0f - m_pVerticalScrollArea->getScroll()) + m_scrollbarPadding.y;
+	int scrollThumbPosY = (scrollspace - scrollThumbHeight) * (1.0f - m_pVerticalScrollArea->getVerticalScroll()) + m_scrollbarPadding.y;
 	m_pScrollThumb->setPosition(m_scrollbarPadding.x, scrollThumbPosY);
 	
 	this->setWidgetInteractiveAreas(m_pVerticalScrollArea);
@@ -129,4 +129,17 @@ void ScrollWidget::setWidgetInteractiveAreas(Layout* pLayout) {
 			this->setWidgetInteractiveAreas(pWidget->getLayout());
 		}
 	}
+}
+
+float ScrollWidget::getVerticalScroll() { return m_pVerticalScrollArea->getVerticalScroll(); }
+
+void ScrollWidget::setVerticalScroll(float scroll) {
+	if (scroll < 0) {
+		scroll = 0;
+	}
+	if (scroll > 1) {
+		scroll = 1;
+	}
+
+	m_pVerticalScrollArea->setVerticalScroll(scroll);
 }

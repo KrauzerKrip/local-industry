@@ -53,7 +53,7 @@ void MachineInspectorController::input() {
 
 		
 		m_pView->enable(true);
-		m_pView->setData(data);
+		m_pView->setPurchasesData(data);
 		m_pView->setDataBool(dataBool);
 		m_pView->setDataFloat(dataFloat);
 		m_pView->setWindowName(properties.typeString);

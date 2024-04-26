@@ -25,5 +25,5 @@ TaskView::TaskView(GuiDependencies dependencies) {
 	this->setLayout(pHBox);
 }
 
-void TaskView::setData(const TaskData& taskData) { m_pLabel->setText(taskData.name); }
+void TaskView::setPurchasesData(const TaskData& taskData) { m_pLabel->setText(taskData.name); }
 

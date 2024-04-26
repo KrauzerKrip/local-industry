@@ -17,7 +17,7 @@ class TaskView : public Widget {
 public:
 	TaskView(GuiDependencies dependencies);
 
-	void setData(const TaskData& taskData);
+	void setPurchasesData(const TaskData& taskData);
 
 private:
 	TextWidget* m_pLabel = nullptr;

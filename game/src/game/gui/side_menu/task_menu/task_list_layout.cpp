@@ -48,7 +48,7 @@ void TaskListLayout::setTasks(const std::vector<TaskData>& tasksData) {
 	for (unsigned int i = 0; i < m_tasksData.size(); i++) {
 		TaskData taskData = m_tasksData.at(i);
 		TaskView* pTaskView = m_taskViews.at(i);
-		pTaskView->setData(taskData);
+		pTaskView->setPurchasesData(taskData);
 		m_activeTaskViews.push_back(pTaskView);
 	}
 }

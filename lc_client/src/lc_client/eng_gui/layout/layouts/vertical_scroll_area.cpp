@@ -48,9 +48,9 @@ void VerticalScrollArea::updateChildWidgets() {
 	m_notFittingSize = notFittingSize;
 }
 
-float VerticalScrollArea::getScroll() { return m_scroll; }
+float VerticalScrollArea::getVerticalScroll() { return m_scroll; }
 
-void VerticalScrollArea::setScroll(float scroll) { m_scroll = scroll; }
+void VerticalScrollArea::setVerticalScroll(float scroll) { m_scroll = scroll; }
 
 void VerticalScrollArea::setSpacing(unsigned int spacing) { m_spacing = spacing; }
 
