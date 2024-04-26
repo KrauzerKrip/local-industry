@@ -48,8 +48,7 @@ void ScrollWidget::render() {
 	float contentSize = static_cast<float>(m_pVerticalScrollArea->getContentSize());
 	float notFittingSize = static_cast<float>(m_pVerticalScrollArea->getNotFittingSize());
 
-	int scrollspace = m_size.y - m_scrollbarPadding.y * 2;
-
+	int scrollspace = m_rectangle.m_size.y - m_scrollbarPadding.y * 2;
 
 	int scrollThumbHeight = scrollspace;
 	if (notFittingSize > 0) {
@@ -57,8 +56,8 @@ void ScrollWidget::render() {
 	}
 
 	m_pScrollThumb->setSize(m_scrollbarWidth - m_scrollbarPadding.x * 2, scrollThumbHeight);
-	m_pScrollbar->setSize(m_scrollbarWidth, m_size.y);
-	m_pScrollAreaWidget->setSize(m_size.x, m_size.y);
+	m_pScrollbar->setSize(m_scrollbarWidth, m_rectangle.m_size.y);
+	m_pScrollAreaWidget->setSize(m_rectangle.m_size.x, m_rectangle.m_size.y);
 
 	int scrollThumbPosY = (scrollspace - scrollThumbHeight) * (1.0f - m_pVerticalScrollArea->getVerticalScroll()) + m_scrollbarPadding.y;
 	m_pScrollThumb->setPosition(m_scrollbarPadding.x, scrollThumbPosY);

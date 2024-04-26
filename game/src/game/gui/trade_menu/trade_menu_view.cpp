@@ -92,7 +92,7 @@ TradeMenuView::TradeMenuView(GuiDependencies dependencies) : WindowWidget(depend
 
 	m_pScrollWidget = new ScrollWidget(dependencies);
 	pVBox->addChild(m_pScrollWidget);
-	m_pScrollWidget->setSize(480, 720);
+	m_pScrollWidget->setSize(480, 720 - 10 - 5);
 	m_pScrollWidget->setSizePolicy(SizePolicy::FIXED);
 	m_pScrollWidget->setScrollbarBackground(
 		new ColorBackground(dependencies.pStyle->getColor("background_dark"), dependencies));
