@@ -3,7 +3,12 @@
 
 InventorySystem::InventorySystem(entt::registry* pRegistry) { m_pRegistry = pRegistry; }
 
-void InventorySystem::update() { 
+void InventorySystem::update() {
+	this->processWithdrawals();
+	this->processPlacements();
+}
+
+void InventorySystem::processPlacements() {
 	auto inventoryPlacements = m_pRegistry->view<InventoryPlacement>();
 
 	for (auto&& [entity, placement] : inventoryPlacements.each()) {
@@ -35,7 +40,43 @@ void InventorySystem::update() {
 			m_pRegistry->remove<InventoryPlacement>(entity);
 		}
 	}
+}
 
+void InventorySystem::processWithdrawals() { 
+	auto inventoryWithdrawals = m_pRegistry->view<InventoryWithdrawal>();
+	
+	for (auto&& [entity, withdrawal] : inventoryWithdrawals.each()) {
+		Inventory& inventory = m_pRegistry->get<Inventory>(withdrawal.inventory);
+
+		if (m_pRegistry->any_of<InventoryCantWithdraw, InventoryWithdrawn>(entity)) {
+			continue;
+		}
+		bool isWithdrawalPossible = false;
+
+		for (auto [item, mass] : inventory.items) {
+			if (item == withdrawal.item) {
+				if (mass >= withdrawal.mass) {
+					isWithdrawalPossible = true;
+				}
+			}
+		}
+
+		if (isWithdrawalPossible) {
+			inventory.items[withdrawal.item] -= withdrawal.mass;
+
+			if (std::abs(inventory.items[withdrawal.item] - withdrawal.mass) < 0.001) {
+				inventory.items.erase(withdrawal.item);
+			}
+
+			m_pRegistry->emplace<InventoryWithdrawn>(entity, withdrawal);
+			m_pRegistry->remove<InventoryWithdrawal>(entity);
+		}	
+		else {
+			m_pRegistry->emplace<InventoryCantWithdraw>(entity, withdrawal);
+			m_pRegistry->remove<InventoryWithdrawal>(entity);
+			continue;
+		}
+	}
 }
 
 unsigned int InventorySystem::getOccupiedSlots(const Inventory& inventory) { return inventory.items.size(); }

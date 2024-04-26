@@ -19,6 +19,9 @@ struct Inventory {
 	Inventory(unsigned int slots, float capacity) : slots(slots), capacity(capacity) {}
 };
 
+/**
+ * @brief Should be added to the entity that places
+ */
 struct InventoryPlacement {
 	entt::entity inventory;
 	entt::entity item;
@@ -41,4 +44,35 @@ struct InventoryCantPlace {
 
 	InventoryCantPlace(entt::entity item, float mass) : item(item), mass(mass) {}
 	InventoryCantPlace(const InventoryPlacement& placement) : item(placement.item), mass(placement.mass) {}
+};
+
+
+/**
+ * @brief Should be added to the entity that withdraws
+ */
+struct InventoryWithdrawal {
+	entt::entity inventory;
+	entt::entity item;
+	float mass;
+
+	InventoryWithdrawal(entt::entity inventory, entt::entity item, float mass)
+		: inventory(inventory),
+		  item(item),
+		  mass(mass) {}
+};
+
+struct InventoryWithdrawn {
+	entt::entity item;
+	float mass;
+
+	InventoryWithdrawn(entt::entity item, float mass) : item(item), mass(mass) {}
+	InventoryWithdrawn(const InventoryWithdrawal& withdrawal) : item(withdrawal.item), mass(withdrawal.mass) {}
+};
+
+struct InventoryCantWithdraw {
+	entt::entity item;
+	float mass;
+
+	InventoryCantWithdraw(entt::entity item, float mass) : item(item), mass(mass) {}
+	InventoryCantWithdraw(const InventoryWithdrawal& withdrawal) : item(withdrawal.item), mass(withdrawal.mass) {}
 };
