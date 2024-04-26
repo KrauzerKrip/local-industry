@@ -64,7 +64,7 @@ void InventorySystem::processWithdrawals() {
 		if (isWithdrawalPossible) {
 			inventory.items[withdrawal.item] -= withdrawal.mass;
 
-			if (std::abs(inventory.items[withdrawal.item] - withdrawal.mass) < 0.001) {
+			if (inventory.items[withdrawal.item] < 0.001) {
 				inventory.items.erase(withdrawal.item);
 			}
 
