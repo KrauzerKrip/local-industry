@@ -212,7 +212,7 @@ void Game::init() {
 	}
 
 	entt::entity account = pRegistry->create();
-	pRegistry->emplace<PlayerAccount>(account, PlayerAccount(999999));
+	pRegistry->emplace<PlayerAccount>(account, PlayerAccount(0));
 
 	for (MachineType type : MachineTypeIterator()) {
 		auto entity = pRegistry->create();
@@ -222,16 +222,16 @@ void Game::init() {
 
 	entt::entity trader = pRegistry->create();
 	pRegistry->emplace<BlueprintTrader>(trader);
-	auto& purchaseOffers = pRegistry->emplace<Trader>(trader).purchaseOffers;
+	Trader& traderComponent = pRegistry->emplace<Trader>(trader);
 	pRegistry->emplace<Properties>(trader);
 	pRegistry->emplace<ModelRequest>(trader, ModelRequest("dev", "test_cube"));
 	pRegistry->emplace<Transform>(trader).position = glm::vec3(0, 0, 5);
 
-	purchaseOffers.emplace(wood, 228);
+	traderComponent.saleOffers.emplace(wood, 1);
 	
 	auto blueprintItems = pRegistry->view<BlueprintItem>();
 	for (auto&& [entity, blueprintItem] : blueprintItems.each()) {
-		purchaseOffers.emplace(entity, 1);
+		traderComponent.purchaseOffers.emplace(entity, 1);
 	}
 }
 
