@@ -135,6 +135,7 @@ void TradeMenuView::setPurchasesData(std::vector<OfferData> offersData) {
 		pSlot->setButtonLabel(data.buttonLabel);
 		pSlot->setLabel(data.label);
 		pSlot->setCallback(data.callback);
+		pSlot->setAffordable(data.affordable);
 
 		m_purchaseScrollWidgets.push_back(pSlot);
 	}
@@ -151,6 +152,7 @@ void TradeMenuView::setSalesData(std::vector<OfferData> offersData) {
 		pSlot->setButtonLabel(data.buttonLabel);
 		pSlot->setLabel(data.label);
 		pSlot->setCallback(data.callback);
+		pSlot->setAffordable(data.affordable);
 
 		m_saleScrollWidgets.push_back(pSlot);
 	}

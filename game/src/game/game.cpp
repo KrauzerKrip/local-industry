@@ -230,8 +230,10 @@ void Game::init() {
 	traderComponent.saleOffers.emplace(wood, 1);
 	
 	auto blueprintItems = pRegistry->view<BlueprintItem>();
+	int i = 0;
 	for (auto&& [entity, blueprintItem] : blueprintItems.each()) {
-		traderComponent.purchaseOffers.emplace(entity, 1);
+		i++;
+		traderComponent.purchaseOffers.emplace(entity, i);
 	}
 }
 

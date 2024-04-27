@@ -13,6 +13,7 @@ struct OfferData {
 	std::string buttonLabel;
 	std::string priceLabel;
 	std::function<void()> callback;
+	bool affordable;
 };
 
 enum class ActiveTab {

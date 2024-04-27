@@ -2,6 +2,12 @@
 
 TradeMenuSlot::TradeMenuSlot(GuiDependencies dependencies) : m_dependencies(dependencies) { 
 	this->setBackground(new ColorBackground(dependencies.pStyle->getColor("background_dark"), dependencies));
+	m_pAffordableBackground = new ColorBackground(dependencies.pStyle->getColor("background_dark"), dependencies);
+	m_pUnaffordableBackground = new ColorBackground(dependencies.pStyle->getColor("background_inaccessible"), dependencies);
+	m_pButtonBackground = new ColorBackground(dependencies.pStyle->getColor("button"), dependencies);
+	m_pHoverButtonBackground = new ColorBackground(dependencies.pStyle->getColor("button_hover"), dependencies);
+	m_pOffButtonBackground = new ColorBackground(dependencies.pStyle->getColor("button_inaccessible"), dependencies); 
+	m_isAffordable = false;
 
 	m_pIcon = new Widget();
 	m_pIcon->setSize(70, 70);
@@ -15,8 +21,9 @@ TradeMenuSlot::TradeMenuSlot(GuiDependencies dependencies) : m_dependencies(depe
 	m_pButton = new Button(dependencies);
 	m_pButton->setSize(64, 48);
 	m_pButton->setTextColor(255, 255, 255, 255);
-	m_pButton->setBackground(new ColorBackground(dependencies.pStyle->getColor("button"), dependencies));
-	m_pButton->setHoverBackground(new ColorBackground(dependencies.pStyle->getColor("button_hover"), dependencies));
+
+	m_pButton->setBackground(m_pButtonBackground);
+	m_pButton->setHoverBackground(m_pHoverButtonBackground);
 
 	HBox* pHBox = new HBox();
 	this->setLayout(pHBox);
@@ -48,4 +55,29 @@ void TradeMenuSlot::setButtonLabel(std::string buttonLabel) { m_pButton->setText
 
 void TradeMenuSlot::setPriceLabel(std::string price) { m_pPrice->setText(price); }
 
-void TradeMenuSlot::setCallback(std::function<void()> callback) { m_pButton->setCallback(callback); }
+void TradeMenuSlot::setCallback(std::function<void()> callback) { m_callback = callback; }
+
+void TradeMenuSlot::setAffordable(bool value) { 
+	m_isAffordable = value;
+
+	if (value) {
+		m_pBackground = m_pAffordableBackground;
+		m_pButton->setBackground(m_pButtonBackground);
+		m_pButton->setHoverBackground(m_pHoverButtonBackground);
+		m_pButton->setCallback(m_callback);
+	}
+	else {
+		m_pBackground = m_pUnaffordableBackground;
+		m_pButton->setBackground(m_pOffButtonBackground);
+		m_pButton->setHoverBackground(m_pOffButtonBackground);
+		m_pButton->setCallback([]() {});
+	}
+}
+
+void TradeMenuSlot::showWithChildren() { 
+	Widget::showWithChildren();
+
+	//if (!m_isAffordable) {
+	//	m_pButton->hideWithChildren();
+	//}
+}
