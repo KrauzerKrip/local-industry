@@ -8,6 +8,7 @@
 #include "lc_client/eng_graphics/openGL/gl_framebuffer.h"
 #include "lc_client/eng_graphics/openGL/gl_framebuffer_controller.h"
 #include "lc_client/eng_graphics/i_window.h"
+#include "lc_client/eng_gui/popup_controller_impl.h"
 
 
 class GuiDependenciesFabricGl : public GuiDependenciesFabric {
@@ -15,7 +16,7 @@ public:
 	GuiDependenciesFabricGl(IConsole* pConsole, ShaderLoaderGl* pShaderWorkGl, IInput* pInput,
 		TextureManager* pTextureManager, FramebufferController* pFramebufferController, IWindow* pWindow);
 
-	GuiDependencies getDependencies();
+	GuiDependencies getDependencies() override;
 
 private:
 	GuiDependencies m_dependecies;

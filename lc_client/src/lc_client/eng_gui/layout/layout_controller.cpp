@@ -58,6 +58,11 @@ void LayoutController::updateLayout(LayoutData layoutData, std::vector<Widget*>&
 			}
 		}
 		
+		if (pWidget->getLayoutPolicy() == LayoutPolicy::FREE) {
+			pWidget->getRectangle().m_absolutePosition = pWidget->getPosition();
+			pWidget->getRectangle().m_size = pWidget->getSize();
+		}
+
 		if (pWidget->getLayout() != nullptr) {
 			childLayoutData.layer++;
 			pWidget->getLayout()->m_position = pWidget->getRectangle().m_absolutePosition;

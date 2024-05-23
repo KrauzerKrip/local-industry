@@ -8,6 +8,7 @@ Widget::Widget(Background* pBackground)
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
 	m_sizePolicy = SizePolicy::RESIZE;
+	m_layoutPolicy = LayoutPolicy::CHILD;
 
 	m_rectangle = Rectangle();
 	m_interactiveArea.m_size = glm::vec2(99999, 99999);
@@ -17,6 +18,7 @@ Widget::Widget(GuiDependencies dependencies) {
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
 	m_sizePolicy = SizePolicy::RESIZE;
+	m_layoutPolicy = LayoutPolicy::CHILD;
 	m_pBackground = new ColorBackground(glm::vec4(0, 0, 0, 0), dependencies);
 
 	m_rectangle = Rectangle();
@@ -27,6 +29,7 @@ Widget::Widget() {
 	m_position = glm::vec2(0);
 	m_size = glm::vec2(0);
 	m_sizePolicy = SizePolicy::RESIZE;
+	m_layoutPolicy = LayoutPolicy::CHILD;
 	m_pBackground = nullptr;
 
 	m_rectangle = Rectangle();
@@ -101,6 +104,10 @@ void Widget::setName(std::string name) { m_name = name; }
 SizePolicy Widget::getSizePolicy() { return m_sizePolicy; }
 
 void Widget::setSizePolicy(SizePolicy policy) { m_sizePolicy = policy; }
+
+LayoutPolicy Widget::getLayoutPolicy() { return m_layoutPolicy; }
+
+void Widget::setLayoutPolicy(LayoutPolicy policy) { m_layoutPolicy = policy; }
 
 void Widget::render() {
 	//std::cout << m_name << " " << m_rectangle.m_absolutePosition.x << " " << m_rectangle.m_absolutePosition.y << " "
