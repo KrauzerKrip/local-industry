@@ -13,6 +13,7 @@ public:
 
 	virtual std::vector<Widget*>& getChildrenWidgets();
 	virtual void addChild(Widget* pWidget);
+	virtual void removeChild(Widget* pWidget);
 	virtual void updateChildWidgets() = 0;
 	virtual void show();
 	virtual void hide();

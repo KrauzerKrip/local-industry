@@ -7,6 +7,7 @@
 #include "side_menu/side_menu.h"
 #include "lc_client/eng_gui/widgets/button.h"
 #include "trade_menu/trade_menu_view.h"
+#include "lc_client/eng_gui/popup_controller_impl.h"
 
 
 Gui::Gui(GuiPresenter* pGuiPresenter, Tier0* pTier0, GuiDependenciesFabric* pDependenciesFabric, IInput* pInput,

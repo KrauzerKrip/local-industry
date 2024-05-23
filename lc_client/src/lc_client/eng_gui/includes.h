@@ -5,3 +5,6 @@
 #include "paint_objects/color_background.h"
 #include "paint_objects/image_background.h"
 #include "paint_objects/blur_background.h"
+
+#include "pointer_over_gui.h"
+#include "popup_controller.h"

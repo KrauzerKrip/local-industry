@@ -16,6 +16,8 @@
 class Layout;
 
 enum class SizePolicy { FIXED, RESIZE };
+enum class LayoutPolicy {CHILD, FREE };
+
 
 class Widget {
 public:
@@ -45,6 +47,8 @@ public:
 	void setName(std::string);
 	SizePolicy getSizePolicy();
 	void setSizePolicy(SizePolicy policy);
+	LayoutPolicy getLayoutPolicy();
+	void setLayoutPolicy(LayoutPolicy policy);
 	virtual void render();
 	Rectangle& getRectangle();
 	Layer& getLayer();
@@ -58,6 +62,7 @@ protected:
 	Background* m_pBackground;
 	std::string m_name;
 	SizePolicy m_sizePolicy;
+	LayoutPolicy m_layoutPolicy;
 	Rectangle m_rectangle;
 	Layer m_layer;
 
