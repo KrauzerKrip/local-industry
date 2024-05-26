@@ -28,4 +28,6 @@ target_sources(game PRIVATE
  "trade_control_system.cpp"
  "machine_control_system.h"
  "machine_control_system.cpp"
+ "deposit_control_system.h"
+ "deposit_control_system.cpp"
 )

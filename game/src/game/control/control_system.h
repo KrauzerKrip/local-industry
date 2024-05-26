@@ -17,6 +17,7 @@
 #include "agriculture_control_system.h"
 #include "trade_control_system.h"
 #include "lc_client/eng_gui/pointer_over_gui.h"
+#include "deposit_control_system.h"
 
 
 class ControlSystem {
@@ -37,6 +38,7 @@ private:
 	MouseRaycastSystem m_mouseRaycastSystem;
 	AgricultureControlSystem m_agricultureControlSystem;
 	TradeControlSystem m_tradeControlSystem;
+	DepositControlSystem m_depositControlSystem;
 
 	CameraController* m_pCameraController = nullptr;
 };

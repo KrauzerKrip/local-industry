@@ -10,7 +10,8 @@ ControlSystem::ControlSystem(GraphicsSettings* pSettings, IInput* pInput, Camera
 	  m_characterControlSystem(pRegistry),
 	  m_machineControlSystem(&m_mouseRaycast, pActionControl, pRegistry),
 	  m_mouseRaycastSystem(&m_mouseRaycast, pActionControl, pPointerOverGui),
-	  m_agricultureControlSystem(pRegistry), m_tradeControlSystem(pRegistry) {
+	  m_agricultureControlSystem(pRegistry), m_tradeControlSystem(pRegistry),
+	  m_depositControlSystem(pRegistry) {
 
 	m_pCameraController = new OrbitalCameraController(pCamera, pInput, pActionControl);
 
@@ -20,6 +21,7 @@ ControlSystem::ControlSystem(GraphicsSettings* pSettings, IInput* pInput, Camera
 	m_mouseRaycastSystem.addObserver("kb_build", &m_machineControlSystem);
 	m_mouseRaycastSystem.addObserver("kb_build", &m_agricultureControlSystem);
 	m_mouseRaycastSystem.addObserver("kb_select", &m_tradeControlSystem);
+	m_mouseRaycastSystem.addObserver("kb_build", &m_depositControlSystem);
 }
 
 ControlSystem::~ControlSystem() {

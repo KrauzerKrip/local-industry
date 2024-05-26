@@ -14,6 +14,7 @@ add_subdirectory("src/game/item")
 add_subdirectory("src/game/agriculture")
 add_subdirectory("src/game/inventory")
 add_subdirectory("src/game/economy")
+add_subdirectory("src/game/resource")
 add_subdirectory("src/game/util")
 
 

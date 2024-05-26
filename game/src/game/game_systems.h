@@ -9,6 +9,7 @@
 #include "agriculture/agriculture_system.h"
 #include "inventory/inventory_system.h"
 #include "economy/trade_system.h"
+#include "resource/deposit_system.h"
 
 import character;
 
@@ -27,4 +28,6 @@ private:
 	AgricultureSystem m_agricultureSystem;
 	InventorySystem m_inventorySystem;
 	TradeSystem m_tradeSystem;
+	DepositSystem m_depositSystem;
+
 };

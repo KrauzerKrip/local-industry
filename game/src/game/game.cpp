@@ -235,6 +235,8 @@ void Game::init() {
 		i++;
 		traderComponent.purchaseOffers.emplace(entity, i);
 	}
+
+
 }
 
 void Game::input(double deltaTime) {
