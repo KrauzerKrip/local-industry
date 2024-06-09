@@ -78,6 +78,10 @@ public:
 		}
 	}
 
+	void clear() { 
+		m_tasks.clear();
+	}
+
 private:
 	void shiftRight(unsigned int startPosition) { 
 		auto iter = m_tasks.begin();

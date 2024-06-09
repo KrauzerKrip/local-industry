@@ -11,7 +11,7 @@ void AgricultureSystem::update() {
 	auto tasks = m_pRegistry->view<Harvestable, Task, CharacterAssignedTo>(entt::exclude<Harvested>);
 	for (auto&& [entity, harvestable, task, character] : tasks.each()) {
 		if (task.progress == TaskProgress::COMPLETED) {
-			m_pRegistry->emplace<Harvested>(entity, Harvested(character.entity));
+			m_pRegistry->emplace<Harvested>(entity, Harvested(character.characterEntity));
 		}
 	}
 

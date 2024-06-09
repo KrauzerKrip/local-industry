@@ -212,7 +212,7 @@ void Game::init() {
 	}
 
 	entt::entity account = pRegistry->create();
-	pRegistry->emplace<PlayerAccount>(account, PlayerAccount(0));
+	pRegistry->emplace<PlayerAccount>(account, PlayerAccount(100));
 
 	for (MachineType type : MachineTypeIterator()) {
 		auto entity = pRegistry->create();

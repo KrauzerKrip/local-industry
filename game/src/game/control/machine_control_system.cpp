@@ -169,19 +169,13 @@ void MachineControlSystem::addRemoveCallback() {
 }
 
 void MachineControlSystem::addTask(entt::entity entity) {
-	auto selectedCharacter = m_pRegistry->view<GameCharacter, Selected>();
-	for (auto&& [characterEntity, character] : selectedCharacter.each()) {
-		m_pRegistry->emplace<CharacterAssignedTo>(entity, characterEntity);
-	}
-	m_pRegistry->emplace<Task>(entity);
+	m_pRegistry->emplace<TaskRequest>(entity, TaskRequest("Build"));
+	m_pRegistry->emplace<Outline>(entity, Outline(glm::vec3(1, 1, 1), 0.025));
 }
 
 
 void MachineControlSystem::removeTask(entt::entity entity) {
-    m_pRegistry->remove<Task>(entity);
-    if (m_pRegistry->all_of<CharacterAssignedTo>(entity)) {
-        m_pRegistry->remove<CharacterAssignedTo>(entity);
-    }
+	m_pRegistry->emplace<RemoveTaskRequest>(entity, RemoveTaskRequest());
 
 	if (!m_pRegistry->all_of<Attachment>(entity)) {
 		auto connectionRequests = m_pRegistry->view<Attachment, ConnectionRequest>();
