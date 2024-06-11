@@ -12,8 +12,10 @@ public:
 	void update();
 
 private:
-	void processPlacements();
-	void processWithdrawals();
+	void processLoadings();
+	void processLoadingTries();
+	void processUnloadings();
+	void processUnloadingTries();
 
 	unsigned int getOccupiedSlots(const Inventory& inventory);
 	float getOccupiedSpace(const Inventory& inventory);

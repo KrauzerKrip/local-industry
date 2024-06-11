@@ -15,7 +15,7 @@ struct Inventory {
 };
 
 /**
- * @brief Should be added to the entity that places
+ * @brief Should be added to the entity that loads.
  */
 struct InventoryLoad {
 	entt::entity inventory;
@@ -23,6 +23,30 @@ struct InventoryLoad {
 	float mass;
 
 	InventoryLoad(entt::entity inventory, entt::entity item, float mass) : inventory(inventory), item(item), mass(mass) {}
+};
+
+/**
+ * @brief Should be added to the entity that loads. After processing InventoryTriedLoad will be placed with loaded mass.
+ */
+struct InventoryTryLoad {
+	entt::entity inventory;
+	entt::entity item;
+	float mass;
+
+	InventoryTryLoad(entt::entity inventory, entt::entity item, float mass)
+		: inventory(inventory),
+		  item(item),
+		  mass(mass) {}
+};
+
+/**
+ * @brief After processing InventoryTryLoad it will be placed.
+ */
+struct InventoryTriedLoad {
+	entt::entity item;
+	float massLoaded;
+
+	InventoryTriedLoad(entt::entity item, float massLoaded) : item(item), massLoaded(massLoaded) {}
 };
 
 struct InventoryLoaded {
