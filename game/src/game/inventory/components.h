@@ -22,57 +22,57 @@ struct Inventory {
 /**
  * @brief Should be added to the entity that places
  */
-struct InventoryPlacement {
+struct InventoryLoad {
 	entt::entity inventory;
 	entt::entity item;
 	float mass;
 
-	InventoryPlacement(entt::entity inventory, entt::entity item, float mass) : inventory(inventory), item(item), mass(mass) {}
+	InventoryLoad(entt::entity inventory, entt::entity item, float mass) : inventory(inventory), item(item), mass(mass) {}
 };
 
-struct InventoryPlaced {
+struct InventoryLoaded {
 	entt::entity item;
 	float mass;
 
-	InventoryPlaced(entt::entity item, float mass) : item(item), mass(mass) {}
-	InventoryPlaced(const InventoryPlacement& placement) : item(placement.item), mass(placement.mass) {}
+	InventoryLoaded(entt::entity item, float mass) : item(item), mass(mass) {}
+	InventoryLoaded(const InventoryLoad& placement) : item(placement.item), mass(placement.mass) {}
 };
 
-struct InventoryCantPlace {
+struct InventoryCantLoad {
 	entt::entity item;
 	float mass;
 
-	InventoryCantPlace(entt::entity item, float mass) : item(item), mass(mass) {}
-	InventoryCantPlace(const InventoryPlacement& placement) : item(placement.item), mass(placement.mass) {}
+	InventoryCantLoad(entt::entity item, float mass) : item(item), mass(mass) {}
+	InventoryCantLoad(const InventoryLoad& placement) : item(placement.item), mass(placement.mass) {}
 };
 
 
 /**
  * @brief Should be added to the entity that withdraws
  */
-struct InventoryWithdrawal {
+struct InventoryUnload {
 	entt::entity inventory;
 	entt::entity item;
 	float mass;
 
-	InventoryWithdrawal(entt::entity inventory, entt::entity item, float mass)
+	InventoryUnload(entt::entity inventory, entt::entity item, float mass)
 		: inventory(inventory),
 		  item(item),
 		  mass(mass) {}
 };
 
-struct InventoryWithdrawn {
+struct InventoryUnloaded {
 	entt::entity item;
 	float mass;
 
-	InventoryWithdrawn(entt::entity item, float mass) : item(item), mass(mass) {}
-	InventoryWithdrawn(const InventoryWithdrawal& withdrawal) : item(withdrawal.item), mass(withdrawal.mass) {}
+	InventoryUnloaded(entt::entity item, float mass) : item(item), mass(mass) {}
+	InventoryUnloaded(const InventoryUnload& withdrawal) : item(withdrawal.item), mass(withdrawal.mass) {}
 };
 
-struct InventoryCantWithdraw {
+struct InventoryCantUnload {
 	entt::entity item;
 	float mass;
 
-	InventoryCantWithdraw(entt::entity item, float mass) : item(item), mass(mass) {}
-	InventoryCantWithdraw(const InventoryWithdrawal& withdrawal) : item(withdrawal.item), mass(withdrawal.mass) {}
+	InventoryCantUnload(entt::entity item, float mass) : item(item), mass(mass) {}
+	InventoryCantUnload(const InventoryUnload& withdrawal) : item(withdrawal.item), mass(withdrawal.mass) {}
 };

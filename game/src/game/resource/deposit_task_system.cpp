@@ -25,7 +25,6 @@ void DepositTaskSystem::update(double updateInterval) {
 
 		float characterShare = resourceExtracted / static_cast<float>(charactersAssigned);
 		
-		auto characters = m_pRegistry->view<GameCharacter, CurrentTask>();
 		for (auto&& [entity, character, task] : characters.each()) {
 			if (task.taskEntity == entity) {
 				//m_pRegistry->emplace<

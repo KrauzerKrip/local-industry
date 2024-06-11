@@ -25,24 +25,24 @@ void TradeSystem::update() {
 void TradeSystem::processPurchases(PlayerAccount& account) {
 	auto purchasesInProgress = m_pRegistry->view<PurchaseInProgress>();
 	for (auto&& [entity, trade] : purchasesInProgress.each()) {
-		if (m_pRegistry->all_of<InventoryPlaced>(entity)) {
+		if (m_pRegistry->all_of<InventoryLoaded>(entity)) {
 			account.funds -= trade.priceSum;
-			m_pRegistry->remove<InventoryPlaced>(entity);
+			m_pRegistry->remove<InventoryLoaded>(entity);
 		}
 		else {
-			m_pRegistry->remove<InventoryCantPlace>(entity);
+			m_pRegistry->remove<InventoryCantLoad>(entity);
 		}
 		m_pRegistry->remove<PurchaseInProgress>(entity);
 	}
 
-	auto purchaseRequests = m_pRegistry->view<PurchaseRequest, Inventory>(entt::exclude<PurchaseInProgress, InventoryPlacement>);
+	auto purchaseRequests = m_pRegistry->view<PurchaseRequest, Inventory>(entt::exclude<PurchaseInProgress, InventoryLoad>);
 	for (auto&& [entity, request, inventory] : purchaseRequests.each()) {
 		Trader& trader = m_pRegistry->get<Trader>(request.trader);
 		if (trader.purchaseOffers.find(request.goods) != trader.purchaseOffers.end()) {
 			unsigned int priceSum = trader.purchaseOffers.at(request.goods) * request.quantity;
 			if (account.funds >= priceSum) {
-				m_pRegistry->emplace<InventoryPlacement>(
-					entity, InventoryPlacement(entity, request.goods, request.quantity));
+				m_pRegistry->emplace<InventoryLoad>(
+					entity, InventoryLoad(entity, request.goods, request.quantity));
 				m_pRegistry->emplace<PurchaseInProgress>(entity, PurchaseInProgress(priceSum));
 			}
 		}
@@ -54,23 +54,23 @@ void TradeSystem::processPurchases(PlayerAccount& account) {
 void TradeSystem::processSales(PlayerAccount& account) {
 	auto salesInProgress = m_pRegistry->view<SaleInProgress>();
 	for (auto&& [entity, trade] : salesInProgress.each()) {
-		if (m_pRegistry->all_of<InventoryWithdrawn>(entity)) {
+		if (m_pRegistry->all_of<InventoryUnloaded>(entity)) {
 			account.funds += trade.priceSum;
-			m_pRegistry->remove<InventoryWithdrawn>(entity);
+			m_pRegistry->remove<InventoryUnloaded>(entity);
 		}
 		else {
-			m_pRegistry->remove<InventoryCantWithdraw>(entity);
+			m_pRegistry->remove<InventoryCantUnload>(entity);
 		}
 		m_pRegistry->remove<SaleInProgress>(entity);
 	}
 
-	auto saleRequests = m_pRegistry->view<SaleRequest, Inventory>(entt::exclude<SaleInProgress, InventoryWithdrawal>);
+	auto saleRequests = m_pRegistry->view<SaleRequest, Inventory>(entt::exclude<SaleInProgress, InventoryUnload>);
 	for (auto&& [entity, request, inventory] : saleRequests.each()) {
 		Trader& trader = m_pRegistry->get<Trader>(request.trader);
 
 		if (trader.saleOffers.find(request.goods) != trader.saleOffers.end()) {
 			unsigned int priceSum = trader.saleOffers.at(request.goods) * request.quantity;
-			m_pRegistry->emplace<InventoryWithdrawal>(entity, InventoryWithdrawal(entity, request.goods, request.quantity));
+			m_pRegistry->emplace<InventoryUnload>(entity, InventoryUnload(entity, request.goods, request.quantity));
 			m_pRegistry->emplace<SaleInProgress>(entity, SaleInProgress(priceSum));
 		}
 

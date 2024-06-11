@@ -15,12 +15,12 @@ void AgricultureSystem::update() {
 		}
 	}
 
-	auto harvestedView = m_pRegistry->view<Harvestable, Harvested>(entt::exclude<InventoryPlacement>);
+	auto harvestedView = m_pRegistry->view<Harvestable, Harvested>(entt::exclude<InventoryLoad>);
 	for (auto&& [entity, harvestable, harvested] : harvestedView.each()) {
-		m_pRegistry->emplace<InventoryPlacement>(entity, InventoryPlacement(harvested.by, harvestable.yield, harvestable.massOfYield));
+		m_pRegistry->emplace<InventoryLoad>(entity, InventoryLoad(harvested.by, harvestable.yield, harvestable.massOfYield));
 	} 
 
-	auto harvestedDoneView = m_pRegistry->view<Harvestable, Harvested, InventoryPlaced>();
+	auto harvestedDoneView = m_pRegistry->view<Harvestable, Harvested, InventoryLoaded>();
 	for (auto&& [entity, harvestable, harvested, placed] : harvestedDoneView.each()) {
 		m_pRegistry->destroy(entity);
 	}

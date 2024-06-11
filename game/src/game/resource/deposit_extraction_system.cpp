@@ -10,7 +10,7 @@ DepositExtractionSystem::DepositExtractionSystem(entt::registry* pRegistry) { m_
 void DepositExtractionSystem::update(double updateInterval) { 
 	auto extractionsInProcess = m_pRegistry->view<ExtractionInProcess>();
 	for (auto&& [entity, extractionInProcess] : extractionsInProcess.each()) {
-		bool placementResult = m_pRegistry->all_of<InventoryPlaced>(extractionInProcess.placerTempEntity);
+		bool placementResult = m_pRegistry->all_of<InventoryLoaded>(extractionInProcess.placerTempEntity);
 		if (placementResult) {
 			m_pRegistry->emplace<Extracted>(entity);
 		}
@@ -29,8 +29,8 @@ void DepositExtractionSystem::update(double updateInterval) {
 		float massToPlace = 1.0f;
 
 		entt::entity placer = m_pRegistry->create();
-		InventoryPlacement placement(entity, deposit.resource, massToPlace);
-		m_pRegistry->emplace<InventoryPlacement>(placer, placement);
+		InventoryLoad placement(entity, deposit.resource, massToPlace);
+		m_pRegistry->emplace<InventoryLoad>(placer, placement);
 
 		ExtractionInProcess extraction(placer, deposit.resource, 1);
 		m_pRegistry->emplace<ExtractionInProcess>(entity, extraction);

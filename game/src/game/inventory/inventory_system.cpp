@@ -9,46 +9,46 @@ void InventorySystem::update() {
 }
 
 void InventorySystem::processPlacements() {
-	auto inventoryPlacements = m_pRegistry->view<InventoryPlacement>();
+	auto inventoryPlacements = m_pRegistry->view<InventoryLoad>();
 
 	for (auto&& [entity, placement] : inventoryPlacements.each()) {
 		Inventory& inventory = m_pRegistry->get<Inventory>(placement.inventory);
 
-		if (m_pRegistry->any_of<InventoryCantPlace, InventoryPlaced>(entity)) {
+		if (m_pRegistry->any_of<InventoryCantLoad, InventoryLoaded>(entity)) {
 			continue;
 		}
 		if (this->getOccupiedSpace(inventory) >= inventory.capacity) {
-			m_pRegistry->emplace<InventoryCantPlace>(entity, placement);
-			m_pRegistry->remove<InventoryPlacement>(entity);
+			m_pRegistry->emplace<InventoryCantLoad>(entity, placement);
+			m_pRegistry->remove<InventoryLoad>(entity);
 			continue;
 		}
 
 		if (inventory.items.find(placement.item) == inventory.items.end()) {
 			if (this->getOccupiedSlots(inventory) < inventory.slots) {
 				inventory.items.emplace(placement.item, placement.mass);
-				m_pRegistry->emplace<InventoryPlaced>(entity, placement);
-				m_pRegistry->remove<InventoryPlacement>(entity);
+				m_pRegistry->emplace<InventoryLoaded>(entity, placement);
+				m_pRegistry->remove<InventoryLoad>(entity);
 			}
 			else {
-				m_pRegistry->emplace<InventoryCantPlace>(entity, placement);
-				m_pRegistry->remove<InventoryPlacement>(entity);
+				m_pRegistry->emplace<InventoryCantLoad>(entity, placement);
+				m_pRegistry->remove<InventoryLoad>(entity);
 			}
 		}
 		else {
 			inventory.items[placement.item] += placement.mass;
-			m_pRegistry->emplace<InventoryPlaced>(entity, placement);
-			m_pRegistry->remove<InventoryPlacement>(entity);
+			m_pRegistry->emplace<InventoryLoaded>(entity, placement);
+			m_pRegistry->remove<InventoryLoad>(entity);
 		}
 	}
 }
 
 void InventorySystem::processWithdrawals() { 
-	auto inventoryWithdrawals = m_pRegistry->view<InventoryWithdrawal>();
+	auto inventoryWithdrawals = m_pRegistry->view<InventoryUnload>();
 	
 	for (auto&& [entity, withdrawal] : inventoryWithdrawals.each()) {
 		Inventory& inventory = m_pRegistry->get<Inventory>(withdrawal.inventory);
 
-		if (m_pRegistry->any_of<InventoryCantWithdraw, InventoryWithdrawn>(entity)) {
+		if (m_pRegistry->any_of<InventoryCantUnload, InventoryUnloaded>(entity)) {
 			continue;
 		}
 		bool isWithdrawalPossible = false;
@@ -68,12 +68,12 @@ void InventorySystem::processWithdrawals() {
 				inventory.items.erase(withdrawal.item);
 			}
 
-			m_pRegistry->emplace<InventoryWithdrawn>(entity, withdrawal);
-			m_pRegistry->remove<InventoryWithdrawal>(entity);
+			m_pRegistry->emplace<InventoryUnloaded>(entity, withdrawal);
+			m_pRegistry->remove<InventoryUnload>(entity);
 		}	
 		else {
-			m_pRegistry->emplace<InventoryCantWithdraw>(entity, withdrawal);
-			m_pRegistry->remove<InventoryWithdrawal>(entity);
+			m_pRegistry->emplace<InventoryCantUnload>(entity, withdrawal);
+			m_pRegistry->remove<InventoryUnload>(entity);
 			continue;
 		}
 	}
