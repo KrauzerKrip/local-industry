@@ -2,13 +2,13 @@
 
 
 GameSystems::GameSystems(
-		entt::registry* pRegistry, eng::IResource* pResource, PhysicalConstants* pPhysicalConstants)
+	entt::registry* pRegistry, eng::IResource* pResource, PhysicalConstants* pPhysicalConstants, IConsole* pConsole)
 	: m_characterSystem(pRegistry),
 	  m_machineSystem(pResource, pRegistry, pPhysicalConstants),
 	  m_agricultureSystem(pRegistry),
 	  m_inventorySystem(pRegistry),
 	  m_tradeSystem(pRegistry),
-	  m_depositSystem(pRegistry) {}
+	  m_depositSystem(pRegistry, pConsole) {}
 
 void GameSystems::input(double deltaTime) { 
 	m_characterSystem.input();
@@ -20,9 +20,9 @@ void GameSystems::update(double updateInterval) {
 	m_machineSystem.update(updateInterval);
 	m_machineSystem.machineUpdate(updateInterval);
 	m_agricultureSystem.update();
-	m_inventorySystem.update();
 	m_tradeSystem.update();
 	m_depositSystem.update(updateInterval);
+	m_inventorySystem.update();
 }
 
 void GameSystems::frame(double deltaTime) { m_machineSystem.frame(deltaTime); }

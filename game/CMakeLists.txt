@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.28)
 
 project(game)
 
-add_executable(game_exe "src/game/main.cpp" "src/game/main.h" "src/game/game.cpp" "src/game/game.h" "src/game/graphics.h" "src/game/graphics.cpp" "src/game/game_systems.h" "src/game/game_systems.cpp")
+add_executable(game_exe "src/game/main.cpp" "src/game/main.h")
 add_library(game STATIC)
+target_sources(game PRIVATE "src/game/game.cpp" "src/game/game.h" "src/game/graphics.h" "src/game/graphics.cpp" "src/game/game_systems.h" "src/game/game_systems.cpp")
 
 add_subdirectory("src/game/gui")
 add_subdirectory("src/game/loader_fabric")
@@ -24,6 +25,6 @@ target_include_directories(game
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
 )
 
-target_link_libraries(game_exe game)
+target_link_libraries(game_exe PRIVATE game)
 
 add_subdirectory("test")

@@ -29,8 +29,7 @@
 #include "game/graphics.h"
 #include "economy/components.h"
 #include "game_systems.h"
-
-import character;
+#include "character/character_system.h"
 
 
 class Game : public IGameLogic {

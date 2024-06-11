@@ -104,7 +104,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 		m_pGui->getPointerOverGui(),
 		&m_pWorld->getRegistry());
 
-	m_pGameSystems = new GameSystems(&m_pWorld->getRegistry(), m_pResource, pPhysicalConstants);
+	m_pGameSystems = new GameSystems(&m_pWorld->getRegistry(), m_pResource, pPhysicalConstants, m_pTier0->getConsole());
 }
 
 Game::~Game() {
@@ -239,7 +239,7 @@ void Game::init() {
 
 	entt::entity brick = pRegistry->create();
 	pRegistry->emplace<Brick>(brick);
-	pRegistry->emplace<Item>(brick, Item("wood"));
+	pRegistry->emplace<Item>(brick, Item("brick"));
 	entt::entity brickDeposit = pRegistry->create();
 	pRegistry->emplace<ResourceDeposit>(brickDeposit, ResourceDeposit(brick, 100));
 	pRegistry->emplace<Transform>(brickDeposit).position = glm::vec3(0, 0, 10);

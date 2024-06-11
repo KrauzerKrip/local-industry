@@ -10,13 +10,12 @@
 #include "inventory/inventory_system.h"
 #include "economy/trade_system.h"
 #include "resource/deposit_system.h"
-
-import character;
-
+#include "character/character_system.h"
 
 class GameSystems {
 public:
-	GameSystems(entt::registry* pRegistry, eng::IResource* pResource, PhysicalConstants* pPhysicalConstants);
+	GameSystems(entt::registry* pRegistry, eng::IResource* pResource, PhysicalConstants* pPhysicalConstants,
+		IConsole* pConsole);
 
 	void input(double deltaTime);
 	void update(double updateInterval);

@@ -6,9 +6,10 @@ target_sources(game PRIVATE "components.h")
 
 target_sources(game
   PRIVATE
-    FILE_SET modules TYPE CXX_MODULES FILES
-    "character.ixx"
-	"character_system.ixx"
-	"character_task_system.ixx"
-	"task_queue.ixx"
+	"task_queue.h"
+	"task_queue.cpp"
+	"character_task_system.h"
+	"character_task_system.cpp"
+	"character_system.h"
+	"character_system.cpp"
 )
