@@ -5,15 +5,10 @@
 #include <entt/entt.hpp>
 
 
-enum class InventoryResponseStatus {
-	SUCCESS,
-	FAIL
-};
-
 
 struct Inventory {
 	unsigned int slots;
-	float capacity;
+	float capacity; 
 	std::unordered_map<entt::entity, float> items;
 
 	Inventory(unsigned int slots, float capacity) : slots(slots), capacity(capacity) {}

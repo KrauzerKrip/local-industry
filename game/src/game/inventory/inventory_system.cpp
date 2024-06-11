@@ -17,7 +17,7 @@ void InventorySystem::processPlacements() {
 		if (m_pRegistry->any_of<InventoryCantLoad, InventoryLoaded>(entity)) {
 			continue;
 		}
-		if (this->getOccupiedSpace(inventory) >= inventory.capacity) {
+		if (this->getOccupiedSpace(inventory) + placement.mass >= inventory.capacity) {
 			m_pRegistry->emplace<InventoryCantLoad>(entity, placement);
 			m_pRegistry->remove<InventoryLoad>(entity);
 			continue;
