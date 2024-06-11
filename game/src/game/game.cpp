@@ -50,6 +50,7 @@
 #include "game/item/items.h"
 #include "game/item/components.h"
 #include "game/machine/machine_type.h"
+#include "game/resource/components.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -236,7 +237,14 @@ void Game::init() {
 		traderComponent.purchaseOffers.emplace(entity, i);
 	}
 
-
+	entt::entity brick = pRegistry->create();
+	pRegistry->emplace<Brick>(brick);
+	pRegistry->emplace<Item>(brick, Item("wood"));
+	entt::entity brickDeposit = pRegistry->create();
+	pRegistry->emplace<ResourceDeposit>(brickDeposit, ResourceDeposit(brick, 100));
+	pRegistry->emplace<Transform>(brickDeposit).position = glm::vec3(0, 0, 10);
+	pRegistry->emplace<Properties>(brickDeposit);
+	pRegistry->emplace<ModelRequest>(brickDeposit, ModelRequest("dev", "test_cube_white"));
 }
 
 void Game::input(double deltaTime) {

@@ -19,12 +19,12 @@ export class CharacterTaskSystem {
 public:
 	CharacterTaskSystem(entt::registry* pRegistry) { m_pRegistry = pRegistry; }
 
-	void update() {
+	void update(double updateInterval) {
 		processTaskRequests();
 		processRemoveTaskRequests();
 		assignTasksToCharacters();
 		queueTasks();
-		processTasks();
+		processTasks(updateInterval);
 	}
 
 	void processTaskRequests() {
@@ -116,34 +116,41 @@ public:
 		}
 	}
 
-	void processTasks() {
+	void processTasks(double updateInterval) {
 		auto characters = m_pRegistry->view<GameCharacter, TaskQueue, Transform, Colliders>();
 
 		for (auto&& [entity, character, taskQueue, transform, colliders] : characters.each()) {
-			auto task = taskQueue.getFront();
-			if (task) {
-				if (!m_pRegistry->valid(*task)) {
+			auto taskEnt = taskQueue.getFront();
+			if (taskEnt) {
+				if (!m_pRegistry->valid(*taskEnt)) {
 					taskQueue.pop();
 					break;
 				}
-				if (!m_pRegistry->all_of<Transform, Task>(*task)) {
+				if (!m_pRegistry->all_of<Transform, Task>(*taskEnt)) {
 					taskQueue.pop();
 					break;
 				}
 
-				Transform taskTransform = m_pRegistry->get<Transform>(*task);
+				Transform taskTransform = m_pRegistry->get<Transform>(*taskEnt);
+				Task& task = m_pRegistry->get<Task>(*taskEnt);
 
-				if (m_pRegistry->get<Task>(*task).progress == TaskProgress::QUEUED) {
+				if (task.progress == TaskProgress::QUEUED) {
 					m_pRegistry->emplace_or_replace<Waypoint>(entity, Waypoint(taskTransform.position));
-					m_pRegistry->get<Task>(*task).progress = TaskProgress::WAYPOINT;
+					task.progress = TaskProgress::WAYPOINT;
 				}
 
 				if (glm::distance(transform.position, taskTransform.position) < getTaskAreaRadius(colliders)) {
+					double lastWork = task.workDone;
+					task.workDone += character.workSpeed * updateInterval;
+					task.deltaWork = task.workDone - lastWork;
+				};
+
+				if (task.workDone >= task.requiredWork) {
 					m_pRegistry->remove<Waypoint>(entity);
-					m_pRegistry->get<Task>(*task).progress = TaskProgress::COMPLETED;
+					task.progress = TaskProgress::COMPLETED;
 					taskQueue.pop();
 					m_pRegistry->remove<CurrentTask>(entity);
-				};
+				}
 			}
 		}
 	}

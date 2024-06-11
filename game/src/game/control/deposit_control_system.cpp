@@ -25,7 +25,8 @@ void DepositControlSystem::onAction(std::string action, entt::entity entity, glm
 void DepositControlSystem::onMouseMove(entt::entity entity, glm::vec3 position, float distance) {}
 
 void DepositControlSystem::addTask(entt::entity entity) {
-	m_pRegistry->emplace<TaskRequest>(entity, TaskRequest("Extract"));
+	ResourceDeposit& resourceDeposit = m_pRegistry->get<ResourceDeposit>(entity);
+	m_pRegistry->emplace<TaskRequest>(entity, TaskRequest("Extract", resourceDeposit.massOfResource * 10));
 	m_pRegistry->emplace<Outline>(entity, Outline(glm::vec3(1, 1, 1), 0.025));
 }
 

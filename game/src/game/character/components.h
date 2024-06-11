@@ -8,6 +8,7 @@
 
 struct GameCharacter {
 	std::string name;
+	float workSpeed = 10.0;
 
 	GameCharacter(std::string name) : name(name) {};
 };
@@ -30,10 +31,13 @@ enum class TaskProgress {
 struct Task {
 	TaskProgress progress;
 	std::string name;
+	int requiredWork;
+	double workDone = 0;
+	double deltaWork = 0;
 
-
-	Task() : progress(TaskProgress::PLANNED), name("Unnamed task") {}
-	Task(std::string name) : progress(TaskProgress::PLANNED), name(name) {}
+	Task() : progress(TaskProgress::PLANNED), name("Unnamed task"), requiredWork(1) {}
+	Task(std::string name) : progress(TaskProgress::PLANNED), name(name), requiredWork(1) {}
+	Task(std::string name, int requiredWork) : progress(TaskProgress::PLANNED), name(name), requiredWork(requiredWork) {}
 };
 
 /**
@@ -45,18 +49,25 @@ struct CharacterAssignedTo {
 	CharacterAssignedTo(entt::entity entity) : characterEntity(entity) {}
 };
 
-/**
- * @brief isLoner: if true other tasks of character will be removed
- */
 struct TaskRequest {
 	std::string name;
 	unsigned int maxExecutors;
 	bool isLoner;
+	int requiredWork;
 
-	TaskRequest(std::string name, bool isLoner = false, unsigned int maxExecutors = 1)
+	TaskRequest(std::string name, int requiredWork = 1, unsigned int maxExecutors = 1)
 		: name(name),
 		  maxExecutors(maxExecutors),
-		  isLoner(isLoner) {};
+		  isLoner(isLoner), 
+		requiredWork(requiredWork)
+	{};
+};
+
+/**
+ * @brief isLoner: if present other tasks of character will be removed
+ */
+struct LonerTask {
+
 };
 
 struct RemoveTaskRequest {

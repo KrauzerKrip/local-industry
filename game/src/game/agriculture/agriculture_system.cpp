@@ -24,4 +24,6 @@ void AgricultureSystem::update() {
 	for (auto&& [entity, harvestable, harvested, placed] : harvestedDoneView.each()) {
 		m_pRegistry->destroy(entity);
 	}
+
+	//TODO: add InventoryCantPlace handling
 }

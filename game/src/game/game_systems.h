@@ -29,5 +29,4 @@ private:
 	InventorySystem m_inventorySystem;
 	TradeSystem m_tradeSystem;
 	DepositSystem m_depositSystem;
-
 };

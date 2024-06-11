@@ -8,3 +8,7 @@ struct Wood {
 struct Anthracite {
 
 };
+
+struct Brick {
+
+};

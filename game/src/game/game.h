@@ -30,7 +30,6 @@
 #include "economy/components.h"
 #include "game_systems.h"
 
-
 import character;
 
 

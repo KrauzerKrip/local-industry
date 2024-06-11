@@ -39,14 +39,14 @@ public:
 		}
 	}
 
-	void update() {
+	void update(double updateInterval) {
 		if (!m_isEveryCharacterCreated) {
 			// For some reason creating characters in constructor causes invalid entity script error.
 			createCharacters();
 			m_isEveryCharacterCreated = true;
 		}
 
-		m_pCharacterTaskSystem->update();
+		m_pCharacterTaskSystem->update(updateInterval);
 	}
 
 private:

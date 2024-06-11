@@ -24,7 +24,8 @@ void AgricultureControlSystem::onAction(std::string action, entt::entity entity,
 void AgricultureControlSystem::onMouseMove(entt::entity entity, glm::vec3 position, float distance) {}
 
 void AgricultureControlSystem::addTask(entt::entity entity) {
-	m_pRegistry->emplace<TaskRequest>(entity, TaskRequest("Harvest", true));
+	m_pRegistry->emplace<TaskRequest>(entity, TaskRequest("Harvest");
+	m_pRegistry->emplace<LonerTask>(entity);
 	m_pRegistry->emplace<Outline>(entity, Outline(glm::vec3(1, 1, 1), 0.025));
 }
 
