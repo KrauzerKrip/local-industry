@@ -47,6 +47,9 @@ void CharacterTaskSystem::processRemoveTaskRequests() {
 		if (m_pRegistry->all_of<Outline>(entity)) {
 			m_pRegistry->remove<Outline>(entity); // TODO it should be better than this
 		}
+		if (m_pRegistry->all_of<LonerTask>(entity)) {
+			m_pRegistry->remove<LonerTask>(entity);
+		}
 
 		m_pRegistry->remove<RemoveTaskRequest>(entity);
 	}
