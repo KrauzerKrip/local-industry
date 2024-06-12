@@ -11,7 +11,7 @@
 #include "game/character/components.h"
 
 
-import character;
+#include "game/character/task_queue.h"
 
 MachineControlSystem::MachineControlSystem(
 	MouseRaycast* pMouseRaycast, ActionControl* pActionControl, entt::registry* pRegistry) {

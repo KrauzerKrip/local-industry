@@ -4,7 +4,7 @@
 #include "lc_client/eng_graphics/entt/components.h"
 #include "game/character/components.h"
 
-import character;
+#include "game/character/task_queue.h"
 
 
 MachineGraphicsSystem::MachineGraphicsSystem(entt::registry* pRegistry) { m_pRegistry = pRegistry; }

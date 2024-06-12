@@ -11,8 +11,6 @@
 #include "lc_client/eng_gui/widgets/widget.h"
 #include "../task_view.h"
 
-import character;
-
 
 class PlannedTaskList : public TaskList {
 public:

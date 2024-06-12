@@ -3,7 +3,7 @@
 #include "lc_client/eng_gui/widgets/widget.h"
 #include "task_list_layout.h"
 
-import character;
+#include "game/character/task_queue.h"
 
 
 class TaskList : public Widget {

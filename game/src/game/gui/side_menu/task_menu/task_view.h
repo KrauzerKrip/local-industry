@@ -4,7 +4,7 @@
 #include "lc_client/eng_gui/widgets/text_widget.h"
 #include "game/character/components.h"
 
-import character;
+#include "game/character/task_queue.h"
 
 
 struct TaskData {

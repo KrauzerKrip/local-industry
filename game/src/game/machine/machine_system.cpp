@@ -9,7 +9,7 @@
 #include "machines/boiler/boiler_system.h"
 #include "game/character/components.h"
 
-import character;
+#include "game/character/task_queue.h"
 
 
 

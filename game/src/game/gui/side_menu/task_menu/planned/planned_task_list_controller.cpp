@@ -3,7 +3,7 @@
 #include "game/machine/components.h"
 #include "game/character/components.h"
 
-import character;
+#include "game/character/task_queue.h"
 
 
 PlannedTaskListController::PlannedTaskListController(entt::registry* pRegistry, TaskList* pTaskList) {

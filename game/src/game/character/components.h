@@ -8,7 +8,7 @@
 
 struct GameCharacter {
 	std::string name;
-	float workSpeed = 1.0; // TODO: set to 10
+	float workSpeed = 10.0; // TODO: set to 10
 
 	GameCharacter(std::string name) : name(name) {};
 };

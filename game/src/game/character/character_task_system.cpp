@@ -17,7 +17,7 @@ void CharacterTaskSystem::processTaskRequests() {
 	auto requests = m_pRegistry->view<TaskRequest>();
 
 	for (auto&& [entity, request] : requests.each()) {
-		m_pRegistry->emplace<Task>(entity, Task(request.name));
+		m_pRegistry->emplace<Task>(entity, Task(request.name, request.requiredWork));
 		m_pRegistry->emplace<AssignTaskRequest>(entity, AssignTaskRequest(request.maxExecutors, request.isLoner));
 
 		m_pRegistry->remove<TaskRequest>(entity);

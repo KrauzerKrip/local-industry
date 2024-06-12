@@ -3,7 +3,7 @@
 #include "lc_client/eng_gui/layout/layouts/layout.h"
 #include "task_view.h"
 
-import character;
+#include "game/character/task_queue.h"
 
 
 class TaskListLayout : public Layout {

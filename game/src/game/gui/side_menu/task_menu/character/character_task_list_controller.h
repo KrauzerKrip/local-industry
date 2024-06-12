@@ -4,9 +4,7 @@
 
 #include "../task_list_controller.h"
 #include "../task_list.h"
-
-
-import character;
+#include "game/character/task_queue.h"
 
 
 class CharacterTaskListController : public TaskListController {
