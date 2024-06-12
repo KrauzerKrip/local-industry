@@ -76,7 +76,8 @@ void InventorySystem::processLoadingTries() {
 			}
 		}
 
-		m_pRegistry->emplace<InventoryTriedLoad>(entity, InventoryTriedLoad(loadingTry.item, shouldLoad));
+		m_pRegistry->emplace<InventoryTriedLoad>(
+			entity, InventoryTriedLoad(loadingTry.inventory, loadingTry.item, shouldLoad));
 		m_pRegistry->remove<InventoryTryLoad>(entity);
 	}
 }

@@ -43,10 +43,14 @@ struct InventoryTryLoad {
  * @brief After processing InventoryTryLoad it will be placed.
  */
 struct InventoryTriedLoad {
+	entt::entity inventoryEntity;
 	entt::entity item;
 	float massLoaded;
 
-	InventoryTriedLoad(entt::entity item, float massLoaded) : item(item), massLoaded(massLoaded) {}
+	InventoryTriedLoad(entt::entity inventoryEntity, entt::entity item, float massLoaded)
+		: inventoryEntity(inventoryEntity),
+		  item(item),
+		  massLoaded(massLoaded) {}
 };
 
 struct InventoryLoaded {

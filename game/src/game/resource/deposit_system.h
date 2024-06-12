@@ -7,7 +7,7 @@
 
 class DepositSystem {
 public:
-	DepositSystem(entt::registry* pRegistry);
+	DepositSystem(entt::registry* pRegistry, IConsole* pConsole);
 
 	void update(double updateInterval);
 

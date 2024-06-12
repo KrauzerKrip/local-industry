@@ -12,6 +12,11 @@ struct ResourceDeposit {
 
 struct ExtractRequest {
 	entt::entity resourceDeposit;
+	float massToExtract;
+
+	ExtractRequest(entt::entity resourceDeposit, float massToExtract)
+		: resourceDeposit(resourceDeposit),
+		  massToExtract(massToExtract) {}
 };
 
 struct Extracted {

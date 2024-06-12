@@ -5,6 +5,7 @@ project(resource_)
 
 target_sources(game PRIVATE
 	"components.h"
+	"exceptions.h"
 	"internal_components.h"
 	"deposit_extraction_system.h"
 	"deposit_extraction_system.cpp"

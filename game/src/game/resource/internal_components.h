@@ -1,11 +1,8 @@
 #pragma once
 
 
-struct ExtractionInProcess {
-	entt::entity placerTempEntity;
-	entt::entity resourceToPlace;
-	float massToPlace;
+struct ExtractionInProgress {
+	entt::entity depositEntity;
 
-	ExtractionInProcess(entt::entity placerTempEntity, entt::entity resourceToPlace, float massToPlace)
-		: placerTempEntity(placerTempEntity), resourceToPlace(resourceToPlace), massToPlace(massToPlace) {}
+	ExtractionInProgress(entt::entity depositEntity) : depositEntity(depositEntity) {}
 };
