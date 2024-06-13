@@ -245,6 +245,14 @@ void Game::init() {
 	pRegistry->emplace<Transform>(brickDeposit).position = glm::vec3(0, 0, 10);
 	pRegistry->emplace<Properties>(brickDeposit);
 	pRegistry->emplace<ModelRequest>(brickDeposit, ModelRequest("dev", "test_cube_white"));
+
+	entt::entity tree = pRegistry->create();
+	pRegistry->emplace<Properties>(tree);
+	Transform& treeTransform = pRegistry->emplace<Transform>(tree);
+	treeTransform.position = glm::vec3(0, 8, -20);
+	treeTransform.scale = glm::vec3(3, 3, 3);
+	pRegistry->emplace<ModelRequest>(tree, ModelRequest("game", "tree"));
+	pRegistry->emplace<Harvestable>(tree, Harvestable(wood, 4.0));
 }
 
 void Game::input(double deltaTime) {
