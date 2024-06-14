@@ -35,6 +35,11 @@ void MachineControlSystem::input() {
 		glm::vec3 attachmentRotation;
 
 		auto outputs = m_pRegistry->get<Connections>(request.entity).outputs;
+
+		if (outputs.empty()) {
+			continue;
+		}
+
 		attachmentPosition = outputs.at(request.resourceType).position;
 		attachmentRotation = outputs.at(request.resourceType).rotation;
 
