@@ -15,6 +15,7 @@ void MachineLoadingSystem::update() {
 	auto machineRequests = m_pRegistry->view<MachineRequest>();
 
 	for (auto&& [entity, request] : machineRequests.each()) {
+		m_pRegistry->emplace<Connections>(entity, Connections());
 		m_machineLoader.loadMachine(entity, request.typeString);
 		addMachineComponent(entity, request.type);
 		m_pRegistry->emplace<Properties>(entity, Properties());

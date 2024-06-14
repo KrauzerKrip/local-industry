@@ -5,9 +5,19 @@
 
 #include "game/util/enum_iterator.h"
 
+/**
+* @brief Respectively to the machine we connecting. If IN the machine (e.g. boiler) will be connected as INPUT for another machine (e.g. furnance) OUTPUT.
+*/
 enum class ConnectionType {
+	NONE,
+	IN,
+	OUT
+};
+
+enum class ConnectionResourceType {
     NONE,
-    HEAT
+    HEAT,
+	LATEX,
 };
 
 enum class MachineType {

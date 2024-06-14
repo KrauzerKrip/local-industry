@@ -3,19 +3,19 @@
 <machine>
   <components>
     <transform>
-      <position x="0" y="0" z="0"></position>
+      <position x="0" y="8" z="0"></position>
       <rotation x="0" y="0" z="0"></rotation>
-      <scale x="1" y="1" z="1"></scale>
+      <scale x="3" y="3" z="3"></scale>
     </transform>
     <model_data>      
-      <pack>dev</pack>
-      <model>test_cube</model>
+      <pack>game</pack>
+      <model>tree</model>
     </model_data>
     <connections>
-      <heat_in>
+      <latex_out>
         <position x="0" y="0" z="0"></position>
         <rotation x="0" y="0" z="0"></rotation>
-      </heat_in>
+      </latex_out>
     </connections>
   </components>    
 </machine>

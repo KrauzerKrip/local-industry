@@ -30,9 +30,9 @@ void HeaterSystem::update(float deltaTime) {
 void HeaterSystem::machineUpdate(float deltaTime) {
 	float heaterEfficiency = m_pPhysicalConstants->getConstant("heater_efficiency");
 
-    auto heaters = m_pRegistry->view<Heater, Machine, MachineMode, HeatOut, CombustionFuelStorage>();
+    auto heaters = m_pRegistry->view<Heater, Machine, MachineMode, Connections, CombustionFuelStorage>();
 
-    for (auto&& [entity, heater, mode, heatOut, fuelStorage] : heaters.each()) {
+    for (auto&& [entity, heater, mode, connections, fuelStorage] : heaters.each()) {
 		if (mode.toggle) {
 			if (fuelStorage.fuel.has_value() && fuelStorage.mass > 0) {
 				const CombustionFuel& fuel = m_pRegistry->get<CombustionFuel>(*fuelStorage.fuel);
@@ -46,7 +46,7 @@ void HeaterSystem::machineUpdate(float deltaTime) {
 					heat = fuelStorage.mass * fuel.heatValue * heaterEfficiency;
 					fuelStorage.mass = 0;
 				}
-				heatOut.heat = heat;
+				connections.outputs[ConnectionResourceType::HEAT].resource = heat;
 			}
 		}
 	}

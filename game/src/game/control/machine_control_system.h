@@ -8,6 +8,7 @@
 #include "mouse_raycast.h"
 #include "game/machine/components.h"
 #include "lc_client/eng_graphics/entt/components.h"
+#include "game/machine/machine_connector.h"
 
 
 /**
@@ -39,6 +40,7 @@ private:
 
 	MouseRaycast* m_pMouseRaycast = nullptr;
 	ActionControl* m_pActionControl = nullptr;
+	MachineConnector m_machineConnector;
 
 	entt::registry* m_pRegistry = nullptr;
 	bool m_isConnection = false;

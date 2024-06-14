@@ -51,15 +51,30 @@ void MachineLoader::handleComponent(pugi::xml_node componentXml, entt::entity en
 		modelRequest.loadShaders = false;
 		m_pRegistry->emplace<ModelRequest>(entity, modelRequest);
 	}
-	else if (componentName == "heat_out") {
-		HeatOut heatOut;
-		heatOut.position = makeVector3(componentXml.child("position"));
-		heatOut.rotation = makeVector3(componentXml.child("rotation"));
-		m_pRegistry->emplace<HeatOut>(entity, heatOut);
+	else if (componentName == "connections") {
+		for (auto& child : componentXml.children()) {
+			this->handleConnection(child, entity);
+		}
 	}
-	else if (componentName == "heat_in") {
-		HeatIn heatIn;
-		heatIn.position = makeVector3(componentXml.child("position"));
-		m_pRegistry->emplace<HeatIn>(entity, heatIn);
+}
+
+void MachineLoader::handleConnection(pugi::xml_node connectionXml, entt::entity entity) {
+	std::string connectionName = connectionXml.name();
+
+	Connection connection;
+	connection.position = makeVector3(connectionXml.child("position"));
+	connection.rotation = makeVector3(connectionXml.child("rotation"));
+
+	if (connectionName == "heat_in") {
+		m_pRegistry->get<Connections>(entity).inputs.emplace(ConnectionResourceType::HEAT, connection);
+	}
+	else if (connectionName == "heat_out") {
+		m_pRegistry->get<Connections>(entity).outputs.emplace(ConnectionResourceType::HEAT, connection);
+	}
+	else if (connectionName == "latex_in") {
+		m_pRegistry->get<Connections>(entity).inputs.emplace(ConnectionResourceType::LATEX, connection);
+	}
+	else if (connectionName == "latex_out") {
+		m_pRegistry->get<Connections>(entity).outputs.emplace(ConnectionResourceType::LATEX, connection);
 	}
 }

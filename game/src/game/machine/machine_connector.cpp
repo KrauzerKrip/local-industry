@@ -5,30 +5,41 @@
 
 MachineConnector::MachineConnector(entt::registry* pRegistry) { m_pRegistry = pRegistry; }
 
-void MachineConnector::connect(ConnectionType type, entt::entity entity, entt::entity entityConnectTo) {
-	if (type == ConnectionType::HEAT) {
-		if (checkHeat(entity, entityConnectTo)) {
-			m_pRegistry->get<HeatOut>(entityConnectTo).entity = entity;
-		} 
-	} else if (type == ConnectionType::NONE) {
+void MachineConnector::connect(
+	ConnectionResourceType resourceType, ConnectionType type, entt::entity entity, entt::entity entityConnectTo) {
+	Connections& entityConnections = m_pRegistry->get<Connections>(entity);
+	Connections& entityConnectToConnections = m_pRegistry->get<Connections>(entityConnectTo);
 
+	if (type == ConnectionType::IN) {
+		entityConnections.inputs.at(resourceType).entity = entityConnectTo;
+		entityConnectToConnections.outputs.at(resourceType).entity = entity;
+	}
+	else if (type == ConnectionType::OUT) {
+		entityConnections.outputs.at(resourceType).entity = entityConnectTo;
+		entityConnectToConnections.inputs.at(resourceType).entity = entity;
 	}
 }
 
-ConnectionType MachineConnector::chooseConnectionType(entt::entity blueprint, entt::entity entityConnectTo) {
-	if (checkHeat(blueprint, entityConnectTo)) {
-		return ConnectionType::HEAT;
-	} else {
-		return ConnectionType::NONE;
-	}
-}
+std::tuple<ConnectionResourceType, ConnectionType> MachineConnector::chooseConnection(
+	entt::entity entity, entt::entity entityConnectTo) {
+	Connections& entityConnections = m_pRegistry->get<Connections>(entity);
+	Connections& entityConnectToConnections = m_pRegistry->get<Connections>(entityConnectTo);
 
-bool MachineConnector::checkHeat(entt::entity blueprint, entt::entity entityConnectTo) {
-	if (m_pRegistry->all_of<HeatIn>(blueprint) && m_pRegistry->all_of<HeatOut>(entityConnectTo)) {
-		if (m_pRegistry->get<HeatOut>(entityConnectTo).entity) {
-			return false;
+	for (auto& [resourceType, connection] : entityConnections.inputs) {
+		for (auto& [resourceType_, connection_] : entityConnectToConnections.outputs) {
+			if (resourceType == resourceType_) {
+				return std::make_tuple(resourceType, ConnectionType::IN);
+			}
 		}
-	    return true;
 	}
-    return false;
+
+	for (auto& [resourceType, connection] : entityConnections.outputs) {
+		for (auto& [resourceType_, connection_] : entityConnectToConnections.inputs) {
+			if (resourceType == resourceType_) {
+				return std::make_tuple(resourceType, ConnectionType::OUT);
+			}
+		}
+	}
+
+	return std::make_tuple(ConnectionResourceType::NONE, ConnectionType::NONE);
 }

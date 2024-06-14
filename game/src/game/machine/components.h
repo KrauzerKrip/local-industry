@@ -62,11 +62,16 @@ struct Attachment {
     
 };
 
+struct Connectable {
+
+};
+
 struct ConnectionRequest {
     entt::entity entity;
-	ConnectionType type;
+	ConnectionResourceType resourceType = ConnectionResourceType::NONE;
+	ConnectionType type = ConnectionType::NONE;
 
-	explicit ConnectionRequest(entt::entity entity) : entity(entity),  type(ConnectionType::NONE) {}
+	explicit ConnectionRequest(entt::entity entity) : entity(entity) {}
 };
 
 struct MachineMode {
@@ -82,20 +87,16 @@ struct MachineProperties {
 	MachineProperties(MachineType type, std::string typeString) : type(type), typeString(typeString) {}
 };
 
-struct HeatIn {
-	glm::vec3 position;
-	float heat = 0;
-	 
-	HeatIn() {} 
-};
-
-struct HeatOut {
+struct Connection {
 	glm::vec3 position;
 	glm::vec3 rotation;
-	std::optional<entt::entity> entity;
-	float heat = 0;
+	std::optional<entt::entity> entity = std::nullopt;
+	float resource = 0;
+};
 
-	HeatOut() : entity(std::nullopt) {}
+struct Connections {
+	std::unordered_map<ConnectionResourceType, Connection> inputs;
+	std::unordered_map<ConnectionResourceType, Connection> outputs;
 };
 
 struct CombustionFuelStorage {

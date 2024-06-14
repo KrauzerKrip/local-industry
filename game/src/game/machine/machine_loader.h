@@ -16,6 +16,7 @@ public:
 
 private:
 	void handleComponent(pugi::xml_node componentXml, entt::entity entity);
+	void handleConnection(pugi::xml_node connectionXml, entt::entity entity);
 
 	const std::string m_machinesPath = "game/machines/";
 

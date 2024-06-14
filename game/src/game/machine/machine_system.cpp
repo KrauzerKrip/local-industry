@@ -23,10 +23,6 @@ MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistr
 }
 
 void MachineSystem::input(float deltaTime) {
-	auto connectionRequests = m_pRegistry->view<ConnectionRequest>();
-	for (auto&& [entity, request] : connectionRequests.each()) {
-		request.type = m_machineConnector.chooseConnectionType(entity, request.entity);
-	}
 }
 
 void MachineSystem::update(float updateInterval) {
@@ -47,17 +43,18 @@ void MachineSystem::update(float updateInterval) {
 }
   
 void MachineSystem::machineUpdate(float updateInterval) { 
-	auto machinesHeatOut = m_pRegistry->view<Machine, HeatOut>();
-
     for (BaseMachineSystem* pMachineSystem : m_machineSystems) {
 		pMachineSystem->machineUpdate(updateInterval);
 	}
 
-	for (auto&& [entity, heatOut] : machinesHeatOut.each()) {
-		if (heatOut.entity) {
-			HeatIn& heatIn = m_pRegistry->get<HeatIn>(heatOut.entity.value());
-			heatIn.heat += heatOut.heat;
-			heatOut.heat = 0;
+	auto machines = m_pRegistry->view<Machine, Connections>();
+	for (auto&& [entity, connections] : machines.each()) {
+		for (auto& [resourceType, connection] : connections.outputs) {
+			if (connection.resource > 0 && connection.entity.has_value()) {
+				Connection& inputConnection = m_pRegistry->get<Connections>(connection.entity.value()).inputs.at(resourceType);
+				inputConnection.resource += connection.resource;
+				connection.resource = 0;
+			}
 		}
 	}
 }
@@ -80,8 +77,8 @@ void MachineSystem::completeTask(entt::entity entity) {
 
 	if (m_pRegistry->all_of<ConnectionRequest>(entity)) {
 	    ConnectionRequest& request = m_pRegistry->get<ConnectionRequest>(entity);
-		if (request.type != ConnectionType::NONE) {
-			m_machineConnector.connect(request.type, entity, request.entity);
+		if (request.resourceType != ConnectionResourceType::NONE) {
+			m_machineConnector.connect(request.resourceType, request.type, entity, request.entity);
 		}
 
 		m_pRegistry->remove<ConnectionRequest>(entity);

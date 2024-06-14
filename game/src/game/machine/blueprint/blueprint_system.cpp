@@ -29,6 +29,7 @@ void BlueprintSystem::processRequests() {
 			m_pRegistry->emplace<Transparent>(entity);
 			m_pRegistry->emplace<ShaderUniforms>(entity);
 			m_pRegistry->emplace<MachineSelectable>(entity);
+			m_pRegistry->emplace<Connectable>(entity);
 		}
 		m_pRegistry->remove<BlueprintRequest>(entity);
 	}
@@ -48,6 +49,11 @@ void BlueprintSystem::acquireBlueprintsInInventories() {
 
 bool BlueprintSystem::isBlueprintAcquired(MachineType type) { 
 	auto acquiredBlueprints = m_pRegistry->view<BlueprintItem, BlueprintAcquired>();
+
+
+	return true; // TODO: Remove
+
+
 
 	for (auto&& [entity, blueprintItem] : acquiredBlueprints.each()) {
 		if (blueprintItem.type == type) {

@@ -41,12 +41,12 @@ void MachineInspectorController::input() {
 		if (m_pRegistry->all_of<CombustionFuelStorage>(entity)) {
 			dataFloat.emplace("Fuel:", &m_pRegistry->get<CombustionFuelStorage>(entity).mass);
 		}
-		if (m_pRegistry->all_of<HeatOut>(entity)) {
-			dataFloat.emplace("HeatOut:", &m_pRegistry->get<HeatOut>(entity).heat);
-		}
-		if (m_pRegistry->all_of<HeatIn>(entity)) {
-			dataFloat.emplace("HeatIn:",&m_pRegistry->get<HeatIn>(entity).heat);
-		}
+		//if (m_pRegistry->all_of<HeatOut>(entity)) {
+		//	dataFloat.emplace("HeatOut:", &m_pRegistry->get<HeatOut>(entity).heat);
+		//}
+		//if (m_pRegistry->all_of<HeatIn>(entity)) {
+		//	dataFloat.emplace("HeatIn:",&m_pRegistry->get<HeatIn>(entity).heat);
+		//}
 		if (m_pRegistry->all_of<MachineMode>(entity)) {
 			dataBool.emplace("Toggle:", &m_pRegistry->get<MachineMode>(entity).toggle);
 		}

@@ -14,7 +14,8 @@
 #include "game/character/task_queue.h"
 
 MachineControlSystem::MachineControlSystem(
-	MouseRaycast* pMouseRaycast, ActionControl* pActionControl, entt::registry* pRegistry) {
+	MouseRaycast* pMouseRaycast, ActionControl* pActionControl, entt::registry* pRegistry)
+	: m_machineConnector(pRegistry) {
 	m_pMouseRaycast = pMouseRaycast;
 	m_pActionControl = pActionControl;
 	m_pRegistry = pRegistry;
@@ -33,12 +34,11 @@ void MachineControlSystem::input() {
 		glm::vec3 attachmentPosition;
 		glm::vec3 attachmentRotation;
 
-		if (request.type == ConnectionType::HEAT) {
-			attachmentPosition = m_pRegistry->get<HeatOut>(request.entity).position;
-			attachmentRotation = m_pRegistry->get<HeatOut>(request.entity).rotation;
-		}
+		auto outputs = m_pRegistry->get<Connections>(request.entity).outputs;
+		attachmentPosition = outputs.at(request.resourceType).position;
+		attachmentRotation = outputs.at(request.resourceType).rotation;
 
-		if (request.type != ConnectionType::NONE) {
+		if (request.resourceType != ConnectionResourceType::NONE) {
 			Transform& baseTransform = m_pRegistry->get<Transform>(request.entity);
 
 		    glm::vec3 pos = attachmentPosition;
@@ -52,6 +52,8 @@ void MachineControlSystem::input() {
 			transform.rotation = glm::quat(attachmentRotation) * m_pRegistry->get<Transform>(request.entity).rotation * relativeTransform.transform.rotation;
 			m_isConnection = true;
 		}
+
+		//m_pRegistry->remove<ConnectionRequest>(entity); TODO: make it better
 	}
 
 	auto selectedBlueprints = m_pRegistry->view<Blueprint, Selected, Transform, RelativeTransform>(entt::exclude<Task>);
@@ -59,8 +61,11 @@ void MachineControlSystem::input() {
 		RaycastResult result = m_pMouseRaycast->doMouseRaycast(entt::exclude<Selected>);
 		if (result.intersectionPoint.has_value()) {
 			for (auto&& [ent, transform,  relativeTransform] : selectedBlueprints.each()) {
-			    if (m_pRegistry->any_of<Blueprint, Built>(*result.entityIntersectedWith)) {
-					m_pRegistry->emplace_or_replace<ConnectionRequest>(ent, *result.entityIntersectedWith);
+			    if (m_pRegistry->all_of<Connectable>(*result.entityIntersectedWith)) {
+					ConnectionRequest& request = m_pRegistry->emplace_or_replace<ConnectionRequest>(ent, ConnectionRequest(*result.entityIntersectedWith));
+					auto [resourceType, type] = m_machineConnector.chooseConnection(ent, request.entity);
+					request.resourceType = resourceType;
+					request.type = type;
 				} else {
 					transform.position = relativeTransform.transform.position + result.intersectionPoint.value();
 					transform.position.x = static_cast<int>(transform.position.x);
@@ -95,12 +100,25 @@ void MachineControlSystem::onMouseMove(entt::entity entity, glm::vec3 position, 
 }
 
 bool MachineControlSystem::isConnectable(entt::entity blueprint, entt::entity entityConnectTo) {
-	if (m_pRegistry->all_of<HeatIn>(blueprint) && m_pRegistry->all_of<HeatOut>(entityConnectTo)) {
-		if (m_pRegistry->get<HeatOut>(entityConnectTo).entity) {
-			return false;
+	Connections& blueprintConnections = m_pRegistry->get<Connections>(blueprint);
+	Connections& entityConnections = m_pRegistry->get<Connections>(entityConnectTo);
+
+	for (auto& [resourceType, connection] : blueprintConnections.inputs) {
+		for (auto& [resourceType_, connection_] : entityConnections.outputs) {
+			if (resourceType == resourceType_) {
+				return true;
+			}
 		}
-	    return true;
 	}
+
+	for (auto& [resourceType, connection] : blueprintConnections.outputs) {
+		for (auto& [resourceType_, connection_] : entityConnections.inputs) {
+			if (resourceType == resourceType_) {
+				return true;
+			}
+		}
+	}
+
     return false;
 }
 
@@ -170,7 +188,7 @@ void MachineControlSystem::addRemoveCallback() {
 
 void MachineControlSystem::addTask(entt::entity entity) {
 	m_pRegistry->emplace<TaskRequest>(entity, TaskRequest("Build"));
-	m_pRegistry->emplace<Outline>(entity, Outline(glm::vec3(1, 1, 1), 0.025));
+	m_pRegistry->emplace_or_replace<Outline>(entity, Outline(glm::vec3(1, 1, 1), 0.025));
 }
 
 
@@ -191,7 +209,7 @@ bool MachineControlSystem::checkIsOrphanAddition(entt::entity entity) {
 	if (m_pRegistry->all_of<Attachment>(entity)) {
 		if (m_pRegistry->all_of<ConnectionRequest>(entity)) {
 			ConnectionRequest& connectionRequest = m_pRegistry->get<ConnectionRequest>(entity);
-			if (connectionRequest.type != ConnectionType::NONE &&
+			if (connectionRequest.resourceType != ConnectionResourceType::NONE &&
 				!m_pRegistry->any_of<Task, Built>(connectionRequest.entity)) {
 				return true;
 			}
