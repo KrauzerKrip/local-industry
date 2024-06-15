@@ -67,10 +67,14 @@ void MachineControlSystem::input() {
 		if (result.intersectionPoint.has_value()) {
 			for (auto&& [ent, transform,  relativeTransform] : selectedBlueprints.each()) {
 			    if (m_pRegistry->all_of<Connectable>(*result.entityIntersectedWith)) {
-					ConnectionRequest& request = m_pRegistry->emplace_or_replace<ConnectionRequest>(ent, ConnectionRequest(*result.entityIntersectedWith));
-					auto [resourceType, type] = m_machineConnector.chooseConnection(ent, request.entity);
-					request.resourceType = resourceType;
-					request.type = type;
+					auto [resourceType, type] =
+					m_machineConnector.chooseConnection(ent, *result.entityIntersectedWith);
+					if (!(resourceType == ConnectionResourceType::NONE) && !(type == ConnectionType::NONE)) {
+						ConnectionRequest& request = m_pRegistry->emplace_or_replace<ConnectionRequest>(
+							ent, ConnectionRequest(*result.entityIntersectedWith));
+						request.resourceType = resourceType;
+						request.type = type;
+					}
 				} else {
 					transform.position = relativeTransform.transform.position + result.intersectionPoint.value();
 					transform.position.x = static_cast<int>(transform.position.x);
