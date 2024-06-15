@@ -19,3 +19,7 @@ struct Harvested {
 struct Bush {
 
 };
+
+struct Tree {
+
+};

@@ -253,6 +253,11 @@ void Game::init() {
 	treeTransform.scale = glm::vec3(3, 3, 3);
 	pRegistry->emplace<ModelRequest>(tree, ModelRequest("game", "tree"));
 	pRegistry->emplace<Harvestable>(tree, Harvestable(wood, 4.0));
+	pRegistry->emplace<Connectable>(tree);
+	Connection connection;
+	connection.position = glm::vec3(-2.5, -6, -4.25);
+	connection.rotation = glm::vec3(0, 90, 0);
+	pRegistry->emplace<Connections>(tree).outputs.emplace(ConnectionResourceType::LATEX, connection);
 }
 
 void Game::input(double deltaTime) {

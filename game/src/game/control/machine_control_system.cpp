@@ -58,6 +58,7 @@ void MachineControlSystem::input() {
 			m_isConnection = true;
 		}
 
+		m_machineConnector.connect(request.resourceType, request.type, entity, request.entity);
 		//m_pRegistry->remove<ConnectionRequest>(entity); TODO: make it better
 	}
 
@@ -184,13 +185,16 @@ void MachineControlSystem::addRemoveCallback() {
 				removeTask(entity);
 			}
 
-			m_pRegistry->destroy(entity);
 			auto connectionRequests = m_pRegistry->view<Attachment, ConnectionRequest>();
 			for (auto&& [ent, request] : connectionRequests.each()) {
 				if (request.entity == entity) {
 					m_pRegistry->destroy(ent);   
 				}
 			}
+
+			m_machineConnector.disconnectEveryConnection(entity);
+
+			m_pRegistry->destroy(entity);
 		}
 	});
 }

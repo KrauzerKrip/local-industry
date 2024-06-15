@@ -4,6 +4,7 @@
 #include "game/character/components.h"
 
 #include "lc_client/eng_graphics/entt/components.h"
+#include <game/machine/components.h>
 
 
 AgricultureControlSystem::AgricultureControlSystem(entt::registry* pRegistry) { m_pRegistry = pRegistry; }
@@ -15,6 +16,20 @@ void AgricultureControlSystem::onAction(std::string action, entt::entity entity,
 				removeTask(entity);
 			}
 			else {
+				if (m_pRegistry->all_of<Connections>(entity)) {
+					Connections& connections = m_pRegistry->get<Connections>(entity);
+					for (auto& [resourceType, connection] : connections.inputs) {
+						if (connection.entity.has_value()) {
+							return;
+						}
+					}
+					for (auto& [resourceType, connection] : connections.outputs) {
+						if (connection.entity.has_value()) {
+							return;
+						}
+					}
+				}
+
 				addTask(entity);
 			}
 		}

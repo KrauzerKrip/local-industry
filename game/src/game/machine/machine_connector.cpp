@@ -20,6 +20,34 @@ void MachineConnector::connect(
 	}
 }
 
+void MachineConnector::disconnectEveryConnection(entt::entity entity) {
+	Connections& connections = m_pRegistry->get<Connections>(entity);
+
+	for (auto& [resourceType, connection] : connections.inputs) {
+		if (connection.entity.has_value()) {
+			Connections& connectedEntityConnections = m_pRegistry->get<Connections>(connection.entity.value());
+			for (auto& [k, v] : connectedEntityConnections.outputs) {
+				if (k == resourceType) {
+					v.entity = std::nullopt;
+				}
+			}
+			connection.entity = std::nullopt;
+		}
+	}
+
+	for (auto& [resourceType, connection] : connections.outputs) {
+		if (connection.entity.has_value()) {
+			Connections& connectedEntityConnections = m_pRegistry->get<Connections>(connection.entity.value());
+			for (auto& [k, v] : connectedEntityConnections.inputs) {
+				if (k == resourceType) {
+					v.entity = std::nullopt;
+				}
+			}
+			connection.entity = std::nullopt;
+		}
+	}
+}
+
 std::tuple<ConnectionResourceType, ConnectionType> MachineConnector::chooseConnection(
 	entt::entity entity, entt::entity entityConnectTo) {
 	Connections& entityConnections = m_pRegistry->get<Connections>(entity);

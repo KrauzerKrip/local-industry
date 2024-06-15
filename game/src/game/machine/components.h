@@ -107,3 +107,7 @@ struct CombustionFuelStorage {
 	CombustionFuelStorage(entt::entity fuel, float mass) : fuel(fuel), mass(mass) {}
 };
 
+struct DontRemove {
+
+};
+
