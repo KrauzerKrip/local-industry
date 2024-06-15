@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <machine>
-  <components>x
+  <components>
     <transform>
-      <position x="0" y="8" z="0"></position>
+      <position x="0" y="0" z="0"></position>
       <rotation x="0" y="0" z="0"></rotation>
-      <scale x="3" y="3" z="3"></scale>
+      <scale x="1" y="1" z="1"></scale>
     </transform>
     <model_data>      
       <pack>game</pack>
-      <model>tree</model>
+      <model>latex_extractor</model>
     </model_data>
     <connections>
-      <latex_out>
+      <latex_in>
         <position x="0" y="0" z="0"></position>
         <rotation x="0" y="0" z="0"></rotation>
-      </latex_out>
+      </latex_in>
     </connections>
   </components>    
 </machine>

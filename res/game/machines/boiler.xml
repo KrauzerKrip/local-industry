@@ -12,7 +12,7 @@
       <model>test_cube</model>
     </model_data>
     <connections>
-      <heat_in>
+      <heat_in attachment="true">
         <position x="0" y="0" z="0"></position>
         <rotation x="0" y="0" z="0"></rotation>
       </heat_in>

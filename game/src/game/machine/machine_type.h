@@ -22,10 +22,11 @@ enum class ConnectionResourceType {
 
 enum class MachineType {
 	HEATER,
-    BOILER
+    BOILER,
+	LATEX_EXTRACTOR
 };
 
-typedef Iterator<MachineType, MachineType::HEATER, MachineType::BOILER> MachineTypeIterator;
+typedef Iterator<MachineType, MachineType::HEATER, MachineType::LATEX_EXTRACTOR> MachineTypeIterator;
 
 class MachineTypeString {
 public:

@@ -1,0 +1,9 @@
+<?xml version=" 1.0 " encoding=" utf - 8 "?>
+
+<physics>
+	<box_collider>
+		<position x="0" y="0" z="0" />
+		<rotation x="0" y="-0" z="0" />
+		<scale x="1" y="1" z="1" />
+	</box_collider>
+</physics>

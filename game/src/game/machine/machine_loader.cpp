@@ -77,4 +77,8 @@ void MachineLoader::handleConnection(pugi::xml_node connectionXml, entt::entity 
 	else if (connectionName == "latex_out") {
 		m_pRegistry->get<Connections>(entity).outputs.emplace(ConnectionResourceType::LATEX, connection);
 	}
+
+	if (!connectionXml.attribute("attachment").empty() && connectionXml.attribute("attachment").as_bool()) {
+		m_pRegistry->emplace<Attachment>(entity, Attachment());
+	}
 }

@@ -11,7 +11,7 @@ void BoilerSystem::update(float deltaTime) {
     auto uninitedBoilers = m_pRegistry->view<MachineInit, Boiler>();
 
 	for (auto&& [entity, boiler] : uninitedBoilers.each()) {
-		m_pRegistry->emplace<Attachment>(entity);
+		//m_pRegistry->emplace<Attachment>(entity);
 		m_pRegistry->remove<MachineInit>(entity);
 	}
 }

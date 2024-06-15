@@ -44,21 +44,29 @@ MachineBuildMenu::MachineBuildMenu(
 	pActionsWidget->setSize(width / 4.0f, height);
 	pHBox->addChild(pActionsWidget);
 
-	HBox* pCategoriexHBox = new HBox();
-	pCategoriexHBox->setBoxMode(BoxMode::STRETCH_SPACING);
-	pCategoriesWidget->setLayout(pCategoriexHBox);
+	HBox* pCategoriesHBox = new HBox();
+	pCategoriesHBox->setBoxMode(BoxMode::STRETCH_SPACING);
+	pCategoriesWidget->setLayout(pCategoriesHBox);
 	
-	MachineCategory* pMachineCategory = new MachineCategory(guiDependecies);
+	MachineCategory* pThermoCategory = new MachineCategory(guiDependecies);
+	MachineCategory* pAgriCategory = new MachineCategory(guiDependecies);
 
-	std::vector<MachineSlot*> machineSlots{
+	std::vector<MachineSlot*> thermoSlots{
 		createSlot(MachineType::HEATER, "heater"), createSlot(MachineType::BOILER, "boiler")
 	};
+	std::vector<MachineSlot*> agriSlots{
+		createSlot(MachineType::LATEX_EXTRACTOR, "latex_extractor")};
 
-	pMachineCategory->setSlots(machineSlots);
-	pGuiLayout->addChild(pMachineCategory);
 
-	MachineCategoryButton* pButtonThermo = new MachineCategoryButton("Thermodynamics", "game/gui/icons/thermodynamics", guiDependecies, pMachineCategory);
-	pCategoriexHBox->addChild(pButtonThermo);
+	pThermoCategory->setSlots(thermoSlots);
+	pAgriCategory->setSlots(agriSlots);
+	pGuiLayout->addChild(pThermoCategory);
+	pGuiLayout->addChild(pAgriCategory);
+
+	MachineCategoryButton* pButtonThermo = new MachineCategoryButton("Thermodynamics", "game/gui/icons/thermodynamics", guiDependecies, pThermoCategory);
+	MachineCategoryButton* pButtonAgri =new MachineCategoryButton("Agriculture", "gmod_vibe", guiDependecies, pAgriCategory);
+	pCategoriesHBox->addChild(pButtonThermo);
+	pCategoriesHBox->addChild(pButtonAgri);
 		
 	this->showWithChildren();
 	//Grid* pGrid = new Grid(9, 25, 100);
