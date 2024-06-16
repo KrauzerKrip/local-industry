@@ -3,6 +3,7 @@
 #include "game/machine/components.h"
 #include "game/control/components.h"
 #include <format>
+#include <game/machine/machines/latex_extractor/components.h>
 
 
 
@@ -22,9 +23,9 @@ void MachineInspectorController::input() {
 	
 	m_pView->enable(false);
 
-	auto machines = m_pRegistry->view<Machine, MachineProperties, Selected, Transform>(); 
+	auto machines = m_pRegistry->view<Machine, MachineProperties, Selected, Transform, Connections>(); 
 
-	for (auto&& [entity, properties, transform] : machines.each()) {
+	for (auto&& [entity, properties, transform, connections] : machines.each()) {
 		//if (m_pRegistry->all_of<CombustionFuelStorage>(entity)) {
 		//	data.emplace("Fuel:", std::format("{:.2f} kg", m_pRegistry->get<CombustionFuelStorage>(entity).mass));
 		//}
@@ -41,12 +42,21 @@ void MachineInspectorController::input() {
 		if (m_pRegistry->all_of<CombustionFuelStorage>(entity)) {
 			dataFloat.emplace("Fuel:", &m_pRegistry->get<CombustionFuelStorage>(entity).mass);
 		}
-		//if (m_pRegistry->all_of<HeatOut>(entity)) {
-		//	dataFloat.emplace("HeatOut:", &m_pRegistry->get<HeatOut>(entity).heat);
-		//}
-		//if (m_pRegistry->all_of<HeatIn>(entity)) {
-		//	dataFloat.emplace("HeatIn:",&m_pRegistry->get<HeatIn>(entity).heat);
-		//}
+		
+		for (auto& [resourceType, connection] : connections.inputs) {
+			std::string title = ConnectionResourceTypeString::getString(resourceType) + "_in:";
+			dataFloat.emplace(title, &connection.resource);
+		}
+
+		for (auto& [resourceType, connection] : connections.outputs) {
+			std::string title = ConnectionResourceTypeString::getString(resourceType) + "_out:";
+			dataFloat.emplace(title, &connection.resource);
+		}
+
+		if (m_pRegistry->all_of<LatexExtractor>(entity)) {
+			dataFloat.emplace("latex:", &m_pRegistry->get<LatexExtractor>(entity).latexMass);
+		}
+
 		if (m_pRegistry->all_of<MachineMode>(entity)) {
 			dataBool.emplace("Toggle:", &m_pRegistry->get<MachineMode>(entity).toggle);
 		}
