@@ -7,18 +7,20 @@
 #include "physics/physical_constants.h"
 #include "machines/heater/heater_system.h"
 #include "machines/boiler/boiler_system.h"
+#include "machines/latex_extractor/latex_extractor_system.h"
 #include "game/character/components.h"
 
 #include "game/character/task_queue.h"
 
 
 
-MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants) : m_machineLoadingSystem(pResource, pRegistry), m_machineConnector(pRegistry), m_machineGraphicsSystem(pRegistry), m_blueprintSystem(pRegistry) {
+MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants) : m_machineLoadingSystem(pResource, pRegistry), m_machineConnector(pRegistry), m_machineGraphicsSystem(pRegistry), m_blueprintSystem(pRegistry), m_connectionSystem(pRegistry) {
 	m_pRegistry = pRegistry;
 
 	m_machineSystems = {
 		new HeaterSystem(pRegistry, pPhysicalConstants),
-	    new BoilerSystem(pRegistry, pPhysicalConstants)
+	    new BoilerSystem(pRegistry, pPhysicalConstants),
+		new LatexExtractorSystem(pRegistry, pPhysicalConstants),
 	};
 }
 
@@ -40,6 +42,8 @@ void MachineSystem::update(float updateInterval) {
     for (BaseMachineSystem* pMachineSystem : m_machineSystems) {
 		pMachineSystem->update(updateInterval);
 	}
+
+	m_connectionSystem.update();
 }
   
 void MachineSystem::machineUpdate(float updateInterval) { 
@@ -47,16 +51,7 @@ void MachineSystem::machineUpdate(float updateInterval) {
 		pMachineSystem->machineUpdate(updateInterval);
 	}
 
-	auto machines = m_pRegistry->view<Machine, Connections>();
-	for (auto&& [entity, connections] : machines.each()) {
-		for (auto& [resourceType, connection] : connections.outputs) {
-			if (connection.resource > 0 && connection.entity.has_value()) {
-				Connection& inputConnection = m_pRegistry->get<Connections>(connection.entity.value()).inputs.at(resourceType);
-				inputConnection.resource += connection.resource;
-				connection.resource = 0;
-			}
-		}
-	}
+	m_connectionSystem.machineUpdate();
 }
 
 void MachineSystem::frame(float deltaTime) { m_machineGraphicsSystem.frame(deltaTime); }

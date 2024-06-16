@@ -4,3 +4,4 @@ project(machine_machines)
 
 add_subdirectory("heater")
 add_subdirectory("boiler")
+add_subdirectory("latex_extractor")

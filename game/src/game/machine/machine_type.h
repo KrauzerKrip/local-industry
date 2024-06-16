@@ -20,6 +20,14 @@ enum class ConnectionResourceType {
 	LATEX,
 };
 
+class ConnectionResourceTypeString {
+public:
+	static std::string getString(ConnectionResourceType resourceType);
+
+private:
+	static std::unordered_map<ConnectionResourceType, std::string> m_resourceTypeStrings;
+};
+
 enum class MachineType {
 	HEATER,
     BOILER,

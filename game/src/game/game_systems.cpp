@@ -18,11 +18,15 @@ void GameSystems::input(double deltaTime) {
 void GameSystems::update(double updateInterval) { 
 	m_characterSystem.update(updateInterval); 
 	m_machineSystem.update(updateInterval);
-	m_machineSystem.machineUpdate(updateInterval);
-	m_agricultureSystem.update();
+	m_agricultureSystem.update(updateInterval);
 	m_tradeSystem.update();
 	m_depositSystem.update(updateInterval);
 	m_inventorySystem.update();
+}
+
+void GameSystems::machineUpdate(double updateInterval) { 
+	m_agricultureSystem.machineUpdate(updateInterval);
+	m_machineSystem.machineUpdate(updateInterval);
 }
 
 void GameSystems::frame(double deltaTime) { m_machineSystem.frame(deltaTime); }

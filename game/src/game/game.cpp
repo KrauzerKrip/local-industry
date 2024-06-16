@@ -258,6 +258,7 @@ void Game::init() {
 	connection.position = glm::vec3(-2.5, -6, -4.25);
 	connection.rotation = glm::vec3(0, 90, 0);
 	pRegistry->emplace<Connections>(tree).outputs.emplace(ConnectionResourceType::LATEX, connection);
+	pRegistry->emplace<Tree>(tree);
 }
 
 void Game::input(double deltaTime) {
@@ -313,6 +314,7 @@ void Game::update(double updateInterval) {
 	m_pNpcSystem->update();
 	m_pControlSystem->update(updateInterval);
 	m_pGameSystems->update(updateInterval);
+	m_pGameSystems->machineUpdate(updateInterval);
 	m_pGraphics->getSystems()->update();
 
 	auto skyboxes = m_pWorld->getRegistry().view<Skybox>();

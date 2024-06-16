@@ -10,6 +10,7 @@
 #include "machine_connector.h"
 #include "graphics/machine_graphics_system.h"
 #include "blueprint/blueprint_system.h"
+#include "connection_system.h"
 
 
 class MachineSystem {
@@ -28,6 +29,7 @@ private:
 	MachineConnector m_machineConnector;
 	MachineGraphicsSystem m_machineGraphicsSystem;
 	BlueprintSystem m_blueprintSystem;
+	ConnectionSystem m_connectionSystem;
 
 	entt::registry* m_pRegistry = nullptr;
 

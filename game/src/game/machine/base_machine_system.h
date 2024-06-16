@@ -20,13 +20,13 @@ public:
      * \brief 
      * \param deltaTime time between updates
      */
-    virtual void update(float deltaTime) = 0;
+	virtual void update(double updateInterval) = 0;
 
     /**
      * \brief 
      * \param deltaTime time between machine updates
      */
-    virtual void machineUpdate(float deltaTime) = 0;
+    virtual void machineUpdate(double updateInterval) = 0;
 
 protected:
 	entt::registry* m_pRegistry = nullptr;

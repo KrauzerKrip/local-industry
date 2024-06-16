@@ -5,9 +5,9 @@
 #include "game/inventory/components.h"
 
 
-AgricultureSystem::AgricultureSystem(entt::registry* pRegistry) { m_pRegistry = pRegistry; }
+AgricultureSystem::AgricultureSystem(entt::registry* pRegistry) : m_treeSystem(pRegistry) { m_pRegistry = pRegistry; }
 
-void AgricultureSystem::update() {
+void AgricultureSystem::update(double updateInterval) {
 	auto tasks = m_pRegistry->view<Harvestable, Task, CharacterAssignedTo>(entt::exclude<Harvested>);
 	for (auto&& [entity, harvestable, task, character] : tasks.each()) {
 		if (task.progress == TaskProgress::COMPLETED) {
@@ -26,4 +26,8 @@ void AgricultureSystem::update() {
 	}
 
 	//TODO: add InventoryCantPlace handling
+
+	m_treeSystem.update(updateInterval);
 }
+
+void AgricultureSystem::machineUpdate(double updateInterval) { m_treeSystem.machineUpdate(updateInterval); }

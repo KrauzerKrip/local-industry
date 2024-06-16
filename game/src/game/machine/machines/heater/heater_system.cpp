@@ -9,7 +9,7 @@
 HeaterSystem::HeaterSystem(entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants) : BaseMachineSystem(pRegistry, pPhysicalConstants) {
 }
 
-void HeaterSystem::update(float deltaTime) {
+void HeaterSystem::update(double updateInterval) {
     auto uninitedHeaters = m_pRegistry->view<MachineInit, Heater>();
 
 	if (!m_pRegistry->valid(m_fuelEntity)) {
@@ -27,7 +27,7 @@ void HeaterSystem::update(float deltaTime) {
 	}
 }
 
-void HeaterSystem::machineUpdate(float deltaTime) {
+void HeaterSystem::machineUpdate(double updateInterval) {
 	float heaterEfficiency = m_pPhysicalConstants->getConstant("heater_efficiency");
 
     auto heaters = m_pRegistry->view<Heater, Machine, MachineMode, Connections, CombustionFuelStorage>();
@@ -36,7 +36,7 @@ void HeaterSystem::machineUpdate(float deltaTime) {
 		if (mode.toggle) {
 			if (fuelStorage.fuel.has_value() && fuelStorage.mass > 0) {
 				const CombustionFuel& fuel = m_pRegistry->get<CombustionFuel>(*fuelStorage.fuel);
-				float burntFuel = (1.0f / fuel.burningTime) * deltaTime;
+				float burntFuel = (1.0f / fuel.burningTime) * updateInterval;
 				float heat;
 				if (burntFuel < fuelStorage.mass) {
 					heat = burntFuel * fuel.heatValue * heaterEfficiency;

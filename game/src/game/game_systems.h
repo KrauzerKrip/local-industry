@@ -19,6 +19,7 @@ public:
 
 	void input(double deltaTime);
 	void update(double updateInterval);
+	void machineUpdate(double updateInterval);
 	void frame(double deltaTime);
 
 private:

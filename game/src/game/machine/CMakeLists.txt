@@ -20,4 +20,6 @@ target_sources(game PRIVATE
 	"base_machine_system.h"
 	"machine_connector.h"
 	"machine_connector.cpp"
+	"connection_system.h"
+	"connection_system.cpp"
 )
