@@ -14,7 +14,7 @@
 
 
 
-MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants) : m_machineLoadingSystem(pResource, pRegistry), m_machineConnector(pRegistry), m_machineGraphicsSystem(pRegistry), m_blueprintSystem(pRegistry), m_connectionSystem(pRegistry) {
+MachineSystem::MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants, Parameters* pParameters) : m_machineLoadingSystem(pResource, pRegistry), m_machineConnector(pRegistry), m_machineGraphicsSystem(pRegistry), m_blueprintSystem(pRegistry, pParameters), m_connectionSystem(pRegistry) {
 	m_pRegistry = pRegistry;
 
 	m_machineSystems = {

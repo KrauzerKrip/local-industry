@@ -6,10 +6,12 @@
 #include "game/item/components.h"
 #include "game/character/components.h"
 #include "game/inventory/components.h"
+#include "lc_client/tier0/conpar/parameters.h"
 
 
-BlueprintSystem::BlueprintSystem(entt::registry* pRegistry) { 
+BlueprintSystem::BlueprintSystem(entt::registry* pRegistry, Parameters* pParameters) { 
 	m_pRegistry = pRegistry;
+	m_pParameters = pParameters;
 }
 
 void BlueprintSystem::update(float updateInterval) { 
@@ -20,7 +22,7 @@ void BlueprintSystem::update(float updateInterval) {
 void BlueprintSystem::processRequests() {
 	auto requests = m_pRegistry->view<BlueprintRequest>();
 	for (auto&& [entity, request] : requests.each()) {
-		if (this->isBlueprintAcquired(request.type)) {
+		if (this->isBlueprintAcquired(request.type) || !m_pParameters->getParameterValue<bool>("game_require_blueprint")) {
 			m_pRegistry->emplace<Blueprint>(entity);
 			m_pRegistry->emplace<MachineRequest>(entity, request.type, request.typeString);
 			m_pRegistry->emplace<Selected>(entity);
@@ -49,11 +51,6 @@ void BlueprintSystem::acquireBlueprintsInInventories() {
 
 bool BlueprintSystem::isBlueprintAcquired(MachineType type) { 
 	auto acquiredBlueprints = m_pRegistry->view<BlueprintItem, BlueprintAcquired>();
-
-
-	return true; // TODO: Remove
-
-
 
 	for (auto&& [entity, blueprintItem] : acquiredBlueprints.each()) {
 		if (blueprintItem.type == type) {

@@ -51,6 +51,7 @@
 #include "game/item/components.h"
 #include "game/machine/machine_type.h"
 #include "game/resource/components.h"
+#include "game_conpars_init.h"
 
 
 Game::Game(IWindow* pWindow, Tier0* pTier0) {
@@ -89,6 +90,8 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 
 	PhysicalConstants* pPhysicalConstants = new PhysicalConstants(m_pTier0->getParameters(), m_pTier0->getConsole());
 
+	Industry::initGameplayConpars(m_pTier0->getParameters());
+
 	m_pTier1->initGameConfig();
 
 	m_pScriptSystem = new ScriptSystem(&m_pWorld->getRegistry());
@@ -104,7 +107,7 @@ Game::Game(IWindow* pWindow, Tier0* pTier0) {
 		m_pGui->getPointerOverGui(),
 		&m_pWorld->getRegistry());
 
-	m_pGameSystems = new GameSystems(&m_pWorld->getRegistry(), m_pResource, pPhysicalConstants, m_pTier0->getConsole());
+	m_pGameSystems = new GameSystems(&m_pWorld->getRegistry(), m_pResource, pPhysicalConstants, m_pTier0->getConsole(), m_pTier0->getParameters());
 }
 
 Game::~Game() {

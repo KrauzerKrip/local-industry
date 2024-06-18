@@ -11,11 +11,13 @@
 #include "economy/trade_system.h"
 #include "resource/deposit_system.h"
 #include "character/character_system.h"
+#include "lc_client/tier0/conpar/parameters.h"
+
 
 class GameSystems {
 public:
 	GameSystems(entt::registry* pRegistry, eng::IResource* pResource, PhysicalConstants* pPhysicalConstants,
-		IConsole* pConsole);
+		IConsole* pConsole, Parameters* pParameters);
 
 	void input(double deltaTime);
 	void update(double updateInterval);

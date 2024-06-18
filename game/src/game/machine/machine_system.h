@@ -15,7 +15,8 @@
 
 class MachineSystem {
 public:
-	MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants);
+	MachineSystem(eng::IResource* pResource, entt::registry* pRegistry, PhysicalConstants* pPhysicalConstants,
+		Parameters* pParameters);
 
 	void input(float deltaTime);
 	void update(float updateInterval);

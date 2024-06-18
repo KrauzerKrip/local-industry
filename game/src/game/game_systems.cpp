@@ -1,10 +1,10 @@
 #include "game_systems.h"
 
 
-GameSystems::GameSystems(
-	entt::registry* pRegistry, eng::IResource* pResource, PhysicalConstants* pPhysicalConstants, IConsole* pConsole)
+GameSystems::GameSystems(entt::registry* pRegistry, eng::IResource* pResource, PhysicalConstants* pPhysicalConstants,
+	IConsole* pConsole, Parameters* pParameters)
 	: m_characterSystem(pRegistry),
-	  m_machineSystem(pResource, pRegistry, pPhysicalConstants),
+	  m_machineSystem(pResource, pRegistry, pPhysicalConstants, pParameters),
 	  m_agricultureSystem(pRegistry),
 	  m_inventorySystem(pRegistry),
 	  m_tradeSystem(pRegistry),

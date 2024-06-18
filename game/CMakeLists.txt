@@ -4,7 +4,7 @@ project(game)
 
 add_executable(game_exe "src/game/main.cpp" "src/game/main.h")
 add_library(game STATIC)
-target_sources(game PRIVATE "src/game/game.cpp" "src/game/game.h" "src/game/graphics.h" "src/game/graphics.cpp" "src/game/game_systems.h" "src/game/game_systems.cpp")
+target_sources(game PRIVATE "src/game/game.cpp" "src/game/game.h" "src/game/graphics.h" "src/game/graphics.cpp" "src/game/game_systems.h" "src/game/game_systems.cpp" "src/game/game_conpars_init.h" "src/game/game_conpars_init.cpp")
 
 add_subdirectory("src/game/gui")
 add_subdirectory("src/game/loader_fabric")
