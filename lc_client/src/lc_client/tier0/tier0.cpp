@@ -7,6 +7,7 @@
 #include "conpar/parameters.h"
 
 #include "console/console.h"
+#include "logger/logger_console.h"
 
 
 Tier0::Tier0() {
@@ -20,6 +21,8 @@ Tier0::Tier0() {
 	m_pImGuiFonts = new ImGuiFonts();
 
 	m_pIConsole = m_pConsole;
+
+	m_pLogger = new LoggerConsole(m_pConsole);
 }
 
 Tier0::~Tier0() {
@@ -31,8 +34,11 @@ Parameters* Tier0::getParameters() { return m_pParameters; }
 
 Console* Tier0::getConsole() { return m_pConsole; }
 
+Logger* Tier0::getLogger() { return m_pLogger; }
+
 ImGuiFonts* Tier0::getImGuiFonts() { return m_pImGuiFonts; }
 
 IConsole* Tier0::getIConsole() { return m_pIConsole; }
+
 
 IConsole* Tier0::m_pIConsole = nullptr;

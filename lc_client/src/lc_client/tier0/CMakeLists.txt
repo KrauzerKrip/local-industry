@@ -23,4 +23,8 @@ target_sources(lc_client
         "console/command.cpp"
 
         "imgui_fonts.h"
+
+        "logger/logger.h"
+        "logger/logger_console.h"
+        "logger/logger_console.cpp"
 )
